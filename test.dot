@@ -1,0 +1,12 @@
+digraph pcspec {
+
+A->INIT [ label="A a INIT" ]; 
+B->INIT [ label="B a INIT" ]; 
+D->INIT [ label="D a INIT" ]; 
+D->INIT [ label="D a INIT" ]; 
+A->D [ label="A a D" ]; 
+B->D [ label="B a D" ]; 
+C->D [ label="C a D" ]; 
+A->C [ label="A a C" ]; 
+A->B [ label="A a B" ]; 
+}
