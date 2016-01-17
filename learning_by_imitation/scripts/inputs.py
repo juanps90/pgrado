@@ -30,7 +30,27 @@ if __name__ == '__main__':
     input = rospy.Publisher('input', Int32MultiArray, queue_size=10)
     rospy.Subscriber("/sensorLineDetectData", Float32, processInput)
     
+   
+    
     rospy.spin()
 
 
-
+ 
+def processInput(input):
+    print "Comienzo de la demostracion"
+    ingreso=raw_input()
+    while ingreso!= "salir":
+        # Aca se debe leer sensores     
+	
+        msg = Int32MultiArray()
+	if ingreso == "negro":
+            msg.data = [0]
+            input.publish(msg)
+	elif ingreso == "blanco":
+            msg.data = [1]
+            input.publish(msg)
+	elif ingreso == "verde":
+            msg.data = [2]
+            input.publish(msg)
+        ingreso=raw_input()
+    print "Fin del ingreso de datos"

@@ -12,10 +12,11 @@ import rospkg
 import roslaunch.core
 import roslaunch.remote
 
-
 import sys
 import rospy
 from std_msgs.msg import String, Int32MultiArray
+from random import randint
+
 
 postConditionDetect = None
 
@@ -27,32 +28,30 @@ permanent = {}
 enablig = {}
 ordering = {}
 nivelActivacion=0
-activate=False
 estado=1
 
 #se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores
 def actuar():
-    global activate
-    print "activo ",activate
     global motores
-    msg = Int32MultiArray()
-    if cumplePrecondiciones () and not activate and nivelActivacion>0:
+    msg = Int32MultiArray()   
+    if cumplePrecondiciones () and nivelActivacion>0:
         # Aca iria la operacion de wander.
         
-        msg.data = [5,5] 	 
+        msg.data = [identify,5,5] 	 
         motores.publish(msg)     
         
         rospy.loginfo("Ejecutando localizar...")
         #rospy.loginfo( nivelActivacion)
         ejecutando=True
+        msg.data = [identify,identify] #por si necesito otro parametro        
+        nodoEjecutando.publish(msg) 
     else: 
 	#rospy.loginfo("Se detuvo localizar...")
 	ejecutando=False
-	msg.data = [0,0] 	 
+	msg.data = [identify,0,0] 	 
         motores.publish(msg)
 
 def verificarPoscondicionesSensores(data):
-    global activate
     activate=False
     if data.data[0] == 0 or data.data[0] == 2:#para que sea de permanencia hay que revisar
         print "se cumple postcondicion localizar"
@@ -62,6 +61,8 @@ def verificarPoscondicionesSensores(data):
 	print "no se cumple postcondicion",activate
     return activate
 
+
+#posiblemente haya mas sensores, se debe realizar una lectura de todos los sensores y luego de esto verificar si el estado es de ejecucion
 def atenderSensores(data):
     #se verifican las condiciones en base a los sensores
     verificarPoscondicionesSensores(data)
@@ -82,24 +83,40 @@ def atenderSensores(data):
 	valorEncendido=0       
     print "call localizar"
     #rospy.loginfo(estado)
-    if estado ==1:#aprender	
+    if estado ==1 and identify==-1:#aprender el -1 es para que contesten nodos lanzados para aprender	
 	msg.data = [idComportamiento,valorEncendido]#se envia el id del comportamiento cuando se aprende
 	postConditionDetect.publish(msg)
     elif estado ==2:#ejecutar
 	msg.data = [identify,valorEncendido]   #cuando se ejecuta se envia el id del nodo
-	#actuar()
+	actuar()
 	#rospy.loginfo("localizar ",valorEncendido)
 	preConditionDetect.publish(msg)
     
 def setEstado(data):    
     global estado
-    global activate
     estado=data.data[0]
-    activate = False
-    if estado==2:
-	#actuar()
-        print "estado ", estado
+    if estado==3:
+	#se detienen los motores estamos en estado come 
+	msg = Int32MultiArray() 
+	msg.data = [identify,0,0] 	 
+        motores.publish(msg) 
     rospy.loginfo("estado"+str(estado))
+
+
+
+
+#cuando un nodo ejecuta avisa que lo hace hasta que un nuevo comportamiento no ejecute no avisa
+#supongamos que el comportamiento habilante se esta ejecutandode repente el comportamiento que es habilitado recibe de sensore
+#la senal que esperaba pasa a estar activo avisa de este hecho...luego cuando se pregunte por el enlace de habilitacion se preguntara
+#si esta ejecutando y no importaria ya si el habilitante esta o no activo  
+def atenderNodoEjecutando(data):
+    if  data.data[0] == identify:
+        ejecutando=True
+    else:    
+        ejecutando=False
+        
+        
+        
 
 def cumplePrecondiciones():
     salida = evaluation(permanent.values()) and (ejecutando or evaluation(enablig.values()) ) and evaluation(ordering.values()) #si esta ejecutando no se evalua enabling
@@ -147,7 +164,10 @@ def nivel (data):
   #  rospy.loginfo("Entro en nivel")
     msg = Int32MultiArray()
     global nivelActivacion
-    if data.data[1] == identify:
+    #inicializar el nivel 
+    if data.data[1] == -1:
+        nivelActivacion=0
+    elif data.data[1] == identify:
 	nivelActivacion=nivelActivacion+1
         #rospy.loginfo("me llego nivel localizar")
         msg = Int32MultiArray()
@@ -163,19 +183,11 @@ def nivel (data):
 	    if not ordering[o]:
 		msg.data = [identify, o]#manda para atras el nivel
                 nivel.publish(msg)
-       
-        #si no cumple condiciones el nivel de activacion se hace 0 para estar listo cuando se 
-        #reciba otra senal de activacion 
-        if not cumplePrecondiciones: 
-            nivelActivacion=0
-        actuar()
-
-
 
 
 
 def evaluarPrecondicion(data):#invocado en etapa de ejecucion cuando llega una postcondicion
-    print "entro en ejecutar localizar"
+    print "entro en evaluarPrecondicion localizar"
     skip = False
     comportamiento=data.data[0] 
     postcondicion=data.data[1]
@@ -226,6 +238,8 @@ if __name__ == '__main__':
     rospy.Subscriber("topicoEstado", Int32MultiArray, setEstado)
     rospy.Subscriber("topicoNivel", Int32MultiArray, nivel)
     nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10)
+    nodoEjecutando=rospy.Publisher('topicoNodoEjecutando', Int32MultiArray, queue_size=10)
+    rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, atenderNodoEjecutando)
 
-    estado = 1
+   
     rospy.spin()

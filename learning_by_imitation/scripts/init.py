@@ -7,11 +7,14 @@ from std_msgs.msg import String, Int32MultiArray
 
 id = 0
 dicComp={0:'init',1:'localizar', 2:'avanzar'} #asocia idnumerico con nombres de comportamientos
+dicComp={1:'localizar', 2:'avanzar'} #asocia idnumerico con nombres de comportamientos
 identify=-1
 Diccionario={}
 nodosLanzados={}
 nodos = []
 links = []
+linkEnEjecucion=[]
+
 errorRuido=2000#usado para errores de ruido
 epsilon=2000#usado para determinar tipos de links puede pasar que se cierre un comportamiento luego de cerrar otro
 tiempoEsperaBad=5000 #tiempo que se acepta luego de terminado un comportamiento para indicar que se debe eliminar del grafo
@@ -19,6 +22,14 @@ enablig = {}
 ordering = {}
 permanent = {}
 fase="aprender"
+#el primer par de indices es el nodo anterior id,tiempo de fin el segundo es el nodo actual para evaluar los 10 segundos se recuerda el anterior
+#esto se usa para el caso BAD
+nodoEjecutando=(-1,-1,-1,-1)
+idCome=-1
+grafoGeneral=[]#grafo generado tras varias demostraciones
+tiempoBad=5000
+nodosParaAprender={}#se lanzan nodos con el fin de aprender
+nodosParaEjecutar={}#nodos lanzados an el proceso de ejecucion
 
 current_milli_time = lambda: int(round(time.time() * 1000))  
 
@@ -40,55 +51,14 @@ def offLine ():
     for n in range(len(nodos)-1,-1,-1):
 	auxNodo=nodos[n]
 	
-        if auxNodo[2]-auxNodo[1]>errorRuido:   #el nodo es mayor a un errorRuido
-	   # lanzarNodo(auxNodo[0],auxNodo[3]) #se lanzan nodos de un comportamiento se manda el id del nodo a lanzar como segundo parametro
-#           auxNodo[3] representa el id del comportamiento no el id que tiene el nodo
-            print "lanzando nuevo nodo"
-	else: 
+        if auxNodo[2]-auxNodo[1]<errorRuido:   #el nodo es menor a un errorRuido
             del nodos[n]
-	    print "valores de nodos a borrar ",auxNodo,auxNodo[2]-auxNodo[1]
-
-
-    '''
-    print "generando links"
-    for comp in Diccionario  :
-        for comp2 in Diccionario  :
-            if comp != comp2 :
-                lista=Diccionario[comp]
-                lista2=Diccionario[comp2]
-                if len (lista) == len (lista2) and lista2[0][1]>lista[0][1]:
-                    tipoLink=-1
-                    auxLink=-1
-                    for i in range(0, len(lista)):
-                        if lista[i][2] +epsilon >lista2[i][2]:
-                            tipoLink=2
-                        elif lista[i][2]<lista2[i][2] and lista2[i][1] + epsilon <lista[i][2]:
-                            tipoLink=1
-                        elif lista[i][2]+epsilon<lista2[i][1]:
-                            tipoLink=2                        
-                        if (auxLink!=-1 and auxLink!=tipoLink) or tipoLink==-1:
-                            break
-                        auxLink=tipoLink    
-                    if tipoLink!=-1:  
-                        links.append((comp,comp2,abs(tipoLink)))
-    '''
+	    print "valores de nodos a borrar ",auxNodo,auxNodo[2]-auxNodo[1] 
+            
 
     print "generando links"
-
-    #se agrega el nodo init al final del grafo
-    tiempo=current_milli_time()+epsilon + 300 #para adelantarlo al ultimo nodo
-    nuevoNodo=(identify, tiempo ,tiempo + 2*epsilon +5000, 0, {})#se le da un tiempo de fin 
-    # nodos[id]= nuevoNodo
-    nodos.append(nuevoNodo)
-    print "id del init ",identify
-
     print "tamanio nodos ",len(nodos)
-    '''
-    for a in nodos  :
-	n1=nodos[a]
-	for b in nodos  :
-	    n2=nodos[b]
-    '''
+
     for n1 in nodos  :
         for n2 in nodos  :
             if n1[0] != n2[0] and n1[1] <= n2[1]:#son nodos distintos y n2 se agrego luego que n1   
@@ -113,15 +83,25 @@ def offLine ():
     for it in links:       
 	print "links ",it[1]," ",it[3]," ",it[4]
 	
+
+#se desacopla de offline para poder usar el metodo anterior en el metodo go, ya que ahi no se necesita este nodo init
+#tal vez si se necesite ya que de habeer un solo nodo no hay links que agregar
+def agregarNodoInit():
+    global links
+    global nodos     
+    for n in nodos  :
+        links.append((n[0],n[3] ,identify,0 ,0))
+    
+    
 	
 	
 #lanza los nodos y crea los enlaces  , NOTA hay que sacar al nodo init en si como un nuevo nodo (no esta bueno que este embebido aca)
-def crearEnlaces():
+def crearEnlaces(linksACrear):
     nodosLanzados=[] 
     global identify
     
     
-    for it in links:
+    for it in linksACrear:
         #hay que evitar lanzar el nodo init y hay que obtener su id VERIFICAR AL SACAR INIT DE ACA        
         if(it[1]==0):
             identify=it[0]
@@ -132,19 +112,18 @@ def crearEnlaces():
     
         #se lanzan los nodos del enlace en caso de no haber sido lanzados
         if( not it[0] in nodosLanzados):
-            lanzarNodo(it[0],it[1])
+            nodosParaEjecutar[it[0]]=lanzarNodo(it[0],it[1])
             nodosLanzados.append(it[0])
         if( not it[2] in nodosLanzados):
-            lanzarNodo(it[2],it[3])
+            nodosParaEjecutar[it[0]]=lanzarNodo(it[2],it[3])
             nodosLanzados.append(it[2])
      
     #se envian los links a los nodos el sleep es para esperar que los nodos esten listos se puede hacer un waitmensaje
-    time.sleep(5)
-    for it in links:
+    time.sleep(2)
+    for it in linksACrear:
         msg = Int32MultiArray()
 	msg.data = [it[0], it[2], it[4]]#id nodo 1 y 2 y tipo de link	
-        pub.publish(msg)        
-        
+        pub.publish(msg)    
         
         
         
@@ -165,7 +144,7 @@ def nodoActivo(comportamiento):
 
 #solo se atiende si estamos en fase de aprendizaje
 def aprender(data):
-    global fase 
+    global fase  
     if fase == "aprender":
 	callback(data)
 
@@ -174,7 +153,7 @@ def callback(data):
     comportamiento=data.data[0] 
     postcondicion=data.data[1]
            
-    #print "valor postcondicion: ",postcondicion," comportamiento: ",comportamiento
+   #print "valor postcondicion: ",postcondicion," comportamiento: ",comportamiento
 
     global nodos
     global id
@@ -270,23 +249,18 @@ def mergeNodos(idEliminar,idModificar,nodoMergueado):
 #No olvidar ajustar el nombre de pkg al del proyecto
 def lanzarNodo(idNodo,idComportamiento): #es el id numerico del comportamiento
 
-    '''
-    Nodin = roslaunch.core.Node
-    #n = Nodin('prototipo', 'type1')
-    n = Nodin('prototipo', 'type4', args="que dice")
-    print "junate esta", n.to_remote_xml()
-    '''
+     
 
     nombreComportamiento=dicComp [idComportamiento]
     print "se lanza el comportamiento",nombreComportamiento
-    pkg = 'learning_by_imitation'
-    global process   
+    pkg = 'vrep_ros_demo'
+    global nodosParaAprender   
     execution =nombreComportamiento + '.py'
-    # Ver como usar args en las tareas localizar y avanzar.     
+    # en los args se envian los id de los nodos     
     node = roslaunch.core.Node(pkg, execution, args=str(idNodo))
     launch = roslaunch.scriptapi.ROSLaunch()
     launch.start()
-    process[idNodo] = launch.launch(node)
+    return launch.launch(node)
 
 
 
@@ -320,8 +294,7 @@ def setting(data):
 
   
 
-def evaluarPrecondicion(data):#invocado en etapa de ejecucion cuando llega una postcondicion
-    print "entro en ejecutar localizar"
+def evaluarPrecondicion(data):#invocado en etapa de ejecucion cuando llega una postcondicion    
     skip = False
     comportamiento=data.data[0] 
     postcondicion=data.data[1]
@@ -340,11 +313,11 @@ def evaluarPrecondicion(data):#invocado en etapa de ejecucion cuando llega una p
 	    print "se inhabilito"
     elif ordering.has_key(comportamiento):
         ordering[comportamiento] = ordering[comportamiento] or (postcondicion == 1)
-        print "es de orden"
+       # print "es de orden"
     else:
         skip = True
         
-    print ordering
+    #print "nodo llego postcondicion de tipo orden", ordering
 
     #se detecta cumplimiento de una postcondicio...entonces el init manda su nivel de activacion para
     #atras...si un nodo recibe y puede ejecutar ejecuta, si no puede manda
@@ -359,30 +332,49 @@ def evaluarPrecondicion(data):#invocado en etapa de ejecucion cuando llega una p
 
 
 def arranqueNivel():
-    print "nivel de activacion init"
+  # print "nivel de activacion init"
     global nivel
     msg = Int32MultiArray()
+    
     fin=True
+    #para todos los nodos envia el valor para que se inicie el nivel
+    for o in ordering:
+        msg.data = [identify, -1]#manda para atras el nivel inicial
+        nivel.publish(msg)
+        
+    
     for o in ordering:
         #en caso que la relacion de orden aun no se cumplio
 	if not ordering[o]:
 	    msg.data = [identify, o]#manda para atras el nivel
 	    nivel.publish(msg)
 	    fin=False
-    if fin:
-	rospy.loginfo("termino el ciclo")
-	msg = Int32MultiArray()
-	msg.data = [-1,-1] 	 
-        motores.publish(msg) 
-        motores
+    #if fin:
+	#rospy.loginfo("termino el ciclo")
 
 
-#se elimina un nodo de la lista habria que verificar si pasaron menos de 10 segundos desde que termino el comportamiento anterior
+#se elimina un nodo de la lista habria que verificar si pasaron menos de tiempoBad desde que inicio el comportamiento actual y existe anterior
 #en tal caso se elimina el nodo anterior si pasaron mas de tiempoEsperaBad segundos se asume que se quiere borrar el nodo actual Verificar
-def buscarIdBad(linksAModificar):
-    #hay que saber que nodo se ejecutaba antes del actual si no pasaron mas de 10 segundos tambien hay que guardar el id   
-    print "implementar"
+def ejecutarBad(linksAModificar):
+    global nodoEjecutando 
+    global tiempoBad
+    tiempoActual=current_milli_time()
+    #si el nodo actual inicio hace menos de tiempoBad se borra el nodo anterior    
+    tiempoDif= tiempoActual - nodoEjecutando[1]
+    dentroDElTiempo=tiempoDif<tiempoBad
+    existeNodoAnterior=nodoEjecutando[0] >=0
     
+    if existeNodoAnterior and dentroDElTiempo:
+        borrarNodoBad(linksAModificar,nodoEjecutando[0])               
+    
+    #se elimina el nodo que esta en ejecucion, notar que si es el ultimo nodo tambien funciona porque al no haber
+    #comportamiento posteriores el valor de ejecutando queda seteado en el ultimo nodo, es decir solo se modifica si un
+    #nuevo nodo ejecuta, en caso de dejar de ejecutar no se notifica
+    else :
+        borrarNodoBad(linksAModificar,nodoEjecutando[2])
+        
+    return linksAModificar     
+        
     
 #Nota los links no tienen un orden en la lista, el nodo init no se debe borrar (controlar en el q llama a este metodo)
 def borrarNodoBad(linksBad,idBad):      
@@ -394,7 +386,7 @@ def borrarNodoBad(linksBad,idBad):
             #se agregan los id y comportamiento a listaDestino 
             listaDestino.append((linksBad[d][2],linksBad[d][3]))    
                     
-    print "destino",listaDestino
+    print "destinos del nodo borrado",listaDestino
             
     #de los que son origen del nodo a borrar agrega los destinos del nodo a borrar
     for l in range(len(linksBad)):
@@ -412,13 +404,187 @@ def borrarNodoBad(linksBad,idBad):
     return linksBad
     
     
+    
+    
+def atenderNodoEjecutando(data):
+    global nodoEjecutando
+
+    #llega un nuevo nodo ejecutando
+    if  data.data[0] != nodoEjecutando[2]: 
+        #acomodo los datos del que era ultimo pasa a ser el anterior
+        
+        a=nodoEjecutando[2]
+        b=nodoEjecutando[3]
+        #agrero el nuevo nodo ejecutando con su tiempo de inicio
+        c=data.data[0]
+        d=current_milli_time()
+        nodoEjecutando=(a,b,c,d)
+
+#verificar como se agrega un tramo entre el ultimo nodo y el init si hay lios con el BAD
+
+#come debe guardar el id del nodo actual luego en ejecutar go se usara este valor para partir el grafo y agregar lo que se obtuvo en here
+#se debe evitar que el robot siga en modo ejecucion y pase a un estado parecido a aprender pero que solo se mueva es decir no envie senales       
+def ejecutarCome ():
+    #se establece a partir del nodo actual el corte y se agrega lo aprendido justo antes de este nodo
+    global idCome
+    global estado
+    idCome=nodoEjecutando[2]
+    msg = Int32MultiArray()
+    msg.data = [3,3] #estado para agregar comportamientos
+    estado.publish(msg)
+
+    
+
+
+#a partir de aqui se debe pasar a una etapa de aprendizaje el link obtenido se debe guardar, recordar que para aprender se lanzan nuevos nodos
+#por lo cual el estado de los nodos no se modifica 
+def ejecutarHere():    
+    global estado
+    global fase
+    for n in dicComp:
+        nodosParaAprender[n]= lanzarNodo(-1,n) 
+    fase="aprender"	    
+    Diccionario={}
+    nodos = []
+    msg.data = [1,1]#podria ser el segundo valor el id del comportamiento
+    estado.publish(msg)
+    print "ejecuto here"
+    
+    
+#se realiza la particion del grafo se agrega los link obtenidos en here  se pasa a modo ejecucion nuevamente y se continua la ejecucion
+def ejecutarGo(): 
+
+    print "entro en go"
+    
+    global estado
+    global idCome
+    global nodosParaAprender
+    #se obtiene el grafo generado en la mini demostracion
+    global links
+    #se corta el grafo general 
+    global grafoGeneral 
+    fase="nada"
+    msg.data = [0,1]#debe avisar antes de hacer offline que se cierra asi no quedan mensajes colgados 
+    estado.publish(msg)
+    for it in nodosParaAprender.values():
+        print it.stop()	
+    print "antes de offline en go"   
+    offLine()
+    agregarNodoInit()  
+       
+    print grafoGeneral
+    
+    cortarGo(links,grafoGeneral,idCome)    
+     
+    
+    #se vuelve al estado ejecucion
+    fase="ejecutar"
+    msg.data = [2,2] 
+    estado.publish(msg) 
+    
+        
+
+def cortarGo(nuevolinks,grafoGeneral,idCome): 
+    if len(nuevolinks) ==0:
+        print "link de tama;o cero en cortar"
+        return grafoGeneral
+
+
+    #se van a dar id repetidos
+    #se halla el maximo id del general, y se suma a los id del links nuevo
+    idMAximoGeneral=-1
+    for l in grafoGeneral:
+        if idMAximoGeneral<l[0]:
+            idMAximoGeneral=l[0]
+        if idMAximoGeneral<l[2]:
+            idMAximoGeneral=l[2]      
+    idMAximoGeneral=idMAximoGeneral+1
+    print "idMAximoGeneral", idMAximoGeneral
+    for i in range(len(nuevolinks)):
+        aux=nuevolinks[i]
+        modificado=(aux[0]+idMAximoGeneral,aux[1],aux[2]+idMAximoGeneral,aux[3],aux[4])
+        nuevolinks[i]=modificado
+                
+    print "nuevolinks",nuevolinks
+    
+    
+    sinSucesores=[]
+    sinPredecesores=[]
+    #agrego todos los id de los nodos a las listas sin..
+    for l in nuevolinks:    
+        grafoGeneral.append(l)
+        if not l[0] in sinSucesores:
+            sinSucesores.append(l[0])
+            sinPredecesores.append(l[0])
+        if not l[2] in sinSucesores:
+            sinSucesores.append(l[2])
+            sinPredecesores.append(l[2])
+    print   "grafoGeneral",grafoGeneral         
+    print   "nuevos ",nuevolinks       
+     
+    
+    
+    #se sacn los que tienen sucesor y predecesor respectivamente, los que queden en las listas seran final e inicio respectivamente
+    for l in nuevolinks:
+        if (l[0] in sinSucesores):
+            sinSucesores.remove(l[0]) 
+        if (l[2] in sinPredecesores):
+            sinPredecesores.remove(l[2]) 
+     
+    print "sinPredecesores",sinPredecesores
+    print "sinSucesores",sinSucesores
+     
+    inicio=buscarComportamiento(sinPredecesores[0],nuevolinks)
+    fin=buscarComportamiento(sinSucesores[0],nuevolinks)
+       
+    
+    #de los nodos previos al objetivo, agregar links con destino al nodo inicial del nuevo link
+    #hay que borrar los enlaces que tienen como destino el nodo objetivo
+    
+    #se agregan los enlaces de los nodos previo al nodo inicial del nuevo link
+    for i in range(len(grafoGeneral)):
+        if grafoGeneral[i][2]==idCome:
+            aux=grafoGeneral[i]
+            grafoGeneral.append((aux[0],aux[1],inicio[0],inicio[1],0))
+    
+    
+    
+    #se borran los enlaces con destino a objetivo
+    for i in range(len(grafoGeneral)-1,-1,-1):
+        if grafoGeneral[i][2]==idCome:
+            del grafoGeneral[i]
+    
+    
+    
+    #del nodo final del nuevo link agregar enlace al nodo objetivo 
+    objetivo=buscarComportamiento(idCome,grafoGeneral)  
+    grafoGeneral.append((fin[0],fin[1],objetivo[0],objetivo[1],0))
+    
+    print "grafo general al terminar cortargo", grafoGeneral
+    
+    return grafoGeneral
+     
+     
+def buscarComportamiento(idNodo,linksBuscar): 
+    for b in linksBuscar:
+        if b[0]==idNodo:
+            return (b[0],b[1])
+        if b[2]==idNodo:
+            return (b[2],b[3])
+    return  (-1,-1)   
+        
+     
+         
+      
+            
 
 if __name__ == '__main__':
-    process = {}
+    
 
     print "iniciando init"
     rospy.init_node('init', anonymous=True) 
     id=0
+    
  
     pub=rospy.Publisher('preConditionsSetting', Int32MultiArray, queue_size = 10)
     estado=rospy.Publisher('topicoEstado', Int32MultiArray, queue_size = 10)
@@ -427,28 +593,39 @@ if __name__ == '__main__':
     rospy.Subscriber("postConditionDetect", Int32MultiArray, aprender)
     rospy.Subscriber("preConditionDetect", Int32MultiArray, evaluarPrecondicion)
     motores = rospy.Publisher('topicoActuarMotores', Int32MultiArray, queue_size=10)
-    
+    rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, atenderNodoEjecutando)
    
    
     entrada=raw_input()   
     msg = Int32MultiArray()
     while entrada != "salir":
 	if entrada=="finDemo":
+	    for it in nodosParaAprender.values():
+                print it.stop()
+	
+	    for it in nodosParaEjecutar.values():
+                print it.stop()	
             fase="nada"
 	    msg.data = [0,1]#debe avisar antes de hacer offline que se cierra asi no quedan mensajes colgados 
 	    estado.publish(msg)
+	    for it in nodosParaAprender.values():
+                print it.stop()	
 	    offLine()
+	    agregarNodoInit()#agrega el nodo init al final de link y agrega enlaces de orden
+	    #aca se podria agregar el comportamiento del capitulo 5
 	    '''
             topo = Int32MultiArray()
 	    topo.data = [1,2,2]
             pub.publish(topo)
             '''            
 	elif entrada=="aprender":
-	#hay que lanzar comportamientos para que reciban las postcondiciones a la hora de aprender NO OLVIDAR MATARLOS AL TERMNAR APRENDER
+	    for it in nodosParaEjecutar.values():
+                print it.stop()		
+	    #hay que lanzar comportamientos para que reciban las postcondiciones a la hora de aprender NO OLVIDAR MATARLOS AL TERMNAR APRENDER
             pkg = 'prototipo'
-            process = {}
+            nodosParaAprender = {}
             for n in dicComp:
-                lanzarNodo(n,n) 
+                nodosParaAprender[n]= lanzarNodo(-1,n) 
 	
 	
 	    fase="aprender"	    
@@ -457,33 +634,57 @@ if __name__ == '__main__':
 	    msg.data = [1,1]#podria ser el segundo valor el id del comportamiento
 	    estado.publish(msg)
 	elif entrada=="ejecutar":
-	    for it in process.values():
+	    #motores
+	    for it in nodosParaAprender.values():
                 print it.stop()	
     	    fase="ejecutar"
     	    
-    	    
-    	    
+    	       	    
 	    #aca se podria cargar la lista de nodos a ejecutar por ahora uso los definidos en el metodo
 	    
 	    #links=[(0,1,1,2,0),(0,1,2,0,0),(1,2,2,0,0)]	
-	    links=[(0,1,1,2,0),(0,1,2,0,0),(1,2,2,0,0)]	
-	    crearEnlaces()
+	    grafoGeneral=[(0,1,1,2,0),(0,1,2,0,0),(1,2,2,0,0)] #para no complicarla mucho uso como general este link cortito
+	    linkEnEjecucion=[(0,1,1,2,0),(0,1,2,0,0),(1,2,2,0,0)]	
+	    crearEnlaces(linkEnEjecucion)
 	    
 	    #se deberia esperar a que los comportamientos se activen sino no reciben el mensaje de estado
 	    #se podria esperar un mensaje es decir por medio de wait
-	    time.sleep(5)
+	    time.sleep(2)
 	    
 	    
 	    msg.data = [2,2] 
 	    estado.publish(msg)
 	    arranqueNivel()
+	elif entrada=="bad":    
+	    #posiblemente se realice el algoritmo en vez de 
+	    #sobre linkEnEjecucion sobre el grafo general	    
+	    aux=ejecutarBad(linkEnEjecucion)
+	    print  aux
 	    
-	elif entrada=="bad":  
+	elif entrada=="come":    
+	    aux=ejecutarCome()
+	    print  aux
+	elif entrada=="here":
+	    aux=ejecutarHere()
+	    print  aux
+	elif entrada=="go": 
+	    print "antes de go"
+	    aux=ejecutarGo()	    
+	    print  aux
+	    
+	elif entrada=="algoritmoGo": 
+	    grafoGeneral=[(1,1,3,3,0),(2,2,3,3,0),(3,3,4,4,0),(3,3,5,5,0),(5,5,6,6,2)]
+	    nuevolinks=[(0,0,1,1,0),(1,1,2,2,0)]
+	    cortarGo(nuevolinks,grafoGeneral,3)
+	    
+	#se puede dar bad cuando se ejecuta 
+	elif entrada=="algoritmoBad":  
 	    linksBad=[(1,1,3,3,0),(2,2,3,3,0),(3,3,4,4,0),(3,3,5,5,0),(5,5,6,6,2)]	
 	    salida=borrarNodoBad(linksBad,3)
+	    salida=ejecutarBad(linksBad)
 	    print salida
-	    msg.data = [0,0] 
-	    estado.publish(msg)
+	    #msg.data = [0,0] 
+	    #estado.publish(msg)
 	else:
 	    msg.data = [0,1]
             estado.publish(msg)
