@@ -173,9 +173,20 @@ def graphregen(node, w):
         print "diagonal", diagonal
         
         if not nodeOnHold is None and diagonal: # Si volvio a una parte del grafo ( no necesariamente "comun", me estoy dando cuenta)
-            nodeOnHold.parentNodes.append(curNode)
-            
-            print "[1] ", str(curNode.letra) + "--->" + str(nodeOnHold.letra)
+            # este es un link que sale de una parte comun del grafo a un nodo nuevo?
+            if not curNode in nodeOnHold.parentTypes:
+                nodeOnHold.parentNodes.append(curNode)
+                #nodeOnHold.parentTypes[curNode]
+                # en el grafo anterior el link iba desde w[j+1] al w[j], entonces
+                nodeOnHold.parentTypes[curNode]  = w[j+1].parentTypes[w[j]]
+                
+                print "[1] ", str(curNode.letra) + "--->" + str(nodeOnHold.letra)
+                print "w[j]: ",w[j].letra,"w[j+1]: ",w[j+1].letra, "link: ",
+            else:
+                nodeOnHold.parentTypes[curNode]  = min(nodeOnHold.parentTypes[curNode], w[j+1].parentTypes[w[j]])
+                
+                print "[1] NO LO AGREGO, pero lo debilito? ",str(curNode.letra) + "--->" + str(nodeOnHold.letra) 
+                
             nodeOnHold = None
         
         if diagonal:
@@ -210,6 +221,8 @@ def graphregen(node, w):
             if not avanzo and not nodeOnHold is None:
                 print "[4]",nNode.letra + "--->" + str(nodeOnHold.letra)
                 nodeOnHold.parentNodes.append(nNode)
+                nodeOnHold.parentTypes[nNode]  = w[j+1].parentTypes[w[j]]
+                
                 # Hay que ver lo del permanente aca
                 nodeOnHold = None
             
@@ -288,9 +301,20 @@ def plot(node):
             letra = "INIT" if top.letra is None else top.letra
             letra2 = "NULL" if l.letra is None else l.letra
             print str(top.letra) + "-------->" + str(l.letra)
-            file.write(letra2 + "->" + letra + ' [ label="' + letra2 + ' a ' + letra + '" ]; \n')
+            label = "n/a"
+            if l in top.parentTypes:
+                tipo = top.parentTypes[l]
+                if(tipo == Node.LINK_ORD):
+                    label = "ORD"
+                elif(tipo == Node.LINK_ENA):
+                    label = "ENA"
+                elif(tipo == Node.LINK_PRM):
+                    label = "PRM"
+                
+            file.write(letra2 + "->" + letra + ' [ label="' + label + '" ]; \n')
     file.write("}");
     file.close()
+    os.system("dot test.dot -T jpg > out2.jpg && eog out2.jpg")
     
 def printTreeValues(n, j):
     
@@ -317,7 +341,8 @@ w = flatten(g2)
 
 # Aplanamos el nuevo grafo (queda una tira de nodos)
 
-#plot(g1)
+plot(g1)
+plot(g2)
 
 print "------------------------------------------------------------------------------------------------"
 print ""
@@ -334,6 +359,3 @@ printTreeValues(g1,len(w)-1)
 graphregen(g1, w)
 
 plot(g1)
-
-
-os.system("dot test.dot -T jpg > out2.jpg && eog out2.jpg")

@@ -1,0 +1,15 @@
+digraph pcspec {
+
+A->INIT [ label="ORD" ]; 
+B->INIT [ label="ORD" ]; 
+D->INIT [ label="ORD" ]; 
+E->INIT [ label="ORD" ]; 
+A->E [ label="ORD" ]; 
+B->E [ label="ENA" ]; 
+D->E [ label="ORD" ]; 
+A->D [ label="ORD" ]; 
+B->D [ label="ENA" ]; 
+C->D [ label="ORD" ]; 
+A->C [ label="PRM" ]; 
+A->B [ label="PRM" ]; 
+}
