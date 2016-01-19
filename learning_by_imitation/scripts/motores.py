@@ -15,7 +15,7 @@ import roslaunch.remote
 
 import sys
 import rospy
-from std_msgs.msg import String, Int32MultiArray,Int64MultiArray , Float32,Float64
+from std_msgs.msg import String, Int32MultiArray,Int64MultiArray , Float32,Float64, Float64MultiArray
 
 postConditionDetect = None
 
@@ -53,7 +53,8 @@ def actuarMotoresVREP(data):
                 cantMensajesStop=cantMensajesStop +1
                 print cantMensajesStop
                 #si llegan mas de tope mensajes de apagado recien apago
-                if cantMensajesStop>=tope:  
+                if cantMensajesStop>=tope:
+                        print "0000000000000000000000000000000"
                         publicar=True  
                         print "DETENER MOTORES ",tope," ",cantMensajesStop
                         
@@ -65,15 +66,18 @@ def actuarMotoresVREP(data):
                                 apagar=False                                                              
                                 break                                
                 #si no hay ningun nodo activo se puede apagar
-                if apagar:  
+                if apagar:
+                        print "1111111111111111111111111111111"
                         publicar=True  
                         print "DETENER MOTORES "        
                         
         else:         
-                nodosActivos[data.data[0]]=True             
+                nodosActivos[data.data[0]]=True
+                print "2222222222222222222222222222222"       
                 publicar=True       
                 
         if publicar:
+                print "3333333333333333333333333333333"
                 cantMensajesStop=0
                 leftMsg.data = data.data[1]
                 rightMsg.data = data.data[2]
@@ -197,7 +201,7 @@ if __name__ == '__main__':
         print "iniciando motores"  
 
         rospy.init_node('motores', anonymous=True)
-        rospy.Subscriber("topicoActuarMotores", Int32MultiArray, actuarMotoresVREP)
+        rospy.Subscriber("topicoActuarMotores", Float64MultiArray, actuarMotoresVREP)
         leftVelocity=rospy.Publisher('/vrep/leftMotorVelocity', Float64, queue_size = 10)
         rightVelocity=rospy.Publisher('/vrep/rightMotorVelocity', Float64, queue_size = 10)
         '''
