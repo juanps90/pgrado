@@ -155,6 +155,9 @@ def graphregen(node, w):
     
     lastCommonNode = None
     
+    # Guardamos los nodos del grafo ya existente que tienen que tener links a todos los siguientes
+    fromNodes = []
+    
     while not curNode is None:
         
         if curNode.values is None:
@@ -191,6 +194,16 @@ def graphregen(node, w):
         
         if diagonal:
             nodeOnHold = curNode
+
+        print "- - - - - - - - - - - - - - - AGREGO NODO PREVIO: ",curNode.letra
+        
+        if not sameNode:
+            fromNodes.append(curNode)
+        
+        # Si no es diagonal, ni el mismo nodo, entonces solo consume del grafo ya existente.
+        # Entonces de aca va a salir una arista para todos los nodos que se agreguen nuevos
+        
+        
         
         avanzo = False
         
@@ -216,12 +229,20 @@ def graphregen(node, w):
             nNode = Node() # Nuevo nodo a agregar en el grafo
             
             nNode.letra = w[j].letra
+            nNode.parentTypes = {}
             
+            print "Agrego los enlaces de orden hacia el nuevo nodo"
+            for prevNode in fromNodes:
+                if not nNode in prevNode.parentTypes:
+                    print "[5] ", str(prevNode.letra) + "--->" + str(nNode.letra)
+                    prevNode.parentNodes.append(nNode)
+                    prevNode.parentTypes[nNode] = Node.LINK_ORD
             
             if not avanzo and not nodeOnHold is None:
                 print "[4]",nNode.letra + "--->" + str(nodeOnHold.letra)
-                nodeOnHold.parentNodes.append(nNode)
-                nodeOnHold.parentTypes[nNode]  = w[j+1].parentTypes[w[j]]
+                if not nNode in nodeOnHold.parentTypes:
+                    nodeOnHold.parentNodes.append(nNode)
+                    nodeOnHold.parentTypes[nNode]  = w[j+1].parentTypes[w[j]]
                 
                 # Hay que ver lo del permanente aca
                 nodeOnHold = None
@@ -341,8 +362,8 @@ w = flatten(g2)
 
 # Aplanamos el nuevo grafo (queda una tira de nodos)
 
-plot(g1)
-plot(g2)
+#plot(g1)
+#plot(g2)
 
 print "------------------------------------------------------------------------------------------------"
 print ""
