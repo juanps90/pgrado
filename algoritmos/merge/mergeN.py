@@ -374,9 +374,11 @@ print ""
 
 calcN(g1, w, len(w)-1, 0)
 
-printTreeValues(g1,len(w)-1)
+#printTreeValues(g1,len(w)-1)
 
 
 graphregen(g1, w)
+
+
 
 plot(g1)
