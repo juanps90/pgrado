@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 
 
-import os 
-import logging 
-import socket 
 import sys 
 import xmlrpclib 
 import roslib.names  
@@ -12,10 +9,8 @@ import rospkg
 import roslaunch.core
 import roslaunch.remote
 
-
-import sys
 import rospy
-from std_msgs.msg import String, Int32MultiArray,Int64MultiArray , Float32,Float64, Float64MultiArray
+from std_msgs.msg import Float64, Float64MultiArray
 
 postConditionDetect = None
 
@@ -45,16 +40,12 @@ def actuarMotoresVREP(data):
         global cantMensajesStop
         global nodosActivos
         
-        
-        
-        
         if data.data[1]==0 and data.data[2] ==0: 
                 #se detiene por numero de mensajes          
                 cantMensajesStop=cantMensajesStop +1
                 print cantMensajesStop
                 #si llegan mas de tope mensajes de apagado recien apago
-                if cantMensajesStop>=tope:
-                        print "0000000000000000000000000000000"
+                if cantMensajesStop>=tope:  
                         publicar=True  
                         print "DETENER MOTORES ",tope," ",cantMensajesStop
                         
@@ -66,18 +57,15 @@ def actuarMotoresVREP(data):
                                 apagar=False                                                              
                                 break                                
                 #si no hay ningun nodo activo se puede apagar
-                if apagar:
-                        print "1111111111111111111111111111111"
+                if apagar:  
                         publicar=True  
                         print "DETENER MOTORES "        
                         
         else:         
-                nodosActivos[data.data[0]]=True
-                print "2222222222222222222222222222222"       
+                nodosActivos[data.data[0]]=True             
                 publicar=True       
                 
         if publicar:
-                print "3333333333333333333333333333333"
                 cantMensajesStop=0
                 leftMsg.data = data.data[1]
                 rightMsg.data = data.data[2]

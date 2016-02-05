@@ -253,7 +253,7 @@ def lanzarNodo(idNodo,idComportamiento): #es el id numerico del comportamiento
 
     nombreComportamiento=dicComp [idComportamiento]
     print "se lanza el comportamiento",nombreComportamiento
-    pkg = 'vrep_ros_demo'
+    pkg = 'learning_by_imitation'
     global nodosParaAprender   
     execution =nombreComportamiento + '.py'
     # en los args se envian los id de los nodos     

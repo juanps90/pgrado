@@ -11,11 +11,11 @@ import roslib.network
 import rospkg
 import roslaunch.core
 import roslaunch.remote
-
+import Const
 
 import sys
 import rospy
-from std_msgs.msg import String, Int32MultiArray
+from std_msgs.msg import String, Int32MultiArray, Float64MultiArray
 from random import randint
 
 
@@ -31,10 +31,12 @@ ordering = {}
 nivelActivacion=0
 estado=1
 
+pathPosibles=[]
+
 #se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores
 def actuar():
     global motores
-    msg = Int32MultiArray()
+    msg = Float64MultiArray()
     if cumplePrecondiciones () and nivelActivacion>0:
         # Aca iria la operacion de wander.  
         azar=randint(0,9)   
@@ -45,23 +47,23 @@ def actuar():
         msg.data = [identify,identify] #por si necesito otro parametro        
         nodoEjecutando.publish(msg) 
     else: 
-	#rospy.loginfo("Se detuvo avanzar...") 
+	rospy.loginfo("Se detuvo avanzar...") 
 	msg.data = [identify,0,0] 	 
         motores.publish(msg)
 
 def verificarPoscondicionesSensores(data):
     activate=False
-    if  data.data[0] == 2:
+    if  data.data == Const.SENSOR_COLOR_DETECT_BLACK:
         print "se cumple postcondicion avanzar"
 	activate=True
     elif cumplePrecondiciones():#cumple precondiciones y no cumple postcondicion
-	#actuar()
+	#actuar()C
 	print "no se cumple postcondicion"
     return activate
 
-def atenderSensores(data):
+def processSensorLineDetectedColorData(data):
     #se verifican las condiciones en base a los sensores
-    verificarPoscondicionesSensores(data)
+    #verificarPoscondicionesSensores(data)
 
     print "aprender avanzar"
     global postConditionDetect
@@ -84,9 +86,14 @@ def atenderSensores(data):
 	postConditionDetect.publish(msg)
     elif estado ==2:#ejecutar
 	msg.data = [identify,valorEncendido]   #cuando se ejecuta se envia el id del nodo
-	#actuar()
+	actuar()
 	#rospy.loginfo("avanzar ",valorEncendido)
 	preConditionDetect.publish(msg)
+    
+
+
+
+    
     
 def setEstado(data):    
     global estado
@@ -154,13 +161,31 @@ def setting(data):
 '''
 
 
+def atenderCaminos(data):
+    global pathPosibles
+    #si es mi id agrego a la lista de un camino el nuevo nodo
+    if data.data[0] == identify: 
+        lista=list(data.data)
+        indice=data.data[1]
+        #se borran los primeros datos y queda la lista con el path
+        del lista[0]
+        del lista[0]
+        pathPosibles[indice]=lista
+        #print lista
+    
+    
+
 def nivel (data):
   #  rospy.loginfo("Entro en nivel")
     msg = Int32MultiArray()
     global nivelActivacion
-    if data.data[1] == identify:
+    #inicializar el nivel 
+    if data.data[1] == -1:
+        nivelActivacion=0
+        rospy.loginfo("me llego nivel avanzar a 0")   
+    elif data.data[1] == identify:
 	nivelActivacion=nivelActivacion+1
-        #rospy.loginfo("me llego nivel avanzar")
+        rospy.loginfo("me llego nivel avanzar")
         msg = Int32MultiArray()
 	for p in permanent:
 	    if not permanent[p] :
@@ -174,12 +199,6 @@ def nivel (data):
 	    if not ordering[o]:
 		msg.data = [identify, o]#manda para atras el nivel
                 nivel.publish(msg)
-       
-        #si no cumple condiciones el nivel de activacion se hace 0 para estar listo cuando se 
-        #reciba otra senal de activacion 
-        if not cumplePrecondiciones: 
-            nivelActivacion=0
-        actuar()
 
 
 
@@ -209,15 +228,6 @@ def evaluarPrecondicion(data):#invocado en etapa de ejecucion cuando llega una p
     else:
         skip = True
 
-    #global nivelActivacion
-    #nivelActivacion=0
-
-  #  if not skip:
-#	actuar()
-
- 
-
-
 if __name__ == '__main__':
     print "iniciando avanzar"  
 
@@ -228,14 +238,20 @@ if __name__ == '__main__':
     identify=int(rospy.myargv(argv=sys.argv)[1])
     rospy.loginfo("identificador avanzar "+str(identify))
 
-    motores = rospy.Publisher('topicoActuarMotores', Int32MultiArray, queue_size=10)
+    motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
     postConditionDetect = rospy.Publisher('postConditionDetect', Int32MultiArray, queue_size=10) #usado para aprender
     preConditionDetect = rospy.Publisher('preConditionDetect', Int32MultiArray, queue_size=10) #usado para ejecutar
-    rospy.Subscriber("input", Int32MultiArray, atenderSensores)
+#    rospy.Subscriber("input", Int32MultiArray, atenderSensores)
+
+
+    rospy.Subscriber("sensorLineDetectedColorData", String, processSensorLineDetectedColorData)
+    
+    
     rospy.Subscriber("preConditionDetect", Int32MultiArray, evaluarPrecondicion)
     rospy.Subscriber("preConditionsSetting", Int32MultiArray, setting)	    
     rospy.Subscriber("topicoEstado", Int32MultiArray, setEstado)
     rospy.Subscriber("topicoNivel", Int32MultiArray, nivel)
+    rospy.Subscriber("topicoCaminos", Int32MultiArray, atenderCaminos)
     nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10)
     nodoEjecutando=rospy.Publisher('topicoNodoEjecutando', Int32MultiArray, queue_size=10)
     rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, atenderNodoEjecutando)

@@ -14,7 +14,7 @@ def lanzarNodo():
     print "BBBBBBBBBBBBBBBBBBBBB"
     launch = roslaunch.scriptapi.ROSLaunch()
     print "CCCCCCCCCCCCCCCCCCCCC"
-    launch.load() # Aca se lanza roscore. Proque?
+    launch.start() # Aca se lanza roscore. Proque?
     print "DDDDDDDDDDDDDDDDDDDDD"
     process = launch.launch(node)
     print "EEEEEEEEEEEEEEEEEEEEE"

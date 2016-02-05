@@ -1,22 +1,11 @@
 #!/usr/bin/env python
 
 
-import os 
-import logging 
-import socket 
 import sys 
-import xmlrpclib 
-import roslib.names  
-import roslib.network  
-import rospkg
-import roslaunch.core
-import roslaunch.remote
-
-import sys
 import rospy
-from std_msgs.msg import String, Int32MultiArray
+from std_msgs.msg import String, Int32MultiArray, Float64MultiArray, Float64
 from random import randint
-
+import Const
 
 postConditionDetect = None
 
@@ -30,42 +19,90 @@ ordering = {}
 nivelActivacion=0
 estado=1
 
+pathPosibles=[]
+
+speed = 8
+crash = False
+spin = 0
+delay = 0
+hasFollow = False
+changeTime = rospy.Time.now() + rospy.Duration(delay)
+rate = rospy.Rate(100)
+
+def publish(speedRight, speedLeft):
+    global identify
+    global motores
+    msg = Float64MultiArray()
+    msg.data = [identify, speedRight, speedLeft]
+    motores.publish(msg)
+
+
+def wander():
+    global speed
+    global crash
+    global spin
+    global delay
+    global hasFollow
+    global changeTime
+    global rate
+
+    if crash:
+        # voy hacia atras
+        publish(-speed, -speed)
+    elif hasFollow:
+        # sigo hacia adelante
+        publish(speed, speed)
+    elif spin == 0:
+        # girar a la izquierda
+        publish(speed/8, speed/2)
+    else:
+        # girar a la derecha
+        publish(speed/2, speed/8)
+    
+    if changeTime < rospy.Time.now():
+        hasFollow = not hasFollow
+        spin = randint(0, 1)
+        delay = randint(2, 9)
+        changeTime = rospy.Time.now() + rospy.Duration(delay)
+        crash = False
+        
+    rate.sleep()
+
 #se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores
 def actuar():
     global motores
     msg = Int32MultiArray()   
     if cumplePrecondiciones () and nivelActivacion>0:
-        # Aca iria la operacion de wander.
+        wander()
         
-        msg.data = [identify,5,5] 	 
-        motores.publish(msg)     
-        
-        rospy.loginfo("Ejecutando localizar...")
-        #rospy.loginfo( nivelActivacion)
+#        msg.data = [identify,5,5] 	 
+#        motores.publish(msg)     
+#        
+#        rospy.loginfo("Ejecutando localizar...")
+#        #rospy.loginfo( nivelActivacion)
         ejecutando=True
         msg.data = [identify,identify] #por si necesito otro parametro        
         nodoEjecutando.publish(msg) 
     else: 
-	#rospy.loginfo("Se detuvo localizar...")
+	rospy.loginfo("Se detuvo localizar...")
 	ejecutando=False
 	msg.data = [identify,0,0] 	 
         motores.publish(msg)
 
 def verificarPoscondicionesSensores(data):
     activate=False
-    if data.data[0] == 0 or data.data[0] == 2:#para que sea de permanencia hay que revisar
+    if data.data == Const.SENSOR_COLOR_DETECT_BLACK or data.data == Const.SENSOR_COLOR_DETECT_GREEN:#para que sea de permanencia hay que revisar
         print "se cumple postcondicion localizar"
 	activate=True
     elif cumplePrecondiciones():#cumple precondiciones y no cumple postcondicion	
-	#actuar()
-	print "no se cumple postcondicion",activate
+        print "no se cumple postcondicion",activate
     return activate
 
 
 #posiblemente haya mas sensores, se debe realizar una lectura de todos los sensores y luego de esto verificar si el estado es de ejecucion
-def atenderSensores(data):
+def processSensorLineDetectedColorData(data):
     #se verifican las condiciones en base a los sensores
-    verificarPoscondicionesSensores(data)
+    #verificarPoscondicionesSensores(data)
 
     print "aprender localizar"
     global postConditionDetect
@@ -97,7 +134,7 @@ def setEstado(data):
     estado=data.data[0]
     if estado==3:
 	#se detienen los motores estamos en estado come 
-	msg = Int32MultiArray() 
+	msg = Float64MultiArray() 
 	msg.data = [identify,0,0] 	 
         motores.publish(msg) 
     rospy.loginfo("estado"+str(estado))
@@ -160,6 +197,20 @@ def setting(data):
 '''
 
 
+def atenderCaminos(data):
+    global pathPosibles
+    #si es mi id agrego a la lista de un camino el nuevo nodo
+    if data.data[0] == identify: 
+        lista=list(data.data)
+        indice=data.data[1]
+        #se borran los primeros datos y queda la lista con el path
+        del lista[0]
+        del lista[0]
+        pathPosibles[indice]=lista
+        #print lista
+
+
+
 def nivel (data):
   #  rospy.loginfo("Entro en nivel")
     msg = Int32MultiArray()
@@ -167,9 +218,10 @@ def nivel (data):
     #inicializar el nivel 
     if data.data[1] == -1:
         nivelActivacion=0
+        rospy.loginfo("me llego nivel localizar a 0")   
     elif data.data[1] == identify:
 	nivelActivacion=nivelActivacion+1
-        #rospy.loginfo("me llego nivel localizar")
+        rospy.loginfo("me llego nivel localizar")
         msg = Int32MultiArray()
 	for p in permanent:
 	    if not permanent[p] :
@@ -210,13 +262,9 @@ def evaluarPrecondicion(data):#invocado en etapa de ejecucion cuando llega una p
     else:
         skip = True
 
-    #global nivelActivacion
-    #nivelActivacion=0
-
-  #  if not skip:
-#	actuar()
-
- 
+def processProximitySensorData(data):
+    global crash
+    crash = data.data < 0.25
 
 
 if __name__ == '__main__':
@@ -229,17 +277,22 @@ if __name__ == '__main__':
     identify=int(rospy.myargv(argv=sys.argv)[1])
     rospy.loginfo("identificador localizar "+str(identify))
 
-    motores = rospy.Publisher('topicoActuarMotores', Int32MultiArray, queue_size=10)
+    motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
     postConditionDetect = rospy.Publisher('postConditionDetect', Int32MultiArray, queue_size=10) #usado para aprender
     preConditionDetect = rospy.Publisher('preConditionDetect', Int32MultiArray, queue_size=10) #usado para ejecutar
-    rospy.Subscriber("input", Int32MultiArray, atenderSensores)
+#    rospy.Subscriber("input", Int32MultiArray, atenderSensores)
+    
+    rospy.Subscriber("sensorLineDetectedColorData", String, processSensorLineDetectedColorData)
+    
     rospy.Subscriber("preConditionDetect", Int32MultiArray, evaluarPrecondicion)
     rospy.Subscriber("preConditionsSetting", Int32MultiArray, setting)	    
     rospy.Subscriber("topicoEstado", Int32MultiArray, setEstado)
     rospy.Subscriber("topicoNivel", Int32MultiArray, nivel)
+    rospy.Subscriber("topicoCaminos", Int32MultiArray, atenderCaminos)
     nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10)
     nodoEjecutando=rospy.Publisher('topicoNodoEjecutando', Int32MultiArray, queue_size=10)
     rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, atenderNodoEjecutando)
 
+    rospy.Subscriber("proximitySensorData", Float64, processProximitySensorData)
    
     rospy.spin()
