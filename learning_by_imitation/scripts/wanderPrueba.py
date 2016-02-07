@@ -1,12 +1,9 @@
 #!/usr/bin/env python
 
-import os 
-import sys 
-import sys
 import time
 import rospy
-from std_msgs.msg import String, Int32MultiArray, Float64MultiArray
-from random import randint, randrange
+from std_msgs.msg import Float64MultiArray, Float64
+from random import randint
 
 identify = 1
 speed = 5
@@ -24,7 +21,7 @@ def publish(speedRight, speedLeft, begin, end):
 
 def wander():
     global speed
-    print speed
+    #print speed
     publish(-3, -3, 3, 3)
 
     while True:
@@ -39,7 +36,7 @@ def wander():
 
 
 def processProximitySensorData(data):
-    if float(data.data) < 0.4:
+    if data.data < 0.4:
         publish(-3, -3, 2, 2)
     print data.data
 
@@ -49,7 +46,7 @@ if __name__ == '__main__':
 
     rospy.init_node('wander', anonymous=True)
     motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
-    rospy.Subscriber("/proximitySensorData", String, processProximitySensorData)
+    rospy.Subscriber("proximitySensorData", Float64, processProximitySensorData)
 
     wander()   
     # rospy.spin()

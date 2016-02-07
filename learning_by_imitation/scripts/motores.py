@@ -15,183 +15,69 @@ import roslaunch.remote
 
 import sys
 import rospy
-from std_msgs.msg import String, Int32MultiArray,Int64MultiArray , Float32,Float64, Float64MultiArray
+from std_msgs.msg import String, Int32MultiArray,Int64MultiArray , Float32,Float64
 
 postConditionDetect = None
+identify=0
 
-identify=-1#modicar mediante mensajes al lanzar el nuevo nodo
-idComportamiento = 1
-reejecutar=True
-ejecutando=False
-permanent = {}
-enablig = {}
-ordering = {}
-nivelActivacion=0
-tope=10
-cantMensajesStop=0
-nodosActivos={}
+NodoActivo = -1
 
-#hay que verificar que se recibieron mensajes de todos los nodos del tipo inactivo para recien apagar los motores,
-# esto es debido a que si se recibe un mensaje de inactivo y se apaga pero hay otro de activo estaria haciendo on off a cada mensaje
+#esto anda bien
 
-
+#los nodos mandan solicitudes si cumplen sus precondiciones y su nivel de activacion >0
+def atendersolicitarOLiberarMotores(data):
+    
+    #indices => 0:idNodo, 1:nodoEjecutable, 2:idMotor (esto hay que verificar si se sueltan de a uno los motores
+    global NodoActivo    
+    nodo=data.data[0] 
+    nodoEjecutable=data.data[1]
+    idMotor=data.data[2]
+    
+    
+       
+    
+    # liberan los motores y se apagan
+    #el nodo no es ejecutable (no cumple precondiciones o nivel 0)
+    if NodoActivo== nodo and nodoEjecutable == 0:
+	NodoActivo = -1 
+	leftVelocity.publish(0)
+	rightVelocity.publish(0)
+    elif NodoActivo == -1 and nodoEjecutable == 1:
+        NodoActivo = nodo #se asigna al nodo 	
+        
+    rospy.loginfo("motores nodo activo: " + str(NodoActivo))    
+        
+    msg = Int32MultiArray()   
+    msg.data = [identify,NodoActivo] #por si necesito los id del par motor     
+    motoresLockeado.publish(msg) 
+   
+ 
+ 
  
 #esto capaz deberia ser una especie de interfaz de modo de resolver los actuadores segun donde se embeba el producto esto es VREP 
 def actuarMotoresVREP(data):
         leftMsg = Float64()
         rightMsg = Float64()
-        publicar=False      
-        global tope
-        global cantMensajesStop
-        global nodosActivos
+        global NodoActivo 
         
         
+        nodo=data.data[0]
+        leftMsg.data = data.data[1]
+        rightMsg.data = data.data[2]
         
         
-        if data.data[1]==0 and data.data[2] ==0: 
-                #se detiene por numero de mensajes          
-                cantMensajesStop=cantMensajesStop +1
-                print cantMensajesStop
-                #si llegan mas de tope mensajes de apagado recien apago
-                if cantMensajesStop>=tope:
-                        print "0000000000000000000000000000000"
-                        publicar=True  
-                        print "DETENER MOTORES ",tope," ",cantMensajesStop
-                        
-                #se detiene porque todos los comportamientos se detuvieron
-                nodosActivos[data.data[0]]=False  
-                apagar=True                
-                for a in  nodosActivos:
-                        if nodosActivos[a]:
-                                apagar=False                                                              
-                                break                                
-                #si no hay ningun nodo activo se puede apagar
-                if apagar:
-                        print "1111111111111111111111111111111"
-                        publicar=True  
-                        print "DETENER MOTORES "        
-                        
-        else:         
-                nodosActivos[data.data[0]]=True
-                print "2222222222222222222222222222222"       
-                publicar=True       
-                
-        if publicar:
-                print "3333333333333333333333333333333"
-                cantMensajesStop=0
-                leftMsg.data = data.data[1]
-                rightMsg.data = data.data[2]
-                leftVelocity.publish(leftMsg)
-                rightVelocity.publish(rightMsg)
-                
-                
-                
-                
-                      
-        elif data.data[1]==0 and data.data[2] ==0:  
-                nodosActivos[data.data[0]]=False  
-                apagar=True
-                
-                for a in  nodosActivos:
-                        if nodosActivos[a]:
-                                apagar=False                                                              
-                                break
-                                
-                                
-                #si no hay ningun nodo activo se puede apagar
-                if apagar:  
-                        publicar=True  
-                        print "DETENER MOTORES "
-        else:   
-                #se agrega el id al diccionario
-                nodosActivos[data.data[0]]=True             
-                publicar=True           
-                
-                
-                
-                
-                
-                
-                
-                
-                
-  
-'''
-#esto capaz deberia ser una especie de interfaz de modo de resolver los actuadores segun donde se embeba el producto esto es VREP 
-def actuarMotoresVREP(data):
-        leftMsg = Float64()
-        rightMsg = Float64()
-        publicar=False      
-        global tope
-        global cantMensajesStop
+	'''
+	if NodoActivo == -1 :
+        	NodoActivo = nodo #se asigna al nodo 
+        '''
         
-        if data.data[1]==0 and data.data[2] ==0:           
-                cantMensajesStop=cantMensajesStop +1
-                print cantMensajesStop
-                #si llegan mas de tope mensajes de apagado recien apago
-                if cantMensajesStop>=tope:  
-                        publicar=True  
-                        print "DETENER MOTORES ",tope," ",cantMensajesStop
-        else:                
-                publicar=True           
-                
-        if publicar:
-                cantMensajesStop=0
-                leftMsg.data = data.data[1]
-                rightMsg.data = data.data[2]
-                leftVelocity.publish(leftMsg)
-                rightVelocity.publish(rightMsg)
-'''   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-'''            
-#esto capaz deberia ser una especie de interfaz de modo de resolver los actuadores segun donde se embeba el producto esto es VREP 
-def actuarMotoresVREP(data):  
-        global nodosActivos
-              
-        leftMsg = Float64()
-        rightMsg = Float64()
-        publicar=False      
         
-        if data.data[0]==-1:
-                print "id menos uno"
-        #mensaje de apagado
-        elif data.data[1]==0 and data.data[2] ==0:  
-                nodosActivos[data.data[0]]=False  
-                apagar=True
+        #solo se atiende a un nodo activo
+        if NodoActivo == nodo:   
+		leftVelocity.publish(leftMsg)
+		rightVelocity.publish(rightMsg)
                 
-                for a in  nodosActivos:
-                        if nodosActivos[a]:
-                                apagar=False                                                              
-                                break
-                                
-                                
-                #si no hay ningun nodo activo se puede apagar
-                if apagar:  
-                        publicar=True  
-                        print "DETENER MOTORES "
-        else:   
-                #se agrega el id al diccionario
-                nodosActivos[data.data[0]]=True             
-                publicar=True   
-                
-        print " ACTIVOs ", nodosActivos              
-                
-        if publicar:
-                leftMsg.data = data.data[1]
-                rightMsg.data = data.data[2]
-                leftVelocity.publish(leftMsg)
-                rightVelocity.publish(rightMsg)  
-              
-'''
-
+ 
                
 #al iniciar una nueva ejecucion se debe reiniciar la estructura                
           
@@ -201,16 +87,11 @@ if __name__ == '__main__':
         print "iniciando motores"  
 
         rospy.init_node('motores', anonymous=True)
-        rospy.Subscriber("topicoActuarMotores", Float64MultiArray, actuarMotoresVREP)
+        motoresLockeado = rospy.Publisher('topicoMotorLockeado', Int32MultiArray, queue_size=10)
+        rospy.Subscriber("topicoActuarMotores", Int32MultiArray, actuarMotoresVREP)
         leftVelocity=rospy.Publisher('/vrep/leftMotorVelocity', Float64, queue_size = 10)
         rightVelocity=rospy.Publisher('/vrep/rightMotorVelocity', Float64, queue_size = 10)
-        '''
-        ingreso=raw_input()
-        while ingreso!= "salir":
-                # Aca se debe leer sensores     
-                actuarMotoresVREP(1,1)
-                ingreso=raw_input()
-        print "Fin del ingreso de datos"
-        '''    
+        rospy.Subscriber("topicosolicitarOLiberarMotores", Int32MultiArray, atendersolicitarOLiberarMotores)
    
         rospy.spin()
+        

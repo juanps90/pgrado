@@ -12,7 +12,7 @@ import rospkg
 import roslaunch.core
 import roslaunch.remote
 
-import sys
+
 import rospy
 from std_msgs.msg import String, Int32MultiArray
 from random import randint
@@ -29,36 +29,71 @@ enablig = {}
 ordering = {}
 nivelActivacion=0
 estado=1
+motorLibre=False
+caminos=[]
+
 
 #se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores
 def actuar():
     global motores
+    global motorLibre
     msg = Int32MultiArray()   
-    if cumplePrecondiciones () and nivelActivacion>0:
+    if cumplePrecondiciones () and nivelActivacion>0 and motorLibre:
         # Aca iria la operacion de wander.
         
-        msg.data = [identify,5,5] 	 
+        if identify == 2:
+            msg.data = [identify,-5,-5] 
+        else:
+            msg.data = [identify,5,5] 
+        	 
         motores.publish(msg)     
         
-        rospy.loginfo("Ejecutando localizar...")
+        rospy.loginfo(">>>ON localizar id:"+str(identify))
         #rospy.loginfo( nivelActivacion)
         ejecutando=True
         msg.data = [identify,identify] #por si necesito otro parametro        
         nodoEjecutando.publish(msg) 
     else: 
-	#rospy.loginfo("Se detuvo localizar...")
+	rospy.loginfo(">>>OFF localizar id:"+str(identify))
 	ejecutando=False
+	'''
 	msg.data = [identify,0,0] 	 
         motores.publish(msg)
+        '''
+
+
+def atenderMotorLockeado(data):   
+    global motorLibre      
+    if data.data[1] == -1 or data.data[1]== identify:   #el valor 0 es para el id del motor
+        motorLibre=True
+    else :
+        motorLibre=False  
+        
+        
 
 def verificarPoscondicionesSensores(data):
     activate=False
+    
+    
+    #esto es para probar con un comportamiento loc con otro color se haria con un topico de parametros     
+    if identify==2:
+        if data.data[0] == 3:
+            print "se cumple postcondicion localizar"
+	    activate=True
+    else:
+        if data.data[0] == 0 or data.data[0] == 2:#para que sea de permanencia hay que revisar
+            print "se cumple postcondicion localizar"
+	    activate=True
+    
+    '''
     if data.data[0] == 0 or data.data[0] == 2:#para que sea de permanencia hay que revisar
         print "se cumple postcondicion localizar"
-	activate=True
-    elif cumplePrecondiciones():#cumple precondiciones y no cumple postcondicion	
-	#actuar()
+	activate=True	
+    elif cumplePrecondiciones():#cumple precondiciones y no cumple postcondicion
 	print "no se cumple postcondicion",activate
+    '''
+    
+    
     return activate
 
 
@@ -72,7 +107,6 @@ def atenderSensores(data):
     global preConditionDetect
     global estado
     msg = Int32MultiArray()
-
     
     valorEncendido=0
     if verificarPoscondicionesSensores(data):
@@ -87,10 +121,21 @@ def atenderSensores(data):
 	msg.data = [idComportamiento,valorEncendido]#se envia el id del comportamiento cuando se aprende
 	postConditionDetect.publish(msg)
     elif estado ==2:#ejecutar
-	msg.data = [identify,valorEncendido]   #cuando se ejecuta se envia el id del nodo
-	actuar()
-	#rospy.loginfo("localizar ",valorEncendido)
+        nodoEjecutable = evaluarPrecondicionesPorCaminos() and nivelActivacion>0
+        rospy.loginfo("nodo ejecutable localizar id:"+str(identify)+" "+str(nodoEjecutable))
+        rospy.loginfo("post detec localizar id:"+str(identify)+" "+str(valorEncendido and nodoEjecutable))
+	msg.data = [identify,valorEncendido and nodoEjecutable]   #cuando se ejecuta se envia el id del nodo
 	preConditionDetect.publish(msg)
+	
+	msg.data = [identify,nodoEjecutable,-1]  
+	solicitarOLiberarMotores.publish(msg)
+	
+	actuar()
+	
+	
+	
+	#rospy.loginfo("localizar ",valorEncendido)
+	
     
 def setEstado(data):    
     global estado
@@ -106,7 +151,7 @@ def setEstado(data):
 
 
 #cuando un nodo ejecuta avisa que lo hace hasta que un nuevo comportamiento no ejecute no avisa
-#supongamos que el comportamiento habilante se esta ejecutandode repente el comportamiento que es habilitado recibe de sensore
+#supongamos que el comportamiento habilante se esta ejecutandode de pronto el comportamiento que es habilitado recibe de sensore
 #la senal que esperaba pasa a estar activo avisa de este hecho...luego cuando se pregunte por el enlace de habilitacion se preguntara
 #si esta ejecutando y no importaria ya si el habilitante esta o no activo  
 def atenderNodoEjecutando(data):
@@ -119,19 +164,41 @@ def atenderNodoEjecutando(data):
         
 
 def cumplePrecondiciones():
-    salida = evaluation(permanent.values()) and (ejecutando or evaluation(enablig.values()) ) and evaluation(ordering.values()) #si esta ejecutando no se evalua enabling
+    #salida = evaluation(permanent.values()) and (ejecutando or evaluation(enablig.values()) ) and evaluation(ordering.values()) #si esta ejecutando no se evalua enabling
+    salida = evaluarPrecondicionesPorCaminos()
     print "cumplePrecondiciones ",salida
     return salida
 
-def evaluation(l):
-    result = True
-    for it in l:
-        result = result and it
-        if not result:
-            break
-    return result
+ 
 
  
+def evaluarPrecondicionesPorCaminos():
+    global caminos
+    global permanent
+    global enablig
+    global ordering 
+    salida=True
+    #Se evalua para cada camino si se cumplen las precondiciones para cada nodo del camino
+    for c in range (len(caminos)):
+        salida=True
+        for n in caminos[c]:
+            if permanent.has_key(n):
+                if not permanent[n]:
+                    salida= False
+                    break 
+            if enablig.has_key(n):
+                if not enablig[n]:#ADEMAS VERIFICAR QUE NO SE ESTA EJECUTANDO
+                    salida= False
+                    break  
+            if ordering.has_key(n):
+                if not ordering[n]:
+                    salida= False
+                    break 
+        if salida:
+            break
+    rospy.loginfo("entro en evaluarporcaminos "+str(identify)+" " +str(salida) + str(caminos))
+    return salida    
+
 
 
 
@@ -160,6 +227,84 @@ def setting(data):
 '''
 
 
+def atenderCaminos(data):
+    global caminos
+    #si es mi id agrego la lista de caminos camino el nodo
+    if data.data[0] == identify:
+        #elimina de la lista el dato del id
+        lista=list(data.data)        
+        #print lista
+        del lista[0]
+        
+        caminos= separarCaminos(lista)
+        rospy.loginfo( caminos)
+
+def separarCaminos(caminos):
+    salida = []
+    inicio=0
+    fin=0
+    guardaSeparacion=-10
+    while inicio< len (caminos):    
+        fin=caminos.index(guardaSeparacion,inicio)
+        #print fin
+        tramo=caminos[inicio:fin]
+        #print tramo
+        salida.append(tramo) 
+        inicio=fin+1    
+    return salida
+
+
+
+def atenderNivel (data):
+  #  rospy.loginfo("Entro en nivel")
+    msg = Int32MultiArray()
+    global nivelActivacion
+    #inicializar el nivel 
+    if data.data[1] == -1:#manda para atras el nivel el segundo valor se usa solo para reiniciar lo hace init           
+        nivelActivacion=0
+        rospy.loginfo("me llego nivel a 0 localizar  id:"+str(identify) )   
+    elif data.data[1] == identify:
+	nivelActivacion=nivelActivacion+1
+        rospy.loginfo("me llego nivel localizar "+str(identify)+"<-"+str(data.data[0]))
+        
+        #se recorre la lista de predecesores solo se verifican para cada nodo final si alguno se cumple no se manda
+        #para atras, si ninguno se cumple manda a todos esos nodos finales
+        listaNodosAEnviarNivel=[]
+        for c in caminos:
+            ultimoNodo=c[len(c)-1] #ultimo nodo del camino previo
+            #se verifica a cual de los link pertenece
+            if permanent.has_key(ultimoNodo):
+                #si no cumple precondicion se agrega a la lista a enviar
+                if not permanent[ultimoNodo]: 
+                    if not ultimoNodo in listaNodosAEnviarNivel:
+                        listaNodosAEnviarNivel.append(ultimoNodo) 
+                else:
+                    #si cumple se limpia la lista porque este camino ya se cumple
+                    listaNodosAEnviarNivel=[]
+                    break                              
+            elif enablig.has_key(ultimoNodo): 
+                if not enablig[ultimoNodo]: 
+                    if not ultimoNodo in listaNodosAEnviarNivel:
+                        listaNodosAEnviarNivel.append(ultimoNodo) 
+                else:
+                    listaNodosAEnviarNivel=[]
+                    break        
+            elif ordering.has_key(ultimoNodo):
+                if not ordering[ultimoNodo]: 
+                    if not ultimoNodo in listaNodosAEnviarNivel:
+                        listaNodosAEnviarNivel.append(ultimoNodo) 
+                else:
+                    listaNodosAEnviarNivel=[]
+                    break      
+                 
+	for l in listaNodosAEnviarNivel:
+	    msg.data = [identify, l]#manda para atras el nivel  
+            nivel.publish(msg)
+
+
+
+
+'''
 def nivel (data):
   #  rospy.loginfo("Entro en nivel")
     msg = Int32MultiArray()
@@ -167,9 +312,10 @@ def nivel (data):
     #inicializar el nivel 
     if data.data[1] == -1:
         nivelActivacion=0
+        rospy.loginfo("me llego nivel localizar a 0")   
     elif data.data[1] == identify:
 	nivelActivacion=nivelActivacion+1
-        #rospy.loginfo("me llego nivel localizar")
+        rospy.loginfo("me llego nivel localizar id:"+str(identify)+" desde: "+str(data.data[0]))
         msg = Int32MultiArray()
 	for p in permanent:
 	    if not permanent[p] :
@@ -183,12 +329,14 @@ def nivel (data):
 	    if not ordering[o]:
 		msg.data = [identify, o]#manda para atras el nivel
                 nivel.publish(msg)
-
+'''
 
 
 def evaluarPrecondicion(data):#invocado en etapa de ejecucion cuando llega una postcondicion
     print "entro en evaluarPrecondicion localizar"
-    skip = False
+    global permanent
+    global enablig
+    global ordering
     comportamiento=data.data[0] 
     postcondicion=data.data[1]
 
@@ -207,14 +355,12 @@ def evaluarPrecondicion(data):#invocado en etapa de ejecucion cuando llega una p
     elif ordering.has_key(comportamiento):
         ordering[comportamiento] = ordering[comportamiento] or (postcondicion == 1)
         print "es de orden"
-    else:
-        skip = True
-
+    
     #global nivelActivacion
     #nivelActivacion=0
 
-  #  if not skip:
-#	actuar()
+    #if not skip:
+    #	actuar()
 
  
 
@@ -236,10 +382,15 @@ if __name__ == '__main__':
     rospy.Subscriber("preConditionDetect", Int32MultiArray, evaluarPrecondicion)
     rospy.Subscriber("preConditionsSetting", Int32MultiArray, setting)	    
     rospy.Subscriber("topicoEstado", Int32MultiArray, setEstado)
-    rospy.Subscriber("topicoNivel", Int32MultiArray, nivel)
+    rospy.Subscriber("topicoNivel", Int32MultiArray, atenderNivel)
+    rospy.Subscriber("topicoCaminos", Int32MultiArray, atenderCaminos)
     nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10)
     nodoEjecutando=rospy.Publisher('topicoNodoEjecutando', Int32MultiArray, queue_size=10)
     rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, atenderNodoEjecutando)
+    rospy.Subscriber("topicoMotorLockeado", Int32MultiArray, atenderMotorLockeado)
+    solicitarOLiberarMotores=rospy.Publisher('topicosolicitarOLiberarMotores', Int32MultiArray, queue_size=10) 
+    
 
    
     rospy.spin()
+    
