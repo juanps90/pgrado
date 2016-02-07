@@ -22,6 +22,8 @@ identify=0
 
 NodoActivo = -1
 
+#esto anda bien
+
 #los nodos mandan solicitudes si cumplen sus precondiciones y su nivel de activacion >0
 def atendersolicitarOLiberarMotores(data):
     
