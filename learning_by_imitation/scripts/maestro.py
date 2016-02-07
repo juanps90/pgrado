@@ -35,14 +35,14 @@ current_milli_time = lambda: int(round(time.time() * 1000))
 ################################
 #APRENDER
 ################################
-
+	
 
 #solo se atiende si estamos en fase de aprendizaje
 def aprender(data):
     global fase  
     if fase == "aprender":
         callback(data)
-
+        
 
 def callback(data): 
     comportamiento=data.data[0] 
@@ -228,7 +228,10 @@ def lanzarNodo(idNodo,idComportamiento): #es el id numerico del comportamiento
     global nodosParaAprender   
     execution =nombreComportamiento + '.py'
     # en los args se envian los id de los nodos     
-    node = roslaunch.core.Node(pkg, execution, args=str(idNodo))
+    node = roslaunch.core.Node(pkg, execution, args=str(idNodo) )
+    #node = roslaunch.core.Node(pkg, execution, env_args=[("identify",str(idNodo)),("color","negro")] )
+    
+    
     launch = roslaunch.scriptapi.ROSLaunch()
     launch.start()
     salida= launch.launch(node)
@@ -237,7 +240,15 @@ def lanzarNodo(idNodo,idComportamiento): #es el id numerico del comportamiento
     
 ############################ 
 #EJECUTAR
-############################
+############################ 
+
+#No olvidar ajustar el nombre de pkg al del proyecto
+
+
+def cargarDatos():
+    print "cargar Datos mediante XML"
+
+
 
 ######SI SE CREA EL NODO INIT SEPARADO DE AQUI NO HACE FALTA SER TAN CUIDADOSO	
 #lanza los nodos y crea los enlaces  , NOTA hay que sacar al nodo init en si como un nuevo nodo (no esta bueno que este embebido aca)
@@ -264,7 +275,7 @@ def crearEnlaces(linksACrear):
             nodosLanzados.append(it[2])
      
     #se envian los links a los nodos el sleep es para esperar que los nodos esten listos se puede hacer un waitmensaje
-    #time.sleep(2)
+    time.sleep(1)
     for it in linksACrear:
         msg = Int32MultiArray()
         msg.data = [it[0], it[2], it[4]]#id nodo 1 y 2 y tipo de link	
@@ -543,22 +554,10 @@ def sucesoresTopologicos (topologia):
             salida[t[0]]=[]
         salida[t[0]].append(t[1])
     return salida
-'''    
-#verificar si se puede comprimir con recursion
-def pathAntecesores( sucesoresTopologicos):
-    #los nodos son un dicc, cada nodo tene una lista de path y cada path es una lista de nodos
-    salida ={}
-    for nodo in sucesoresTopologicos:#para cada nodo 
-        print nodo
-        for sucesor in sucesoresTopologicos[nodo]:#para cada uno de sus nodos sucesores
-            #si no estaba en el diccionario se lo agrega al diccionario y se hace la recursion
-            if not salida.has_key(nodo):    
-                salida[nodo]=[]
-	    salida = recursionEnvioPath(nodo,[], salida,sucesoresTopologicos)
-    return salida
-'''
+
     
-#verificar si se puede comprimir con recursion
+#Tal vez se podria primero ver los que no tienen predecesores y lanzar esos por temas de eficiencia
+#aca se recorren todos los nodos y se hace el algoritmo
 def pathAntecesores( sucesoresTopologicos):
     #los nodos son un dicc, cada nodo tene una lista de path y cada path es una lista de nodos
     salida ={}
@@ -625,41 +624,58 @@ def compararPath (pathNuevo,pathAntiguo):
             #print pathMasLargo[i+dif] , pathMasCorto[i]
             return None
     return pathMasLargo #devuelve el path mas largo
+
+
     
 def enviarCaminos(caminos): 
     print "Enviando caminos"
     msg = Int32MultiArray() 
     global pubCaminos  
-    print caminos
+    #print caminos
     for nodo in caminos:
         print nodo
+        salida=[nodo]
         for lc in range (len (caminos[nodo]) ): 
            # for c in range (len (caminos[nodo][lc]) ): 
             #print caminos[nodo][lc], lc
-            salida=  [nodo,lc] + caminos[nodo][lc]               
-            msg.data= salida
-            # print salida  
-            pubCaminos.publish(msg)
+            salida= salida + caminos[nodo][lc] + [-10]#donde -10 es un separador              
+        #se manda mensaje aunque este vacia por si hay que inicializar 
+        msg.data= salida
+        # print salida  
+        pubCaminos.publish(msg)    
      
-    
-     
-
+'''
 
 def atenderCaminos(data):
     #global pathPosibles
-    #si es mi id agrego a la lista de un camino el nuevo nodo
+    #si es mi id agrego la lista de caminos camino el nodo
     #if data.data[0] == identify:
     if True: 
-        lista=list(data.data)
-        print lista
+        #elimina de la lista el dato del id
+        lista=list(data.data)        
+        #print lista
         del lista[0]
-        del lista[0]
+        
+        print separarCaminos(lista)
         #pathPosibles[data.data[1]]=lista
         #print lista
 
-
-
-       
+def separarCaminos(caminos):
+    salida = []
+    #caminos = [1,2,3,-10,4,5,6,-10,7,8,9,-10]
+    inicio=0
+    fin=0
+    while inicio< len (caminos):    
+        fin=caminos.index(-10,inicio)
+        #print fin
+        tramo=caminos[inicio:fin]
+        #print tramo
+        salida.append(tramo) 
+        inicio=fin+1
+    
+    return salida
+ 
+'''
  
 #######################
 #Metodo Principal
@@ -678,16 +694,16 @@ if __name__ == '__main__':
     estado=rospy.Publisher('topicoEstado', Int32MultiArray, queue_size = 10)    
     nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10)
     rospy.Subscriber("postConditionDetect", Int32MultiArray, aprender)    
-    #motores = rospy.Publisher('topicoActuarMotores', Floal64MultiArray, queue_size=10)
+    motores = rospy.Publisher('topicoActuarMotores', Int32MultiArray, queue_size=10)
     pubCaminos = rospy.Publisher('topicoCaminos', Int32MultiArray, queue_size=100)
-    rospy.Subscriber("topicoCaminos", Int32MultiArray, atenderCaminos)
+    #rospy.Subscriber("topicoCaminos", Int32MultiArray, atenderCaminos)
    
     rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, atenderNodoEjecutando)
     
     #rospy.Subscriber("preConditionsSetting", Int32MultiArray, setting)	 
     #rospy.Subscriber("preConditionDetect", Int32MultiArray, evaluarPrecondicion)
     
-    rospy.loginfo("probando")
+    print "inicio master" 
     entrada=raw_input()   
     msg = Int32MultiArray()
     while entrada != "salir":
@@ -707,26 +723,33 @@ if __name__ == '__main__':
             #aca se podria agregar el comportamiento del capitulo 5
 	               
         elif entrada=="aprender":
+            #mata los nodos que hubiera activos
+	    for it in nodosParaAprender.values():
+                print it.stop()	
             for it in nodosParaEjecutar.values():
-                print it.stop()		
+                print it.stop()	 
+                	
             #hay que lanzar comportamientos para que reciban las postcondiciones a la hora de aprender NO OLVIDAR MATARLOS AL TERMNAR APRENDER
             
             nodosParaAprender = {}
             for n in dicComp:
                 if n!=0:#lanza nodos sin ser el init
                     nodosParaAprender[n]= lanzarNodo(-1,n) 
-                    
+	
 	
             fase="aprender"	    
-            Diccionario={}
+	    Diccionario={}
             nodos = []
             id=0
-            msg.data = [1,1]#podria ser el segundo valor el id del comportamiento
-            estado.publish(msg)
+	    msg.data = [1,1]#podria ser el segundo valor el id del comportamiento
+	    estado.publish(msg)
 	elif entrada=="ejecutar":
-	    #motores
+	    #mata los nodos que hubiera activos
 	    for it in nodosParaAprender.values():
                 print it.stop()	
+            for it in nodosParaEjecutar.values():
+                print it.stop()	    
+                
     	    fase="ejecutar"
     	    
     	       	    
@@ -734,8 +757,19 @@ if __name__ == '__main__':
 	    
 	    #links=[(0,1,1,2,0),(0,1,2,0,0),(1,2,2,0,0)]	
 	    grafoGeneral=[(0,1,1,2,0),(0,1,2,0,0),(1,2,2,0,0)] #para no complicarla mucho uso como general este link cortito
-	    linkEnEjecucion=[(0,1,1,2,0),(0,1,2,0,0),(1,2,2,0,0)]	
+	    #linkEnEjecucion=[(0,1,1,2,0),(0,1,2,0,0),(1,2,2,0,0)]
+	    #linkEnEjecucion=[(0,1,1,2,0),(0,1,2,1,0),(0,1,3,0,0),(1,2,3,0,0),(2,1,3,0,0),(1,1,2,1,0)]
+	    linkEnEjecucion=[(0,1,1,2,0),(0,1,2,1,0),(0,1,3,0,0),(1,2,3,0,0),(2,1,3,0,0)]	
 	    crearEnlaces(linkEnEjecucion)
+	    	    
+	    topologia=[(0,1),(0,2),(1,3),(2,3)]
+            sucesoresTopologicos=sucesoresTopologicos (topologia)
+            print "sucesores: ",sucesoresTopologicos
+            caminitos=pathAntecesores(sucesoresTopologicos)    
+	    enviarCaminos(caminitos)
+	    
+	    
+	    
 	    
 	    #se deberia esperar a que los comportamientos se activen sino no reciben el mensaje de estado
 	    #se podria esperar un mensaje es decir por medio de wait
@@ -767,7 +801,11 @@ if __name__ == '__main__':
 	    nuevolinks=[(0,6,1,0,0)]
 	    cortarGo(nuevolinks,grafoGeneral,3)
 	    
-	elif entrada=="probarPath":   
+	elif entrada=="sc": 
+	    print separarCaminos()
+	    
+	    
+	elif entrada=="pp":   
 	    pathAntiguo =[2,3,4]
 	    pathNuevo=[3,4]
 	    print "compararPath> ",compararPath (pathNuevo,pathAntiguo)
@@ -881,4 +919,3 @@ def arranqueNivel():
         #rospy.loginfo("termino el ciclo")
         
 '''       
-

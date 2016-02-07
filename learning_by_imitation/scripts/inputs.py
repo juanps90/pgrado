@@ -1,48 +1,62 @@
 #!/usr/bin/env python
-
+import sys
 import rospy
-from std_msgs.msg import Float64, String, Float32
-import Const
+from std_msgs.msg import Float32, String, Int32MultiArray, Float64
 
-def processSensorLineDetectColorData(data): 
-    msg = String()   
+def processInput(data): 
+    msg = Int32MultiArray()   
     ingreso=data.data
     #negro
     if ingreso > 0.2 and ingreso < 0.3:
-        msg.data = Const.SENSOR_COLOR_DETECT_BLACK
+        msg.data = [0]
         print "negro = ", data.data
-        sensorLineDetectColorData.publish(msg)
+        input.publish(msg)
     #blanco
     elif ingreso > 0.6 and ingreso < 0.8:
-        msg.data = Const.SENSOR_COLOR_DETECT_WHITE
+        msg.data = [1]
         print "blanco = ", data.data
-        sensorLineDetectColorData.publish(msg)
+        input.publish(msg)
     #verde
     elif ingreso > 0.4 and ingreso < 0.5:
-        msg.data = Const.SENSOR_COLOR_DETECT_GREEN
+        msg.data = [2]
         print "verde = ", data.data
-        sensorLineDetectColorData.publish(msg)
+        input.publish(msg)
     else:
         print "no Color = ", data.data
 
-def processProximitySensorData(data):
-    msg = Float64()
-    msg.data = float(data.data)
-    proximitySensorData.publish(msg)
-    print "Distancia = ", data.data
-   
+def inputsManual():
+    print "Comienzo de la demostracion"
+    ingreso=raw_input()
+    while ingreso!= "salir":
+        # Aca se debe leer sensores     
+	
+        msg = Int32MultiArray()
+        if ingreso == "negro":
+            msg.data = [0]
+            input.publish(msg)
+        elif ingreso == "blanco":
+            msg.data = [1]
+            input.publish(msg)
+        elif ingreso == "verde":
+            msg.data = [2]
+            input.publish(msg)            
+        elif ingreso == "rojo":
+            msg.data = [3]
+            input.publish(msg)
+        ingreso=raw_input()
+    print "Fin del ingreso de datos"
+
+
 
 if __name__ == '__main__':
     print "sensado"
     rospy.init_node('inputs', anonymous=True)
+    input = rospy.Publisher('input', Int32MultiArray, queue_size=10)
+    rospy.Subscriber("/sensorLineDetectData", Float32, processInput)
+    inputsManual()
+   
     
-    #Me suscribo a datos de los sensores de vision que detectan colores en el suelo
-    sensorLineDetectColorData = rospy.Publisher('sensorLineDetectedColorData', String, queue_size=50)
-    rospy.Subscriber("/vrep/sensorLineDetectColorData", Float32, processSensorLineDetectColorData)
-    
-    #Me suscribo a datos de los sensores de distancia
-    proximitySensorData = rospy.Publisher('proximitySensorData', Float64, queue_size=50)
-    rospy.Subscriber("/vrep/proximitySensorData", String, processProximitySensorData)
-    
-    rospy.spin()
+    #rospy.spin()
 
+
+ 
