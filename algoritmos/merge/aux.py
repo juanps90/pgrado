@@ -1,4 +1,4 @@
-from node import Node
+from node import Node, LinkPoint
 class Aux:
     
     def sampleGraph1(self):
@@ -19,43 +19,53 @@ class Aux:
        
         nINIT = Node()
         
-        nINIT.parentNodes = [nA, nB, nD, nE]
-        nINIT.parentTypes  = {nA: Node.LINK_ORD, nB: Node.LINK_ORD, nD: Node.LINK_ORD, nE: Node.LINK_ORD}
-        nE.parentNodes    = [nA, nB,nD]
-        nE.parentTypes  = {nA:Node.LINK_ORD,nB: Node.LINK_ENA,nD: Node.LINK_ORD}
-        nD.parentNodes    = [nA, nB]
-        nD.parentTypes  = {nA:Node.LINK_ORD,nB: Node.LINK_ENA}
-        nB.parentNodes    = [nA]
-        nB.parentTypes  = {nA:Node.LINK_PRM}
-        nA.parentNodes    = []
+        lA = LinkPoint(nA)
+        lB = LinkPoint(nB)
+        lD = LinkPoint(nD)
+        lE = LinkPoint(nE)
+        lInit = LinkPoint(nINIT)
+        
+        lInit.lpoint = lE
+        lE.lpoint = lD
+        lD.lpoint = lB
+        lB.lpoint = lA
+        
+        lInit.length = 4
         
         return nINIT
         
     def sampleGraph2(self):
+        
         nA = Node()
         nA.letra = 'A'
         
-        nB = Node()
-        nB.letra = 'C'
-        
         nC = Node()
-        nC.letra = 'D'
-      
+        nC.letra = 'C'
+        
+        nD = Node()
+        nD.letra = 'D'
+        
         nE = Node()
         nE.letra = 'E'
         
+       
         nINIT = Node()
         
-        nINIT.parentNodes = [nA, nB, nC, nE]
-        nINIT.parentTypes  = {nA: Node.LINK_ORD,nB: Node.LINK_ORD, nC: Node.LINK_ORD, nE: Node.LINK_ORD}
-        nE.parentNodes    = [nA, nB, nC]
-        nE.parentTypes  = {nA:Node.LINK_ORD,nB: Node.LINK_ORD,nC: Node.LINK_ENA}
-        nC.parentNodes    = [nA, nB]
-        nC.parentTypes  = {nA: Node.LINK_ENA,nB: Node.LINK_ORD}
-        nB.parentNodes    = [nA]
-        nB.parentTypes  = {nA: Node.LINK_PRM}
-        nA.parentNodes    = []
-
+        lA = LinkPoint(nA)
+        lC = LinkPoint(nC)
+        lD = LinkPoint(nD)
+        lE = LinkPoint(nE)
+        lInit = LinkPoint(nINIT)
+        
+        lInit.lpoint = lE
+        lE.lpoint = lD
+        lD.lpoint = lC
+        lC.lpoint = lA
+        
+        lInit.length = 4
+        lE.length = 3
+        lD.length = 2
+        lC.length = 1
+        lA.length = 0
         
         return nINIT
-        
