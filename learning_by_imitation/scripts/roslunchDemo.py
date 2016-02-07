@@ -2,13 +2,27 @@
 
 import rospy
 import roslaunch
+import os
+import time
 
 pkg = 'rqt_gui'
 exe = 'rqt_gui'
 
 def lanzarNodo():
     global pkg
-    global exe   
+    global exe
+#    print "AAAAAAAAAAAAAAAAAAAAA"
+#    command = 'rosrun %s %s &' %(pkg,exe)
+#    print command
+#    print "BBBBBBBBBBBBBBBBBBBBB"
+#    
+#    os.system(command)
+#    os.system(command)
+#    os.system(command)
+#    os.system(command)
+#    os.system(command)
+#    print "CCCCCCCCCCCCCCCCCCCCC"
+    
     print "AAAAAAAAAAAAAAAAAAAAA"
     node = roslaunch.core.Node(pkg, exe)
     print "BBBBBBBBBBBBBBBBBBBBB"
@@ -20,7 +34,10 @@ def lanzarNodo():
     print "EEEEEEEEEEEEEEEEEEEEE"
     print process.is_alive()
     print "FFFFFFFFFFFFFFFFFFFFF"
-    process.stop()
+    entrada=raw_input()  
+    if entrada == "salir":
+        #time.sleep(360)
+        process.stop()
     print "GGGGGGGGGGGGGGGGGGGGG"
     
     
@@ -31,4 +48,4 @@ if __name__ == '__main__':
     print "111111111111111111111"
     lanzarNodo()
     print "222222222222222222222"
-    rospy.spin()
+    #rospy.spin()
