@@ -14,7 +14,7 @@ import roslaunch.remote
 
 
 import rospy
-from std_msgs.msg import String, Int32MultiArray
+from std_msgs.msg import Int32MultiArray, Float64MultiArray
 from random import randint
 
 
@@ -375,7 +375,7 @@ if __name__ == '__main__':
     identify=int(rospy.myargv(argv=sys.argv)[1])
     rospy.loginfo("identificador localizar "+str(identify))
 
-    motores = rospy.Publisher('topicoActuarMotores', Int32MultiArray, queue_size=10)
+    motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
     postConditionDetect = rospy.Publisher('postConditionDetect', Int32MultiArray, queue_size=10) #usado para aprender
     preConditionDetect = rospy.Publisher('preConditionDetect', Int32MultiArray, queue_size=10) #usado para ejecutar
     rospy.Subscriber("input", Int32MultiArray, atenderSensores)

@@ -3,7 +3,7 @@ import sys
 import time
 import rospy
 import roslaunch
-from std_msgs.msg import String, Int32MultiArray
+from std_msgs.msg import Int32MultiArray, Float64MultiArray
 
 pkg = "learning_by_imitation"#paquete donde se encuentran los archivo py
 id = 0
@@ -694,7 +694,7 @@ if __name__ == '__main__':
     estado=rospy.Publisher('topicoEstado', Int32MultiArray, queue_size = 10)    
     nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10)
     rospy.Subscriber("postConditionDetect", Int32MultiArray, aprender)    
-    motores = rospy.Publisher('topicoActuarMotores', Int32MultiArray, queue_size=10)
+    motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
     pubCaminos = rospy.Publisher('topicoCaminos', Int32MultiArray, queue_size=100)
     #rospy.Subscriber("topicoCaminos", Int32MultiArray, atenderCaminos)
    

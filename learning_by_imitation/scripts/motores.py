@@ -15,7 +15,7 @@ import roslaunch.remote
 
 import sys
 import rospy
-from std_msgs.msg import String, Int32MultiArray,Int64MultiArray , Float32,Float64
+from std_msgs.msg import Int32MultiArray, Float64, Float64MultiArray
 
 postConditionDetect = None
 identify=0
@@ -61,7 +61,7 @@ def actuarMotoresVREP(data):
         global NodoActivo 
         
         
-        nodo=data.data[0]
+        nodo=int(data.data[0])
         leftMsg.data = data.data[1]
         rightMsg.data = data.data[2]
         
@@ -88,7 +88,7 @@ if __name__ == '__main__':
 
         rospy.init_node('motores', anonymous=True)
         motoresLockeado = rospy.Publisher('topicoMotorLockeado', Int32MultiArray, queue_size=10)
-        rospy.Subscriber("topicoActuarMotores", Int32MultiArray, actuarMotoresVREP)
+        rospy.Subscriber("topicoActuarMotores", Float64MultiArray, actuarMotoresVREP)
         leftVelocity=rospy.Publisher('/vrep/leftMotorVelocity', Float64, queue_size = 10)
         rightVelocity=rospy.Publisher('/vrep/rightMotorVelocity', Float64, queue_size = 10)
         rospy.Subscriber("topicosolicitarOLiberarMotores", Int32MultiArray, atendersolicitarOLiberarMotores)
