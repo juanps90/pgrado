@@ -18,7 +18,7 @@ def messageSensorsLineDetectColor(data):
         elif it > 0.4 and it < 0.5:
              sensorsData.append(Const.SENSOR_COLOR_DETECT_GREEN)
 
-    msgSensorLineDetectColorData.data = [0,Const.SENSOR_COLOR_DETECT_LINE_ID, sensorsData[0], sensorsData[1], sensorsData[2]]
+    msgSensorLineDetectColorData.data = [Const.SENSOR_COLOR_DETECT_LINE_ID, sensorsData[0], sensorsData[1], sensorsData[2]]
     return msgSensorLineDetectColorData
        
 def processSensorLineDetectColorData(data): 
