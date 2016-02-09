@@ -13,8 +13,7 @@ def calcN(nodePoint, curNodePoint, largoPalabra):
     
     if nodePoint is None or curNodePoint is None:
         print "* Out of bounds"
-        return 0
-
+        return [0, False]
     
     
     node    = nodePoint.thisNode
@@ -29,6 +28,7 @@ def calcN(nodePoint, curNodePoint, largoPalabra):
     if nodePoint.values is None:
         nodePoint.values     = [-1]      * largoPalabra
         nodePoint.refNode    = [None]    * largoPalabra
+        nodePoint.samePrefix = [False]   * largoPalabra
         nodePoint.refNodePos = [0]       * largoPalabra
         
         print "[" + str(node.letra) + "] Creando node.values"
@@ -39,7 +39,7 @@ def calcN(nodePoint, curNodePoint, largoPalabra):
     
     if(nodePoint.values[j] >= 0):
         # Si ya esta calculada lo retornamos
-        return nodePoint.values[j];
+        return [ nodePoint.values[j], nodePoint.samePrefix[j] ]
     
     sigPa = nodePoint.lpoint
     sigPb = curNodePoint.lpoint
@@ -53,19 +53,22 @@ def calcN(nodePoint, curNodePoint, largoPalabra):
         
         # 1 - Hay una diagonal (ambas letras iguales)
         if not sigPa is None and not sigPb is None:
-            val = 1 + calcN(sigPa, sigPb, largoPalabra)  # diagonal, se come uno de ambos
+            val =  calcN(sigPa, sigPb, largoPalabra)  # diagonal, se come uno de ambos
 
-            nodePoint.values[j] = val
-            nodePoint.refNode[j] = sigPa
+            nodePoint.values    [j] = val[0] + 1
+            nodePoint.samePrefix[j] = val[1]
+            
+            nodePoint.refNode   [j] = sigPa
             nodePoint.refNodePos[j] = j-1
             
         # 2 - Es "diagonal" porque se acabaron los dos a la vez.
         elif sigPa is None and sigPb is None:
             # Ambos se acabaron
             print  "Encontre el origen"
-            nodePoint.values[j] = 1
-                
-        return nodePoint.values[j]
+            nodePoint.values    [j] = 1
+            nodePoint.samePrefix[j] = True
+            
+        return [ nodePoint.values[j], nodePoint.samePrefix[j] ]
         
     # Caso no diagonal
     
@@ -73,14 +76,15 @@ def calcN(nodePoint, curNodePoint, largoPalabra):
     
     
     # Calculamos el valor horizontal (consumir de la ejecucion nueva)
-    nodePoint.values     [j] = calcN(nodePoint, sigPb, largoPalabra)
+    nodePoint.values     [j] = calcN(nodePoint, sigPb, largoPalabra)[0]
+    nodePoint.samePrefix [j] = False
     nodePoint.refNode    [j] = nodePoint
     nodePoint.refNodePos [j] = j-1
     
     print "Consumir la letra de w nos deja en ", nodePoint.values[j]
     
     # Comparamos con consumir de la corrida existente
-    val = calcN(sigPa, curNodePoint, largoPalabra)  # vamos al nodo padre, pero mantenemos posicion horizontal
+    val = calcN(sigPa, curNodePoint, largoPalabra)[0]  # vamos al nodo padre, pero mantenemos posicion horizontal
     print "Consumir del nodo me deja en ", val
     
     if val >0 and ( nodePoint.values[j] == 0 or val > nodePoint.values[j]):
@@ -93,7 +97,7 @@ def calcN(nodePoint, curNodePoint, largoPalabra):
     
     
     print "[[[[" ,  nodePoint.values[j] , "]]]]]"
-    return nodePoint.values[j]
+    return [nodePoint.values[j], False]
 
 
 # Sirve para consolidar el grafo luego de agregar otra demostracion
@@ -172,6 +176,15 @@ def graphregen(curNodePa, nodeW):
             # Podemos ignorar los casos no diagonales, o sea, en los que se consume solo
             # del grafo generalizado
             
+            if curNodePa.samePrefix[j]:
+                if not revertirA is None:
+                    curNodePb = revertirA
+                    
+                # Si continuan igual, nos conectamos al nodo existente.
+                print "UNIENDO AL MISMO PUNTO ", curNodePb.thisNode.letra
+                curNodePb.lpoint = curNodePa.lpoint
+                return 0
+                
             if diagonal:
                 
                 # Para evitar desfasajes, es necesario retroceder el nodo para el correcto mezclado
@@ -205,11 +218,16 @@ def plot(node):
     
     file = open("test.dot", "w")
     file.write("digraph pcspec {\n\n");
-
+    
+    visited = {}
     i = 1
     for lnode in node.n:
         curNode = lnode
         while not curNode is None:
+            if curNode in visited:
+                break
+            visited[curNode] = True
+            
             if not curNode.lpoint is None:
                     
                 letra = "INIT" if curNode.thisNode.letra is None else curNode.thisNode.letra
@@ -241,39 +259,52 @@ def printTreeValues(n, j):
         
     return 0
 
+def merge(g1,g2):
+        
+    maxVal   = 0
+    maxRatio = 0
+
+    # Largo de la nueva palabra
+    seqLen = g2.n[0].length
+        
+    for p in g1.n:
+        nVal = calcN(p, g2.n[0], seqLen)[0]
+        nRatio = (float)(nVal-1) / max(p.length, seqLen)
+        
+        # Determinamos si es el mas parecido hasta el momento o no
+        if  nVal >= maxVal and nRatio > maxRatio:
+            maxRatio = nRatio
+            maxVal = nVal
+            
+            caminoMasSimilar = p
+
+    print "RATIO: ", nRatio
+    # Si hay diferencias, combinamos
+    if nRatio < 1:
+        graphregen(caminoMasSimilar, g2.n[0])
+        
+def clear(g):
+    for n in g.n:
+        lp = n
+        while not lp is None and not lp.values is None:
+            lp.values = None
+            lp = lp.lpoint
+            
+
 a = Aux()
 
 g1 = a.sampleGraph1() # G1 sera el acumulado hasta el momento
 g2 = a.sampleGraph2() # G2 es una nueva corrida
+g3 = a.sampleGraph3() # G3 es una nueva corrida
 
 plot(g1)
 plot(g2)
 
+merge(g1, g2)
 
+clear(g1)
 
-maxVal   = 0
-maxRatio = 0
-
-# La    rgo de la nueva palabra
-seqLen = g2.n[0].length
-    
-for p in g1.n:
-    
-    nVal = calcN(p, g2.n[0], seqLen)
-    
-    nRatio = nVal / p.length
-    
-    # Determinamos si es el mas parecido hasta el momento o no
-    if  nVal > maxVal and nRatio > maxRatio:
-        maxRatio = nRatio
-        maxVal = nVal
-        
-        caminoMasSimilar = p
-
-print "RATIO: ", nRatio
-# Si hay diferencias, combinamos
-#if nRatio < 1:
-graphregen(caminoMasSimilar, g2.n[0])
+merge(g1,g3)
 
 plot(g1)
 
