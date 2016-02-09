@@ -18,35 +18,17 @@ def messageSensorsLineDetectColor(data):
         elif it > 0.4 and it < 0.5:
              sensorsData.append(Const.SENSOR_COLOR_DETECT_GREEN)
 
-    msgSensorLineDetectColorData.data = [Const.SENSOR_COLOR_DETECT_LINE_ID, sensorsData[0], sensorsData[1], sensorsData[2]]
+    msgSensorLineDetectColorData.data = [0,Const.SENSOR_COLOR_DETECT_LINE_ID, sensorsData[0], sensorsData[1], sensorsData[2]]
     return msgSensorLineDetectColorData
        
 def processSensorLineDetectColorData(data): 
-    msgInput = Int32MultiArray()
     
     ingreso = map(float, data.data.split('|'))
-    print ingreso
     
-    #negro
-    if ingreso[1] > 0.2 and ingreso[1] < 0.3:
-        msgInput.data = [0]
-        print "negro = ", data.data
-        input.publish(msgInput)
-        sensorLineDetectColorData.publish(messageSensorsLineDetectColor(ingreso))
-    #blanco
-    elif ingreso[1] > 0.6 and ingreso[1] < 0.8:
-        msgInput.data = [1]
-        print "blanco = ", data.data
-        input.publish(msgInput)
-        sensorLineDetectColorData.publish(messageSensorsLineDetectColor(ingreso))
-    #verde
-    elif ingreso[1] > 0.4 and ingreso[1] < 0.5:
-        msgInput.data = [2]
-        print "verde = ", data.data
-        input.publish(msgInput)
-        sensorLineDetectColorData.publish(messageSensorsLineDetectColor(ingreso))        
-    else:
-        print "no Color = ", data.data
+    sensores.publish(messageSensorsLineDetectColor(ingreso))
+
+
+
 
 def inputsManual():
     print "Comienzo de la demostracion"
@@ -54,33 +36,35 @@ def inputsManual():
     while ingreso!= "salir":
         # Aca se debe leer sensores     
 	
-        msg = Int32MultiArray()
+        msg = Float64MultiArray()
         if ingreso == "negro":
-            msg.data = [0]
-            input.publish(msg)
+            msg.data = [0,0,0,0]
+            sensores.publish(msg)
         elif ingreso == "blanco":
-            msg.data = [1]
-            input.publish(msg)
+            msg.data = [0,1,1,1]
+            sensores.publish(msg)
         elif ingreso == "verde":
-            msg.data = [2]
-            input.publish(msg)            
+            msg.data = [0,2,2,2]
+            sensores.publish(msg)            
         elif ingreso == "rojo":
-            msg.data = [3]
-            input.publish(msg)
+            msg.data = [0,3,3,3]
+            sensores.publish(msg)
         ingreso=raw_input()
     print "Fin del ingreso de datos"
 
+
+
 def processProximitySensorData(data):
-    msg = Float64()
-    msg.data = float(data.data)
-    proximitySensorData.publish(msg)
+    msg = Float64MultiArray()
+    msg.data = [1,float(data.data)]
+    sensores.publish(msg)
     print "Distancia = ", data.data
 
 
 if __name__ == '__main__':
     print "sensado"
     rospy.init_node('inputs', anonymous=True)
-    input = rospy.Publisher('input', Int32MultiArray, queue_size=10)
+    sensores = rospy.Publisher('topicoSensores', Float64MultiArray, queue_size=20)
     sensorLineDetectColorData = rospy.Publisher('sensorLineDetectedColorData', Float64MultiArray, queue_size=10)    
     
     #Me suscribo a datos de los sensores de vision que detectan colores en el suelo

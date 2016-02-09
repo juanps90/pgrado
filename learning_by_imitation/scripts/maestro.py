@@ -795,18 +795,18 @@ if __name__ == '__main__':
 	    #linkEnEjecucion=[(0,1,1,2,0),(0,1,2,1,0),(0,1,3,0,0),(1,2,3,0,0),(2,1,3,0,0),(1,1,2,1,0)]
 
 
-	    enlaces=[(0,1,1,2,2),(0,1,2,0,0),(1,2,2,0,0)]	     
+	    #enlaces=[(0,1,1,2,2),(0,1,2,0,0),(1,2,2,0,0)]	     
 
-            #enlaces=recuperarEnlaces()
+            enlaces=recuperarEnlaces()
 
             crearEnlaces(enlaces)
 
             time.sleep(2)
 	    	    
 	    #topologia=[(0,1),(0,2),(1,3),(2,3)]
-            topologia=[(0,1),(1,2)]
+            #topologia=[(0,1),(1,2)]
 
-            #topologia=recuperarTopologia()	
+            topologia=recuperarTopologia()	
 
             sucesoresTopologicos=sucesoresTopologicos (topologia)
             print "sucesores: ",sucesoresTopologicos

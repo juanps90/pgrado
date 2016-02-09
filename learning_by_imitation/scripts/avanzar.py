@@ -90,7 +90,8 @@ def atenderMotorLockeado(data):
 
 def verificarPoscondicionesSensores(data):
     activate=False
-    if  data.data[0] == 2:
+
+    if data.data[0] == 0 and data.data[2] == 2: 
         print "se cumple postcondicion avanzar"
 	activate=True
     elif cumplePrecondiciones():#cumple precondiciones y no cumple postcondicion
@@ -373,7 +374,7 @@ if __name__ == '__main__':
     motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
     postConditionDetect = rospy.Publisher('postConditionDetect', Int32MultiArray, queue_size=10) #usado para aprender
     preConditionDetect = rospy.Publisher('preConditionDetect', Int32MultiArray, queue_size=10) #usado para ejecutar
-    rospy.Subscriber("input", Int32MultiArray, atenderSensores)
+    rospy.Subscriber("topicoSensores", Float64MultiArray, atenderSensores)
     rospy.Subscriber("preConditionDetect", Int32MultiArray, evaluarPrecondicion)
     rospy.Subscriber("preConditionsSetting", Int32MultiArray, setting)	    
     rospy.Subscriber("topicoEstado", Int32MultiArray, setEstado)

@@ -118,7 +118,7 @@ def processSensorLineDetectedColorData(data):
 
 def processProximitySensorData(data):
     global action
-    if data.data < 0.25:
+    if data.data[1] < 0.25:
         action = ACTION_BACK
         print "ATRAS"
     #print data.data
@@ -131,7 +131,7 @@ def actuar():
     global motorLibre
      
     if cumplePrecondiciones () and nivelActivacion>0 and motorLibre:
-'''
+        '''
         # Aca iria la operacion de wander.
         msg = Float64MultiArray()  
         if identify == 2:
@@ -140,7 +140,7 @@ def actuar():
             msg.data = [identify,5,5] 
         	 
         motores.publish(msg)     
-'''
+        '''
         # SE DEBE RECIBIR EL PARAMETRO DEL COLOR DE LA LINEA. POR AHORA ES SOLO NEGRO.
         wander(Const.SENSOR_COLOR_DETECT_BLACK)
 
@@ -171,15 +171,23 @@ def atenderMotorLockeado(data):
 
 def verificarPoscondicionesSensores(data):
     activate=False
-    
+
+    #se puede evaluar aca o bien suscribirse a varios topicos y solo llamar a atendersensores (VER CAUL ES MEJOR ESTRATEGIA)
+    if data.data[0]==0:
+        processSensorLineDetectedColorData(data)
+
+    if data.data[0]==1:
+        processProximitySensorData(data)
+
+
     
     #esto es para probar con un comportamiento loc con otro color se haria con un topico de parametros     
     if identify==2:
-        if data.data[0] == 3:
+        if data.data[0] == 0 and data.data[2] == 3:
             print "se cumple postcondicion localizar"
 	    activate=True
     else:
-        if data.data[0] == 0 or data.data[0] == 2:#para que sea de permanencia hay que revisar
+        if data.data[0] == 0 and (data.data[2] == 0 or data.data[2] == 2):#para que sea de permanencia, hay que revisar
             print "se cumple postcondicion localizar"
 	    activate=True
     
@@ -486,7 +494,7 @@ if __name__ == '__main__':
     motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
     postConditionDetect = rospy.Publisher('postConditionDetect', Int32MultiArray, queue_size=10) #usado para aprender
     preConditionDetect = rospy.Publisher('preConditionDetect', Int32MultiArray, queue_size=10) #usado para ejecutar
-    rospy.Subscriber("input", Int32MultiArray, atenderSensores)
+    rospy.Subscriber("topicoSensores", Float64MultiArray, atenderSensores)
     rospy.Subscriber("preConditionDetect", Int32MultiArray, evaluarPrecondicion)
     rospy.Subscriber("preConditionsSetting", Int32MultiArray, setting)	    
     rospy.Subscriber("topicoEstado", Int32MultiArray, setEstado)
@@ -498,8 +506,8 @@ if __name__ == '__main__':
     rospy.Subscriber("topicoMotorLockeado", Int32MultiArray, atenderMotorLockeado)
     solicitarOLiberarMotores=rospy.Publisher('topicosolicitarOLiberarMotores', Int32MultiArray, queue_size=10) 
     
-    rospy.Subscriber("sensorLineDetectedColorData", Float64MultiArray, processSensorLineDetectedColorData)
-    rospy.Subscriber("proximitySensorData", Float64, processProximitySensorData)
+  #  rospy.Subscriber("sensorLineDetectedColorData", Float64MultiArray, processSensorLineDetectedColorData)
+   # rospy.Subscriber("proximitySensorData", Float64, processProximitySensorData)
    
     rospy.spin()
     
