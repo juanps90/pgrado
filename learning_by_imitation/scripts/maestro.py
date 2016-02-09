@@ -287,11 +287,12 @@ def crearEnlaces(linksACrear):
             nodosLanzados.append(it[2])
      
     #se envian los links a los nodos el sleep es para esperar que los nodos esten listos se puede hacer un waitmensaje
-    time.sleep(1)
+    time.sleep(2)
     for it in linksACrear:
         msg = Int32MultiArray()
-        msg.data = [it[0], it[2], it[4]]#id nodo 1 y 2 y tipo de link	
-        pub.publish(msg)  
+        msg.data = [it[0], it[2], it[4]]#id nodo 1 y 2 y tipo de link	         
+        rospy.loginfo(msg.data)
+        pub.publish(msg) 
 
 
 #se elimina un nodo de la lista habria que verificar si pasaron menos de tiempoBad desde que inicio el comportamiento actual y existe anterior
@@ -794,16 +795,18 @@ if __name__ == '__main__':
 	    #linkEnEjecucion=[(0,1,1,2,0),(0,1,2,1,0),(0,1,3,0,0),(1,2,3,0,0),(2,1,3,0,0),(1,1,2,1,0)]
 
 
-	    #linkEnEjecucion=[(0,1,1,2,0),(0,1,2,1,0),(0,1,3,0,0),(1,2,3,0,0),(2,1,3,0,0)]	
-	    #crearEnlaces(linkEnEjecucion)
+	    enlaces=[(0,1,1,2,2),(0,1,2,0,0),(1,2,2,0,0)]	     
 
-            enlaces=recuperarEnlaces()
+            #enlaces=recuperarEnlaces()
 
             crearEnlaces(enlaces)
+
+            time.sleep(2)
 	    	    
 	    #topologia=[(0,1),(0,2),(1,3),(2,3)]
+            topologia=[(0,1),(1,2)]
 
-            topologia=recuperarTopologia()	
+            #topologia=recuperarTopologia()	
 
             sucesoresTopologicos=sucesoresTopologicos (topologia)
             print "sucesores: ",sucesoresTopologicos
@@ -815,7 +818,7 @@ if __name__ == '__main__':
 	    
 	    #se deberia esperar a que los comportamientos se activen sino no reciben el mensaje de estado
 	    #se podria esperar un mensaje es decir por medio de wait
-	    time.sleep(1)
+	    time.sleep(2)
 	    
 	    
 	    msg.data = [2,2] 

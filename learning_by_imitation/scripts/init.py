@@ -32,7 +32,7 @@ estado=1
 nodoEnEjecucion=-1
 nodoEnEjecucionAnterior=-2
 caminos=[]
-
+dicPostCondicion={}#diccionario que se usa para evaluar un cambio de postcondicion de apagado a prendido y viceversa
 
 
     
@@ -89,18 +89,9 @@ def setting(data):
     print "entro en setting localizar "
     
     # data.data[0] = fromCompID, data.data[1] = toCompID, data.data[2] = linkType. linkType puede ser permantente(0), de orden(1) o de habilitacion(2)
-    if data.data[1] == identify:
-        print "es mi id"
-        if data.data[2] == 2:
-            permanent[data.data[0]] = False
-	    print "permanente "
-            print len(permanent)
-        elif data.data[2] == 1:
-            print "habilitacion "
-            enablig[data.data[0]] = False
-        elif data.data[2] == 0:
-            print "orden "
-            ordering[data.data[0]] = False
+    if data.data[1] == identify and data.data[2] == 0:       
+        ordering[data.data[0]] = False
+        rospy.loginfo("init entro orden "+str(ordering)+str(data.data)) 
 
 '''
     global reejecutar
@@ -164,18 +155,19 @@ def arranqueNivel():
         nodoEjecutando
     '''
     
+
+
+    '''
     rospy.loginfo("finalizo "+str(finalizo))   
     if nodoEnEjecucionAnterior == nodoEnEjecucion and not finalizo:
         return
     else:
         nodoEnEjecucionAnterior=nodoEnEjecucion 
-     
-    '''   
-    #para todos los nodos envia el valor para que se inicie el nivel
-    for o in ordering:
-        msg.data = [identify, -1]#manda para atras el nivel inicial
-        nivel.publish(msg)   
+
     '''
+
+     
+     
             
     msg.data = [identify, -1]#manda para atras el nivel inicial
     nivel.publish(msg)        
@@ -190,7 +182,7 @@ def arranqueNivel():
     for c in caminos:
         ultimoNodo=c[len(c)-1] #ultimo nodo del camino previo
         #se verifica a cual de los link pertenece
-        rospy.loginfo("ultimo nodo: "+str(ultimoNodo))
+        rospy.loginfo("ultimo nodo: "+str(ultimoNodo) + " "+ str(ordering))
         if ordering.has_key(ultimoNodo):
             rospy.loginfo("enabling init : "+str(ordering[ultimoNodo]))
             if not ordering[ultimoNodo]: 
@@ -214,21 +206,36 @@ def arranqueNivel():
 #a una precondicion del nodo actual 
 def evaluarPrecondicion(data):
     global ordering
+    global dicPostCondicion
     skip = False
-    comportamiento=data.data[0] 
+    nodo=data.data[0] 
     postcondicion=data.data[1]
 
-    if ordering.has_key(comportamiento):
-        ordering[comportamiento] = ordering[comportamiento] or (postcondicion == 1)  
+    if ordering.has_key(nodo):
+        ordering[nodo] = ordering[nodo] or (postcondicion == 1)  
        
 
     #se detecta cumplimiento de una postcondicion...entonces el init manda su nivel de activacion para
     #atras...si un nodo recibe y puede ejecutar ejecuta, si no puede manda
     #su nivel para atras y pone su nivel en 0 (no es tan asi VERIFICAR)
-    if postcondicion:
+    #if postcondicion:
+    
+
+    #si hay un cambio en la postcondicion de algun nodo se lanza nivel
+    activarNivel=False
+    if not dicPostCondicion.has_key(nodo):
+        dicPostCondicion[nodo]=postcondicion
+        activarNivel=True
+
+    if dicPostCondicion[nodo]!=postcondicion:
+        dicPostCondicion[nodo]=postcondicion 
+        activarNivel=True
+
+
+    if activarNivel:
         arranqueNivel()
 
- 
+    rospy.loginfo("activarNivel "+str(activarNivel))
 
 
 if __name__ == '__main__':
@@ -239,7 +246,7 @@ if __name__ == '__main__':
     
     #global identify
     identify=int(rospy.myargv(argv=sys.argv)[1])
-    rospy.loginfo("identificador localizar "+str(identify))
+    rospy.loginfo("identificador init "+str(identify))
 
     motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
     postConditionDetect = rospy.Publisher('postConditionDetect', Int32MultiArray, queue_size=10) #usado para aprender

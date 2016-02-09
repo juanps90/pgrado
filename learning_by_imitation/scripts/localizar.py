@@ -37,10 +37,10 @@ caminos=[]
 def actuar():
     global motores
     global motorLibre
-    msg = Int32MultiArray()   
+     
     if cumplePrecondiciones () and nivelActivacion>0 and motorLibre:
         # Aca iria la operacion de wander.
-        
+        msg = Float64MultiArray()  
         if identify == 2:
             msg.data = [identify,-5,-5] 
         else:
@@ -51,8 +51,9 @@ def actuar():
         rospy.loginfo(">>>ON localizar id:"+str(identify))
         #rospy.loginfo( nivelActivacion)
         ejecutando=True
-        msg.data = [identify,identify] #por si necesito otro parametro        
-        nodoEjecutando.publish(msg) 
+        msg2 = Int32MultiArray()  
+        msg2.data = [identify,identify] #por si necesito otro parametro        
+        nodoEjecutando.publish(msg2) 
     else: 
 	rospy.loginfo(">>>OFF localizar id:"+str(identify))
 	ejecutando=False
@@ -121,10 +122,11 @@ def atenderSensores(data):
 	msg.data = [idComportamiento,valorEncendido]#se envia el id del comportamiento cuando se aprende
 	postConditionDetect.publish(msg)
     elif estado ==2:#ejecutar
-        nodoEjecutable = evaluarPrecondicionesPorCaminos() and nivelActivacion>0
+        cumplePrecondiciones=evaluarPrecondicionesPorCaminos()
+        nodoEjecutable = cumplePrecondiciones and nivelActivacion>0
         rospy.loginfo("nodo ejecutable localizar id:"+str(identify)+" "+str(nodoEjecutable))
         rospy.loginfo("post detec localizar id:"+str(identify)+" "+str(valorEncendido and nodoEjecutable))
-	msg.data = [identify,valorEncendido and nodoEjecutable]   #cuando se ejecuta se envia el id del nodo
+	msg.data = [identify,valorEncendido]   #cuando se ejecuta se envia el id del nodo
 	preConditionDetect.publish(msg)
 	
 	msg.data = [identify,nodoEjecutable,-1]  

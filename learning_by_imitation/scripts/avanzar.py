@@ -39,23 +39,22 @@ caminos=[]
 def actuar():
     global motores
     global motorLibre  
-    msg = Int32MultiArray()
+    
     if cumplePrecondiciones () and nivelActivacion>0 and motorLibre:
         # Aca iria la operacion de wander.  
         azar=randint(0,9)
+        msg = Float64MultiArray()
         if identify == 3:
             msg.data = [identify,0,-azar]
         else:
-            msg.data = [identify,0,azar]      
-        
-           
-         	 
+            msg.data = [identify,0,azar]          	 
         motores.publish(msg)             
         rospy.loginfo(">>>ON avanzar id:"+str(identify))
         #rospy.loginfo( nivelActivacion) 
         ejecutando=True
-        msg.data = [identify,identify] #por si necesito otro parametro        
-        nodoEjecutando.publish(msg) 
+        msg2 = Int32MultiArray()  
+        msg2.data = [identify,identify] #por si necesito otro parametro        
+        nodoEjecutando.publish(msg2)  
         
     else: 
 	rospy.loginfo(">>>OFF avanzar id:"+str(identify))
@@ -90,6 +89,7 @@ def verificarPoscondicionesSensores(data):
 
 
 
+#posiblemente haya mas sensores, se debe realizar una lectura de todos los sensores y luego de esto verificar si el estado es de ejecucion
 def atenderSensores(data):
     #se verifican las condiciones en base a los sensores
     verificarPoscondicionesSensores(data)
@@ -98,16 +98,14 @@ def atenderSensores(data):
     global postConditionDetect
     global preConditionDetect
     global estado
-    global solicitarOLiberarMotores
     msg = Int32MultiArray()
-
     
     valorEncendido=0
     if verificarPoscondicionesSensores(data):
         print "se cumple postcondicion avanzar"
         valorEncendido=1            
     else:#redundante solo para ver que paso
-	#rospy.loginfo("se apago postcondicion avanzar")
+	#rospy.loginfo("se apago postcondicion localizar")
 	valorEncendido=0       
     print "call avanzar"
     #rospy.loginfo(estado)
@@ -115,19 +113,18 @@ def atenderSensores(data):
 	msg.data = [idComportamiento,valorEncendido]#se envia el id del comportamiento cuando se aprende
 	postConditionDetect.publish(msg)
     elif estado ==2:#ejecutar
-        nodoEjecutable = evaluarPrecondicionesPorCaminos() and nivelActivacion>0
-        
-        rospy.loginfo("nodo ejecutable avanzar id:"+str(identify)+" "+str(nodoEjecutable))
+        cumplePrecondiciones=evaluarPrecondicionesPorCaminos()
+        nodoEjecutable = cumplePrecondiciones and nivelActivacion>0
+        rospy.loginfo("nodo ejecutable avanzar con id:"+str(identify)+" "+str(nodoEjecutable))
         rospy.loginfo("post detec avanzar id:"+str(identify)+" "+str(valorEncendido and nodoEjecutable))
-	msg.data = [identify,valorEncendido and nodoEjecutable]   #cuando se ejecuta se envia el id del nodo
+	msg.data = [identify,valorEncendido]   #cuando se ejecuta se envia el id del nodo
 	preConditionDetect.publish(msg)
 	
 	msg.data = [identify,nodoEjecutable,-1]  
 	solicitarOLiberarMotores.publish(msg)
 	
-	
-	
 	actuar()
+	
     
 
 
@@ -374,7 +371,7 @@ if __name__ == '__main__':
     nodoEjecutando=rospy.Publisher('topicoNodoEjecutando', Int32MultiArray, queue_size=10)
     rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, atenderNodoEjecutando)
     rospy.Subscriber("topicoMotorLockeado", Int32MultiArray, atenderMotorLockeado)
-    solicitarOLiberarMotores=rospy.Publisher('topicoSolicitarLockeo', Int32MultiArray, queue_size=10) 
+    solicitarOLiberarMotores=rospy.Publisher('topicosolicitarOLiberarMotores', Int32MultiArray, queue_size=10) 
     
     
     rospy.spin()

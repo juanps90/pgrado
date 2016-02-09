@@ -45,7 +45,7 @@ def atendersolicitarOLiberarMotores(data):
     elif NodoActivo == -1 and nodoEjecutable == 1:
         NodoActivo = nodo #se asigna al nodo 	
         
-    rospy.loginfo("motores nodo activo: " + str(NodoActivo))    
+    rospy.loginfo("motores nodo activo: " + str(NodoActivo) +str(data.data))    
         
     msg = Int32MultiArray()   
     msg.data = [identify,NodoActivo] #por si necesito los id del par motor     
