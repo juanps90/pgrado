@@ -14,8 +14,9 @@ import roslaunch.remote
 
 
 import rospy
-from std_msgs.msg import Int32MultiArray, Float64MultiArray
+from std_msgs.msg import Int32MultiArray, Float64MultiArray, Float64
 from random import randint
+import Const
 
 
 postConditionDetect = None
@@ -32,6 +33,97 @@ estado=1
 motorLibre=False
 caminos=[]
 
+ACTION_FORWARD = 1
+ACTION_TURN_LEFT = 2
+ACTION_TURN_RIGHT = 3
+ACTION_BACK = 4
+
+speed = 10
+action = ACTION_BACK
+dataSensorColor = [Const.SENSOR_COLOR_DETECT_WHITE, Const.SENSOR_COLOR_DETECT_WHITE, Const.SENSOR_COLOR_DETECT_WHITE]
+# delay = 0
+# changeTime = 0
+
+
+def getAction(color):
+    global action
+    if dataSensorColor[0] == color and dataSensorColor[1] == Const.SENSOR_COLOR_DETECT_WHITE and dataSensorColor[2] == Const.SENSOR_COLOR_DETECT_WHITE:
+        action = ACTION_TURN_LEFT
+        print "IZQUIERDA"
+    elif dataSensorColor[0] == Const.SENSOR_COLOR_DETECT_WHITE and dataSensorColor[1] == Const.SENSOR_COLOR_DETECT_WHITE and dataSensorColor[2] == color:
+       action = ACTION_TURN_RIGHT
+       print "DERECHA"
+    elif dataSensorColor[0] == Const.SENSOR_COLOR_DETECT_WHITE and dataSensorColor[1] == color and dataSensorColor[2] == Const.SENSOR_COLOR_DETECT_WHITE:
+       action = ACTION_FORWARD
+       print "ADELANTE"
+    elif dataSensorColor[0] == color and dataSensorColor[1] == color and dataSensorColor[2] == Const.SENSOR_COLOR_DETECT_WHITE:
+       action = ACTION_TURN_LEFT
+       print "IZQUIERDA"
+    elif dataSensorColor[0] == Const.SENSOR_COLOR_DETECT_WHITE and dataSensorColor[1] == color and dataSensorColor[2] == color:
+       action = ACTION_TURN_RIGHT
+       print "DERECHA"
+    elif dataSensorColor[0] == color and dataSensorColor[1] == color and dataSensorColor[2] == color:
+       action = ACTION_TURN_RIGHT
+       print "DERECHA"
+       
+def publish(speedRight, speedLeft):
+    global identify
+    global motores
+    msg = Float64MultiArray()
+    msg.data = [identify, speedRight, speedLeft]
+    motores.publish(msg)
+
+def wander(color):
+    global speed
+    global action
+    global delay
+    global changeTime
+    global rate
+
+    getAction(color)        
+    
+    if action == ACTION_BACK:
+        # voy hacia atras
+        publish(-speed, -speed)
+    elif action == ACTION_FORWARD:
+        # sigo hacia adelante
+        publish(speed, speed)
+    elif action == ACTION_TURN_LEFT:
+        # girar a la izquierda
+        publish(speed/8, speed/2)
+    else:
+        # girar a la derecha
+        publish(speed/2, speed/8)
+    
+    if changeTime < rospy.Time.now():
+        if dataSensorColor[0] == Const.SENSOR_COLOR_DETECT_WHITE and dataSensorColor[1] == Const.SENSOR_COLOR_DETECT_WHITE and dataSensorColor[2] == Const.SENSOR_COLOR_DETECT_WHITE:
+            if action == ACTION_FORWARD or action == ACTION_BACK:
+                if randint(0, 1) == 0:
+                    action = ACTION_TURN_LEFT
+                    print "IZQUIERDA"
+                else:
+                    action = ACTION_TURN_RIGHT
+                    print "DERECHA"
+            else:
+                 action = ACTION_FORWARD
+                 print "ADELANTE"
+        delay = randint(2, 9)
+        changeTime = rospy.Time.now() + rospy.Duration(delay)
+    rate.sleep()
+
+def processSensorLineDetectedColorData(data):
+    global dataSensorColor
+    dataSensorColor = [data.data[1], data.data[2], data.data[3]]
+
+
+def processProximitySensorData(data):
+    global action
+    if data.data < 0.25:
+        action = ACTION_BACK
+        print "ATRAS"
+    #print data.data
+
+
 
 #se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores
 def actuar():
@@ -39,6 +131,7 @@ def actuar():
     global motorLibre
      
     if cumplePrecondiciones () and nivelActivacion>0 and motorLibre:
+'''
         # Aca iria la operacion de wander.
         msg = Float64MultiArray()  
         if identify == 2:
@@ -47,6 +140,10 @@ def actuar():
             msg.data = [identify,5,5] 
         	 
         motores.publish(msg)     
+'''
+        # SE DEBE RECIBIR EL PARAMETRO DEL COLOR DE LA LINEA. POR AHORA ES SOLO NEGRO.
+        wander(Const.SENSOR_COLOR_DETECT_BLACK)
+
         
         rospy.loginfo(">>>ON localizar id:"+str(identify))
         #rospy.loginfo( nivelActivacion)
@@ -372,6 +469,15 @@ if __name__ == '__main__':
 
     rospy.init_node('localizar', anonymous=True)
 
+    global delay
+    global changeTime
+    global rate
+#    
+    delay = 0
+    changeTime = rospy.Time.now() + rospy.Duration(delay)
+    rate = rospy.Rate(100)
+    
+    
     
     #global identify
     identify=int(rospy.myargv(argv=sys.argv)[1])
@@ -392,7 +498,8 @@ if __name__ == '__main__':
     rospy.Subscriber("topicoMotorLockeado", Int32MultiArray, atenderMotorLockeado)
     solicitarOLiberarMotores=rospy.Publisher('topicosolicitarOLiberarMotores', Int32MultiArray, queue_size=10) 
     
-
+    rospy.Subscriber("sensorLineDetectedColorData", Float64MultiArray, processSensorLineDetectedColorData)
+    rospy.Subscriber("proximitySensorData", Float64, processProximitySensorData)
    
     rospy.spin()
     

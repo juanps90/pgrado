@@ -32,12 +32,13 @@ nivelActivacion=0
 estado=1
 motorLibre=False
 caminos=[]
-
+speed = 8
 
 
 #se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores
 def actuar():
     global motores
+    '''
     global motorLibre  
     
     if cumplePrecondiciones () and nivelActivacion>0 and motorLibre:
@@ -49,6 +50,17 @@ def actuar():
         else:
             msg.data = [identify,0,azar]          	 
         motores.publish(msg)             
+    '''
+    global motorLibre
+    global identify
+    msg = Int32MultiArray()
+    msgMotores = Float64MultiArray()
+    if cumplePrecondiciones () and nivelActivacion>0 and motorLibre:
+        # Aca iria la operacion de wander.
+    
+        msgMotores.data = [identify, speed, speed]
+        motores.publish(msgMotores)
+ 
         rospy.loginfo(">>>ON avanzar id:"+str(identify))
         #rospy.loginfo( nivelActivacion) 
         ejecutando=True

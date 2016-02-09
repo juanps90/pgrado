@@ -10,6 +10,7 @@ class LinkPoint:
         
 		# ------ Datos para calculos de valores --------
         self.values = None
+        self.samePrefix = None
 		
 		# Indica el nodo al que apunta cuando se esta haciendo el algoritmo de similitud
 		# O sea el mas parecido

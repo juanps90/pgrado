@@ -36,11 +36,6 @@ def getAction(color):
        action = ACTION_TURN_RIGHT
        print "DERECHA"
        
-        
-    
-    
-    
-
 def publish(speedRight, speedLeft):
     global identify
     global motores
