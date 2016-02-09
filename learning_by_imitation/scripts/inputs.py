@@ -17,14 +17,17 @@ def messageSensorsLineDetectColor(data):
         #verde
         elif it > 0.4 and it < 0.5:
              sensorsData.append(Const.SENSOR_COLOR_DETECT_GREEN)
+        else:
+             sensorsData.append(Const.SENSOR_COLOR_DETECT_NONE)
 
-    msgSensorLineDetectColorData.data = [0,Const.SENSOR_COLOR_DETECT_LINE_ID, sensorsData[0], sensorsData[1], sensorsData[2]]
+    msgSensorLineDetectColorData.data = [Const.SENSOR_COLOR_DETECT_LINE_ID, sensorsData[0], sensorsData[1], sensorsData[2]]
     return msgSensorLineDetectColorData
        
 def processSensorLineDetectColorData(data): 
     
     ingreso = map(float, data.data.split('|'))
-    
+    print data.data
+    print ingreso
     sensores.publish(messageSensorsLineDetectColor(ingreso))
 
 
@@ -56,7 +59,7 @@ def inputsManual():
 
 def processProximitySensorData(data):
     msg = Float64MultiArray()
-    msg.data = [1,float(data.data)]
+    msg.data = [Const.SENSOR_NOSE_ULTRASONIC_ID, float(data.data)]
     sensores.publish(msg)
     print "Distancia = ", data.data
 
