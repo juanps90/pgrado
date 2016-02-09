@@ -3,7 +3,7 @@ import sys
 import time
 import rospy
 import roslaunch
-from std_msgs.msg import String, Int32MultiArray
+from std_msgs.msg import Int32MultiArray, Float64MultiArray
 
 pkg = "learning_by_imitation"#paquete donde se encuentran los archivo py
 id = 0
@@ -218,7 +218,7 @@ def mergeNodos(idEliminar,idModificar,nodoMergueado):
                 
 ############################ 
 #Lanzar un nodo para
-#ejecutar y para aprender
+#ejecutar o para aprender
 ############################               
                 
 def lanzarNodo(idNodo,idComportamiento): #es el id numerico del comportamiento 
@@ -247,6 +247,18 @@ def lanzarNodo(idNodo,idComportamiento): #es el id numerico del comportamiento
 
 def cargarDatos():
     print "cargar Datos mediante XML"
+
+
+#se deberian recuperar la topologia de un XML
+def recuperarTopologia():
+    global links
+    return crearTopologia(links)
+
+
+#se deberian recuperar los enlaces de un XML
+def recuperarEnlaces():
+    global links
+    return links
 
 
 
@@ -545,6 +557,27 @@ def buscarComportamiento(idNodo,linksBuscar):
 #creacion de caminos
 #######################
 
+#solo se usa para crear la topologia a partir de una sola demostracion
+def crearTopologia (enlaces):
+    salida =[]
+    aux={}#diccionario tendra todos los nodos y la cantidad de enlaces que tiene
+    for l in enlaces:
+        #se agregan al diccionario todos los nodos
+        if not aux.has_key(l[0]):
+            aux[l[0]]=0
+        #se agrega el nodo destino porque eventualmente podria ser el nodo final y no aparece como inicio de links
+        if not aux.has_key(l[2]):
+            aux[l[2]]=0
+        aux[l[0]]=aux[l[0]]+1
+    lista=aux.items()
+
+    ordenado=sorted(lista,key=lambda tup:tup[1])  
+    for i in range(len(ordenado)-1):
+        salida.append((ordenado[i+1][0],ordenado[i][0]))
+    return salida
+
+
+
 def sucesoresTopologicos (topologia):
     salida={}
     #dada una topologia el diccionario guarda como clave el id del nodo
@@ -572,7 +605,7 @@ def pathAntecesores( sucesoresTopologicos):
 
 
 
-#se recibe un path, se verifica si hay un path que concida hasta el final
+#se recibe un path, se verifica si hay un path que coincida hasta el final
 #en tal caso se sobreescribe el path mas corto que habia, la idea es que algun otro nodo se agrego al path..
 #luego el nuevo path se envia a los nodos sucesores de forma recursiva
 def recursionEnvioPath(nodo, pathAdd, caminos, sucesoresTopologicos):
@@ -694,7 +727,7 @@ if __name__ == '__main__':
     estado=rospy.Publisher('topicoEstado', Int32MultiArray, queue_size = 10)    
     nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10)
     rospy.Subscriber("postConditionDetect", Int32MultiArray, aprender)    
-    motores = rospy.Publisher('topicoActuarMotores', Int32MultiArray, queue_size=10)
+    motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
     pubCaminos = rospy.Publisher('topicoCaminos', Int32MultiArray, queue_size=100)
     #rospy.Subscriber("topicoCaminos", Int32MultiArray, atenderCaminos)
    
@@ -756,13 +789,22 @@ if __name__ == '__main__':
 	    #aca se podria cargar la lista de nodos a ejecutar por ahora uso los definidos en el metodo
 	    
 	    #links=[(0,1,1,2,0),(0,1,2,0,0),(1,2,2,0,0)]	
-	    grafoGeneral=[(0,1,1,2,0),(0,1,2,0,0),(1,2,2,0,0)] #para no complicarla mucho uso como general este link cortito
+	    #grafoGeneral=[(0,1,1,2,0),(0,1,2,0,0),(1,2,2,0,0)] #para no complicarla mucho uso como general este link cortito
 	    #linkEnEjecucion=[(0,1,1,2,0),(0,1,2,0,0),(1,2,2,0,0)]
 	    #linkEnEjecucion=[(0,1,1,2,0),(0,1,2,1,0),(0,1,3,0,0),(1,2,3,0,0),(2,1,3,0,0),(1,1,2,1,0)]
-	    linkEnEjecucion=[(0,1,1,2,0),(0,1,2,1,0),(0,1,3,0,0),(1,2,3,0,0),(2,1,3,0,0)]	
-	    crearEnlaces(linkEnEjecucion)
+
+
+	    #linkEnEjecucion=[(0,1,1,2,0),(0,1,2,1,0),(0,1,3,0,0),(1,2,3,0,0),(2,1,3,0,0)]	
+	    #crearEnlaces(linkEnEjecucion)
+
+            enlaces=recuperarEnlaces()
+
+            crearEnlaces(enlaces)
 	    	    
-	    topologia=[(0,1),(0,2),(1,3),(2,3)]
+	    #topologia=[(0,1),(0,2),(1,3),(2,3)]
+
+            topologia=recuperarTopologia()	
+
             sucesoresTopologicos=sucesoresTopologicos (topologia)
             print "sucesores: ",sucesoresTopologicos
             caminitos=pathAntecesores(sucesoresTopologicos)    
@@ -773,7 +815,7 @@ if __name__ == '__main__':
 	    
 	    #se deberia esperar a que los comportamientos se activen sino no reciben el mensaje de estado
 	    #se podria esperar un mensaje es decir por medio de wait
-	    time.sleep(2)
+	    time.sleep(1)
 	    
 	    
 	    msg.data = [2,2] 
@@ -803,7 +845,9 @@ if __name__ == '__main__':
 	    
 	elif entrada=="sc": 
 	    print separarCaminos()
-	    
+	elif entrada=="topo": 
+            linkEnEjecucion=[(0,0,1,1,0),(0,0,2,2,0),(0,0,3,3,0),(1,1,2,2,0),(1,1,3,3,0),(2,2,3,3,0)]
+	    print crearTopologia(linkEnEjecucion)   
 	    
 	elif entrada=="pp":   
 	    pathAntiguo =[2,3,4]

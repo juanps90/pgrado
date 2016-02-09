@@ -15,7 +15,7 @@ import roslaunch.remote
 
 import sys
 import rospy
-from std_msgs.msg import String, Int32MultiArray
+from std_msgs.msg import Int32MultiArray, Float64MultiArray
 from random import randint
 
 
@@ -32,25 +32,22 @@ nivelActivacion=0
 estado=1
 motorLibre=False
 caminos=[]
-
+speed = 8
 
 
 #se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores
 def actuar():
     global motores
-    global motorLibre  
+    global motorLibre
+    global identify
     msg = Int32MultiArray()
+    msgMotores = Float64MultiArray()
     if cumplePrecondiciones () and nivelActivacion>0 and motorLibre:
-        # Aca iria la operacion de wander.  
-        azar=randint(0,9)
-        if identify == 3:
-            msg.data = [identify,0,-azar]
-        else:
-            msg.data = [identify,0,azar]      
-        
-           
-         	 
-        motores.publish(msg)             
+        # Aca iria la operacion de wander.
+    
+        msgMotores.data = [identify, speed, speed]
+        motores.publish(msgMotores)
+
         rospy.loginfo(">>>ON avanzar id:"+str(identify))
         #rospy.loginfo( nivelActivacion) 
         ejecutando=True
@@ -361,7 +358,7 @@ if __name__ == '__main__':
     identify=int(rospy.myargv(argv=sys.argv)[1])
     rospy.loginfo("identificador avanzar "+str(identify))
 
-    motores = rospy.Publisher('topicoActuarMotores', Int32MultiArray, queue_size=10)
+    motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
     postConditionDetect = rospy.Publisher('postConditionDetect', Int32MultiArray, queue_size=10) #usado para aprender
     preConditionDetect = rospy.Publisher('preConditionDetect', Int32MultiArray, queue_size=10) #usado para ejecutar
     rospy.Subscriber("input", Int32MultiArray, atenderSensores)
