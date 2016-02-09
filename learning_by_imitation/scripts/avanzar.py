@@ -32,7 +32,7 @@ nivelActivacion=0
 estado=1
 motorLibre=False
 caminos=[]
-speed = 8
+speed = 1
 
 
 #se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores

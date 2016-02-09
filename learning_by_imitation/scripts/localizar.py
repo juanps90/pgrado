@@ -38,7 +38,7 @@ ACTION_TURN_LEFT = 2
 ACTION_TURN_RIGHT = 3
 ACTION_BACK = 4
 
-speed = 10
+speed = 4
 action = ACTION_BACK
 dataSensorColor = [Const.SENSOR_COLOR_DETECT_WHITE, Const.SENSOR_COLOR_DETECT_WHITE, Const.SENSOR_COLOR_DETECT_WHITE]
 # delay = 0
@@ -483,7 +483,7 @@ if __name__ == '__main__':
 #    
     delay = 0
     changeTime = rospy.Time.now() + rospy.Duration(delay)
-    rate = rospy.Rate(100)
+    rate = rospy.Rate(10)
     
     
     
