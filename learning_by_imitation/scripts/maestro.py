@@ -3,6 +3,7 @@ import sys
 import time
 import rospy
 import roslaunch
+import lcs
 from std_msgs.msg import Int32MultiArray, Float64MultiArray
 
 pkg = "learning_by_imitation"#paquete donde se encuentran los archivo py
@@ -14,6 +15,10 @@ nodosLanzados={}
 nodos = []
 links = []
 linkEnEjecucion=[]
+
+dicNodoComp={}#asocia id de nodo con comportamiento
+dicNodoParam={}#asocia nodo con comportamiento
+
 
 errorRuido=2000#usado para errores de ruido
 epsilon=2000#usado para determinar tipos de links puede pasar que se cierre un comportamiento luego de cerrar otro
@@ -44,11 +49,17 @@ def aprender(data):
         callback(data)
         
 
+
+#se pueden pasar parametros como un array donde el primer elemento indica el tipo 
+#de parametro y el segundo cantidad de valores los demas serian los daots, con un for se recorre etc
 def callback(data): 
     comportamiento=data.data[0] 
     postcondicion=data.data[1]
-           
-   #print "valor postcondicion: ",postcondicion," comportamiento: ",comportamiento
+    #tipoParam=data.data[2] 
+    #cantValores=data.data[3]  
+    #valor=data.data[4] 
+              
+    #print "valor postcondicion: ",postcondicion," comportamiento: ",comportamiento
 
     global nodos
     global id
@@ -141,9 +152,17 @@ def offLine ():
             print "valores de nodos a borrar ",auxNodo,auxNodo[2]-auxNodo[1] 
             
     print "generando links"
-    print "tamanio nodos ",len(nodos)
-
+    print "tamanio nodos ",len(nodos) 
     for n1 in nodos  :
+        #carga los diccionarios
+        if not  dicNodoComp.has_key(n1[0]):
+            dicNodoComp[n1[0]]= n1[1] 
+
+        if not  dicNodoParam.has_key(n1[0]):
+            dicNodoParam[n1[0]]= n1[4]
+
+
+
         for n2 in nodos  :
             if n1[0] != n2[0] and n1[1] <= n2[1]:#son nodos distintos y n2 se agrego luego que n1   
 
@@ -158,16 +177,23 @@ def offLine ():
                 elif n1[2]+epsilon<n2[1]: #el final de n1 es menor al inicio de n2
                     tipoLink=0 #orden  
                 if tipoLink!=-1:  
-                    # links.append((n1[0],n2[0],tipoLink))
-                    links.append((n1[0],n1[3] ,n2[0],n2[3] ,tipoLink))#id nodo 1 (2) comportamiento nodo 1 (2)
+                    #links.append((n1[0],n1[3] ,n2[0],n2[3] ,tipoLink))#id nodo 1 (2) comportamiento nodo 1 (2)
+                    links.append((n1[0],n2[0] ,tipoLink))
                 else:
                     print "el nodo no se agrego"
  
     agregarNodoInit()
-    
+
+ 
+    lcs.nuevaDemostracion( crearTopologia (links),links)
+        
+
+
     # print "links ",links
     for it in links:       
-        print "links ",it[1]," ",it[3]," ",it[4]
+        print "links ",it[0]," ",it[1]," ",it[2]
+
+    
 	
 
 #se desacopla de offline para poder usar el metodo anterior en el metodo go, ya que ahi no se necesita este nodo init
@@ -176,7 +202,15 @@ def agregarNodoInit():
     global links
     global nodos     
     for n in nodos  :
-        links.append((n[0],n[3] ,identify,0 ,0))
+        links.append((n[0],identify,0))
+
+    if not  dicNodoComp.has_key(identify):
+        dicNodoComp[identify]= 0
+
+    if not  dicNodoParam.has_key(identify):
+        dicNodoParam[identify]= {}
+
+
     
      
 def nodoActivo(comportamiento):
@@ -215,6 +249,35 @@ def mergeNodos(idEliminar,idModificar,nodoMergueado):
             pasosRestantes=pasosRestantes-1	   
             if pasosRestantes<=0:
                 return
+
+
+
+#solo se usa para crear la topologia a partir de una sola demostracion
+def crearTopologia (enlaces):
+    salida =[]
+    aux={}#diccionario tendra todos los nodos y la cantidad de enlaces que tiene
+    print "links cretto",enlaces
+    for l in enlaces:
+        #se agregan al diccionario todos los nodos
+        if not aux.has_key(l[0]):
+            aux[l[0]]=0
+        #se agrega el nodo destino porque eventualmente podria ser el nodo final y no aparece como inicio de links
+        if not aux.has_key(l[1]):
+            aux[l[1]]=0
+        aux[l[0]]=aux[l[0]]+1
+    lista=aux.items()
+
+    #ordena por largo del camino
+    ordenado=sorted(lista,key=lambda tup:tup[1])  
+    for i in range(len(ordenado)-1):
+        salida.append((ordenado[i+1][0],ordenado[i][0]))
+    print "links cretto",enlaces," salida ",salida
+    return salida
+
+
+def merggearNuevaDemo():
+    global links
+    lcs.nuevaDemostracion( crearTopologia (links),links)
                 
 ############################ 
 #Lanzar un nodo para
@@ -251,14 +314,16 @@ def cargarDatos():
 
 #se deberian recuperar la topologia de un XML
 def recuperarTopologia():
-    global links
-    return crearTopologia(links)
+    #global links
+    #return crearTopologia(links)
+    return lcs.getTopologiaGeneral()    
 
 
 #se deberian recuperar los enlaces de un XML
 def recuperarEnlaces():
-    global links
-    return links
+    #global links
+    return lcs.getNetworkGeneral()
+
 
 
 
@@ -267,7 +332,7 @@ def recuperarEnlaces():
 def crearEnlaces(linksACrear):
     nodosLanzados=[] 
     global identify    
-    
+    global dicNodoComp
     for it in linksACrear:
         '''
         #hay que evitar lanzar el nodo init y hay que obtener su id VERIFICAR AL SACAR INIT DE ACA        
@@ -280,17 +345,17 @@ def crearEnlaces(linksACrear):
         '''
         #se lanzan los nodos del enlace en caso de no haber sido lanzados
         if( not it[0] in nodosLanzados):
-            nodosParaEjecutar[it[0]]=lanzarNodo(it[0],it[1])
+            nodosParaEjecutar[it[0]]=lanzarNodo(it[0],dicNodoComp[it[0]])
             nodosLanzados.append(it[0])
-        if( not it[2] in nodosLanzados):
-            nodosParaEjecutar[it[2]]=lanzarNodo(it[2],it[3])
-            nodosLanzados.append(it[2])
+        if( not it[1] in nodosLanzados):
+            nodosParaEjecutar[it[1]]=lanzarNodo(it[1],dicNodoComp[it[1]])
+            nodosLanzados.append(it[1])
      
     #se envian los links a los nodos el sleep es para esperar que los nodos esten listos se puede hacer un waitmensaje
     time.sleep(1)
     for it in linksACrear:
         msg = Int32MultiArray()
-        msg.data = [it[0], it[2], it[4]]#id nodo 1 y 2 y tipo de link	         
+        msg.data = [it[0], it[1], it[2]]#id nodo 1 y 2 y tipo de link	         
         rospy.loginfo(msg.data)
         pub.publish(msg) 
 
@@ -558,24 +623,6 @@ def buscarComportamiento(idNodo,linksBuscar):
 #creacion de caminos
 #######################
 
-#solo se usa para crear la topologia a partir de una sola demostracion
-def crearTopologia (enlaces):
-    salida =[]
-    aux={}#diccionario tendra todos los nodos y la cantidad de enlaces que tiene
-    for l in enlaces:
-        #se agregan al diccionario todos los nodos
-        if not aux.has_key(l[0]):
-            aux[l[0]]=0
-        #se agrega el nodo destino porque eventualmente podria ser el nodo final y no aparece como inicio de links
-        if not aux.has_key(l[2]):
-            aux[l[2]]=0
-        aux[l[0]]=aux[l[0]]+1
-    lista=aux.items()
-
-    ordenado=sorted(lista,key=lambda tup:tup[1])  
-    for i in range(len(ordenado)-1):
-        salida.append((ordenado[i+1][0],ordenado[i][0]))
-    return salida
 
 
 
@@ -742,16 +789,17 @@ if __name__ == '__main__':
     msg = Int32MultiArray()
     while entrada != "salir":
         if entrada=="finDemo":
+            '''
+
             for it in nodosParaAprender.values():
                 print it.stop()
 	
             for it in nodosParaEjecutar.values():
                 print it.stop()	
+            '''
             fase="nada"
             msg.data = [0,1]#debe avisar antes de hacer offline que se cierra asi no quedan mensajes colgados 
             estado.publish(msg)
-            for it in nodosParaAprender.values():
-                print it.stop()	
             offLine()
             agregarNodoInit()#agrega el nodo init al final de link y agrega enlaces de orden
             #aca se podria agregar el comportamiento del capitulo 5
@@ -795,18 +843,24 @@ if __name__ == '__main__':
 	    #linkEnEjecucion=[(0,1,1,2,0),(0,1,2,1,0),(0,1,3,0,0),(1,2,3,0,0),(2,1,3,0,0),(1,1,2,1,0)]
 
 
-	    enlaces=[(0,1,1,2,2),(0,1,2,0,0),(1,2,2,0,0)]	     
+       
+            dicNodoComp=lcs.getDicComportamientos()
+            dicNodoParam=lcs.getDicParametros()
 
-           # enlaces=recuperarEnlaces()
+	    #enlaces=[(0,1,1,2,2),(0,1,2,0,0),(1,2,2,0,0)]	     
+
+            enlaces=recuperarEnlaces()
 
             crearEnlaces(enlaces)
 
             time.sleep(1)
 	    	    
 	    #topologia=[(0,1),(0,2),(1,3),(2,3)]
-            topologia=[(0,1),(1,2)]
+            #topologia=[(0,1),(1,2)]
 
-            #topologia=recuperarTopologia()	
+
+
+            topologia=recuperarTopologia()	
 
             sucesoresTopologicos=sucesoresTopologicos (topologia)
             print "sucesores: ",sucesoresTopologicos
@@ -849,9 +903,14 @@ if __name__ == '__main__':
 	elif entrada=="sc": 
 	    print separarCaminos()
 	elif entrada=="topo": 
-            linkEnEjecucion=[(0,0,1,1,0),(0,0,2,2,0),(0,0,3,3,0),(1,1,2,2,0),(1,1,3,3,0),(2,2,3,3,0)]
+            linkEnEjecucion=[(0,1,0),(0,2,0),(0,3,0),(1,2,0),(1,3,0),(2,3,0)]
 	    print crearTopologia(linkEnEjecucion)   
 	    
+
+	elif entrada=="lcs":
+            lcs.probarLCS()
+	elif entrada=="lcsPapper":
+            lcs.probarLCSPapper()
 	elif entrada=="pp":   
 	    pathAntiguo =[2,3,4]
 	    pathNuevo=[3,4]
