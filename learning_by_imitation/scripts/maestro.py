@@ -19,6 +19,8 @@ linkEnEjecucion=[]
 dicNodoComp={}#asocia id de nodo con comportamiento
 dicNodoParam={}#asocia nodo con comportamiento
 
+auxDicNodoComp={}
+auxDicNodoParam={}
 
 errorRuido=2000#usado para errores de ruido
 epsilon=2000#usado para determinar tipos de links puede pasar que se cierre un comportamiento luego de cerrar otro
@@ -143,6 +145,8 @@ def offLine ():
     global id
     global identify
     global links
+    global auxDicNodoComp
+    global auxDicNodoParam
     identify=id #ultimo nodo es el init
     for n in range(len(nodos)-1,-1,-1):
         auxNodo=nodos[n]
@@ -155,11 +159,11 @@ def offLine ():
     print "tamanio nodos ",len(nodos) 
     for n1 in nodos  :
         #carga los diccionarios
-        if not  dicNodoComp.has_key(n1[0]):
-            dicNodoComp[n1[0]]= n1[1] 
+        if not  auxDicNodoComp.has_key(n1[0]):
+            auxDicNodoComp[n1[0]]= n1[3] 
 
-        if not  dicNodoParam.has_key(n1[0]):
-            dicNodoParam[n1[0]]= n1[4]
+        if not  auxDicNodoParam.has_key(n1[0]):
+            auxDicNodoParam[n1[0]]= n1[4]
 
 
 
@@ -185,7 +189,7 @@ def offLine ():
     agregarNodoInit()
 
  
-    lcs.nuevaDemostracion( crearTopologia (links),links)
+
         
 
 
@@ -200,15 +204,17 @@ def offLine ():
 #tal vez si se necesite ya que de habeer un solo nodo no hay links que agregar
 def agregarNodoInit():
     global links
-    global nodos     
+    global nodos  
+    global auxDicNodoComp
+    global auxDicNodoParam   
     for n in nodos  :
         links.append((n[0],identify,0))
 
-    if not  dicNodoComp.has_key(identify):
-        dicNodoComp[identify]= 0
+    if not  auxDicNodoComp.has_key(identify):
+        auxDicNodoComp[identify]= 0
 
-    if not  dicNodoParam.has_key(identify):
-        dicNodoParam[identify]= {}
+    if not  auxDicNodoParam.has_key(identify):
+        auxDicNodoParam[identify]= {}
 
 
     
@@ -789,20 +795,23 @@ if __name__ == '__main__':
     msg = Int32MultiArray()
     while entrada != "salir":
         if entrada=="finDemo":
-            '''
+             
 
             for it in nodosParaAprender.values():
                 print it.stop()
 	
             for it in nodosParaEjecutar.values():
                 print it.stop()	
-            '''
+             
             fase="nada"
             msg.data = [0,1]#debe avisar antes de hacer offline que se cierra asi no quedan mensajes colgados 
             estado.publish(msg)
             offLine()
-            agregarNodoInit()#agrega el nodo init al final de link y agrega enlaces de orden
+            #agregarNodoInit()#agrega el nodo init al final de link y agrega enlaces de orden
             #aca se podria agregar el comportamiento del capitulo 5
+            lcs.setDicParametros(auxDicNodoParam)
+            lcs.setDicComportamientos(auxDicNodoComp)
+            lcs.nuevaDemostracion( crearTopologia (links),links) 
 	               
         elif entrada=="aprender":
             #mata los nodos que hubiera activos

@@ -1071,7 +1071,7 @@ def probarAlternancia2():
     
 #Estos son lo que estan mejor 
 #probarComeHereGoCaminos()
-probarBad()
+#probarBad()
 
 #el comeHereGo no le hice verificar que no haya un camino igual
 #probarBadCaminos()

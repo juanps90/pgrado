@@ -180,7 +180,7 @@ def graficarTopologia(topologia,idArchivo):
     file.write("digraph pcspec{\n\n")  
 
     for t in topologia:
-        label=diccionario[t[0]]+ "-"+diccionario[t[1]]
+        label=str(diccionario[t[0]])+ "-"+str(diccionario[t[1]])
         file.write(str(t[0])+ "->"+str(t[1])+' [ label="' + label + '" ]; \n') 
     file.write("}")
     file.close()
@@ -1071,7 +1071,7 @@ def probarAlternancia2():
     
 #Estos son lo que estan mejor 
 #probarComeHereGoCaminos()
-probarBad()
+#probarBad()
 
 #el comeHereGo no le hice verificar que no haya un camino igual
 #probarBadCaminos()
