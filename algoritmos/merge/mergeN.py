@@ -42,7 +42,6 @@ def obtener_caminos_iter(node, prevPoint, largo_nueva_corrida):
     l.lpoint = prevPoint                    # Enganchamos esta fila con la fila anterior
     
     l.values     = [-1] * largo_nueva_corrida    # Inicializamos la fila con el largo correcto
-    l.samePrefix = [False]   * largo_nueva_corrida
     l.mov        = [0]       * largo_nueva_corrida
     
     for sNode in node.childNodes:
@@ -75,48 +74,35 @@ def get_first(iterable, default=None):
 def calcN(nodePoint, curNode, j):
     
     if nodePoint is None or curNode is None:
-        return [0, False]
+        return 0
     
     node = nodePoint.thisNode
-   
-    print "Calcula: Node ",nodePoint.thisNode.letra, "(",curNode.letra,", pos: ",j,")"
     
     if(nodePoint.values[j] >= 0):
         # Si ya esta calculada lo retornamos
-        return [ nodePoint.values[j], nodePoint.samePrefix[j] ]
+        return nodePoint.values[j]
     
     if  equals(node, curNode):
-        
-        print  "[",node.letra,"]","Caso diagonal con j=",j," y w[j]=",curNode.letra
         res = calcN(nodePoint.lpoint, get_first(curNode.parentNodes), j -1 )
         
-        nodePoint.values[j] = 1 + res[0]
-        nodePoint.samePrefix[j] = res[1]
+        nodePoint.values[j] = 1 + res
         
         nodePoint.mov[j] = MOV_DIAGONAL
         
-        return [ nodePoint.values[j], nodePoint.samePrefix[j] ]
+        return nodePoint.values[j]
         
     # Caso no diagonal
-    print "[",node.letra,"]","Caso no diagonal (vs ",curNode.letra, ")"
-    
-    
-    # Calculamos el valor horizontal (consumir de la ejecucion nueva)
-    nodePoint.values     [j] = calcN(nodePoint, get_first(curNode.parentNodes), j-1)[0]
-    nodePoint.samePrefix [j] = False
+    nodePoint.values     [j] = calcN(nodePoint, get_first(curNode.parentNodes), j-1)
     nodePoint.mov        [j] = MOV_IZQUIERDA
     
-    print "Consumir la letra de w nos deja en ", nodePoint.values[j]
-    
-    # Comparamos con consumir de la corrida existente
-    val = calcN(nodePoint.lpoint, curNode, j)[0]  # vamos al nodo padre, pero mantenemos posicion horizontal
+    val = calcN(nodePoint.lpoint, curNode, j)  # vamos al nodo padre, pero mantenemos posicion horizontal
     print "Consumir del nodo me deja en ", val
     
     if val >0 and ( nodePoint.values[j] == 0 or val > nodePoint.values[j]):
         nodePoint.values[j] = val
         nodePoint.mov   [j] = MOV_ARRIBA
     
-    return [nodePoint.values[j], False]
+    return nodePoint.values[j]
 
 
 def enlazar(nodoAnterior, nNode, tipoEnlaceAnterior):
@@ -146,14 +132,20 @@ def graphregen(curNodePa, curNode, wordlen):
     
     while not curNodePa is None:
         
-        print "Estudiando: ", curNodePa.thisNode.letra, " vs ", curNode.letra
+        print "Estudiando: ", curNodePa.thisNode.letra, " vs ", 
+        
+        if not curNode is None:
+            print curNode.letra
+        else:
+            print " CURNODE SE ACABO"
+            
         print curNodePa.mov[j]
         
         
         if curNodePa.mov[j] == MOV_IZQUIERDA:
             
             while curNodePa.mov[j] == MOV_IZQUIERDA:
-                
+                print "CURNODE ES ", curNode.letra
                 # Se crea el nuevo nodo
                 nNode = Node()
                 nNode.letra = curNode.letra
@@ -163,7 +155,8 @@ def graphregen(curNodePa, curNode, wordlen):
                 
                 nodoAnterior = nNode
                 nodoSinUnir = nNode
-                tipoEnlaceAnterior = curNode.parentTypes[0]
+                
+                tipoEnlaceAnterior = get_first(curNode.parentNodes)
                 
                 curNode = get_first(curNode.parentNodes)
                 
@@ -276,9 +269,11 @@ def merge(g1,g2):
 
     # Largo de la nueva palabra
     seqLen = largo(g2)
-        
+    
+    
+    
     for p in g1.n:
-        nVal = calcN(p, g2, seqLen-1)[0]
+        nVal = calcN(p, g2, seqLen-1)
         nRatio = (float)(nVal-1) / max(p.length, seqLen)
         
         # Determinamos si es el mas parecido hasta el momento o no
@@ -294,11 +289,15 @@ def merge(g1,g2):
         graphregen(caminoMasSimilar, g2, seqLen)
         
 def clear(g):
+    if g is None:
+        return
+        
     for n in g.n:
-        lp = n
-        while not lp is None and not lp.values is None:
-            lp.values = None
-            lp = lp.lpoint
+        if not n.lpoint is None:
+            clear(n.lpoint.thisNode)
+        del n
+    del g.n
+    g.n = []
 
 
 
@@ -306,6 +305,7 @@ a = Aux()
 
 g1 = a.sampleGraph1() # G1 sera el acumulado hasta el momento
 g2 = a.sampleGraph2() # G2 es una nueva corrida
+g3 = a.sampleGraph3() # G3 es una nueva corrida
 
 largo_palabra = largo(g2)
 
@@ -318,4 +318,18 @@ merge(g1, g2)
 
 plot_simple(g1)
 
-#clear(g1)
+clear(g1)
+
+
+largo_palabra = largo(g3)
+
+preparar_grafo_lcs(g1, largo_palabra)
+
+plot(g1)
+
+
+merge(g1, g3)
+
+plot_simple(g1)
+
+clear(g1)

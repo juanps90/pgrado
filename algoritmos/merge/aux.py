@@ -69,3 +69,33 @@ class Aux:
         nK.parentTypes = [Node.LINK_ORD]
         
         return nINIT
+        
+    def sampleGraph3(self):
+        
+        nA = Node()
+        nA.letra = 'X'
+        
+      
+        nK = Node()
+        nK.letra = 'K'
+        
+        nD = Node()
+        nD.letra = 'D'
+        
+        nE = Node()
+        nE.letra = 'E'
+       
+        nINIT = Node()
+        
+
+        nINIT.parentNodes = [nE]
+        nE.parentNodes = [nD]
+        nD.parentNodes = [nK]
+        nK.parentNodes = [nA]
+        
+        nINIT.parentTypes = [Node.LINK_ORD]
+        nE.parentTypes = [Node.LINK_ORD]
+        nD.parentTypes = [Node.LINK_ORD]
+        nK.parentTypes = [Node.LINK_ORD]
+        
+        return nINIT
