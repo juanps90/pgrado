@@ -4,7 +4,6 @@ class LinkPoint:
         self.score = 0
 		
         self.lpoint = None
-        self.ltype  = None
         
         self.length = 0 # largo del camino
         
@@ -14,13 +13,7 @@ class LinkPoint:
 		
 		# Indica el nodo al que apunta cuando se esta haciendo el algoritmo de similitud
 		# O sea el mas parecido
-        self.refNode = None
-        # Indica la posicion a la que se hace referencia
-		# Es necesario indicarla porque cuando se cambia de nodo pueden pasar dos cosas
-		# 1- Es una diagonal, entonces hay que referenciar la celda anterior
-		# 2- Es un avance vertical, entonces se mantiene el mismo indice de celda
-		# A priori, no es posible determinarlo dado que se sabe que hay un cambio vertical
-        self.refNodePos = None
+        self.mov = None
         
         node.n.append(self)
 
@@ -39,8 +32,14 @@ class Node:
     
     def __init__(self):
         # ------ Datos de la estructura ------------
-        self.letra = None
-        self.n = [] # LinkPoint()
+        self.letra = None        
+        self.childNodes = [] # recorre el grafo al reves
+        self.parentNodes = []
+        self.parentTypes = []
+        
+        
+        # Valores del calculo
+        self.n = []
         # extraLinks
 	
     def run(self, conds):
