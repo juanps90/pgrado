@@ -28,6 +28,12 @@ class Aux:
         nC.parentNodes = [nA]
         nB.parentNodes = [nA]
         
+        nINIT.parentTypes = [Node.LINK_ORD]
+        nE.parentTypes = [Node.LINK_ORD]
+        nD.parentTypes = [Node.LINK_ORD, Node.LINK_ORD]
+        nC.parentTypes = [Node.LINK_ORD]
+        nB.parentTypes = [Node.LINK_ORD]
+        
         
         # Enlaces reversos
         nE.childNodes = [nINIT]

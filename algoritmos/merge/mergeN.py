@@ -107,10 +107,28 @@ def calcN(nodePoint, curNode, j):
 
 def enlazar(nodoAnterior, nNode, tipoEnlaceAnterior):
     # Agregar manejo de repetidos, network, etc.
+    for n in nodoAnterior.parentNodes:
+        if n is nNode:
+            return 0 # para evitar duplicados
+            
     nodoAnterior.parentNodes.append(nNode)
     nodoAnterior.parentTypes.append(tipoEnlaceAnterior)
     
     print "SE ENLAZA DESDE ", nodoAnterior.letra, " a ", nNode.letra
+
+# Debilita una arista en hasta maxNodeType
+# La arista es desde fromNode->toNode
+def debilitar(toNode, fromNode,maxNodeType):
+    print fromNode.letra, " a ", toNode.letra
+    i = 0
+    for n in fromNode.parentNodes:
+        print "I ES ", i
+        if n is toNode:
+            fromNode.parentTypes[i] = min(fromNode.parentTypes[i], maxNodeType)
+            return 0
+        i+=1
+            
+    
 
 # Sirve para consolidar el grafo luego de agregar otra demostracion
 # Este algoritmo asume que las preferencias al momento de elegir el siguiente nodo en el calculo de calcN
@@ -170,7 +188,16 @@ def graphregen(curNodePa, curNode, wordlen):
                 if not nodoSinUnir is None:
                     enlazar(nodoSinUnir, curNodePa.thisNode, tipoEnlaceAnterior)
                     nodoSinUnir = None
+                elif not nodoAnterior is None:
+                    # Arista completamente comun
+                    # Hubo un nodo anterior
+                    # y ademas tambien era coincidente
+                    debilitar(curNodePa.thisNode, nodoAnterior,tipoEnlaceAnterior)
+                    
                 j = j -1
+                
+                
+                tipoEnlaceAnterior = get_first(curNode.parentTypes)
                 
                 curNode = get_first(curNode.parentNodes)
                 
@@ -329,7 +356,7 @@ plot(g1)
 
 
 merge(g1, g3)
+clear(g1)
+
 
 plot_simple(g1)
-
-clear(g1)
