@@ -374,7 +374,7 @@ def atenderNivel (data):
     msg = Int32MultiArray()
     global nivelActivacion 
     if data.data[1] == identify:
-        rospy.loginfo("me llego nivel localizar  "+str(data.data[2])+":"+str(identify)+"<-"+str(data.data[1]))
+        rospy.loginfo("me llego nivel localizar  "+str(data.data[2])+": "+str(identify)+"<-"+str(data.data[0]))
         #no se suman niveles solo se verifica si es uno o cero
         nivelActivacion=data.data[2]
         nivelAtras=0

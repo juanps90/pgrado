@@ -58,8 +58,8 @@ def processHeadVisionSensor(data):
     print "processHeadVisionSensor = ", data.data
 
 def inputsManual():
-    print "Comienzo de la demostracion"
-    ingreso=raw_input()
+    print "Ingreso inputs manual"
+    ingreso=raw_input("> ")
     while ingreso!= "salir":
         # Aca se debe leer sensores     
 	

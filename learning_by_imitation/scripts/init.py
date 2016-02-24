@@ -204,8 +204,8 @@ def evaluarPrecondicion(data):
         activarNivel=True
 
 
-    #if activarNivel:
-    arranqueNivel()
+    if activarNivel:
+        arranqueNivel()
 
     rospy.loginfo("activarNivel "+str(activarNivel))
 

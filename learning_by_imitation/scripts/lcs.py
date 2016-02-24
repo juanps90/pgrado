@@ -405,7 +405,14 @@ def getDicParametros():
     return parComp
 
 def getDicComportamientos():
+    #esto solo para probar ejecutar sin demostrar
+    global topologiaGeneral
     global diccionario
+    global networkGeneral
+    if len (diccionario)==0:
+        diccionario={0:1,1:2,2:0}
+        networkGeneral=[(0,1,2),(0,2,0),(1,2,0)]
+        topologiaGeneral=[(0,1),(1,2)]
     return diccionario
 
 

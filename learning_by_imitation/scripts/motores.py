@@ -84,7 +84,7 @@ def actuarMotoresVREP(data):
                 
 
 if __name__ == '__main__':
-        print "iniciando motores"  
+        print "motores inicializados"  
 
         rospy.init_node('motores', anonymous=True)
         motoresLockeado = rospy.Publisher('topicoMotorLockeado', Int32MultiArray, queue_size=10)
