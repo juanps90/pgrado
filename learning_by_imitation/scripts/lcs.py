@@ -212,9 +212,11 @@ def graficarNetwork(network,idArchivo):
     os.system("dot "+idArchivo+".dot -T jpg > "+idArchivo+".jpg && eog "+idArchivo+".jpg ")
 
 
-
-
-
+def graficar(idArchivo):
+    global topologiaGeneral
+    global networkGeneral
+    graficarNetwork(networkGeneral,idArchivo)
+    graficarTopologia(topologiaGeneral,idArchivo)
 
 
 

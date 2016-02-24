@@ -366,9 +366,30 @@ def crearEnlaces(linksACrear):
         pub.publish(msg) 
 
 
+def ejecutarBad():
+    global nodoEjecutando 
+    global tiempoBad
+    tiempoActual=current_milli_time()
+    #si el nodo actual inicio hace menos de tiempoBad se borra el nodo anterior    
+    tiempoDif= tiempoActual - nodoEjecutando[1]
+    dentroDElTiempo=tiempoDif<tiempoBad
+    existeNodoAnterior=nodoEjecutando[0] >=0
+    
+    if existeNodoAnterior and dentroDElTiempo:
+        lcs.borrarNodoBad(nodoEjecutando[0])               
+    
+    #se elimina el nodo que esta en ejecucion, notar que si es el ultimo nodo tambien funciona porque al no haber
+    #comportamiento posteriores el valor de ejecutando queda seteado en el ultimo nodo, es decir solo se modifica si un
+    #nuevo nodo ejecuta, en caso de dejar de ejecutar no se notifica
+    else :
+        lcs.borrarNodoBad(nodoEjecutando[2])
+    lcs.graficar("bad")
+
+##lo siguiente de bad ya no iria
+
 #se elimina un nodo de la lista habria que verificar si pasaron menos de tiempoBad desde que inicio el comportamiento actual y existe anterior
 #en tal caso se elimina el nodo anterior si pasaron mas de tiempoEsperaBad segundos se asume que se quiere borrar el nodo actual Verificar
-def ejecutarBad(linksAModificar):
+def BACKejecutarBad(linksAModificar):
     global nodoEjecutando 
     global tiempoBad
     tiempoActual=current_milli_time()
@@ -485,16 +506,18 @@ def ejecutarGo():
     for it in nodosParaAprender.values():
         print it.stop()	
     print "antes de offline en go"   
-    offLine()
-    agregarNodoInit()         
-    print grafoGeneral    
-    cortarGo(links,grafoGeneral,idCome)     
+    offLine()         
+    print grafoGeneral   
+
+    lcs.cortarGoCaminos(grafoGeneral,links,idCome,nodoEjecutando[0])
+    lcs.graficar("go")
+    #cortarGo(links,grafoGeneral,idCome)     
     #se vuelve al estado ejecucion
     fase="ejecutar"
     msg.data = [2,2] 
     estado.publish(msg) 
     
-        
+#lo que sigue de go no iria       
 
 def cortarGo(nuevolinks,grafoGeneral,idCome): 
     if len(nuevolinks) ==0:
@@ -890,7 +913,7 @@ if __name__ == '__main__':
 	elif entrada=="bad":    
 	    #posiblemente se realice el algoritmo en vez de 
 	    #sobre linkEnEjecucion sobre el grafo general	    
-	    aux=ejecutarBad(linkEnEjecucion)
+	    aux=ejecutarBad()
 	    print  aux
 	    
 	elif entrada=="come":    
