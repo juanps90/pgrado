@@ -38,7 +38,7 @@ ACTION_TURN_LEFT = 2
 ACTION_TURN_RIGHT = 3
 ACTION_BACK = 4
 
-speed = 4
+speed = 2
 action = ACTION_BACK
 dataSensorColor = [Const.SENSOR_COLOR_DETECT_WHITE, Const.SENSOR_COLOR_DETECT_WHITE, Const.SENSOR_COLOR_DETECT_WHITE]
 # delay = 0
@@ -373,6 +373,7 @@ def atenderNivel (data):
   #  rospy.loginfo("Entro en nivel")
     msg = Int32MultiArray()
     global nivelActivacion 
+
     if data.data[1] == identify:
         rospy.loginfo("me llego nivel localizar  "+str(data.data[2])+": "+str(identify)+"<-"+str(data.data[0]))
         #no se suman niveles solo se verifica si es uno o cero
@@ -398,6 +399,8 @@ def atenderNivel (data):
 
 
 '''
+
+
 
 def atenderNivel (data):
   #  rospy.loginfo("Entro en nivel")
@@ -444,8 +447,8 @@ def atenderNivel (data):
 	for l in listaNodosAEnviarNivel:
 	    msg.data = [identify, l]#manda para atras el nivel  
             nivel.publish(msg)
-'''
 
+'''
 
 
 '''

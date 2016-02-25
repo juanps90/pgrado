@@ -321,7 +321,7 @@ def atenderNivel (data):
 	    msg.data = [identify, l]#manda para atras el nivel  
             nivel.publish(msg)
 ''' 
-    
+
     
     
 
@@ -329,6 +329,7 @@ def atenderNivel (data):
   #  rospy.loginfo("Entro en nivel")
     msg = Int32MultiArray()
     global nivelActivacion 
+
     if data.data[1] == identify:
         rospy.loginfo("me llego nivel avanzar  "+str(data.data[2])+": "+str(identify)+"<-"+str(data.data[0]))
         #no se suman niveles solo se verifica si es uno o cero
@@ -344,7 +345,6 @@ def atenderNivel (data):
             ultimoNodo=c[len(c)-1] #ultimo nodo del camino previo
 	    msg.data = [identify, ultimoNodo,nivelAtras]#manda para atras el nivel  
             nivel.publish(msg)
-
 
 
 

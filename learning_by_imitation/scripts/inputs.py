@@ -4,6 +4,9 @@ import rospy
 from std_msgs.msg import String, Float64, Float64MultiArray
 import Const
 
+contador=0
+topeContador=6
+
 def messageSensorsLineDetectColor(data):
     msgSensorLineDetectColorData = Float64MultiArray()
     sensorsData = []
@@ -21,11 +24,34 @@ def messageSensorsLineDetectColor(data):
              sensorsData.append(Const.SENSOR_COLOR_DETECT_NONE)
 
     msgSensorLineDetectColorData.data = [Const.SENSOR_COLOR_DETECT_LINE_ID, sensorsData[0], sensorsData[1], sensorsData[2]]
+    print "color: ",sensorsData[1]
     return msgSensorLineDetectColorData
        
 def processSensorLineDetectColorData(data): 
     ingreso = map(float, data.data.split('|'))
-    sensores.publish(messageSensorsLineDetectColor(ingreso))
+    global contador
+    global topeContador
+    if contador ==topeContador:
+        contador=0
+        sensores.publish(messageSensorsLineDetectColor(ingreso))
+    else:
+        contador=contador+1
+
+
+def processCommand(data):
+    msg = String()
+    if data.data == "INIT_LEARNING":
+        msg.data = str(Const.COMMAND_INIT_LEARNING)
+    elif data.data == "END_LEARNING":
+        msg.data = str(Const.COMMAND_END_LEARNING)
+    elif data.data == "PLAY":
+        msg.data = str(Const.COMMAND_PLAY)
+    elif data.data == "STOP":
+        msg.data = str(Const.COMMAND_STOP)
+    elif data.data == "BAD":
+        msg.data = str(Const.COMMAND_BAD)
+    command.publish(msg)
+
 
 # Se publica en sensores un array de Float64 donde los valores son
 # En la posicion 0 el id del sensor
@@ -54,12 +80,12 @@ def processHeadVisionSensor(data):
          codeColor = Const.SENSOR_COLOR_DETECT_ORANGE
 
     msgVisionSensorData.data = [Const.SENSOR_VISION_HEAD_ID, dataSensor[0], codeColor]
-    sensores.publish(msgVisionSensorData)
+    #sensores.publish(msgVisionSensorData)
     print "processHeadVisionSensor = ", data.data
 
 def inputsManual():
-    print "Ingreso inputs manual"
-    ingreso=raw_input("> ")
+    print "Comienzo de la demostracion"
+    ingreso=raw_input()
     while ingreso!= "salir":
         # Aca se debe leer sensores     
 	
@@ -82,13 +108,19 @@ def inputsManual():
 def processProximitySensorData(data):
     msg = Float64MultiArray()
     msg.data = [Const.SENSOR_NOSE_ULTRASONIC_ID, float(data.data)]
-    sensores.publish(msg)
+    #sensores.publish(msg)
 
 if __name__ == '__main__':
     print "sensado"
     rospy.init_node('inputs', anonymous=True)
     sensores = rospy.Publisher('topicoSensores', Float64MultiArray, queue_size=20)
     sensorLineDetectColorData = rospy.Publisher('sensorLineDetectedColorData', Float64MultiArray, queue_size=10)    
+    
+    
+    
+    #Me suscribo a datos de los commandos
+    rospy.Subscriber("/vrep/command", String, processCommand)
+    command = rospy.Publisher('command', String, queue_size=10)    
     
     #Me suscribo a datos de los sensores de vision que detectan colores en el suelo
     rospy.Subscriber("/vrep/sensorLineDetectColorData", String, processSensorLineDetectColorData)

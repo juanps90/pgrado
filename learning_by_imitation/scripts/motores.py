@@ -87,10 +87,10 @@ if __name__ == '__main__':
         print "motores inicializados"  
 
         rospy.init_node('motores', anonymous=True)
-        motoresLockeado = rospy.Publisher('topicoMotorLockeado', Int32MultiArray, queue_size=10)
+        motoresLockeado = rospy.Publisher('topicoMotorLockeado', Int32MultiArray, queue_size=1)
         rospy.Subscriber("topicoActuarMotores", Float64MultiArray, actuarMotoresVREP)
-        leftVelocity=rospy.Publisher('/vrep/leftMotorVelocity', Float64, queue_size = 10)
-        rightVelocity=rospy.Publisher('/vrep/rightMotorVelocity', Float64, queue_size = 10)
+        leftVelocity=rospy.Publisher('/vrep/leftMotorVelocity', Float64, queue_size = 1)
+        rightVelocity=rospy.Publisher('/vrep/rightMotorVelocity', Float64, queue_size = 1)
         rospy.Subscriber("topicosolicitarOLiberarMotores", Int32MultiArray, atendersolicitarOLiberarMotores)
    
         rospy.spin()
