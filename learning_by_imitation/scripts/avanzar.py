@@ -57,8 +57,8 @@ def actuar():
     msgMotores = Float64MultiArray()
     if cumplePrecondiciones () and nivelActivacion>0 and motorLibre:
         # Aca iria la operacion de wander.
-    
-        msgMotores.data = [identify, speed, speed]
+        azar=randint(0,2)
+        msgMotores.data = [identify, speed, azar]
         motores.publish(msgMotores)
  
         rospy.loginfo(">>>ON avanzar id:"+str(identify))

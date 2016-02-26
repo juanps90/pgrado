@@ -41,10 +41,12 @@ ACTION_BACK = 4
 speed = 2
 action = ACTION_BACK
 dataSensorColor = [Const.SENSOR_COLOR_DETECT_WHITE, Const.SENSOR_COLOR_DETECT_WHITE, Const.SENSOR_COLOR_DETECT_WHITE]
+
+recienEstuveEnColor=False
 # delay = 0
 # changeTime = 0
 
-
+'''
 def getAction(color):
     global action
     if dataSensorColor[0] == color and dataSensorColor[1] == Const.SENSOR_COLOR_DETECT_WHITE and dataSensorColor[2] == Const.SENSOR_COLOR_DETECT_WHITE:
@@ -65,6 +67,28 @@ def getAction(color):
     elif dataSensorColor[0] == color and dataSensorColor[1] == color and dataSensorColor[2] == color:
        action = ACTION_TURN_RIGHT
        print "DERECHA"
+'''       
+       
+       
+def getAction(color):
+    global action
+    global recienEstuveEnColor
+    if dataSensorColor[1] != color:
+        if dataSensorColor[0] == color and dataSensorColor[2] == color:
+            action = ACTION_BACK
+        elif dataSensorColor[0] == color:
+            action = ACTION_TURN_LEFT
+            print "IZQUIERDA"
+        elif dataSensorColor[1] == color:
+            action = ACTION_TURN_RIGHT
+            print "DERECHA"  
+        elif recienEstuveEnColor:
+            action = ACTION_BACK       
+    if dataSensorColor[0] == color or dataSensorColor[1] == color or dataSensorColor[2] == color  :
+        recienEstuveEnColor=True
+    else:    
+        recienEstuveEnColor=False
+       
        
 def publish(speedRight, speedLeft):
     global identify
@@ -84,6 +108,7 @@ def wander(color):
     
     if action == ACTION_BACK:
         # voy hacia atras
+        #azar=randint(0,2)
         publish(-speed, -speed)
     elif action == ACTION_FORWARD:
         # sigo hacia adelante
@@ -95,8 +120,8 @@ def wander(color):
         # girar a la derecha
         publish(speed/2, speed/8)
     
-    if changeTime < rospy.Time.now():
-        if dataSensorColor[0] == Const.SENSOR_COLOR_DETECT_WHITE and dataSensorColor[1] == Const.SENSOR_COLOR_DETECT_WHITE and dataSensorColor[2] == Const.SENSOR_COLOR_DETECT_WHITE:
+    if not recienEstuveEnColor and changeTime < rospy.Time.now():
+        if dataSensorColor[0] != color and dataSensorColor[1] != color and dataSensorColor[2] != color:
             if action == ACTION_FORWARD or action == ACTION_BACK:
                 if randint(0, 1) == 0:
                     action = ACTION_TURN_LEFT
@@ -109,7 +134,7 @@ def wander(color):
                  print "ADELANTE"
         delay = randint(2, 9)
         changeTime = rospy.Time.now() + rospy.Duration(delay)
-    rate.sleep()
+        rate.sleep()
 
 def processSensorLineDetectedColorData(data):
     global dataSensorColor
