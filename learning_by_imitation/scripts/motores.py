@@ -45,7 +45,7 @@ def atendersolicitarOLiberarMotores(data):
     elif NodoActivo == -1 and nodoEjecutable == 1:
         NodoActivo = nodo #se asigna al nodo 	
         
-    rospy.loginfo("motores nodo activo: " + str(NodoActivo) +str(data.data))    
+    print "motores nodo activo: ", str(NodoActivo),str(data.data)     
         
     msg = Int32MultiArray()   
     msg.data = [identify,NodoActivo] #por si necesito los id del par motor     
@@ -80,8 +80,11 @@ def actuarMotoresVREP(data):
  
                
 #al iniciar una nueva ejecucion se debe reiniciar la estructura                
-          
-                
+def setEstado(data):  
+       postConditionDetect = None
+       identify=0
+       NodoActivo = -1   
+       print "Llego estado" , data.data[0]        
 
 if __name__ == '__main__':
         print "motores inicializados"  
@@ -92,6 +95,8 @@ if __name__ == '__main__':
         leftVelocity=rospy.Publisher('/vrep/leftMotorVelocity', Float64, queue_size = 1)
         rightVelocity=rospy.Publisher('/vrep/rightMotorVelocity', Float64, queue_size = 1)
         rospy.Subscriber("topicosolicitarOLiberarMotores", Int32MultiArray, atendersolicitarOLiberarMotores)
+        rospy.Subscriber("topicoEstado", Int32MultiArray, setEstado)
+   
    
         rospy.spin()
         

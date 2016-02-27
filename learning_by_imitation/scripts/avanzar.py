@@ -11,11 +11,11 @@ import roslib.network
 import rospkg
 import roslaunch.core
 import roslaunch.remote
-
+import Const
 
 import sys
 import rospy
-from std_msgs.msg import Int32MultiArray, Float64MultiArray
+from std_msgs.msg import Int32MultiArray, Float64MultiArray,String
 from random import randint
 from comportamiento import comportamiento
 
@@ -27,12 +27,12 @@ from comportamiento import comportamiento
 
 class avanzar(comportamiento):
         
-        def __init__(self,identify): 
+    def __init__(self,identify): 
                 self.identify=identify 
                 self.idComportamiento=2
  
         #se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores
-        def actuar(self):
+    def actuar(self):
                 msg = Int32MultiArray()
                 msgMotores = Float64MultiArray()
                 if self.cumplePrecondiciones () and self.nivelActivacion>0 and self.motorLibre:
@@ -55,16 +55,20 @@ class avanzar(comportamiento):
 
  
 
-        def verificarPoscondicionesSensores(self,data):
-                activate=False
-
-                if data.data[0] == 0 and data.data[2] == 2: 
-                        print "se cumple postcondicion avanzar"
-                        activate=True
-                elif self.cumplePrecondiciones():#cumple precondiciones y no cumple postcondicion
-                        #actuar()
-                        print "no se cumple postcondicion"
-                return activate
+    def verificarPoscondicionesSensores(self,data):
+        activate=False
+	
+	if not data.has_key(Const.SENSOR_COLOR_DETECT_LINE_ID):
+	    return False
+	
+	sensado=data[Const.SENSOR_COLOR_DETECT_LINE_ID]	
+	self.processSensorLineDetectedColorData(sensado)		
+	#esto es para probar con un comportamiento loc con otro color se haria con un topico de parametros     
+	if sensado[1] == 2:
+	    print "se cumple postcondicion localizar"
+	    activate=True
+	print "Active localizar",activate
+        return activate
 
 
     
@@ -81,7 +85,7 @@ if __name__ == '__main__':
         
         
         #lo que sigue se podria ver de meter en comportamiento
-        rospy.Subscriber("topicoSensores", Float64MultiArray, l.atenderSensores)
+        rospy.Subscriber("topicoSensores", String, l.atenderSensores)
         rospy.Subscriber("preConditionDetect", Int32MultiArray, l.evaluarPrecondicion)
         rospy.Subscriber("preConditionsSetting", Int32MultiArray, l.setting)	    
         rospy.Subscriber("topicoEstado", Int32MultiArray, l.setEstado)

@@ -14,7 +14,7 @@ import roslaunch.remote
 
 
 import rospy
-from std_msgs.msg import Int32MultiArray, Float64MultiArray, Float64
+from std_msgs.msg import Int32MultiArray, Float64MultiArray, Float64,String
 from random import randint
 import Const
 from comportamiento import comportamiento
@@ -133,7 +133,7 @@ class localizar(comportamiento):
 		 
 
 
-
+    '''
     def verificarPoscondicionesSensores(self,data):
         activate=False
         #se puede evaluar aca o bien suscribirse a varios topicos y solo llamar a atendersensores (VER CAUL ES MEJOR ESTRATEGIA)
@@ -148,6 +148,35 @@ class localizar(comportamiento):
 	    activate=True
 	print "Active localizar",activate
         return activate
+    '''
+
+    def verificarPoscondicionesSensores(self,data):
+        activate=False
+	
+	if not data.has_key(Const.SENSOR_COLOR_DETECT_LINE_ID):
+	    return False
+	
+	sensado=data[Const.SENSOR_COLOR_DETECT_LINE_ID]	
+	self.processSensorLineDetectedColorData(sensado)	
+	#esto es para probar con un comportamiento loc con otro color se haria con un topico de parametros     
+	if sensado[1] == 0 or sensado[1] == 2:#para que sea de permanencia, hay que revisar
+	    print "se cumple postcondicion localizar"
+	    activate=True
+	print "Active localizar",activate
+        return activate
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     def setIdentify(self, dato):
@@ -170,7 +199,7 @@ if __name__ == '__main__':
     
     
 
-        rospy.Subscriber("topicoSensores", Float64MultiArray, l.atenderSensores)
+        rospy.Subscriber("topicoSensores", String, l.atenderSensores)
         rospy.Subscriber("preConditionDetect", Int32MultiArray, l.evaluarPrecondicion)
         rospy.Subscriber("preConditionsSetting", Int32MultiArray, l.setting)	    
         rospy.Subscriber("topicoEstado", Int32MultiArray, l.setEstado)

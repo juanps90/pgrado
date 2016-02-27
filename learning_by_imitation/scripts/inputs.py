@@ -3,14 +3,41 @@ import sys
 import rospy
 from std_msgs.msg import String, Float64, Float64MultiArray
 import Const
+import time
 
+delay=0.2
 contador=0
 topeContador=1
 
-def messageSensorsLineDetectColor(data):
-    msgSensorLineDetectColorData = Float64MultiArray()
-    sensorsData = []
-    for it in data:
+
+dataLineDetectColor=None
+dataHeadVisionSensor=None
+dataProximitySensor=None
+
+ 
+
+def joinData(data):
+    salida=""
+    tamanio=len (data)
+    if tamanio <2:
+        return salida
+        
+    salida=salida+str(data[0])
+    del data[0]
+    for d in data:
+        salida=salida+"#"
+        salida=salida+str(d)
+    return salida
+
+
+def processSensorLineDetectColorData(data):
+    if data==None:
+        return []
+    global lineDetectColor
+    ingreso = map(float, data.data.split('|'))  
+    salida=[]
+    sensorsData=[]
+    for it in ingreso:
         #negro
         if it > 0.2 and it < 0.3:
              sensorsData.append(Const.SENSOR_COLOR_DETECT_BLACK)
@@ -23,34 +50,15 @@ def messageSensorsLineDetectColor(data):
         else:
              sensorsData.append(Const.SENSOR_COLOR_DETECT_NONE)
 
-    msgSensorLineDetectColorData.data = [Const.SENSOR_COLOR_DETECT_LINE_ID, sensorsData[0], sensorsData[1], sensorsData[2]]
+    #id del sensor, datos...
+    salida = [Const.SENSOR_COLOR_DETECT_LINE_ID,  sensorsData[0], sensorsData[1], sensorsData[2]]
     print "color: ",sensorsData[1]
-    return msgSensorLineDetectColorData
+    return salida
        
-def processSensorLineDetectColorData(data): 
-    ingreso = map(float, data.data.split('|'))
-    global contador
-    global topeContador
-    if contador ==topeContador:
-        contador=0
-        sensores.publish(messageSensorsLineDetectColor(ingreso))
-    else:
-        contador=contador+1
 
 
-def processCommand(data):
-    msg = String()
-    if data.data == "INIT_LEARNING":
-        msg.data = str(Const.COMMAND_INIT_LEARNING)
-    elif data.data == "END_LEARNING":
-        msg.data = str(Const.COMMAND_END_LEARNING)
-    elif data.data == "PLAY":
-        msg.data = str(Const.COMMAND_PLAY)
-    elif data.data == "STOP":
-        msg.data = str(Const.COMMAND_STOP)
-    elif data.data == "BAD":
-        msg.data = str(Const.COMMAND_BAD)
-    command.publish(msg)
+
+
 
 # Se publica en sensores un array de Float64 donde los valores son
 # En la posicion 0 el id del sensor
@@ -58,7 +66,9 @@ def processCommand(data):
 # posible de la imagen. 1 indica que el objeto esta lo mas a la derecha posible de la imagen.
 # En la posicion 2 un valor entero que indica el color del objeto segun las constantes establecidas en Const.
 def processHeadVisionSensor(data):
-    msgVisionSensorData = Float64MultiArray()
+    if data==None:
+        return []
+    salida=[]
     dataSensor = map(float, data.data.split('|'))
     
     codeColor = Const.SENSOR_COLOR_DETECT_NONE
@@ -78,8 +88,90 @@ def processHeadVisionSensor(data):
     elif dataSensor[1] == 5:
          codeColor = Const.SENSOR_COLOR_DETECT_ORANGE
 
-    msgVisionSensorData.data = [Const.SENSOR_VISION_HEAD_ID, dataSensor[0], codeColor]
-    sensores.publish(msgVisionSensorData)
+    #msgVisionSensorData.data = [Const.SENSOR_VISION_HEAD_ID,2, dataSensor[0], codeColor]
+    salida = [Const.SENSOR_VISION_HEAD_ID,  dataSensor[0], codeColor]
+ 
+    #sensores.publish(msgVisionSensorData)
+    print "processHeadVisionSensor = ", data.data
+    return salida
+
+
+
+
+def processProximitySensorData(data):
+    if data==None:
+        return []
+    return [Const.SENSOR_NOSE_ULTRASONIC_ID, float(data.data)]
+    #msg = Float64MultiArray()
+    #msg.data = [Const.SENSOR_NOSE_ULTRASONIC_ID, float(data.data)] 
+    #sensores.publish(msg)
+
+
+def atenderSensorLineDetectColor(data):
+    global dataLineDetectColor
+    dataLineDetectColor=data
+
+def atenderProximitySensor(data): 
+    global dataProximitySensor 
+    dataProximitySensor=data
+
+def atenderHeadVisionSensor(data):
+    global dataHeadVisionSensor 
+    dataHeadVisionSensor=data 
+
+
+def envioSensados(): 
+    global dataLineDetectColor 
+    global dataHeadVisionSensor 
+    global dataProximitySensor 
+    
+    
+    msg=String()
+
+    head=processHeadVisionSensor(dataHeadVisionSensor)
+    line=processSensorLineDetectColorData(dataLineDetectColor)
+    proximity=processProximitySensorData(dataProximitySensor)
+    
+    mensaje=""
+    l=joinData(line) 
+    p=joinData(proximity)
+    h=joinData(head)
+    
+    if len (l) > 0:
+        mensaje=mensaje+l
+    if len (p) > 0:  
+        if len (mensaje) > 0:
+            mensaje=mensaje+'|' 
+        mensaje=mensaje+p    
+    if len (h) > 0:  
+        if len (mensaje) > 0:
+            mensaje=mensaje+'|'  
+        mensaje=mensaje+h           
+     
+    msg.data = mensaje
+    print msg.data
+    sensores.publish(msg)
+    
+    dataLineDetectColor=None
+    dataHeadVisionSensor=None
+    dataProximitySensor=None
+    
+
+def processCommand(data):
+    msg = String()
+    if data.data == "INIT_LEARNING":
+        msg.data = str(Const.COMMAND_INIT_LEARNING)
+    elif data.data == "END_LEARNING":
+        msg.data = str(Const.COMMAND_END_LEARNING)
+    elif data.data == "PLAY":
+        msg.data = str(Const.COMMAND_PLAY)
+    elif data.data == "STOP":
+        msg.data = str(Const.COMMAND_STOP)
+    elif data.data == "BAD":
+        msg.data = str(Const.COMMAND_BAD)
+    command.publish(msg)
+
+
 
 def inputsAutomatico():
     print "enviando"
@@ -108,15 +200,12 @@ def inputsManual():
         ingreso=raw_input()
     print "Fin del ingreso de datos"
 
-def processProximitySensorData(data):
-    msg = Float64MultiArray()
-    msg.data = [Const.SENSOR_NOSE_ULTRASONIC_ID, float(data.data)]
-    #sensores.publish(msg)
+
 
 if __name__ == '__main__':
     print "sensado"
     rospy.init_node('inputs', anonymous=True)
-    sensores = rospy.Publisher('topicoSensores', Float64MultiArray, queue_size=20)
+    sensores = rospy.Publisher('topicoSensores', String, queue_size=20)
     sensorLineDetectColorData = rospy.Publisher('sensorLineDetectedColorData', Float64MultiArray, queue_size=10)    
     
     
@@ -126,19 +215,22 @@ if __name__ == '__main__':
     command = rospy.Publisher('command', String, queue_size=10)    
     
     #Me suscribo a datos de los sensores de vision que detectan colores en el suelo
-    rospy.Subscriber("/vrep/sensorLineDetectColorData", String, processSensorLineDetectColorData)
+    rospy.Subscriber("/vrep/sensorLineDetectColorData", String, atenderSensorLineDetectColor)
     
     #Me suscribo a datos del sensor de vision que detectan color y angulo
-    rospy.Subscriber("/vrep/headSensor", String, processHeadVisionSensor)
-    processHeadVisionSensor = rospy.Publisher('processHeadVisionSensor', Float64MultiArray, queue_size=10)
+    rospy.Subscriber("/vrep/headSensor", String,atenderHeadVisionSensor)
+    #processHeadVisionSensor = rospy.Publisher('processHeadVisionSensor', Float64MultiArray, queue_size=10)
     
     #Me suscribo a datos de los sensores de distancia
-    rospy.Subscriber("/vrep/proximitySensorData", String, processProximitySensorData)
+    rospy.Subscriber("/vrep/proximitySensorData", String, atenderProximitySensor )
     proximitySensorData = rospy.Publisher('proximitySensorData', Float64, queue_size=50)
-    
+    while True:
+        envioSensados()
+	time.sleep(delay)	
     if ((len(sys.argv) == 1) or ((len(sys.argv) > 1) and sys.argv[1] == "manual")):
         inputsManual()
     elif (len(sys.argv) > 1) and (sys.argv[1] == "vrep"):
+        
         rospy.spin()
     else:
         print "El parametro debe ser el string 'manual' o el string 'vrep'"
@@ -146,4 +238,7 @@ if __name__ == '__main__':
     
 
 
+     
+    
+       
  

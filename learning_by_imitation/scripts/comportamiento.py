@@ -15,7 +15,7 @@ import sys
 import rospy
 from std_msgs.msg import Int32MultiArray, Float64MultiArray
 from random import randint
-
+import Const
 
 
 
@@ -54,7 +54,7 @@ class comportamiento(object):
 
 
     def processSensorLineDetectedColorData(self,data):
-        self.dataSensorColor = [data.data[1], data.data[2], data.data[3]]
+        self.dataSensorColor = [data[0], data[1], data[2]]
 
 
     def processProximitySensorData(self,data): 
@@ -98,9 +98,17 @@ class comportamiento(object):
 	        rospy.loginfo("entro en evaluarporcaminos "+str(self.identify)+" " +str(salida) + str(self.caminos))
 	        return salida  
 
-
-
-
+    
+    def separarSensados(self,entrada):
+        separar = map(str, entrada.split('|'))
+        sensados={}
+        for s in  separar:
+            datos = map(float, s.split('#'))
+            print s,datos
+            idSensor=int (datos[0])
+            del datos[0]
+            sensados[idSensor]=datos        
+        return sensados
 
 
 
@@ -116,7 +124,10 @@ class comportamiento(object):
         msg = Int32MultiArray()
 
         valorEncendido=0
-        if self.verificarPoscondicionesSensores(data):
+        
+        sensados=self.separarSensados(data.data)        
+        
+        if self.verificarPoscondicionesSensores(sensados):
             print "se cumple postcondicion id>",self.identify 
             valorEncendido=1            
         else:#redundante solo para ver que paso
