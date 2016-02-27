@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 import sys
-import time
 import rospy
 import roslaunch
 import lcs
-from std_msgs.msg import Int32MultiArray, Float64MultiArray
+from std_msgs.msg import String,Int32MultiArray, Float64MultiArray
+import Const
+import threading, time
 
 pkg = "learning_by_imitation"#paquete donde se encuentran los archivo py
+#pkg = "vrep_ros_demo"
 id = 0
 dicComp={0:'init',1:'localizar', 2:'avanzar'} #asocia idnumerico con nombres de comportamientos
 identify=-1
@@ -45,7 +47,7 @@ current_milli_time = lambda: int(round(time.time() * 1000))
 	
 
 #solo se atiende si estamos en fase de aprendizaje
-def aprender(data):
+def atenderAprender(data):
     global fase  
     if fase == "aprender":
         callback(data)
@@ -291,6 +293,7 @@ def merggearNuevaDemo():
 ############################               
                 
 def lanzarNodo(idNodo,idComportamiento): #es el id numerico del comportamiento 
+    global dicComp
     nombreComportamiento=dicComp [idComportamiento]
     print "se lanza el comportamiento",nombreComportamiento
     global pkg
@@ -366,9 +369,30 @@ def crearEnlaces(linksACrear):
         pub.publish(msg) 
 
 
+def ejecutarBad():
+    global nodoEjecutando 
+    global tiempoBad
+    tiempoActual=current_milli_time()
+    #si el nodo actual inicio hace menos de tiempoBad se borra el nodo anterior    
+    tiempoDif= tiempoActual - nodoEjecutando[1]
+    dentroDElTiempo=tiempoDif<tiempoBad
+    existeNodoAnterior=nodoEjecutando[0] >=0
+    
+    if existeNodoAnterior and dentroDElTiempo:
+        lcs.borrarNodoBad(nodoEjecutando[0])               
+    
+    #se elimina el nodo que esta en ejecucion, notar que si es el ultimo nodo tambien funciona porque al no haber
+    #comportamiento posteriores el valor de ejecutando queda seteado en el ultimo nodo, es decir solo se modifica si un
+    #nuevo nodo ejecuta, en caso de dejar de ejecutar no se notifica
+    else :
+        lcs.borrarNodoBad(nodoEjecutando[2])
+    lcs.graficar("bad")
+
+##lo siguiente de bad ya no iria
+
 #se elimina un nodo de la lista habria que verificar si pasaron menos de tiempoBad desde que inicio el comportamiento actual y existe anterior
 #en tal caso se elimina el nodo anterior si pasaron mas de tiempoEsperaBad segundos se asume que se quiere borrar el nodo actual Verificar
-def ejecutarBad(linksAModificar):
+def BACKejecutarBad(linksAModificar):
     global nodoEjecutando 
     global tiempoBad
     tiempoActual=current_milli_time()
@@ -485,16 +509,18 @@ def ejecutarGo():
     for it in nodosParaAprender.values():
         print it.stop()	
     print "antes de offline en go"   
-    offLine()
-    agregarNodoInit()         
-    print grafoGeneral    
-    cortarGo(links,grafoGeneral,idCome)     
+    offLine()         
+    print grafoGeneral   
+
+    lcs.cortarGoCaminos(grafoGeneral,links,idCome,nodoEjecutando[0])
+    lcs.graficar("go")
+    #cortarGo(links,grafoGeneral,idCome)     
     #se vuelve al estado ejecucion
     fase="ejecutar"
     msg.data = [2,2] 
     estado.publish(msg) 
     
-        
+#lo que sigue de go no iria       
 
 def cortarGo(nuevolinks,grafoGeneral,idCome): 
     if len(nuevolinks) ==0:
@@ -679,7 +705,7 @@ def recursionEnvioPath(nodo, pathAdd, caminos, sucesoresTopologicos):
                         accion=1 
                     else:
                         accion=0   
-                    #print "entro en path mas largo sucesor",sucesor," CML ", caminos[sucesor][cs],">>", caminos 
+                    #print "entro ejecutar()en path mas largo sucesor",sucesor," CML ", caminos[sucesor][cs],">>", caminos 
                     caminos[sucesor][cs]=pathMasLargo                    
                     
             if accion==2:
@@ -699,6 +725,7 @@ def compararPath (pathNuevo,pathAntiguo):
     #se establece el path mas largo
     dif= len(pathNuevo) - len(pathAntiguo)
     pathMasLargo=pathNuevo
+
     pathMasCorto=pathAntiguo
     if dif<0:
          dif=-dif
@@ -735,7 +762,9 @@ def enviarCaminos(caminos):
 
 def atenderCaminos(data):
     #global pathPosibles
-    #si es mi id agrego la lista de caminos camino el nodo
+    #si es mi id agrego la lismsg)
+
+def ta de caminos camino el nodo
     #if data.data[0] == identify:
     if True: 
         #elimina de la lista el dato del id
@@ -767,7 +796,137 @@ def separarCaminos(caminos):
 #######################
 #Metodo Principal
 #######################     
-            
+    
+def finDemo():
+    global nodosParaAprender
+    global nodosParaEjecutar
+    global fase
+    global estado
+    for it in nodosParaAprender.values():
+        print it.stop()
+
+    for it in nodosParaEjecutar.values():
+        print it.stop()	
+     
+    fase="nada"
+    msg.data = [0,1]#debe avisar antes de hacer offline que se cierra asi no quedan mensajes colgados 
+    estado.publish(msg)
+    offLine()
+    #agregarNodoInit()#agrega el nodo init al final de link y agrega enlaces de orden
+    #aca se podria agregar el comportamiento del capitulo 5
+    lcs.setDicParametros(auxDicNodoParam)
+    lcs.setDicComportamientos(auxDicNodoComp)
+    lcs.nuevaDemostracion( crearTopologia (links),links) 
+           
+def aprender():
+    global nodosParaAprender
+    global nodosParaEjecutar
+    global fase
+    global estado
+    global dicComp
+    global nodos
+    global Diccionario
+    #mata los nodos que hubiera activos
+    for it in nodosParaAprender.values():
+        print it.stop()	
+    for it in nodosParaEjecutar.values():
+        print it.stop()	 
+        	
+    #hay que lanzar comportamientos para que reciban las postcondiciones a la hora de aprender NO OLVIDAR MATARLOS AL TERMNAR APRENDER
+    
+    nodosParaAprender = {}
+    for n in dicComp:
+        if n!=0:#lanza nodos sin ser el init
+            nodosParaAprender[n]= lanzarNodo(-1,n) 
+
+
+    fase="aprender"	    
+    Diccionario={}
+    nodos = []
+    id=0
+    msg.data = [1,1]#podria ser el segundo valor el id del comportamiento
+    estado.publish(msg)
+
+def ejecutar():
+    global nodosParaAprender
+    global nodosParaEjecutar
+    global fase
+    global estado
+    global dicComp
+    global nodos
+    global Diccionario
+    global dicNodoComp
+    global dicNodoParam
+    
+    #mata los nodos que hubiera activos
+    for it in nodosParaAprender.values():
+        print it.stop()	
+    for it in nodosParaEjecutar.values():
+        print it.stop()	    
+        
+    fase="ejecutar"    
+       	    
+    #aca se podria cargar la lista de nodos a ejecutar por ahora uso los definidos en el metodo
+    
+    #links=[(0,1,1,2,0),(0,1,2,0,0),(1,2,2,0,0)]	
+    #grafoGeneral=[(0,1,1,2,0),(0,1,2,0,0),(1,2,2,0,0)] #para no complicarla mucho uso como general este link cortito
+    #linkEnEjecucion=[(0,1,1,2,0),(0,1,2,0,0),(1,2,2,0,0)]
+    #linkEnEjecucion=[(0,1,1,2,0),(0,1,2,1,0),(0,1,3,0,0),(1,2,3,0,0),(2,1,3,0,0),(1,1,2,1,0)]
+
+    dicNodoComp=lcs.getDicComportamientos()
+    dicNodoParam=lcs.getDicParametros()
+
+    #enlaces=[(0,1,1,2,2),(0,1,2,0,0),(1,2,2,0,0)]	     
+
+    enlaces=recuperarEnlaces()
+
+    crearEnlaces(enlaces)
+
+    time.sleep(1)
+    	    
+    #topologia=[(0,1),(0,2),(1,3),(2,3)]
+    #topologia=[(0,1),(1,2)]
+
+    topologia=recuperarTopologia()	
+
+    sucesoresTop=sucesoresTopologicos (topologia)
+    print "sucesores: ",sucesoresTop
+    caminitos=pathAntecesores(sucesoresTop)    
+    enviarCaminos(caminitos)     
+    
+    #se deberia esperar a que los comportamientos se activen sino no reciben el mensaje de estado
+    #se podria esperar un mensaje es decir por medio de wait
+    time.sleep(1)    
+    
+    msg.data = [2,2] 
+    estado.publish(msg)
+    #arranqueNivel()
+
+event = threading.Event()
+
+def handler(signum, frame):    
+    global event
+    event.set()
+    print('Signal handler called with signal [%s]' % signum)
+
+
+def atenderComandos(data):
+    
+    print "recibo comando"
+    #event.signal() 
+     
+    if data.data ==str(Const.COMMAND_INIT_LEARNING):
+        aprender()
+    elif data.data == str(Const.COMMAND_END_LEARNING):
+        finDemo()
+    elif data.data == str(Const.COMMAND_PLAY):
+        ejecutar()
+    elif data.data == str(Const.COMMAND_STOP):
+        print "Detenelo con el stop de vrep no seas vago"
+    elif data.data == str(Const.COMMAND_BAD):
+        ejecutarBad() 
+    
+           
 
 if __name__ == '__main__':
     
@@ -776,121 +935,40 @@ if __name__ == '__main__':
     rospy.init_node('maestro', anonymous=True) 
     id=0
     
- 
+    rospy.Subscriber("command", String, atenderComandos)
+    
     pub=rospy.Publisher('preConditionsSetting', Int32MultiArray, queue_size = 10)
     estado=rospy.Publisher('topicoEstado', Int32MultiArray, queue_size = 10)    
     nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10)
-    rospy.Subscriber("postConditionDetect", Int32MultiArray, aprender)    
+    rospy.Subscriber("postConditionDetect", Int32MultiArray, atenderAprender)    
     motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
     pubCaminos = rospy.Publisher('topicoCaminos', Int32MultiArray, queue_size=100)
-    #rospy.Subscriber("topicoCaminos", Int32MultiArray, atenderCaminos)
+    #rospy.Ssignal.signal(signal.SIGINT, handler)ubscriber("topicoCaminos", Int32MultiArray, atenderCaminos)
    
     rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, atenderNodoEjecutando)
     
     #rospy.Subscriber("preConditionsSetting", Int32MultiArray, setting)	 
     #rospy.Subscriber("preConditionDetect", Int32MultiArray, evaluarPrecondicion)
     
+    
+    #event.wait()
+    
+    
+    
     print "inicio master" 
     entrada=raw_input("> ")   
     msg = Int32MultiArray()
     while entrada != "salir":
         if entrada=="finDemo":
-             
-
-            for it in nodosParaAprender.values():
-                print it.stop()
-	
-            for it in nodosParaEjecutar.values():
-                print it.stop()	
-             
-            fase="nada"
-            msg.data = [0,1]#debe avisar antes de hacer offline que se cierra asi no quedan mensajes colgados 
-            estado.publish(msg)
-            offLine()
-            #agregarNodoInit()#agrega el nodo init al final de link y agrega enlaces de orden
-            #aca se podria agregar el comportamiento del capitulo 5
-            lcs.setDicParametros(auxDicNodoParam)
-            lcs.setDicComportamientos(auxDicNodoComp)
-            lcs.nuevaDemostracion( crearTopologia (links),links) 
-	               
+            finDemo()         
         elif entrada=="aprender":
-            #mata los nodos que hubiera activos
-	    for it in nodosParaAprender.values():
-                print it.stop()	
-            for it in nodosParaEjecutar.values():
-                print it.stop()	 
-                	
-            #hay que lanzar comportamientos para que reciban las postcondiciones a la hora de aprender NO OLVIDAR MATARLOS AL TERMNAR APRENDER
-            
-            nodosParaAprender = {}
-            for n in dicComp:
-                if n!=0:#lanza nodos sin ser el init
-                    nodosParaAprender[n]= lanzarNodo(-1,n) 
-	
-	
-            fase="aprender"	    
-	    Diccionario={}
-            nodos = []
-            id=0
-	    msg.data = [1,1]#podria ser el segundo valor el id del comportamiento
-	    estado.publish(msg)
+            aprender()
 	elif entrada=="ejecutar":
-	    #mata los nodos que hubiera activos
-	    for it in nodosParaAprender.values():
-                print it.stop()	
-            for it in nodosParaEjecutar.values():
-                print it.stop()	    
-                
-    	    fase="ejecutar"
-    	    
-    	       	    
-	    #aca se podria cargar la lista de nodos a ejecutar por ahora uso los definidos en el metodo
-	    
-	    #links=[(0,1,1,2,0),(0,1,2,0,0),(1,2,2,0,0)]	
-	    #grafoGeneral=[(0,1,1,2,0),(0,1,2,0,0),(1,2,2,0,0)] #para no complicarla mucho uso como general este link cortito
-	    #linkEnEjecucion=[(0,1,1,2,0),(0,1,2,0,0),(1,2,2,0,0)]
-	    #linkEnEjecucion=[(0,1,1,2,0),(0,1,2,1,0),(0,1,3,0,0),(1,2,3,0,0),(2,1,3,0,0),(1,1,2,1,0)]
-
-
-       
-            dicNodoComp=lcs.getDicComportamientos()
-            dicNodoParam=lcs.getDicParametros()
-
-	    #enlaces=[(0,1,1,2,2),(0,1,2,0,0),(1,2,2,0,0)]	     
-
-            enlaces=recuperarEnlaces()
-
-            crearEnlaces(enlaces)
-
-            time.sleep(1)
-	    	    
-	    #topologia=[(0,1),(0,2),(1,3),(2,3)]
-            #topologia=[(0,1),(1,2)]
-
-
-
-            topologia=recuperarTopologia()	
-
-            sucesoresTopologicos=sucesoresTopologicos (topologia)
-            print "sucesores: ",sucesoresTopologicos
-            caminitos=pathAntecesores(sucesoresTopologicos)    
-	    enviarCaminos(caminitos)
-	    
-	    
-	    
-	    
-	    #se deberia esperar a que los comportamientos se activen sino no reciben el mensaje de estado
-	    #se podria esperar un mensaje es decir por medio de wait
-	    time.sleep(1)
-	    
-	    
-	    msg.data = [2,2] 
-	    estado.publish(msg)
-	    #arranqueNivel()
+	    ejecutar()
 	elif entrada=="bad":    
 	    #posiblemente se realice el algoritmo en vez de 
 	    #sobre linkEnEjecucion sobre el grafo general	    
-	    aux=ejecutarBad(linkEnEjecucion)
+	    aux=ejecutarBad()
 	    print  aux
 	    
 	elif entrada=="come":    

@@ -212,9 +212,11 @@ def graficarNetwork(network,idArchivo):
     os.system("dot "+idArchivo+".dot -T jpg > "+idArchivo+".jpg && eog "+idArchivo+".jpg ")
 
 
-
-
-
+def graficar(idArchivo):
+    global topologiaGeneral
+    global networkGeneral
+    graficarNetwork(networkGeneral,idArchivo)
+    graficarTopologia(topologiaGeneral,idArchivo)
 
 
 
@@ -403,7 +405,14 @@ def getDicParametros():
     return parComp
 
 def getDicComportamientos():
+    #esto solo para probar ejecutar sin demostrar
+    global topologiaGeneral
     global diccionario
+    global networkGeneral
+    if len (diccionario)==0:
+        diccionario={0:1,1:2,2:0}
+        networkGeneral=[(0,1,2),(0,2,0),(1,2,0)]
+        topologiaGeneral=[(0,1),(1,2)]
     return diccionario
 
 
