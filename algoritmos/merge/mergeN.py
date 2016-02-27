@@ -108,7 +108,7 @@ def calcN(nodePoint, curNode, j):
 def enlazar(nodoAnterior, nNode, tipoEnlaceAnterior):
     if nNode in nodoAnterior.parentNodes:
         return 0 # ya estaba
-                
+    print "ENLAZO ", str(nNode.letra)," con ", str(nodoAnterior.letra)
     nodoAnterior.parentNodes.append(nNode)
     nodoAnterior.parentTypes.append(tipoEnlaceAnterior)
     nNode.childNodes.append(nodoAnterior)
@@ -156,7 +156,7 @@ def graphregen(curNodePa, curNode, wordlen):
 
     nodoAnterior = None
     tipoEnlaceAnterior = None
-    
+    primerUp = False
     nodoSinUnir = None
     
     while not curNodePa is None:
@@ -172,7 +172,9 @@ def graphregen(curNodePa, curNode, wordlen):
         
         
         if curNodePa.mov[j] == MOV_IZQUIERDA:
-            
+            print "IZQ"
+            primerUp = False
+                        
             while curNodePa.mov[j] == MOV_IZQUIERDA:
                 print "CURNODE ES ", curNode.letra
                 # Se crea el nuevo nodo
@@ -196,6 +198,9 @@ def graphregen(curNodePa, curNode, wordlen):
             
             
             if curNodePa.mov[j] == MOV_DIAGONAL:
+                print "DIAG"
+                primerUp = True
+                
                 if not nodoSinUnir is None:
                     enlazar(nodoSinUnir, curNodePa.thisNode, tipoEnlaceAnterior)
                     nodoSinUnir = None
@@ -213,7 +218,14 @@ def graphregen(curNodePa, curNode, wordlen):
                 curNode = get_first(curNode.parentNodes)
                 
                 nodoAnterior = curNodePa.thisNode
-            
+            else:
+                if not nodoAnterior is None and primerUp and not curNode is None:
+                    print "TENGO QUE UNIR: ", nodoAnterior.letra, " con ", str(curNode.letra)
+                    enlazar(nodoAnterior, curNode, tipoEnlaceAnterior)
+                    print " NO ES DIAG "
+                
+                primerUp = False
+                
             
             curNodePa = curNodePa.lpoint
         
@@ -417,6 +429,9 @@ plot_simple(g1)
 
 
 merge(g1, g3)
+
+plot(g1)
+
 clear(g1)
 
 
