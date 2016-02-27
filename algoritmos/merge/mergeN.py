@@ -346,9 +346,22 @@ def bad(prevNode, curNode):
     # Quitar arista
     # Verificar que no quede una isla
     
-    desenlazar(prevNode, curNode)
+    print "Borrando la arista ", prevNode.letra, " a ", curNode.letra
     
-    #if 
+    for n in curNode.childNodes:
+        print "Enlazando ", prevNode.letra, " con ", n.letra
+        enlazar(n, prevNode, Node.LINK_ORD)
+    
+    desenlazar(curNode, prevNode)
+    
+    # Si no tiene padres lo borramos
+    if not curNode.parentNodes:
+        for n in curNode.childNodes:
+            # hay que quitar los enlaces hacia los hijos
+            desenlazar(n, curNode)
+        del n
+    
+        
     
 
 a = Aux()
@@ -361,6 +374,10 @@ g3 = a.sampleGraph3() # G3 es una nueva corrida
 #plot(g1)
 
 merge(g1, g2)
+
+plot_simple(g1)
+
+bad(g1.parentNodes[0].parentNodes[0].parentNodes[0],g1.parentNodes[0].parentNodes[0])
 
 plot_simple(g1)
 
