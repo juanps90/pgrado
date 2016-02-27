@@ -120,7 +120,10 @@ def desenlazar(nodoAnterior, nNode):
         nodoAnterior.parentTypes.pop(i1)
         nodoAnterior.parentNodes.pop(i1)
         
+        #try:
         nNode.childNodes.remove(nodoAnterior)
+        #except ValueError:
+        #    print "No estaba en childNodes. Grafo mal?"
         
     
 
@@ -362,6 +365,23 @@ def bad(prevNode, curNode):
         del n
     
         
+def come(node, ncorrida):
+    nodo_inicio = get_nodos_padre(ncorrida)[0] # deberia ser uno solo
+    
+    #ncorrida es el init de la otra, hay que sacar ese nodo
+    for n in node.childNodes:
+        desenlazar(n, node)
+        
+        # Enganchamos los que X que node->X
+        for nodo_nuevo in ncorrida.parentNodes:
+            enlazar(n, nodo_nuevo, Node.LINK_ORD)
+        
+    # Hay que desaparecer el INIT viejo
+    for nodo_nuevo in ncorrida.parentNodes:
+        desenlazar(ncorrida, nodo_nuevo)
+    del ncorrida
+    
+    enlazar(nodo_inicio, node, Node.LINK_ORD)
     
 
 a = Aux()
@@ -369,6 +389,7 @@ a = Aux()
 g1 = a.sampleGraph1() # G1 sera el acumulado hasta el momento
 g2 = a.sampleGraph2() # G2 es una nueva corrida
 g3 = a.sampleGraph3() # G3 es una nueva corrida
+g4 = a.sampleGraph4() # G3 es una nueva corrida
 
 
 #plot(g1)
@@ -383,6 +404,10 @@ plot_simple(g1)
 
 clear(g1)
 
+come(g1.parentNodes[0].parentNodes[0], g4)
+
+
+plot_simple(g1)
 
 #largo_palabra = largo(g3)
 

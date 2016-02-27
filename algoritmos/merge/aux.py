@@ -79,7 +79,7 @@ class Aux:
     def sampleGraph3(self):
         
         nA = Node()
-        nA.letra = 'X'
+        nA.letra = 'R'
         
       
         nK = Node()
@@ -103,5 +103,36 @@ class Aux:
         nE.parentTypes = [Node.LINK_ORD]
         nD.parentTypes = [Node.LINK_ORD]
         nK.parentTypes = [Node.LINK_ORD]
+        
+        return nINIT
+        
+    def sampleGraph4(self):
+        
+        nX = Node()
+        nX.letra = 'X'
+        
+      
+        nY = Node()
+        nY.letra = 'Y'
+        
+        nZ = Node()
+        nZ.letra = 'Z'
+        
+        nINIT = Node()
+        
+
+        nINIT.parentNodes = [nZ]
+        nZ.parentNodes = [nY]
+        nY.parentNodes = [nX]
+        
+        
+        nINIT.parentTypes = [Node.LINK_ORD]
+        nZ.parentTypes = [Node.LINK_ORD]
+        nY.parentTypes = [Node.LINK_ORD]
+        
+        nX.childNodes = [nY]
+        nY.childNodes = [nZ]
+        nZ.childNodes = [nINIT]
+        
         
         return nINIT
