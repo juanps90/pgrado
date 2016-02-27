@@ -24,6 +24,8 @@ dicNodoParam={}#asocia nodo con comportamiento
 auxDicNodoComp={}
 auxDicNodoParam={}
 
+comando=""
+
 errorRuido=2000#usado para errores de ruido
 epsilon=2000#usado para determinar tipos de links puede pasar que se cierre un comportamiento luego de cerrar otro
 tiempoEsperaBad=5000 #tiempo que se acepta luego de terminado un comportamiento para indicar que se debe eliminar del grafo
@@ -911,21 +913,20 @@ def handler(signum, frame):
 
 
 def atenderComandos(data):
-    
-    print "recibo comando"
+    global comando
+    print "recibo comando",data.data,str(Const.COMMAND_INIT_LEARNING)
     #event.signal() 
      
     if data.data ==str(Const.COMMAND_INIT_LEARNING):
-        aprender()
+        comando="aprender"
     elif data.data == str(Const.COMMAND_END_LEARNING):
-        finDemo()
+        comando="finDemo" 
     elif data.data == str(Const.COMMAND_PLAY):
-        ejecutar()
+        comando="ejecutar" 
     elif data.data == str(Const.COMMAND_STOP):
-        print "Detenelo con el stop de vrep no seas vago"
+        comando="salir"
     elif data.data == str(Const.COMMAND_BAD):
-        ejecutarBad() 
-    
+        comando="bad" 
            
 
 if __name__ == '__main__':
@@ -956,49 +957,55 @@ if __name__ == '__main__':
     
     
     print "inicio master" 
-    entrada=raw_input("> ")   
+    #comando=raw_input("> ") 
+    comando=""
     msg = Int32MultiArray()
-    while entrada != "salir":
-        if entrada=="finDemo":
+    while comando != "salir":
+        comando=""
+        while comando == "":
+            time.sleep(1)
+        print "comando ", comando
+
+        if comando=="finDemo":
             finDemo()         
-        elif entrada=="aprender":
+        elif comando=="aprender":
             aprender()
-	elif entrada=="ejecutar":
+	elif comando=="ejecutar":
 	    ejecutar()
-	elif entrada=="bad":    
+	elif comando=="bad":    
 	    #posiblemente se realice el algoritmo en vez de 
 	    #sobre linkEnEjecucion sobre el grafo general	    
 	    aux=ejecutarBad()
 	    print  aux
 	    
-	elif entrada=="come":    
+	elif comando=="come":    
 	    aux=ejecutarCome()
 	    print  aux
-	elif entrada=="here":
+	elif comando=="here":
 	    aux=ejecutarHere()
 	    print  aux
-	elif entrada=="go": 
+	elif comando=="go": 
 	    print "antes de go"
 	    aux=ejecutarGo()	    
 	    print  aux
 	    
-	elif entrada=="probarGo": 
+	elif comando=="probarGo": 
 	    grafoGeneral=[(1,1,3,3,0),(2,2,3,3,0),(3,3,4,4,0),(3,3,5,5,0)]
 	    nuevolinks=[(0,6,1,0,0)]
 	    cortarGo(nuevolinks,grafoGeneral,3)
 	    
-	elif entrada=="sc": 
+	elif comando=="sc": 
 	    print separarCaminos()
-	elif entrada=="topo": 
+	elif comando=="topo": 
             linkEnEjecucion=[(0,1,0),(0,2,0),(0,3,0),(1,2,0),(1,3,0),(2,3,0)]
 	    print crearTopologia(linkEnEjecucion)   
 	    
 
-	elif entrada=="lcs":
+	elif comando=="lcs":
             lcs.probarLCS()
-	elif entrada=="lcsPapper":
+	elif comando=="lcsPapper":
             lcs.probarLCSPapper()
-	elif entrada=="pp":   
+	elif comando=="pp":   
 	    pathAntiguo =[2,3,4]
 	    pathNuevo=[3,4]
 	    print "compararPath> ",compararPath (pathNuevo,pathAntiguo)
@@ -1011,7 +1018,7 @@ if __name__ == '__main__':
 	    enviarCaminos(caminitos)
 	    
 	#se puede dar bad cuando se ejecuta 
-	elif entrada=="algoritmoBad":  
+	elif comando=="algoritmoBad":  
 	    linksBad=[(1,1,3,3,0),(2,2,3,3,0),(3,3,4,4,0),(3,3,5,5,0),(5,5,6,6,2)]	
 	    salida=borrarNodoBad(linksBad,3)
 	    salida=ejecutarBad(linksBad)
@@ -1021,7 +1028,7 @@ if __name__ == '__main__':
 	else:
 	    msg.data = [0,1]
             estado.publish(msg)
-        entrada=raw_input("> ")
+        #entrada=raw_input("> ")
         
     #rospy.spin()
 
