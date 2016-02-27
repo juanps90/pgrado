@@ -106,15 +106,23 @@ def calcN(nodePoint, curNode, j):
 
 
 def enlazar(nodoAnterior, nNode, tipoEnlaceAnterior):
-    # Agregar manejo de repetidos, network, etc.
-    for n in nodoAnterior.parentNodes:
-        if n is nNode:
-            return 0 # para evitar duplicados
-            
+    if nNode in nodoAnterior.parentNodes:
+        return 0 # ya estaba
+                
     nodoAnterior.parentNodes.append(nNode)
     nodoAnterior.parentTypes.append(tipoEnlaceAnterior)
+    nNode.childNodes.append(nodoAnterior)
+
+def desenlazar(nodoAnterior, nNode):
+    if nNode in nodoAnterior.parentNodes:
+        i1 = nodoAnterior.parentNodes.index(nNode)
+        
+        nodoAnterior.parentTypes.pop(i1)
+        nodoAnterior.parentNodes.pop(i1)
+        
+        nNode.childNodes.remove(nodoAnterior)
+        
     
-    print "SE ENLAZA DESDE ", nodoAnterior.letra, " a ", nNode.letra
 
 # Debilita una arista en hasta maxNodeType
 # La arista es desde fromNode->toNode
@@ -298,8 +306,12 @@ def merge(g1,g2):
     seqLen = largo(g2)
     
     
+    preparar_grafo_lcs(g1, seqLen)
+
     
     for p in g1.n:
+        
+        
         nVal = calcN(p, g2, seqLen-1)
         nRatio = (float)(nVal-1) / max(p.length, seqLen)
         
@@ -328,18 +340,25 @@ def clear(g):
 
 
 
+def bad(prevNode, curNode):
+    # Esta mal la arista prevNode->curNode
+    
+    # Quitar arista
+    # Verificar que no quede una isla
+    
+    desenlazar(prevNode, curNode)
+    
+    #if 
+    
+
 a = Aux()
 
 g1 = a.sampleGraph1() # G1 sera el acumulado hasta el momento
 g2 = a.sampleGraph2() # G2 es una nueva corrida
 g3 = a.sampleGraph3() # G3 es una nueva corrida
 
-largo_palabra = largo(g2)
 
-preparar_grafo_lcs(g1, largo_palabra)
-
-
-plot(g1)
+#plot(g1)
 
 merge(g1, g2)
 
@@ -348,11 +367,11 @@ plot_simple(g1)
 clear(g1)
 
 
-largo_palabra = largo(g3)
+#largo_palabra = largo(g3)
 
-preparar_grafo_lcs(g1, largo_palabra)
+#preparar_grafo_lcs(g1, largo_palabra)
 
-plot(g1)
+#plot(g1)
 
 
 merge(g1, g3)

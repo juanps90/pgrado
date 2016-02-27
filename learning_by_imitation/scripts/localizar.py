@@ -38,13 +38,15 @@ ACTION_TURN_LEFT = 2
 ACTION_TURN_RIGHT = 3
 ACTION_BACK = 4
 
-speed = 4
+speed = 2
 action = ACTION_BACK
 dataSensorColor = [Const.SENSOR_COLOR_DETECT_WHITE, Const.SENSOR_COLOR_DETECT_WHITE, Const.SENSOR_COLOR_DETECT_WHITE]
+
+recienEstuveEnColor=False
 # delay = 0
 # changeTime = 0
 
-
+'''
 def getAction(color):
     global action
     if dataSensorColor[0] == color and dataSensorColor[1] == Const.SENSOR_COLOR_DETECT_WHITE and dataSensorColor[2] == Const.SENSOR_COLOR_DETECT_WHITE:
@@ -65,6 +67,28 @@ def getAction(color):
     elif dataSensorColor[0] == color and dataSensorColor[1] == color and dataSensorColor[2] == color:
        action = ACTION_TURN_RIGHT
        print "DERECHA"
+'''       
+       
+       
+def getAction(color):
+    global action
+    global recienEstuveEnColor
+    if dataSensorColor[1] != color:
+        if dataSensorColor[0] == color and dataSensorColor[2] == color:
+            action = ACTION_BACK
+        elif dataSensorColor[0] == color:
+            action = ACTION_TURN_LEFT
+            print "IZQUIERDA"
+        elif dataSensorColor[1] == color:
+            action = ACTION_TURN_RIGHT
+            print "DERECHA"  
+        elif recienEstuveEnColor:
+            action = ACTION_BACK       
+    if dataSensorColor[0] == color or dataSensorColor[1] == color or dataSensorColor[2] == color  :
+        recienEstuveEnColor=True
+    else:    
+        recienEstuveEnColor=False
+       
        
 def publish(speedRight, speedLeft):
     global identify
@@ -84,6 +108,7 @@ def wander(color):
     
     if action == ACTION_BACK:
         # voy hacia atras
+        #azar=randint(0,2)
         publish(-speed, -speed)
     elif action == ACTION_FORWARD:
         # sigo hacia adelante
@@ -95,8 +120,8 @@ def wander(color):
         # girar a la derecha
         publish(speed/2, speed/8)
     
-    if changeTime < rospy.Time.now():
-        if dataSensorColor[0] == Const.SENSOR_COLOR_DETECT_WHITE and dataSensorColor[1] == Const.SENSOR_COLOR_DETECT_WHITE and dataSensorColor[2] == Const.SENSOR_COLOR_DETECT_WHITE:
+    if not recienEstuveEnColor and changeTime < rospy.Time.now():
+        if dataSensorColor[0] != color and dataSensorColor[1] != color and dataSensorColor[2] != color:
             if action == ACTION_FORWARD or action == ACTION_BACK:
                 if randint(0, 1) == 0:
                     action = ACTION_TURN_LEFT
@@ -109,7 +134,7 @@ def wander(color):
                  print "ADELANTE"
         delay = randint(2, 9)
         changeTime = rospy.Time.now() + rospy.Duration(delay)
-    rate.sleep()
+        rate.sleep()
 
 def processSensorLineDetectedColorData(data):
     global dataSensorColor
@@ -279,6 +304,7 @@ def cumplePrecondiciones():
  
 
  
+ 
 def evaluarPrecondicionesPorCaminos():
     global caminos
     global permanent
@@ -288,19 +314,21 @@ def evaluarPrecondicionesPorCaminos():
     #Se evalua para cada camino si se cumplen las precondiciones para cada nodo del camino
     for c in range (len(caminos)):
         salida=True
+        #para un camino se cumplen todas las precondiciones de los nodos
         for n in caminos[c]:
             if permanent.has_key(n):
                 if not permanent[n]:
-                    salida= False
+                    salida= False #si una precondicion no se cumple todo el camino es no cumpido
                     break 
             if enablig.has_key(n):
-                if not enablig[n]:#ADEMAS VERIFICAR QUE NO SE ESTA EJECUTANDO
+                if not enablig[n] and not ejecutando:#ADEMAS VERIFICAR QUE NO SE ESTA EJECUTANDO
                     salida= False
                     break  
             if ordering.has_key(n):
                 if not ordering[n]:
                     salida= False
                     break 
+        #en caso de que en la recorrida un camino cumplio todas las precondiciones se termina el ciclo
         if salida:
             break
     rospy.loginfo("entro en evaluarporcaminos "+str(identify)+" " +str(salida) + str(caminos))
@@ -362,6 +390,43 @@ def separarCaminos(caminos):
 
 
 
+
+
+
+
+def atenderNivel (data):
+  #  rospy.loginfo("Entro en nivel")
+    msg = Int32MultiArray()
+    global nivelActivacion 
+
+    if data.data[1] == identify:
+        rospy.loginfo("me llego nivel localizar  "+str(data.data[2])+": "+str(identify)+"<-"+str(data.data[0]))
+        #no se suman niveles solo se verifica si es uno o cero
+        nivelActivacion=data.data[2]
+        nivelAtras=0
+        if data.data[2] !=0 and not evaluarPrecondicionesPorCaminos(): 
+            nivelAtras=1         
+        
+        #se verifica si hay un camino cumplido se les manda a los predecesores inmediaros mensajes a 0
+        #sino se envia mensaje de nivel 1 
+   
+        for c in caminos:
+            ultimoNodo=c[len(c)-1] #ultimo nodo del camino previo
+	    msg.data = [identify, ultimoNodo,nivelAtras]#manda para atras el nivel  
+            nivel.publish(msg)
+
+
+
+
+
+
+
+
+
+'''
+
+
+
 def atenderNivel (data):
   #  rospy.loginfo("Entro en nivel")
     msg = Int32MultiArray()
@@ -408,7 +473,7 @@ def atenderNivel (data):
 	    msg.data = [identify, l]#manda para atras el nivel  
             nivel.publish(msg)
 
-
+'''
 
 
 '''
