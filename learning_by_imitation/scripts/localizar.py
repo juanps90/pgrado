@@ -109,7 +109,7 @@ def wander(color):
     if action == ACTION_BACK:
         # voy hacia atras
         #azar=randint(0,2)
-        publish(-speed, -speed)
+        publish(-speed, -speed + 2)
     elif action == ACTION_FORWARD:
         # sigo hacia adelante
         publish(speed, speed)
