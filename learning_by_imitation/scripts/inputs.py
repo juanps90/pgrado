@@ -5,7 +5,7 @@ from std_msgs.msg import String, Float64, Float64MultiArray
 import Const
 
 contador=0
-topeContador=4
+topeContador=1
 
 def messageSensorsLineDetectColor(data):
     msgSensorLineDetectColorData = Float64MultiArray()
