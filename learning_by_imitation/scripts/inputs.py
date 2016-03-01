@@ -52,22 +52,6 @@ def processCommand(data):
         msg.data = str(Const.COMMAND_BAD)
     command.publish(msg)
 
-
-def processCommand(data):
-    msg = String()
-    if data.data == "INIT_LEARNING":
-        msg.data = str(Const.COMMAND_INIT_LEARNING)
-    elif data.data == "END_LEARNING":
-        msg.data = str(Const.COMMAND_END_LEARNING)
-    elif data.data == "PLAY":
-        msg.data = str(Const.COMMAND_PLAY)
-    elif data.data == "STOP":
-        msg.data = str(Const.COMMAND_STOP)
-    elif data.data == "BAD":
-        msg.data = str(Const.COMMAND_BAD)
-    command.publish(msg)
-
-
 # Se publica en sensores un array de Float64 donde los valores son
 # En la posicion 0 el id del sensor
 # En la posicion 1 un valor entre 0 y 1. 0 indica que el objeto esta lo mas a la izquierda
