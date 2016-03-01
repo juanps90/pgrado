@@ -112,6 +112,23 @@ def enlazar(nodoAnterior, nNode, tipoEnlaceAnterior):
     nodoAnterior.parentNodes.append(nNode)
     nodoAnterior.parentTypes.append(tipoEnlaceAnterior)
     nNode.childNodes.append(nodoAnterior)
+    
+    if nNode in nodoAnterior.networkNodes:
+        desenlazar_network(nodoAnterior, nNode)
+    
+def enlazar_network(nodoAnterior, nNode, tipoEnlaceAnterior):
+    if nNode in nodoAnterior.networkNodes or nNode in nodoAnterior.parentNodes:
+        return 0 # ya estaba
+    print "ENLAZO ", str(nNode.letra)," con ", str(nodoAnterior.letra)
+    nodoAnterior.networkNodes.append(nNode)
+    nodoAnterior.networkTypes.append(tipoEnlaceAnterior)
+    
+def desenlazar_network(nodoAnterior, nNode):
+    i1 = nodoAnterior.networkNodes.index(nNode)
+        
+    nodoAnterior.networkTypes.pop(i1)
+    nodoAnterior.networkNodes.pop(i1)
+
 
 def desenlazar(nodoAnterior, nNode):
     if nNode in nodoAnterior.parentNodes:
@@ -122,8 +139,6 @@ def desenlazar(nodoAnterior, nNode):
         
         #try:
         nNode.childNodes.remove(nodoAnterior)
-        #except ValueError:
-        #    print "No estaba en childNodes. Grafo mal?"
         
     
 
@@ -286,6 +301,13 @@ def plot_simple(node):
             letra2 = "NULL" if l.letra is None else l.letra
             print str(top.letra) + "-------->" + str(l.letra)
             file.write(letra2 + "->" + letra + ' [ label="' + letra2 + ' a ' + letra + '" ]; \n')
+            
+        for l in top.networkNodes:
+            letra = "INIT" if top.letra is None else top.letra
+            letra2 = "NULL" if l.letra is None else l.letra
+            print str(top.letra) + "-------->" + str(l.letra)
+            file.write(letra2 + "->" + letra + ' [ label="-NW- ' + letra2 + ' a ' + letra + '" ]; \n')
+            
     file.write("}");
     file.close()
     os.system("dot test.dot -T jpg > out2.jpg && eog out2.jpg")

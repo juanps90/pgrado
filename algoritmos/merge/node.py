@@ -37,6 +37,8 @@ class Node:
         self.parentNodes = []
         self.parentTypes = []
         
+        self.networkNodes = []
+        self.networkTypes = []
         
         # Valores del calculo
         self.n = []
