@@ -79,8 +79,7 @@ def processHeadVisionSensor(data):
          codeColor = Const.SENSOR_COLOR_DETECT_ORANGE
 
     msgVisionSensorData.data = [Const.SENSOR_VISION_HEAD_ID, dataSensor[0], codeColor]
-    #sensores.publish(msgVisionSensorData)
-    print "processHeadVisionSensor = ", data.data
+    sensores.publish(msgVisionSensorData)
 
 def inputsAutomatico():
     print "enviando"
