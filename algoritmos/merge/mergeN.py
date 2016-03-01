@@ -174,6 +174,8 @@ def graphregen(curNodePa, curNode, wordlen):
     primerUp = False
     nodoSinUnir = None
     
+    old2new = {} # mapea los nodos viejos a los nuevos
+    
     while not curNodePa is None:
         
         print "Estudiando: ", curNodePa.thisNode.letra, " vs ", 
@@ -193,11 +195,24 @@ def graphregen(curNodePa, curNode, wordlen):
             while curNodePa.mov[j] == MOV_IZQUIERDA:
                 print "CURNODE ES ", curNode.letra
                 # Se crea el nuevo nodo
+                
                 nNode = Node()
-                nNode.letra = curNode.letra
+                nNode.letra = curNode.letra # copy_node()
+                
+                old2new [curNode] = nNode
                 
                 if not nodoAnterior is None:
                     enlazar(nodoAnterior, nNode, tipoEnlaceAnterior)
+                
+                # copiamos los enlaces network que traia de antes.
+                idx = 0
+                for netNode in curNode.networkNodes:
+                    print "ANTIGUAMENTE ERA ", curNode.letra, " a ", netNode.letra
+                    enlazar_network(nNode, old2new[netNode], curNode.networkTypes[idx])
+                    
+                    print "Enlazando", nNode.letra, " con ", str(old2new[netNode].letra)
+                    idx+=1
+                
                 
                 nodoAnterior = nNode
                 nodoSinUnir = nNode
@@ -215,6 +230,8 @@ def graphregen(curNodePa, curNode, wordlen):
             if curNodePa.mov[j] == MOV_DIAGONAL:
                 print "DIAG"
                 primerUp = True
+                
+                old2new [curNode] = curNodePa.thisNode
                 
                 if not nodoSinUnir is None:
                     enlazar(nodoSinUnir, curNodePa.thisNode, tipoEnlaceAnterior)
@@ -303,10 +320,11 @@ def plot_simple(node):
             file.write(letra2 + "->" + letra + ' [ label="' + letra2 + ' a ' + letra + '" ]; \n')
             
         for l in top.networkNodes:
-            letra = "INIT" if top.letra is None else top.letra
-            letra2 = "NULL" if l.letra is None else l.letra
+            print "NETWORK NODE"
+            letra = "INIT" if l.letra is None else l.letra
+            letra2 = "NULL" if top.letra is None else top.letra
             print str(top.letra) + "-------->" + str(l.letra)
-            file.write(letra2 + "->" + letra + ' [ label="-NW- ' + letra2 + ' a ' + letra + '" ]; \n')
+            file.write(letra2 + "->" + letra + ' [ color="gray" label="' + letra2 + ' a ' + letra + '" ]; \n')
             
     file.write("}");
     file.close()
