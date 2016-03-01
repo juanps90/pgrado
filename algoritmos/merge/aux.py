@@ -28,6 +28,22 @@ class Aux:
         nC.parentNodes = [nA]
         nB.parentNodes = [nA]
         
+        
+        # -- network --
+        nA.networkNodes = [nD, nE, nINIT]
+        nA.networkTypes = [Node.LINK_ORD, Node.LINK_ORD, Node.LINK_ORD]
+        
+        nB.networkNodes = [nE, nINIT]
+        nB.networkTypes = [Node.LINK_ORD, Node.LINK_ORD]
+        
+        nC.networkNodes = [nE, nINIT]
+        nC.networkTypes = [Node.LINK_ORD, Node.LINK_ORD]
+        
+        nD.networkNodes = [nINIT]
+        nD.networkTypes = [Node.LINK_ORD]
+        
+        # --- 
+        
         nINIT.parentTypes = [Node.LINK_ORD]
         nE.parentTypes = [Node.LINK_ORD]
         nD.parentTypes = [Node.LINK_ORD, Node.LINK_ORD]
@@ -69,6 +85,19 @@ class Aux:
         nD.parentNodes = [nK]
         nK.parentNodes = [nA]
         
+        
+        # -- network --
+        nA.networkNodes = [nD, nE, nINIT]
+        nA.networkTypes = [Node.LINK_ORD,Node.LINK_ORD,Node.LINK_ORD]
+        
+        nK.networkNodes = [nE, nINIT]
+        nK.networkTypes = [Node.LINK_ORD,Node.LINK_ORD]
+        
+        nD.networkNodes = [nINIT]
+        nD.networkTypes = [Node.LINK_ORD]
+        # -- 
+        
+        
         nINIT.parentTypes = [Node.LINK_ORD]
         nE.parentTypes = [Node.LINK_ORD]
         nD.parentTypes = [Node.LINK_ORD]
@@ -99,6 +128,17 @@ class Aux:
         nD.parentNodes = [nK]
         nK.parentNodes = [nA]
         
+        # -- network --
+        nA.networkNodes = [nD, nE, nINIT]
+        nA.networkTypes = [Node.LINK_ORD,Node.LINK_ORD,Node.LINK_ORD]
+        
+        nK.networkNodes = [nD, nINIT]
+        nK.networkTypes = [Node.LINK_ORD,Node.LINK_ORD]
+        
+        nD.networkNodes = [nINIT]
+        nD.networkTypes = [Node.LINK_ORD]
+        # -- 
+        
         nINIT.parentTypes = [Node.LINK_ORD]
         nE.parentTypes = [Node.LINK_ORD]
         nD.parentTypes = [Node.LINK_ORD]
@@ -124,6 +164,13 @@ class Aux:
         nINIT.parentNodes = [nZ]
         nZ.parentNodes = [nY]
         nY.parentNodes = [nX]
+        
+        nX.networkNodes = [nZ, nINIT]
+        nX.networkTypes = [Node.LINK_ORD, Node.LINK_ORD]
+        
+        nY.networkTypes = [Node.LINK_ORD]
+        nY.networkNodes = [nINIT]
+        
         
         
         nINIT.parentTypes = [Node.LINK_ORD]
