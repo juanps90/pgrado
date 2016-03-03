@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['salida',['salida',['../namespacemaestro.html#a84243d86db06e814d1428ca34e25759c',1,'maestro']]],
+  ['sensor_5fcolor_5fdetect_5fblack',['SENSOR_COLOR_DETECT_BLACK',['../namespace_const.html#a3aa47f6fe2928ea973807f32681f8a89',1,'Const']]],
+  ['sensor_5fcolor_5fdetect_5fblue',['SENSOR_COLOR_DETECT_BLUE',['../namespace_const.html#afd216d70e36bbb343058e444fe4a8555',1,'Const']]],
+  ['sensor_5fcolor_5fdetect_5fgreen',['SENSOR_COLOR_DETECT_GREEN',['../namespace_const.html#a9c7d2da5b8342382a2d41a348b3be3ef',1,'Const']]],
+  ['sensor_5fcolor_5fdetect_5fline_5fid',['SENSOR_COLOR_DETECT_LINE_ID',['../namespace_const.html#aa1851743d9f7ba8c4b39c4243620cab7',1,'Const']]],
+  ['sensor_5fcolor_5fdetect_5fnone',['SENSOR_COLOR_DETECT_NONE',['../namespace_const.html#a3df6f015eaa7064b0868c33c77ad9518',1,'Const']]],
+  ['sensor_5fcolor_5fdetect_5forange',['SENSOR_COLOR_DETECT_ORANGE',['../namespace_const.html#a6d59810199556c44528739d48f3e8060',1,'Const']]],
+  ['sensor_5fcolor_5fdetect_5fred',['SENSOR_COLOR_DETECT_RED',['../namespace_const.html#a9eb97167b751e38d98672f3bc67ea838',1,'Const']]],
+  ['sensor_5fcolor_5fdetect_5fwhite',['SENSOR_COLOR_DETECT_WHITE',['../namespace_const.html#ac034c59cdb3f22d1c7d3197351a46b6b',1,'Const']]],
+  ['sensor_5fcolor_5fdetect_5fyellow',['SENSOR_COLOR_DETECT_YELLOW',['../namespace_const.html#a25e70012e67fcfa01addc5a3f1a28e70',1,'Const']]],
+  ['sensor_5fnose_5fultrasonic_5fid',['SENSOR_NOSE_ULTRASONIC_ID',['../namespace_const.html#a99fc2d240c593ed047c584cad781354f',1,'Const']]],
+  ['sensor_5fvision_5fhead_5fid',['SENSOR_VISION_HEAD_ID',['../namespace_const.html#ac9bddc9350da6edb36b8263fb7b505dc',1,'Const']]],
+  ['sensorlinedetectcolordata',['sensorLineDetectColorData',['../namespaceinputs.html#a87fb0dbc17488fdee8b50e955ec1bdd9',1,'inputs']]],
+  ['sensors',['sensors',['../namespaceinputs.html#a87d5ef27841549a5df9569ce5ab320c7',1,'inputs']]],
+  ['solicitaroliberarmotores',['solicitarOLiberarMotores',['../namespaceavanzar.html#a8b86631f06e609aba2605db4bcf05658',1,'avanzar.solicitarOLiberarMotores()'],['../namespacego.html#a6058baa991d1d864baaef276a7486f0e',1,'go.solicitarOLiberarMotores()'],['../namespacelocalizar.html#ad3b28c5a1c6e6a6af69d7ffd240dc650',1,'localizar.solicitarOLiberarMotores()']]],
+  ['speed',['speed',['../namespaceavanzar.html#a0d61a6699a393a55fee41ca0b593bdd5',1,'avanzar.speed()'],['../namespacego.html#af97e65cc384b1442eb7699bdf0b64a9f',1,'go.speed()'],['../namespacelocalizar.html#ab00f1bdd3ffbb162b156aff0a3e11bf6',1,'localizar.speed()'],['../namespacetest_color_sensor.html#a4016449b06952591656bc0bfe148507a',1,'testColorSensor.speed()']]],
+  ['sucesorestopologicos',['sucesoresTopologicos',['../namespacemaestro.html#a91e953c33954429d756711eb652392c8',1,'maestro']]]
+];
