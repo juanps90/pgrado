@@ -25,6 +25,10 @@ class irA(comportamiento):
     action = ACTION_TURN_RIGHT
     delay = 0
     changeTime = None
+    
+    colorValido=[Const.SENSOR_COLOR_DETECT_RED,Const.SENSOR_COLOR_DETECT_RED,
+    Const.SENSOR_COLOR_DETECT_GREEN,Const.SENSOR_COLOR_DETECT_BLUE,
+    Const.SENSOR_COLOR_DETECT_YELLOW,Const.SENSOR_COLOR_DETECT_ORANGE]
 
     def __init__(self,datos): 
         super(irA,self).__init__(datos) 
@@ -143,11 +147,18 @@ class irA(comportamiento):
        # La condicion es que color sea igual al color dado.
        # La distancia este en el intervalo [PARAM_DISTANCE - DELTA_DISTANCE, PARAM_DISTANCE + self.DELTA_DISTANCE]
        # El angulo este en el intervalo [PARAM_ANGLE - DELTA_ANGLE, PARAM_ANGLE + self.DELTA_ANGLE]
-       if headSensor[1] == self.PARAM_COLOR and \
-       self.PARAM_DISTANCE - self.DELTA_DISTANCE <= noseSensor and \
-       noseSensor[0] <= self.PARAM_DISTANCE + self.DELTA_DISTANCE and \
-       self.PARAM_ANGLE - self.DELTA_ANGLE <= headSensor[0] and \
-       headSensor[0] <= self.PARAM_ANGLE + self.DELTA_ANGLE:
+       cond0=False
+       if self.estado ==1 and headSensor[1] in self.colorValido:
+          cond0=True
+       if self.estado ==2 and self.parametros[Const.SENSOR_VISION_HEAD_ID][1]==headSensor[1]:
+          cond0=True
+       cond1=self.PARAM_DISTANCE - self.DELTA_DISTANCE <= noseSensor 
+       cond2=noseSensor[0] <= self.PARAM_DISTANCE + self.DELTA_DISTANCE  
+       cond3=self.PARAM_ANGLE - self.DELTA_ANGLE <= headSensor[0] 
+       cond4=headSensor[0] <= self.PARAM_ANGLE + self.DELTA_ANGLE
+       
+       if cond0 and cond1 and cond2 and cond3 and cond4:       
+       
            rospy.loginfo("SE CUMPLE POSTCONDICION IR A")
            activate=True
        rospy.loginfo("Active irA" + str(activate))

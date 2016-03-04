@@ -961,13 +961,18 @@ def aprender():
     global dicComp
     global nodos
     global Diccionario
+    
+    #if  fase=="aprender":
+    #   return
+    
+    
     #mata los nodos que hubiera activos
     for it in nodosParaAprender.values():
         print it.stop()	
     for it in nodosParaEjecutar.values():
-        print it.stop()	 
+        print it.stop()	
         	
-    #hay que lanzar comportamientos para que reciban las postcondiciones a la hora de aprender NO OLVIDAR MATARLOS AL TERMNAR APRENDER
+    #hay que lanzar comportamientos para que reciban las postcondiciones a la hora de aprender NO OLVIDAR MATARLOS AL TERMNAR APRENDER 
     
     nodosParaAprender = {}
     for n in dicComp:

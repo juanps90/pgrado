@@ -118,7 +118,16 @@ def recursionSucesores(nodo,  sucesores, sucesoresTopologicos):
 def compararParamComportamiento(x,y):
     global paramCom
     global diccionario
-    #aca se deberia comparar por parametros tambien
+    '''
+    #aca se deberia comparar por parametros tambien hay que tener
+    #en cuenta un cierto margen de error
+    if diccionario[x]==diccionario[y]:
+        parX=paramCom[x]
+        parY=paramCom[y]
+        for px in parX:
+            lista=parX
+            for 
+    '''
     return diccionario[x]==diccionario[y]
     
      
