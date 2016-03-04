@@ -28,7 +28,7 @@ class irA(comportamiento):
 
     def __init__(self,datos): 
         super(irA,self).__init__(datos) 
-        self.idComportamiento=3
+        self.idComportamiento="irA"
         self.delay = 0
         self.changeTime = rospy.Time.now() + rospy.Duration(self.delay)
         self.rate = rospy.Rate(10)  
@@ -127,8 +127,14 @@ class irA(comportamiento):
        rospy.loginfo("color = " + str(headSensor[1]) + " distancia  = " + str(noseSensor) + " angulo = " + str(headSensor[0]))
        return activate
 
-    def setIdentify(self, dato):
-        self.identify=dato
+
+
+
+    def getParAprendidos(self):
+        s=self.dataSensorColor 
+        return str (Const.SENSOR_VISION_HEAD_ID) + "#" +str(self.PARAM_COLOR)  
+
+
 
 if __name__ == '__main__':
 

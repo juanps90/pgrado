@@ -30,7 +30,7 @@ class avanzar(comportamiento):
          
     def __init__(self,datos): 
 		super(avanzar,self).__init__(datos) 
-                self.idComportamiento=2
+                self.idComportamiento="avanzar"
  
         #se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores
     def actuar(self):
@@ -72,6 +72,10 @@ class avanzar(comportamiento):
         return activate
 
 
+    def getParAprendidos(self):
+        s=self.dataSensorColor 
+        return str(Const.SENSOR_COLOR_DETECT_LINE_ID)+ "#" + str(s[0]) + "#" +str(s[1]) + "#" +str(s[2])  
+    
     
     
 if __name__ == '__main__':

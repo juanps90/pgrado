@@ -23,8 +23,8 @@ class comportamiento(object):
 
 
     motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10) 
-    postCondDet   = rospy.Publisher('postConditionDetect', Int32MultiArray, queue_size=10) #usado para aprender 
-    preCondDet = rospy.Publisher('preConditionDetect', Int32MultiArray, queue_size=10) #usado para ejecutar 
+    postCondDet   = rospy.Publisher('topicoPostCondDet',String , queue_size=10) #usado para aprender 
+    preCondDet = rospy.Publisher('preConditionDetect',Int32MultiArray , queue_size=10) #usado para ejecutar 
     nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10) 
     nodoEjecutando=rospy.Publisher('topicoNodoEjecutando', Int32MultiArray, queue_size=10) 
     solicitarOLiberarMotores=rospy.Publisher('topicosolicitarOLiberarMotores', Int32MultiArray, queue_size=10)
@@ -61,7 +61,7 @@ class comportamiento(object):
  
         rospy.loginfo("comportamiento datos bloques"+str(bloques))
         del bloques[0]
-        param=self.separarSensados(bloques)
+        self.parametros=self.separarSensados(bloques)
         self.initTopicos()
 
 
@@ -71,7 +71,13 @@ class comportamiento(object):
 
     def verificarPoscondicionesSensores(self,data):
         pass
+        
+    def getParAprendidos(self):
+        pass
 
+#############################
+#procesado de sensores
+###########################
 
     def processSensorLineDetectedColorData(self,data):
         self.dataSensorColor = [data[0], data[1], data[2]]
@@ -84,11 +90,7 @@ class comportamiento(object):
         #print data.data
 
 
-    def atenderMotorLockeado(self,data):   
-        if data.data[1] == -1 or data.data[1]== self.identify:   #el valor 0 es para el id del motor
-            self.motorLibre=True
-        else :
-            self.motorLibre=False  
+
 
 
 
@@ -137,17 +139,13 @@ class comportamiento(object):
         return sensados
 
 
-
-
-
-
     #posiblemente haya mas sensores, se debe realizar una lectura de todos los sensores
     # y luego de esto verificar si el estado es de ejecucion
     def atenderSensores(self,data):
         #se verifican las condiciones en base a los sensores
 
         print "aprender id>",self.identify 
-        msg = Int32MultiArray()
+        
 
         valorEncendido=0
         bloques=self.separarBloques(data.data)
@@ -164,10 +162,19 @@ class comportamiento(object):
          
         ##rospy.loginfo(estado)
         if self.estado ==1 and self.identify==-1:#aprender el -1 es para que contesten nodos lanzados para aprender	
-            msg.data = [self.idComportamiento,valorEncendido]#se envia el id del comportamiento cuando se aprende
-            self.postCondDet.publish(msg)
+            #msg.data = [self.idComportamiento,valorEncendido]#se envia el id del comportamiento cuando se aprende
+            msgString=String()
+            msgString.data = str(self.idComportamiento) + "#" + str(valorEncendido) 
+            param= str(self.getParAprendidos())
+            if len (param):
+                msgString.data = msgString.data + "|" + param
+            
+            #"|0#1#1#1"
+            
+            self.postCondDet.publish(msgString)
             rospy.loginfo("encendido "+str(valorEncendido)+"idCOmp :"+str(self.idComportamiento))
         elif self.estado ==2:#ejecutar
+            msg = Int32MultiArray()
             cumplePrecondiciones=self.evaluarPrecondicionesPorCaminos()
             nodoEjecutable = cumplePrecondiciones and self.nivelActivacion > 0
             #rospy.loginfo("nodo ejecutable id:"+str(self.identify)+" "+str(nodoEjecutable))
@@ -179,6 +186,27 @@ class comportamiento(object):
             self.actuar()	
             ##rospy.loginfo("localizar ",valorEncendido)
 
+
+    def realizarBad(self,data):
+        if permanent.has_key(data):
+            del permanent[data]
+        if  enablig.has_key(data): 
+            del enablig[data]
+        if  ordering.has_key(data):    
+            del ordering[data]
+        
+        for c in caminos:
+            if data in c:
+                data.remove(data)
+        #if self.identify== data:#por las dudas hago que todos liberen los actuadores
+        msg.data = [self.identify,0,-1]  
+        self.solicitarOLiberarMotores.publish(msg)	
+
+
+        #fata matar al nodo bad
+
+
+
 	
     def setEstado(self,data):  
         self.estado=data.data[0]
@@ -188,6 +216,10 @@ class comportamiento(object):
             msg.data = [self.identify,0,0] 	 
             self.motores.publish(msg) 
         #rospy.loginfo("estado"+str(self.estado))
+        if self.estado==4:
+            nodoABorrar=data.data[1]
+
+ 
 
 
 
@@ -306,12 +338,21 @@ class comportamiento(object):
             print "es de orden"
 
 
+    def atenderMotorLockeado(self,data):   
+        if data.data[1] == -1 or data.data[1]== self.identify:   #el valor 0 es para el id del motor
+            self.motorLibre=True
+        else :
+            self.motorLibre=False  
+
+
+
+
     #se fijan los publicadores
     def setMotores(self,dato):    
         self.motores= dato
      
-    def setPostConditionDetect(self,dato):  
-        self.postCondDet=dato 
+    #def setPostConditionDetect(self,dato):  
+    #    self.postCondDet=dato 
         
     def setPreConditionDetect(self,dato): 
         self.preCondDet=dato

@@ -20,7 +20,7 @@ def load_class(full_class_string, behaviorPath):
 
 def load_abstract_behavior():
     path = getenv('LEARNING_BY_IMITATION_PATH', getenv('HOME') + '/catkin_ws/src/learning_by_imitation/scripts') + "/behavior"
-    ret = {}
+    ret = []
     only_file_py = [ 
         f for f in listdir(path)
         if (isfile(join(path, f)) and (splitext(f)[1] == ".py"))]
@@ -29,7 +29,7 @@ def load_abstract_behavior():
         try:
             clazz = load_class(name + '.' + name, path)
             if issubclass(clazz, comportamiento):        
-                ret[i + 1] = splitext(f)[0]
+                ret.append(splitext(f)[0])
         except:
             continue                    
     

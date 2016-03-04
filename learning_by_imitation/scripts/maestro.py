@@ -10,12 +10,19 @@ import loadBehavior
 
 pkg = "learning_by_imitation"#paquete donde se encuentran los archivo py
 #pkg = "vrep_ros_demo"
-id = 0
-dicComp = {} #asocia idnumerico con nombres de comportamientos
+#pkg="behavior"
+ 
+ 
+idNA= 0
+#dicComp={0:'init',1:'localizar', 2:'avanzar', 3:'irA'} #asocia idnumerico con nombres de comportamientos
+dicComp={0:'init'} #asocia idnumerico con nombres de comportamientos
+
+
+ 
 identify=-1
 Diccionario={}
 nodosLanzados={}
-nodos = []
+nodos = {}
 links = []
 linkEnEjecucion=[]
 
@@ -33,7 +40,7 @@ tiempoEsperaBad=5000 #tiempo que se acepta luego de terminado un comportamiento 
 enablig = {}
 ordering = {}
 permanent = {}
-fase="aprender"
+fase="nada"
 #el primer par de indices es el nodo anterior id,tiempo de fin el segundo es el nodo actual para evaluar los 10 segundos se recuerda el anterior
 #esto se usa para el caso BAD
 nodoEjecutando=(-1,-1,-1,-1)
@@ -54,46 +61,79 @@ def atenderAprender(data):
     global fase  
     if fase == "aprender":
         callback(data)
+  
+  
+  
+def separarBloques(data):
+        #print "callback: ",data
+        strData=str(data)
+        #rospy.loginfo("comportamiento datos recibidos"+str(data))
+        return map(str, strData.split('|'))
         
-
+    
+def separarSensados(separar):
+        sensados={}
+        for s in  separar:
+            if len(s)>1:
+            	#rospy.loginfo(str(len(s))+"separar "+s)
+            	datos = map(float, s.split('#'))
+            	#print "sensado y datos ", s,datos
+            	idSensor=int (datos[0])
+            	del datos[0]
+            	sensados[idSensor]=datos        
+        return sensados  
+  
 
 #se pueden pasar parametros como un array donde el primer elemento indica el tipo 
 #de parametro y el segundo cantidad de valores los demas serian los daots, con un for se recorre etc
-def callback(data): 
-    comportamiento=data.data[0] 
-    postcondicion=data.data[1]
-    #tipoParam=data.data[2] 
-    #cantValores=data.data[3]  
-    #valor=data.data[4] 
+def callback(data):
+    
+    separados=separarBloques(data.data)
+    d=separados[0]
+    #print "separados ",d
+    
+    datos = d.split('#')
+    del separados[0]
+    param=separarSensados(separados)
+    
+    
+    comportamiento=str(datos[0]) 
+    postcondicion=int(datos[1])
+    
               
     #print "valor postcondicion: ",postcondicion," comportamiento: ",comportamiento
 
     global nodos
-    global id
+    global idNA
 
     if postcondicion == 1:
         #nodo nuevo comportamiento recien activado
         if not Diccionario.has_key(comportamiento):
             Diccionario[comportamiento]=[]
+            
+        #nodo ya activado y lo sigue estando
+        idActivo=nodoActivo(comportamiento)
+        if idActivo!=-1:   
+            #print "nodo comportamiento sigue activo"
+            #actualizar datos del nodoactivo en ambas estructuras nodos y dicc
+            updateParam(nodos[idActivo], param)     
         #no hay nodo activo se agrega uno nuevo
-        if not nodoActivo(comportamiento):   
+        else:
             print "nodo comportamiento nuevo ",comportamiento
             #agregar nodo            
-            nuevoNodo=(id, current_milli_time(), -1, comportamiento, {})
-           # nodos[id]= nuevoNodo
-            nodos.append(nuevoNodo)
+            nuevoNodo=(idNA, current_milli_time(), -1, comportamiento, param)
+            print "idNA en call ",idNA," largo ",len (nodos) 
+            nodos[idNA]= nuevoNodo
+            #nodos.append(nuevoNodo)
             Diccionario[comportamiento].append(nuevoNodo)       
-            id = id + 1
+            idNA = idNA+ 1
             print "nodos: ",nodos
-        #nodo ya activado y lo sigue estando
-        #else:
-            #print "nodo comportamiento sigue activo"
-            #actualizar datos del nodoactivo
-            #print "nodos ",nodos
+
     #comportamiento que estaba activo y se apaga
-    elif nodoActivo(comportamiento):
+    elif nodoActivo(comportamiento)!=-1:
         print "finalizar nodo comportamiento",comportamiento
-        #verificar que el inicio del nodo actual esta a menos de errorRuido del fin de otro nodo del mismo comportamiento 
+        #verificar que el inicio del nodo actual esta a menos de 
+        #errorRuidNAo del fin de otro nodo del mismo comportamiento 
         #en tal caso hacer un merge
         tiempoFinal=current_milli_time()
         print "tiempo final: ",tiempoFinal," ",comportamiento
@@ -111,17 +151,23 @@ def callback(data):
             print ultimo[1]-anterior[2]
             if (ultimo[1]-anterior[2])<errorRuido:
                 print "hay que merger ",comportamiento
+                # FALTA hacer el merge teniento en cuenta los parametros 
                 hayQueMerger=True                
                 del lista[tamanio-1]
                 del lista[tamanio-2]
                 anterior[2]=tiempoFinal
                 mergeado=tuple(anterior)
+                updateParam(mergeado, param)
                 lista.append(mergeado)
                 Diccionario[comportamiento]=lista
-                #de la lista de nodos hay que borrar el nodo que se mergeo y acomodar el nodo anterior con su nuevo final
-                #del nodos[ultimo[0]] 
-                #nodos[anterior[0]]=mergeado
-                mergeNodos(ultimo[0], anterior[0],mergeado)               
+                #de la lista de nodos hay que borrar el nodo que se mergeo 
+                #y acomodar el nodo anterior con su nuevo final
+                del nodos[ultimo[0]] 
+                nodos[anterior[0]]=mergeado
+                #mergeNodos(ultimo[0], anterior[0],mergeado)  
+                
+                
+                             
         #se asigna el final y se ajustan a nodos y diccionario        
         if not hayQueMerger:
             ultimo[2]=tiempoFinal
@@ -129,11 +175,16 @@ def callback(data):
             finalizado=tuple(ultimo)
             lista.append(finalizado)
             Diccionario[comportamiento]=lista
-            #nodos[len(nodos)-1]=finalizado
-            cerrarNodo(ultimo[0],finalizado)
+            nodos[ultimo[0]]=finalizado
+            #cerrarNodo(ultimo[0],finalizado)
             print "cerrar directamente ",comportamiento
 
         #print nodos  
+
+#Arreglar
+def updateParam(nodo, paramNuevo):
+    salida=nodo
+    return salida
 
 
 def offLine ():
@@ -142,27 +193,52 @@ def offLine ():
     #si no estaba prendido se ocupa el callback de ignorarlo
     msg = Int32MultiArray()
     for comp in Diccionario  :
-        msg.data = [comp,0]
+        #msg.data = [comp,0]
+        
+        msg.data = str(comp)+"#0|0#1#1#1"
         callback (msg)	  
     
     #eliminar nodos de menos que errorRuido y a la vez lanzar los nodos del grafo
     global nodos
-    global id
+    global idNA
     global identify
     global links
     global auxDicNodoComp
     global auxDicNodoParam
-    identify=id #ultimo nodo es el init
+    
+    
+    auxNodos={}
+    
+    idNodeAdd=lcs.getNewId()
+    print "id nodo inicial ",idNodeAdd
+    for n in nodos.values(): 	
+        if n[2]-n[1]>errorRuido:   #el nodo es menor a un errorRuido
+            auxl=list (n)
+            auxl[0]=idNodeAdd
+            idNodeAdd = idNodeAdd + 1
+            auxNodos[idNodeAdd]=tuple(auxl)
+            print "valores de nodos a agregar ",n,n[2]-n[1]
+    nodos =  auxNodos    
+       
+    idNA=idNodeAdd #ultimo nodo es el init
+
+    '''
     for n in range(len(nodos)-1,-1,-1):
         auxNodo=nodos[n]
 	
         if auxNodo[2]-auxNodo[1]<errorRuido:   #el nodo es menor a un errorRuido
             del nodos[n]
             print "valores de nodos a borrar ",auxNodo,auxNodo[2]-auxNodo[1] 
+    '''       
+            
+            
+            
+            
             
     print "generando links"
     print "tamanio nodos ",len(nodos) 
-    for n1 in nodos  :
+    links=[]
+    for n1 in nodos.values()  :
         #carga los diccionarios
         if not  auxDicNodoComp.has_key(n1[0]):
             auxDicNodoComp[n1[0]]= n1[3] 
@@ -172,7 +248,7 @@ def offLine ():
 
 
 
-        for n2 in nodos  :
+        for n2 in nodos.values()  :
             if n1[0] != n2[0] and n1[1] <= n2[1]:#son nodos distintos y n2 se agrego luego que n1   
 
                 #print "enlaces ",n1,n2,n1[2]+epsilon,n2[1]         
@@ -182,7 +258,7 @@ def offLine ():
                 if n1[2] +epsilon >n2[2]: #el final de n1 mayor al de n2
                     tipoLink=2 #permanente
                 elif n1[2]<n2[2] and n2[1] + epsilon <n1[2]:#el final de n2 cae en medio de n2
-                    tipoLink=1 #habilitacion
+                    tipoLink=1 #habilitacionauxDicNodoParam
                 elif n1[2]+epsilon<n2[1]: #el final de n1 es menor al inicio de n2
                     tipoLink=0 #orden  
                 if tipoLink!=-1:  
@@ -190,8 +266,8 @@ def offLine ():
                     links.append((n1[0],n2[0] ,tipoLink))
                 else:
                     print "el nodo no se agrego"
- 
-    agregarNodoInit()
+    if len (nodos)>0:
+        agregarNodoInit(idNA)
 
  
 
@@ -207,26 +283,26 @@ def offLine ():
 
 #se desacopla de offline para poder usar el metodo anterior en el metodo go, ya que ahi no se necesita este nodo init
 #tal vez si se necesite ya que de habeer un solo nodo no hay links que agregar
-def agregarNodoInit():
+def agregarNodoInit(idInit):
     global links
     global nodos  
     global auxDicNodoComp
-    global auxDicNodoParam   
-    for n in nodos  :
-        links.append((n[0],identify,0))
+    global auxDicNodoParam  
+    for n in nodos.values()  :
+        links.append((n[0],idInit,0))
 
-    if not  auxDicNodoComp.has_key(identify):
-        auxDicNodoComp[identify]= 0
+    if not  auxDicNodoComp.has_key(idInit):
+        auxDicNodoComp[idInit]= "init"
 
-    if not  auxDicNodoParam.has_key(identify):
-        auxDicNodoParam[identify]= {}
+    if not  auxDicNodoParam.has_key(idInit):
+        auxDicNodoParam[idInit]= {}
 
 
     
-     
+#retorna el id del nodo activo para un comportamiento    
 def nodoActivo(comportamiento):
     #verificar si en la lista del comportamiento hay un nodo activo
-    nodoActivo=False
+    nodoActivo=-1
     if Diccionario.has_key(comportamiento):        
         listaActual=Diccionario[comportamiento]
         tamanio=len (listaActual)    
@@ -234,17 +310,19 @@ def nodoActivo(comportamiento):
             ultimoNodo=listaActual[tamanio-1]
             datos=list(ultimoNodo)
             final=datos[2]
+            #el nodo aun no esta cerrado
             if final== -1:
-                nodoActivo=True
+                nodoActivo=datos[0]
     return nodoActivo
 
-
+'''
 def cerrarNodo(idCerrar,finalizado):
     global nodos
     for n in range(len(nodos)-1,-1,-1):
         if nodos[n][0]==idCerrar:
             nodos[n]=finalizado
             return
+
 
 def mergeNodos(idEliminar,idModificar,nodoMergueado): 
     global nodos
@@ -260,7 +338,7 @@ def mergeNodos(idEliminar,idModificar,nodoMergueado):
             pasosRestantes=pasosRestantes-1	   
             if pasosRestantes<=0:
                 return
-
+'''
 
 
 #solo se usa para crear la topologia a partir de una sola demostracion
@@ -314,7 +392,8 @@ def paramToString(param):
 def lanzarNodo(idNodo,idComportamiento): #es el id numerico del comportamiento 
     global dicComp
     global dicNodoParam
-    nombreComportamiento=dicComp [idComportamiento]
+    #nombreComportamiento=dicComp [idComportamiento]
+    nombreComportamiento=str(idComportamiento)
     print "se lanza el comportamiento:",nombreComportamiento
     
     
@@ -322,13 +401,14 @@ def lanzarNodo(idNodo,idComportamiento): #es el id numerico del comportamiento
     global dicNodoParam  
     execution =nombreComportamiento + '.py'
     # en los args se envian los id de los nodos y los parametros
-    if idComportamiento == 0:
+    if idComportamiento == "init":
         node = roslaunch.core.Node(pkg, execution, args=str(idNodo) )
     else :
         sensado=paramToString(dicNodoParam)
         data= str(idNodo)
         if len(sensado)>1:
-            data=data + '|' + paramToString(dicNodoParam)              
+            print "diccionario nodo param ",dicNodoParam,idNodo,dicNodoParam[int(idNodo)]
+            data=data + '|' + paramToString(dicNodoParam[int(idNodo)])              
         node = roslaunch.core.Node(pkg, execution, args=str(data) )
         #node = roslaunch.core.Node(pkg, execution, env_args=[("identify",str(idNodo)),("color","negro")] )
     
@@ -413,15 +493,23 @@ def ejecutarBad():
     dentroDElTiempo=tiempoDif<tiempoBad
     existeNodoAnterior=nodoEjecutando[0] >=0
     
-    if existeNodoAnterior and dentroDElTiempo:
-        lcs.borrarNodoBad(nodoEjecutando[0])               
-    
     #se elimina el nodo que esta en ejecucion, notar que si es el ultimo nodo tambien funciona porque al no haber
     #comportamiento posteriores el valor de ejecutando queda seteado en el ultimo nodo, es decir solo se modifica si un
     #nuevo nodo ejecuta, en caso de dejar de ejecutar no se notifica
-    else :
-        lcs.borrarNodoBad(nodoEjecutando[2])
-    lcs.graficar("bad")
+    nodoABorrar=nodoEjecutando[2]
+    if existeNodoAnterior and dentroDElTiempo:
+        nodoABorrar=nodoEjecutando[0]            
+    lcs.borrarNodoBad(nodoABorrar)        
+    lcs.graficar("bad")   
+    
+    #se publica estado a Bad capaz el nombre habria que cambiarlo,
+    msg = Int32MultiArray()
+    msg.data = [4,nodoABorrar] 
+    estado.publish(msg)
+    
+        
+        
+    
 
 ##lo siguiente de bad ya no iria
 
@@ -837,6 +925,13 @@ def finDemo():
     global nodosParaEjecutar
     global fase
     global estado
+    
+    
+    if fase != "aprender":
+        print "ATENCION: no se inicio aprendizaje"
+        return
+
+
     for it in nodosParaAprender.values():
         print it.stop()
 
@@ -847,12 +942,17 @@ def finDemo():
     msg.data = [0,1]#debe avisar antes de hacer offline que se cierra asi no quedan mensajes colgados 
     estado.publish(msg)
     offLine()
-    #agregarNodoInit()#agrega el nodo init al final de link y agrega enlaces de orden
+    #agregarNodoInit()#agrega el nodo init al final de link
+    # y agrega enlaces de orden
     #aca se podria agregar el comportamiento del capitulo 5
-    lcs.setDicParametros(auxDicNodoParam)
-    lcs.setDicComportamientos(auxDicNodoComp)
-    lcs.nuevaDemostracion( crearTopologia (links),links) 
-           
+    if len (links)>0:
+        lcs.setDicParametros(auxDicNodoParam)
+        lcs.appendDicCom(auxDicNodoComp)
+        lcs.nuevaDemostracion( crearTopologia (links),links) 
+    else:
+        print "ATENCION: La demostracion no genero nodos"
+    
+          
 def aprender():
     global nodosParaAprender
     global nodosParaEjecutar
@@ -877,7 +977,7 @@ def aprender():
 
     fase="aprender"	    
     Diccionario={}
-    nodos = []
+    nodos = {}
     id=0
     msg.data = [1,1]#podria ser el segundo valor el id del comportamiento
     estado.publish(msg)
@@ -937,7 +1037,7 @@ def ejecutar():
     estado.publish(msg)
     #arranqueNivel()
 
-event = threading.Event()
+#event = threading.Event()
 
 def handler(signum, frame):    
     global event
@@ -969,14 +1069,15 @@ if __name__ == '__main__':
     rospy.init_node('maestro', anonymous=True) 
     id=0
     dicComp=loadBehavior.load_abstract_behavior()
-    dicComp[0] = 'init'
-    
+    dicComp.remove("irA")
+    dicComp.append('init')
+    print "diccionario comportamientos ",dicComp
     rospy.Subscriber("command", String, atenderComandos)
     
     pub=rospy.Publisher('preConditionsSetting', Int32MultiArray, queue_size = 10)
     estado=rospy.Publisher('topicoEstado', Int32MultiArray, queue_size = 10)    
     nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10)
-    rospy.Subscriber("postConditionDetect", Int32MultiArray, atenderAprender)    
+    rospy.Subscriber("topicoPostCondDet", String, atenderAprender)    
     motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
     pubCaminos = rospy.Publisher('topicoCaminos', Int32MultiArray, queue_size=100)
     #rospy.Ssignal.signal(signal.SIGINT, handler)ubscriber("topicoCaminos", Int32MultiArray, atenderCaminos)

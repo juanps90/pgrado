@@ -409,8 +409,11 @@ def getDicComportamientos():
     global topologiaGeneral
     global diccionario
     global networkGeneral
+    global parComp
     if len (diccionario)==0:
-        diccionario={0:1,1:2,2:0}
+        #diccionario={0:1,1:2,2:0}
+        parComp={0:{0:[0,0,0]},1:{0:[2,2,2]}}
+        diccionario={0:"localizar",1:"avanzar",2:"init"}
         networkGeneral=[(0,1,2),(0,2,0),(1,2,0)]
         topologiaGeneral=[(0,1),(1,2)]
     return diccionario
@@ -426,16 +429,27 @@ def setTopologiaGeneral(topologia):
     global topologiaGeneral
     topologiaGeneral=topologia
 
+
+#ARREGLAR ACA ES APPEND
 def setDicParametros(param):
     global parComp
     parComp =param
 
-def setDicComportamientos(comp):
+def appendDicCom(comp):
     global diccionario
     diccionario =comp
 
 
-     
+def getNewId():
+    global topologiaGeneral
+    salida = -1
+    for t in topologiaGeneral:
+        if t[0]>salida:
+            salida = t[0]
+        if t[1]>salida:
+            salida = t[1]
+            
+    return salida+1
 
 def nuevaDemostracion(topologiaNueva,networkNueva):
     global MejorCamino

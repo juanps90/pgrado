@@ -17,7 +17,7 @@ import sys
 import rospy
 from std_msgs.msg import Int32MultiArray, Float64, Float64MultiArray
 
-postConditionDetect = None
+#postConditionDetect = None
 identify=0
 
 NodoActivo = -1
@@ -81,7 +81,7 @@ def actuarMotoresVREP(data):
                
 #al iniciar una nueva ejecucion se debe reiniciar la estructura                
 def setEstado(data):  
-       postConditionDetect = None
+       #postConditionDetect = None
        identify=0
        NodoActivo = -1   
        print "Llego estado" , data.data[0]

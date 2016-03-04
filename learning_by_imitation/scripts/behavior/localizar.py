@@ -55,7 +55,7 @@ class localizar(comportamiento):
 
     def __init__(self,datos): 
         super(localizar,self).__init__(datos) 
-        self.idComportamiento=1
+        self.idComportamiento="localizar"
         self.delay = 0
         self.changeTime = rospy.Time.now() + rospy.Duration(self.delay)
         self.rate = rospy.Rate(10)   
@@ -162,30 +162,17 @@ class localizar(comportamiento):
 	sensado=data[Const.SENSOR_COLOR_DETECT_LINE_ID]	
 	self.processSensorLineDetectedColorData(sensado)	
 	#esto es para probar con un comportamiento loc con otro color se haria con un topico de parametros     
-	if sensado[1] == 0 or sensado[1] == 2:#para que sea de permanencia, hay que revisar
+	if sensado[1] == 0:# or sensado[1] == 2:#para que sea de permanencia, hay que revisar
 	    print "se cumple postcondicion localizar"
 	    activate=True
 	print "Active localizar",activate
         return activate
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    def setIdentify(self, dato):
-        self.identify=dato
-
-
+    def getParAprendidos(self):
+        s=self.dataSensorColor 
+        return str(Const.SENSOR_COLOR_DETECT_LINE_ID)+ "#" + str(s[0]) + "#" +str(s[1]) + "#" +str(s[2])  
+    
 
 
 if __name__ == '__main__':
