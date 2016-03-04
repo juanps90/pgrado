@@ -109,15 +109,18 @@ def processProximitySensorData(data):
 
 def atenderSensorLineDetectColor(data):
     global dataLineDetectColor
-    dataLineDetectColor=data
+    if len(data.data)>0: 
+        dataLineDetectColor=data
 
 def atenderProximitySensor(data): 
     global dataProximitySensor 
-    dataProximitySensor=data
+    if len(data.data)>0:    
+        dataProximitySensor=data
 
 def atenderHeadVisionSensor(data):
-    global dataHeadVisionSensor 
-    dataHeadVisionSensor=data 
+    global dataHeadVisionSensor
+    if len(data.data)>0:
+        dataHeadVisionSensor=data 
 
 
 def envioSensados(): 
@@ -152,9 +155,9 @@ def envioSensados():
     print "envio sensores",msg.data
     sensores.publish(msg) 
     
-    #dataLineDetectColor=None
-    #dataHeadVisionSensor=None
-    #dataProximitySensor=None
+    dataLineDetectColor=None
+    dataHeadVisionSensor=None
+    dataProximitySensor=None
     
 
 def processCommand(data):

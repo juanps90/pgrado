@@ -1071,6 +1071,8 @@ if __name__ == '__main__':
     dicComp=loadBehavior.load_abstract_behavior()
     #dicComp.remove("irA")
     dicComp.append('init')
+    if not 'irA' in dicComp:
+        dicComp.append('irA')
     print "diccionario comportamientos ",dicComp
     rospy.Subscriber("command", String, atenderComandos)
     

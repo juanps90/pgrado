@@ -53,7 +53,7 @@ class comportamiento(object):
     caminos=[]
     speed = 1
     parametros=None
-
+    dataSensor={}
 
     def __init__(self,data):
         bloques=self.separarBloques(data) 
@@ -89,11 +89,7 @@ class comportamiento(object):
             print "ATRAS"
         #print data.data
 
-
-
-
-
-
+ 
 
     def evaluarPrecondicionesPorCaminos(self): 
 	        salida=True
@@ -125,7 +121,8 @@ class comportamiento(object):
         #rospy.loginfo("comportamiento datos recibidos"+str(data))
         return map(str, data.split('|'))
         
-    
+    #devuelve un diccionario con clave id del sensor 
+    #values una lista de datos sensados
     def separarSensados(self,separar):
         sensados={}
         for s in  separar:
@@ -149,13 +146,12 @@ class comportamiento(object):
 
         valorEncendido=0
         bloques=self.separarBloques(data.data)
-        sensados=self.separarSensados(bloques)        
-        rospy.loginfo(str(sensados))
+        self.dataSensor=self.separarSensados(bloques)        
+        rospy.loginfo(str(self.dataSensor))
         
         
-        if self.verificarPoscondicionesSensores(sensados):
-            print "se cumple postcondicion id>",self.identify 
-            sensados
+        if self.verificarPoscondicionesSensores(self.dataSensor):
+            print "se cumple postcondicion id>",self.identify, self.dataSensor
             valorEncendido=1            
         else:#redundante solo para ver que paso
             print "se apago postcondicion id>",self.identify 
@@ -165,11 +161,11 @@ class comportamiento(object):
             #msg.data = [self.idComportamiento,valorEncendido]#se envia el id del comportamiento cuando se aprende
             msgString=String()
             msgString.data = str(self.idComportamiento) + "#" + str(valorEncendido) 
-            param= str(self.getParAprendidos())
-            if len (param):
-                msgString.data = msgString.data + "|" + param
-            
-            #"|0#1#1#1"
+            if valorEncendido==1:
+                param= str(self.getParAprendidos(self.dataSensor))
+                if len (param):
+                    msgString.data = msgString.data + "|" + param            
+                 #"|0#1#1#1"
             
             self.postCondDet.publish(msgString)
             rospy.loginfo("encendido "+str(valorEncendido)+"idCOmp :"+str(self.idComportamiento))

@@ -72,8 +72,8 @@ class avanzar(comportamiento):
         return activate
 
 
-    def getParAprendidos(self):
-        s=self.dataSensorColor 
+    def getParAprendidos(self,data):
+        s=data[Const.SENSOR_COLOR_DETECT_LINE_ID]
         return str(Const.SENSOR_COLOR_DETECT_LINE_ID)+ "#" + str(s[0]) + "#" +str(s[1]) + "#" +str(s[2])  
     
     
