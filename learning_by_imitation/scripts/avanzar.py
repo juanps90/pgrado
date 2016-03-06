@@ -28,6 +28,7 @@ from comportamiento import comportamiento
 class avanzar(comportamiento):
         
     def __init__(self,identify): 
+		super(avanzar,self).__init__()
                 self.identify=identify 
                 self.idComportamiento=2
  
@@ -83,7 +84,7 @@ if __name__ == '__main__':
         rospy.loginfo("identificador avanzar "+str(identify)) 
         l = avanzar(identify)
         
-        
+        '''
         #lo que sigue se podria ver de meter en comportamiento
         rospy.Subscriber("topicoSensores", String, l.atenderSensores)
         rospy.Subscriber("preConditionDetect", Int32MultiArray, l.evaluarPrecondicion)
@@ -108,5 +109,16 @@ if __name__ == '__main__':
         l.SetSLMotores(solicitarOLiberarMotores)
         #  rospy.Subscriber("sensorLineDetectedColorData", Float64MultiArray, processSensorLineDetectedColorData)
         # rospy.Subscriber("proximitySensorData", Float64, processProximitySensorData)
+  
+        '''
+        rospy.spin()
 
-        rospy.spin()  
+
+
+
+
+
+
+
+
+

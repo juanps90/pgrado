@@ -13,7 +13,7 @@ import roslaunch.remote
 
 import sys
 import rospy
-from std_msgs.msg import Int32MultiArray, Float64MultiArray
+from std_msgs.msg import Int32MultiArray, Float64MultiArray,String
 from random import randint
 import Const
 
@@ -21,12 +21,25 @@ import Const
 
 class comportamiento(object):
 
+
+    motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10) 
+    postCondDet   = rospy.Publisher('postConditionDetect', Int32MultiArray, queue_size=10) #usado para aprender 
+    preCondDet = rospy.Publisher('preConditionDetect', Int32MultiArray, queue_size=10) #usado para ejecutar 
+    nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10) 
+    nodoEjecutando=rospy.Publisher('topicoNodoEjecutando', Int32MultiArray, queue_size=10) 
+    solicitarOLiberarMotores=rospy.Publisher('topicosolicitarOLiberarMotores', Int32MultiArray, queue_size=10)
+
+
+
+    '''
     motores = None
-    postConditionDetect = None
-    preConditionDetect = None
+    postCondDet = None
+    preCondDet = None
     nivel = None
     nodoEjecutando = None
     solicitarOLiberarMotores = None
+    '''
+
     identify=-1#modicar mediante mensajes al lanzar el nuevo nodo
     idComportamiento = -1
     reejecutar=True
@@ -42,7 +55,7 @@ class comportamiento(object):
     parametros=None
 
     def __init__(self):
-        print "nada"
+        self.initTopicos()
 
 
     #se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores
@@ -103,11 +116,13 @@ class comportamiento(object):
         separar = map(str, entrada.split('|'))
         sensados={}
         for s in  separar:
-            datos = map(float, s.split('#'))
-            print s,datos
-            idSensor=int (datos[0])
-            del datos[0]
-            sensados[idSensor]=datos        
+            if len(s)>1:
+            	rospy.loginfo(str(len(s))+"separar "+s)
+            	datos = map(float, s.split('#'))
+            	print s,datos
+            	idSensor=int (datos[0])
+            	del datos[0]
+            	sensados[idSensor]=datos        
         return sensados
 
 
@@ -136,14 +151,14 @@ class comportamiento(object):
         #rospy.loginfo(estado)
         if self.estado ==1 and self.identify==-1:#aprender el -1 es para que contesten nodos lanzados para aprender	
             msg.data = [self.idComportamiento,valorEncendido]#se envia el id del comportamiento cuando se aprende
-            self.postConditionDetect.publish(msg)
+            self.postCondDet.publish(msg)
         elif self.estado ==2:#ejecutar
             cumplePrecondiciones=self.evaluarPrecondicionesPorCaminos()
             nodoEjecutable = cumplePrecondiciones and self.nivelActivacion > 0
             rospy.loginfo("nodo ejecutable id:"+str(self.identify)+" "+str(nodoEjecutable))
             rospy.loginfo("post detec id:"+str(self.identify)+" "+str(valorEncendido and nodoEjecutable))
             msg.data = [self.identify,valorEncendido]   #cuando se ejecuta se envia el id del nodo
-            self.preConditionDetect.publish(msg)	
+            self.preCondDet.publish(msg)	
             msg.data = [self.identify,nodoEjecutable,-1]  
             self.solicitarOLiberarMotores.publish(msg)	
             self.actuar()	
@@ -281,10 +296,10 @@ class comportamiento(object):
         self.motores= dato
      
     def setPostConditionDetect(self,dato):  
-        self.postConditionDetect=dato 
+        self.postCondDet=dato 
         
     def setPreConditionDetect(self,dato): 
-        self.preConditionDetect=dato
+        self.preCondDet=dato
     
     def setNivel(self,dato):  
         self.nivel=dato
@@ -300,7 +315,16 @@ class comportamiento(object):
         self.idComportamiento=dato
     
     
-    
-    
-    
+    def initTopicos(self):
+                 
+        rospy.Subscriber("topicoSensores", String, self.atenderSensores)
+        rospy.Subscriber("preConditionDetect", Int32MultiArray, self.evaluarPrecondicion)
+        rospy.Subscriber("preConditionsSetting", Int32MultiArray, self.setting)	    
+        rospy.Subscriber("topicoEstado", Int32MultiArray, self.setEstado)
+        rospy.Subscriber("topicoNivel", Int32MultiArray, self.atenderNivel)
+        rospy.Subscriber("topicoCaminos", Int32MultiArray, self.atenderCaminos)
+        rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, self.atenderNodoEjecutando)
+        rospy.Subscriber("topicoMotorLockeado", Int32MultiArray, self.atenderMotorLockeado)
+
+
     

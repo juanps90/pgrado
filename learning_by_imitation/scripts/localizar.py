@@ -52,6 +52,7 @@ class localizar(comportamiento):
     changeTime = None
 
     def __init__(self,identify): 
+        super(localizar,self).__init__()
         self.identify=identify
         self.idComportamiento=1
         self.delay = 0
@@ -198,7 +199,7 @@ if __name__ == '__main__':
     
     
     
-
+        '''
         rospy.Subscriber("topicoSensores", String, l.atenderSensores)
         rospy.Subscriber("preConditionDetect", Int32MultiArray, l.evaluarPrecondicion)
         rospy.Subscriber("preConditionsSetting", Int32MultiArray, l.setting)	    
@@ -222,7 +223,27 @@ if __name__ == '__main__':
         l.SetSLMotores(solicitarOLiberarMotores)
         #  rospy.Subscriber("sensorLineDetectedColorData", Float64MultiArray, processSensorLineDetectedColorData)
         # rospy.Subscriber("proximitySensorData", Float64, processProximitySensorData)
+        '''
 
-        rospy.spin()
+        
+
+      #  self.postConditionDetect = rospy.Publisher('postConditionDetect', Int32MultiArray, queue_size=10) #usado para aprender 
+    
+
+
+
+
+
+	rospy.spin()
+
+
+
+
+
+
+
+
+
+
 
 
