@@ -292,18 +292,44 @@ def merggearNuevaDemo():
 ############################ 
 #Lanzar un nodo para
 #ejecutar o para aprender
-############################               
+############################      
+
+
+def paramToString(param):
+    salida=""
+    for p in param:
+        if len (salida)>0:
+            salida=salida+'|'
+        salida=salida+str(p)
+        for d in param[p]:
+            salida=salida+'#'+str(d)
+    print "paramtostring", salida
+    return salida        
+             
+        
+        
+              
                 
 def lanzarNodo(idNodo,idComportamiento): #es el id numerico del comportamiento 
     global dicComp
+    global dicNodoParam
     nombreComportamiento=dicComp [idComportamiento]
-    print "se lanza el comportamiento",nombreComportamiento
+    print "se lanza el comportamiento:",nombreComportamiento
+    
+    
     global pkg
-    global nodosParaAprender   
+    global dicNodoParam  
     execution =nombreComportamiento + '.py'
-    # en los args se envian los id de los nodos     
-    node = roslaunch.core.Node(pkg, execution, args=str(idNodo) )
-    #node = roslaunch.core.Node(pkg, execution, env_args=[("identify",str(idNodo)),("color","negro")] )
+    # en los args se envian los id de los nodos y los parametros
+    if idComportamiento == 0:
+        node = roslaunch.core.Node(pkg, execution, args=str(idNodo) )
+    else :
+        sensado=paramToString(dicNodoParam)
+        data= str(idNodo)
+        if len(sensado)>1:
+            data=data + '|' + paramToString(dicNodoParam)              
+        node = roslaunch.core.Node(pkg, execution, args=str(data) )
+        #node = roslaunch.core.Node(pkg, execution, env_args=[("identify",str(idNodo)),("color","negro")] )
     
     
     launch = roslaunch.scriptapi.ROSLaunch()
@@ -311,6 +337,12 @@ def lanzarNodo(idNodo,idComportamiento): #es el id numerico del comportamiento
     salida= launch.launch(node)
     time.sleep(1)
     return salida
+
+
+
+         
+                
+ 
     
 ############################ 
 #EJECUTAR

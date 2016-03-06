@@ -84,7 +84,8 @@ def setEstado(data):
        postConditionDetect = None
        identify=0
        NodoActivo = -1   
-       print "Llego estado" , data.data[0]        
+       print "Llego estado" , data.data[0]
+       print "motores nodo activo: ", str(NodoActivo),str(data.data)         
 
 if __name__ == '__main__':
         print "motores inicializados"  

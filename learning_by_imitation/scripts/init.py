@@ -46,7 +46,7 @@ def setEstado(data):
         motores.publish(msg) 
     elif estado==2:
         arranqueNivel()
-    rospy.loginfo("estado"+str(estado))
+    #rospy.loginfo("estado"+str(estado))
 
 
 
@@ -58,7 +58,7 @@ def setEstado(data):
 def atenderNodoEjecutando(data):
     global nodoEnEjecucion
     nodoEnEjecucion=data.data[0]
-    rospy.loginfo("atenderNodoEjecutando "+str(nodoEnEjecucion))    
+    #rospy.loginfo("atenderNodoEjecutando "+str(nodoEnEjecucion))    
     '''
     if  data.data[0] == identify:
         ejecutando=True
@@ -91,7 +91,7 @@ def setting(data):
     # data.data[0] = fromCompID, data.data[1] = toCompID, data.data[2] = linkType. linkType puede ser permantente(0), de orden(1) o de habilitacion(2)
     if data.data[1] == identify and data.data[2] == 0:       
         ordering[data.data[0]] = False
-        rospy.loginfo("init entro orden "+str(ordering)+str(data.data)) 
+        #rospy.loginfo("init entro orden "+str(ordering)+str(data.data)) 
 
 
  
@@ -113,7 +113,7 @@ def evaluarPrecondicionesPorCaminos():
         #en caso de que en la recorrida un camino cumplio todas las precondiciones se termina el ciclo
         if salida:
             break
-    rospy.loginfo("entro en evaluarporcaminos "+str(identify)+" " +str(salida) + str(caminos))
+    #rospy.loginfo("entro en evaluarporcaminos "+str(identify)+" " +str(salida) + str(caminos))
     return salida 
 
     
@@ -152,19 +152,19 @@ def arranqueNivel():
     global ordering
     msg = Int32MultiArray()
         
-    rospy.loginfo("nodo en ejecucion "+str(nodoEnEjecucion))    
+    #rospy.loginfo("nodo en ejecucion "+str(nodoEnEjecucion))    
     
     #se verifica que el comportamiento cambio
     
     finalizo = True
-    rospy.loginfo("order init"+str(ordering))   
+    #rospy.loginfo("order init"+str(ordering))   
     for it in ordering:   
         finalizo = finalizo and ordering[it]
         if not finalizo:
             break
    
     
-    rospy.loginfo("finalizo "+str(finalizo))   
+    #rospy.loginfo("finalizo "+str(finalizo))   
     if nodoEnEjecucionAnterior == nodoEnEjecucion and not finalizo:
         return
     else:
@@ -185,9 +185,9 @@ def arranqueNivel():
     for c in caminos:
         ultimoNodo=c[len(c)-1] #ultimo nodo del camino previo
         #se verifica a cual de los link pertenece
-        rospy.loginfo("ultimo nodo: "+str(ultimoNodo))
+        #rospy.loginfo("ultimo nodo: "+str(ultimoNodo))
         if ordering.has_key(ultimoNodo):
-            rospy.loginfo("enabling init : "+str(ordering[ultimoNodo]))
+            #rospy.loginfo("enabling init : "+str(ordering[ultimoNodo]))
             if not ordering[ultimoNodo]: 
                 listaNodosAEnviarNivel.append(ultimoNodo) 
             else:
@@ -200,7 +200,7 @@ def arranqueNivel():
         nivel.publish(msg)
 
     if len(listaNodosAEnviarNivel)==0:
-        rospy.loginfo("termino el ciclo")
+        #rospy.loginfo("termino el ciclo")
         
 
 
@@ -220,9 +220,9 @@ def arranqueNivel():
     global ordering
     msg = Int32MultiArray()
         
-    rospy.loginfo("nodo en ejecucion "+str(nodoEnEjecucion))    
+    #rospy.loginfo("nodo en ejecucion "+str(nodoEnEjecucion))    
     
-    rospy.loginfo("order init"+str(ordering))   
+    #rospy.loginfo("order init"+str(ordering))   
  
  
     msg.data = [identify, -1,-1]#manda para atras el nivel  
@@ -277,7 +277,7 @@ def evaluarPrecondicion(data):
     #if activarNivel:
     arranqueNivel()
 
-    rospy.loginfo("activarNivel "+str(activarNivel))
+    #rospy.loginfo("activarNivel "+str(activarNivel))
 
 
 if __name__ == '__main__':
@@ -288,7 +288,7 @@ if __name__ == '__main__':
     
     #global identify
     identify=int(rospy.myargv(argv=sys.argv)[1])
-    rospy.loginfo("identificador init "+str(identify))
+    #rospy.loginfo("identificador init "+str(identify))
 
     motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
     postConditionDetect = rospy.Publisher('postConditionDetect', Int32MultiArray, queue_size=10) #usado para aprender

@@ -124,7 +124,7 @@ def envioSensados():
     global dataLineDetectColor 
     global dataHeadVisionSensor 
     global dataProximitySensor 
-    
+    global delayClearSensor
     
     msg=String()
 
@@ -149,12 +149,12 @@ def envioSensados():
         mensaje=mensaje+h           
      
     msg.data = mensaje
-    print msg.data
-    sensores.publish(msg)
+    print "envio sensores",msg.data
+    sensores.publish(msg) 
     
-    dataLineDetectColor=None
-    dataHeadVisionSensor=None
-    dataProximitySensor=None
+    #dataLineDetectColor=None
+    #dataHeadVisionSensor=None
+    #dataProximitySensor=None
     
 
 def processCommand(data):

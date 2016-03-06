@@ -51,13 +51,15 @@ class localizar(comportamiento):
     delay = 0
     changeTime = None
 
-    def __init__(self,identify): 
-        super(localizar,self).__init__()
-        self.identify=identify
+  
+
+    def __init__(self,datos): 
+        super(localizar,self).__init__(datos) 
         self.idComportamiento=1
         self.delay = 0
         self.changeTime = rospy.Time.now() + rospy.Duration(self.delay)
-        self.rate = rospy.Rate(10)  
+        self.rate = rospy.Rate(10)   
+   
 
     def getAction(self,color): 
          
@@ -122,14 +124,14 @@ class localizar(comportamiento):
         if self.cumplePrecondiciones () and self.nivelActivacion>0 and self.motorLibre:
             # SE DEBE RECIBIR EL PARAMETRO DEL COLOR DE LA LINEA. POR AHORA ES SOLO NEGRO.
             self.wander(Const.SENSOR_COLOR_DETECT_BLACK)
-            rospy.loginfo(">>>ON localizar id:"+str(self.identify))
-            #rospy.loginfo( nivelActivacion)
+            #rospy.loginfo(">>>ON localizar id:"+str(self.identify))
+            ##rospy.loginfo( nivelActivacion)
             self.ejecutando=True
             msg2 = Int32MultiArray()  
             msg2.data = [self.identify,self.identify] #por si necesito otro parametro        
             self.nodoEjecutando.publish(msg2) 
         else: 
-            rospy.loginfo(">>>OFF localizar id:"+str(self.identify))
+            #rospy.loginfo(">>>OFF localizar id:"+str(self.identify))
             self.ejecutando=False
 		 
 
@@ -192,10 +194,10 @@ if __name__ == '__main__':
         print "iniciando localizar"  
 
         rospy.init_node('localizar', anonymous=True) 
-        identify=int(rospy.myargv(argv=sys.argv)[1])  
-        rospy.loginfo("identificador localizar "+str(identify)) 
-        l = localizar(identify)
-        l.setIdComp(1)
+        #aca se recibe string se desenvuelve y se obtiene id y parametros       
+        datos=str(rospy.myargv(argv=sys.argv)[1])
+        rospy.loginfo("datos localizar "+str(datos)) 
+        l = localizar(datos)
     
     
     

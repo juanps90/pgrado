@@ -54,7 +54,14 @@ class comportamiento(object):
     speed = 1
     parametros=None
 
-    def __init__(self):
+
+    def __init__(self,data):
+        bloques=self.separarBloques(data) 
+        self.identify=int(bloques[0])
+ 
+        rospy.loginfo("comportamiento datos bloques"+str(bloques))
+        del bloques[0]
+        param=self.separarSensados(bloques)
         self.initTopicos()
 
 
@@ -108,16 +115,20 @@ class comportamiento(object):
 	            #en caso de que en la recorrida un camino cumplio todas las precondiciones se termina el ciclo
 	            if salida:
 	                break
-	        rospy.loginfo("entro en evaluarporcaminos "+str(self.identify)+" " +str(salida) + str(self.caminos))
+	        #rospy.loginfo("entro en evaluarporcaminos "+str(self.identify)+" " +str(salida) + str(self.caminos))
 	        return salida  
 
     
-    def separarSensados(self,entrada):
-        separar = map(str, entrada.split('|'))
+    def separarBloques(self,data):
+        #rospy.loginfo("comportamiento datos recibidos"+str(data))
+        return map(str, data.split('|'))
+        
+    
+    def separarSensados(self,separar):
         sensados={}
         for s in  separar:
             if len(s)>1:
-            	rospy.loginfo(str(len(s))+"separar "+s)
+            	#rospy.loginfo(str(len(s))+"separar "+s)
             	datos = map(float, s.split('#'))
             	print s,datos
             	idSensor=int (datos[0])
@@ -139,30 +150,34 @@ class comportamiento(object):
         msg = Int32MultiArray()
 
         valorEncendido=0
+        bloques=self.separarBloques(data.data)
+        sensados=self.separarSensados(bloques)        
+        rospy.loginfo(str(sensados))
         
-        sensados=self.separarSensados(data.data)        
         
         if self.verificarPoscondicionesSensores(sensados):
             print "se cumple postcondicion id>",self.identify 
+            sensados
             valorEncendido=1            
         else:#redundante solo para ver que paso
             print "se apago postcondicion id>",self.identify 
          
-        #rospy.loginfo(estado)
+        ##rospy.loginfo(estado)
         if self.estado ==1 and self.identify==-1:#aprender el -1 es para que contesten nodos lanzados para aprender	
             msg.data = [self.idComportamiento,valorEncendido]#se envia el id del comportamiento cuando se aprende
             self.postCondDet.publish(msg)
+            rospy.loginfo("encendido "+str(valorEncendido)+"idCOmp :"+str(self.idComportamiento))
         elif self.estado ==2:#ejecutar
             cumplePrecondiciones=self.evaluarPrecondicionesPorCaminos()
             nodoEjecutable = cumplePrecondiciones and self.nivelActivacion > 0
-            rospy.loginfo("nodo ejecutable id:"+str(self.identify)+" "+str(nodoEjecutable))
-            rospy.loginfo("post detec id:"+str(self.identify)+" "+str(valorEncendido and nodoEjecutable))
+            #rospy.loginfo("nodo ejecutable id:"+str(self.identify)+" "+str(nodoEjecutable))
+            #rospy.loginfo("post detec id:"+str(self.identify)+" "+str(valorEncendido and nodoEjecutable))
             msg.data = [self.identify,valorEncendido]   #cuando se ejecuta se envia el id del nodo
             self.preCondDet.publish(msg)	
             msg.data = [self.identify,nodoEjecutable,-1]  
             self.solicitarOLiberarMotores.publish(msg)	
             self.actuar()	
-            #rospy.loginfo("localizar ",valorEncendido)
+            ##rospy.loginfo("localizar ",valorEncendido)
 
 	
     def setEstado(self,data):  
@@ -172,7 +187,7 @@ class comportamiento(object):
             msg = Int32MultiArray() 
             msg.data = [self.identify,0,0] 	 
             self.motores.publish(msg) 
-        rospy.loginfo("estado"+str(self.estado))
+        #rospy.loginfo("estado"+str(self.estado))
 
 
 
@@ -202,7 +217,7 @@ class comportamiento(object):
 
 
     def setting(self,data):
-                rospy.loginfo("entro en setting id>"+ str(self.identify) )
+                #rospy.loginfo("entro en setting id>"+ str(self.identify) )
 	
 	        # data.data[0] = fromCompID, data.data[1] = toCompID, data.data[2] = linkType. linkType puede ser permantente(0), de orden(1) o de habilitacion(2)
                 if data.data[1] == self.identify:
@@ -230,7 +245,7 @@ class comportamiento(object):
             del lista[0]
 
             self.caminos= self.separarCaminos(lista)
-            rospy.loginfo(self.caminos)
+            #rospy.loginfo(self.caminos)
 
     def separarCaminos(self,caminitos):
         salida = []
@@ -247,11 +262,11 @@ class comportamiento(object):
         return salida
 
     def atenderNivel (self,data):
-        #  rospy.loginfo("Entro en nivel")
+        #  #rospy.loginfo("Entro en nivel")
         msg = Int32MultiArray() 
 
         if data.data[1] == self.identify:
-            rospy.loginfo("me llego nivel id>"+str(data.data[2])+": "+str(self.identify)+"<<"+str(data.data[0]))
+            #rospy.loginfo("me llego nivel id>"+str(data.data[2])+": "+str(self.identify)+"<<"+str(data.data[0]))
             #no se suman niveles solo se verifica si es uno o cero
             self.nivelActivacion=data.data[2]
             nivelAtras=0

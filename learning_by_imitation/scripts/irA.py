@@ -26,9 +26,9 @@ class irA(comportamiento):
     delay = 0
     changeTime = None
 
-    def __init__(self,identify): 
-        self.identify=identify
-        self.idComportamiento=1
+    def __init__(self,datos): 
+        super(irA,self).__init__(datos) 
+        self.idComportamiento=3
         self.delay = 0
         self.changeTime = rospy.Time.now() + rospy.Duration(self.delay)
         self.rate = rospy.Rate(10)  
@@ -132,39 +132,12 @@ class irA(comportamiento):
 
 if __name__ == '__main__':
 
-    print "iniciando ir a"  
+        print "iniciando irA"  
 
-    rospy.init_node('irA', anonymous=True) 
-    identify=int(rospy.myargv(argv=sys.argv)[1])  
-    rospy.loginfo("identificador irA "+str(identify)) 
-    l = irA(identify)
-    l.setIdComp(1)
-
-   
-
-    rospy.Subscriber("topicoSensores", String, l.atenderSensores)
-    rospy.Subscriber("preConditionDetect", Int32MultiArray, l.evaluarPrecondicion)
-    rospy.Subscriber("preConditionsSetting", Int32MultiArray, l.setting)	    
-    rospy.Subscriber("topicoEstado", Int32MultiArray, l.setEstado)
-    rospy.Subscriber("topicoNivel", Int32MultiArray, l.atenderNivel)
-    rospy.Subscriber("topicoCaminos", Int32MultiArray, l.atenderCaminos)
-    rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, l.atenderNodoEjecutando)
-    rospy.Subscriber("topicoMotorLockeado", Int32MultiArray, l.atenderMotorLockeado)
-
-    motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
-    l.setMotores(motores)
-    postConditionDetect = rospy.Publisher('postConditionDetect', Int32MultiArray, queue_size=10) #usado para aprender
-    l.setPostConditionDetect(postConditionDetect)
-    preConditionDetect = rospy.Publisher('preConditionDetect', Int32MultiArray, queue_size=10) #usado para ejecutar
-    l.setPreConditionDetect(preConditionDetect)
-    nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10)
-    l.setNivel(nivel)
-    nodoEjecutando=rospy.Publisher('topicoNodoEjecutando', Int32MultiArray, queue_size=10)
-    l.setNodoEjecutando(nodoEjecutando)
-    solicitarOLiberarMotores=rospy.Publisher('topicosolicitarOLiberarMotores', Int32MultiArray, queue_size=10) 
-    l.SetSLMotores(solicitarOLiberarMotores)
-    #  rospy.Subscriber("sensorLineDetectedColorData", Float64MultiArray, processSensorLineDetectedColorData)
-    # rospy.Subscriber("proximitySensorData", Float64, processProximitySensorData)
-
-    rospy.spin()
+        rospy.init_node('irA', anonymous=True) 
+        #aca se recibe string se desenvuelve y se obtiene id y parametros       
+        datos=str(rospy.myargv(argv=sys.argv)[1])
+        rospy.loginfo("datos irA "+str(datos)) 
+        l = irA(datos)
+        rospy.spin()
 

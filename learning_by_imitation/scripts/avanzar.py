@@ -27,9 +27,9 @@ from comportamiento import comportamiento
 
 class avanzar(comportamiento):
         
-    def __init__(self,identify): 
-		super(avanzar,self).__init__()
-                self.identify=identify 
+         
+    def __init__(self,datos): 
+		super(avanzar,self).__init__(datos) 
                 self.idComportamiento=2
  
         #se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores
@@ -42,15 +42,15 @@ class avanzar(comportamiento):
                         msgMotores.data = [self.identify, self.speed, azar]
                         self.motores.publish(msgMotores)
 
-                        rospy.loginfo(">>>ON avanzar id:"+str(identify))
-                        #rospy.loginfo( nivelActivacion) 
+                        #rospy.loginfo(">>>ON avanzar id:"+str(self.identify))
+                        ##rospy.loginfo( nivelActivacion) 
                         self.ejecutando=True
                         msg2 = Int32MultiArray()  
                         msg2.data = [self.identify,self.identify] #por si necesito otro parametro        
                         self.nodoEjecutando.publish(msg2)  
                 
                 else: 
-                        rospy.loginfo(">>>OFF avanzar id:"+str(identify))
+                        #rospy.loginfo(">>>OFF avanzar id:"+str(self.identify))
                         self.ejecutando=False
 
 
@@ -77,12 +77,12 @@ class avanzar(comportamiento):
 if __name__ == '__main__':
 
         #basicamente es lo que cambia de cada comportamiento
-        print "iniciando avanzar"  
+        rospy.loginfo("iniciando avanzar" )
         rospy.init_node('avanzar', anonymous=True) 
         #aca se recibe string se desenvuelve y se obtiene id y parametros       
-        identify=int(rospy.myargv(argv=sys.argv)[1])   
-        rospy.loginfo("identificador avanzar "+str(identify)) 
-        l = avanzar(identify)
+        datos=str(rospy.myargv(argv=sys.argv)[1])
+        rospy.loginfo("datos avanzar "+str(datos)) 
+        l = avanzar(datos)
         
         '''
         #lo que sigue se podria ver de meter en comportamiento
