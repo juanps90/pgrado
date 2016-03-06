@@ -10,7 +10,7 @@ import threading, time
 pkg = "learning_by_imitation"#paquete donde se encuentran los archivo py
 #pkg = "vrep_ros_demo"
 id = 0
-dicComp={0:'init',1:'localizar', 2:'avanzar'} #asocia idnumerico con nombres de comportamientos
+dicComp={0:'init',1:'localizar', 2:'avanzar', 3:'irA'} #asocia idnumerico con nombres de comportamientos
 identify=-1
 Diccionario={}
 nodosLanzados={}
