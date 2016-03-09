@@ -6,11 +6,12 @@ import lcs
 from std_msgs.msg import String,Int32MultiArray, Float64MultiArray
 import Const
 import threading, time
+import loadBehavior
 
 pkg = "learning_by_imitation"#paquete donde se encuentran los archivo py
 #pkg = "vrep_ros_demo"
 id = 0
-dicComp={0:'init',1:'localizar', 2:'avanzar', 3:'irA'} #asocia idnumerico con nombres de comportamientos
+dicComp = {} #asocia idnumerico con nombres de comportamientos
 identify=-1
 Diccionario={}
 nodosLanzados={}
@@ -967,6 +968,8 @@ if __name__ == '__main__':
     print "iniciando maestro"
     rospy.init_node('maestro', anonymous=True) 
     id=0
+    dicComp=loadBehavior.load_abstract_behavior()
+    dicComp[0] = 'init'
     
     rospy.Subscriber("command", String, atenderComandos)
     
