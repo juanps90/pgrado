@@ -24,7 +24,7 @@ def load_abstract_behavior():
     only_file_py = [ 
         f for f in listdir(path)
         if (isfile(join(path, f)) and (splitext(f)[1] == ".py"))]
-    for i, f in enumerate(only_file_py):
+    for f in only_file_py:
         name = str(splitext(f)[0])
         try:
             clazz = load_class(name + '.' + name, path)
