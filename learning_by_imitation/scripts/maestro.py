@@ -87,6 +87,14 @@ def separarSensados(separar):
         return sensados  
   
 
+#habria que mandar tolerancias
+def compararParametros(data1,data2):
+    return True
+    
+
+
+
+
 #se pueden pasar parametros como un array donde el primer elemento indica el tipo 
 #de parametro y el segundo cantidad de valores los demas serian los daots, con un for se recorre etc
 def callback(data):
@@ -152,7 +160,7 @@ def callback(data):
             #se verifica inicio del ultimo y fin del anterior y se saca el ultimo de diccionario y se
             #le asigna final al anterior, de los nodos se saca el de id ultimo
             print ultimo[1]-anterior[2]
-            if (ultimo[1]-anterior[2])<errorRuido:
+            if (ultimo[1]-anterior[2])<errorRuido and compararParametros(ultimo[4],anterior[4]):
                 print "hay que merger ",comportamiento
                 # FALTA hacer el merge teniento en cuenta los parametros 
                 hayQueMerger=True                

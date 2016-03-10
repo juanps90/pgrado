@@ -103,19 +103,9 @@ class irA(comportamiento):
             self.rate.sleep() 
  
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+        rospy.loginfo("action " + str( self.action )+ " color "+str(color)) 
+
+  
  
   
 
@@ -127,14 +117,14 @@ class irA(comportamiento):
             head=self.parametros[Const.SENSOR_VISION_HEAD_ID]
             dist=self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID]
             self.findObject(head[1], dist[0], head[0])
-            rospy.loginfo(">>>ON irA id:"+str(self.identify))
+#            rospy.loginfo(">>>ON irA id:"+str(self.identify))
             #rospy.loginfo( nivelActivacion)
             self.ejecutando=True
             msg2 = Int32MultiArray()  
             msg2.data = [self.identify,self.identify] #por si necesito otro parametro        
             self.nodoEjecutando.publish(msg2) 
         else: 
-            rospy.loginfo(">>>OFF irA id:"+str(self.identify))
+#           rospy.loginfo(">>>OFF irA id:"+str(self.identify))
             self.ejecutando=False
 
    
@@ -225,12 +215,26 @@ class irA(comportamiento):
 
 if __name__ == '__main__':
 
-        print "iniciando irA"  
+    print "iniciando irA"  
+    rospy.init_node('irA', anonymous=True) 
+    #aca se recibe string se desenvuelve y se obtiene id y parametros       
+    datos=str(rospy.myargv(argv=sys.argv)[1])
+    rospy.loginfo("datos irA "+str(datos)) 
+    i = irA(datos)
+    rospy.spin()
+    i.endTopic()
 
-        rospy.init_node('irA', anonymous=True) 
-        #aca se recibe string se desenvuelve y se obtiene id y parametros       
-        datos=str(rospy.myargv(argv=sys.argv)[1])
-        rospy.loginfo("datos irA "+str(datos)) 
-        l = irA(datos)
-        rospy.spin()
+
+
+
+
+
+
+
+
+
+
+
+
+
 

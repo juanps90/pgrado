@@ -20,14 +20,26 @@ import Const
 
 
 class comportamiento(object):
-
-
+ 
+    
     motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10) 
     postCondDet   = rospy.Publisher('topicoPostCondDet',String , queue_size=10) #usado para aprender 
     preCondDet = rospy.Publisher('preConditionDetect',Int32MultiArray , queue_size=10) #usado para ejecutar 
     nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10) 
     nodoEjecutando=rospy.Publisher('topicoNodoEjecutando', Int32MultiArray, queue_size=10) 
     solicitarOLiberarMotores=rospy.Publisher('topicosolicitarOLiberarMotores', Int32MultiArray, queue_size=10)
+
+
+    topicoSen=None
+    topicoPre=None
+    topicoSet=None
+    topicoEst=None
+    topicoNiv=None
+    topicoCam=None
+    topicoEje=None
+    topicoAct=None
+
+
 
 
 
@@ -375,16 +387,47 @@ class comportamiento(object):
         self.idComportamiento=dato
     
     
+    def endTopic(self):    
+        global topicoSen 
+        global topicoPre 
+        global topicoSet 
+        global topicoEst 
+        global topicoNiv 
+        global topicoCam 
+        global topicoEje 
+        global topicoAct   
+   
+        topicoSen.unregister() 
+        topicoPre.unregister()
+        topicoSet.unregister() 
+        topicoEst.unregister() 
+        topicoNiv.unregister() 
+        topicoCam.unregister() 
+        topicoEje.unregister() 
+        topicoAct.unregister()    
+        
+        return 0
+    
     def initTopicos(self):
+        global topicoSen 
+        global topicoPre 
+        global topicoSet 
+        global topicoEst 
+        global topicoNiv 
+        global topicoCam 
+        global topicoEje 
+        global topicoAct   
+            
                  
-        rospy.Subscriber("topicoSensores", String, self.atenderSensores)
-        rospy.Subscriber("preConditionDetect", Int32MultiArray, self.evaluarPrecondicion)
-        rospy.Subscriber("preConditionsSetting", Int32MultiArray, self.setting)	    
-        rospy.Subscriber("topicoEstado", Int32MultiArray, self.setEstado)
-        rospy.Subscriber("topicoNivel", Int32MultiArray, self.atenderNivel)
-        rospy.Subscriber("topicoCaminos", Int32MultiArray, self.atenderCaminos)
-        rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, self.atenderNodoEjecutando)
-        rospy.Subscriber("topicoMotorLockeado", Int32MultiArray, self.atenderMotorLockeado)
+                 
+        topicoSen=rospy.Subscriber("topicoSensores", String, self.atenderSensores)
+        topicoPre=rospy.Subscriber("preConditionDetect", Int32MultiArray, self.evaluarPrecondicion)
+        topicoSet=rospy.Subscriber("preConditionsSetting", Int32MultiArray, self.setting)	    
+        topicoEst=rospy.Subscriber("topicoEstado", Int32MultiArray, self.setEstado)
+        topicoNiv=rospy.Subscriber("topicoNivel", Int32MultiArray, self.atenderNivel)
+        topicoCam=rospy.Subscriber("topicoCaminos", Int32MultiArray, self.atenderCaminos)
+        topicoEje=rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, self.atenderNodoEjecutando)
+        topicoAct=rospy.Subscriber("topicoMotorLockeado", Int32MultiArray, self.atenderMotorLockeado)
 
 
     

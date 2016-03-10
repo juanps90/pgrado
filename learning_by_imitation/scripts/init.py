@@ -240,8 +240,11 @@ def arranqueNivel():
 
 
     if nivelAtras==0:
-        rospy.loginfo("termino el ciclo")
-        
+        global estado
+        msg = Int32MultiArray()
+        rospy.loginfo("termino el ciclo") 
+        msg.data = [0,1]
+        pubEstado.publish(msg)
 
 
 #invocado en etapa de ejecucion cuando llega una postcondicion de un nodo a ver si corresponde
@@ -289,7 +292,7 @@ if __name__ == '__main__':
     #global identify
     identify=int(rospy.myargv(argv=sys.argv)[1])
     #rospy.loginfo("identificador init "+str(identify))
-
+    pubEstado=rospy.Publisher('topicoEstado', Int32MultiArray, queue_size = 10) 
     motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
     postConditionDetect = rospy.Publisher('postConditionDetect', Int32MultiArray, queue_size=10) #usado para aprender
     preConditionDetect = rospy.Publisher('preConditionDetect', Int32MultiArray, queue_size=10) #usado para ejecutar

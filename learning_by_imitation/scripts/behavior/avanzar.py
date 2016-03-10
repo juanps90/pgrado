@@ -100,7 +100,7 @@ if __name__ == '__main__':
         #aca se recibe string se desenvuelve y se obtiene id y parametros       
         datos=str(rospy.myargv(argv=sys.argv)[1])
         rospy.loginfo("datos avanzar "+str(datos)) 
-        l = avanzar(datos)
+        a = avanzar(datos)
         
         '''
         #lo que sigue se podria ver de meter en comportamiento
@@ -130,8 +130,7 @@ if __name__ == '__main__':
   
         '''
         rospy.spin()
-
-
+        a.endTopic() 
 
 
 

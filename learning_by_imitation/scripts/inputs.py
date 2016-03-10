@@ -67,12 +67,12 @@ def processSensorLineDetectColorData(data):
 # En la posicion 2 un valor entero que indica el color del objeto segun las constantes establecidas en Const.
 def processHeadVisionSensor(data):
     if data==None:
-        print "********************   NONE   ****************************"
+        #print "********************   NONE   ****************************"
         return []
     salida=[]
-    print "**************************************************************"
-    print data.data
-    print "**************************************************************"
+#   print "**************************************************************"
+#   print data.data
+#   print "**************************************************************"
 
     dataSensor = map(float, data.data.split('|'))
     
@@ -127,43 +127,45 @@ def atenderHeadVisionSensor(data):
 
 
 def envioSensados(): 
-    global dataLineDetectColor 
-    global dataHeadVisionSensor 
-    global dataProximitySensor 
-    global delayClearSensor
-    global detener
-    
-    msg=String()
-
-    head=processHeadVisionSensor(dataHeadVisionSensor)
-    line=processSensorLineDetectColorData(dataLineDetectColor)
-    proximity=processProximitySensorData(dataProximitySensor)
-    
-    mensaje=""
-    l=joinData(line) 
-    p=joinData(proximity)
-    h=joinData(head)
-    
-    if len (l) > 0:
-        mensaje=mensaje+l
-    if len (p) > 0:  
-        if len (mensaje) > 0:
-            mensaje=mensaje+'|' 
-        mensaje=mensaje+p    
-    if len (h) > 0:  
-        if len (mensaje) > 0:
-            mensaje=mensaje+'|'  
-        mensaje=mensaje+h           
-     
-    msg.data = mensaje
-
-    if not detener:
-        sensores.publish(msg) 
-#        print "envio sensores",msg.data
+    while True:
+        global dataLineDetectColor 
+        global dataHeadVisionSensor 
+        global dataProximitySensor 
+        global delayClearSensor
+        global detener
         
-    dataLineDetectColor=None
-    dataHeadVisionSensor=None
-    dataProximitySensor=None
+        msg=String()
+    
+        head=processHeadVisionSensor(dataHeadVisionSensor)
+        line=processSensorLineDetectColorData(dataLineDetectColor)
+        proximity=processProximitySensorData(dataProximitySensor)
+        
+        mensaje=""
+        l=joinData(line) 
+        p=joinData(proximity)
+        h=joinData(head)
+        
+        if len (l) > 0:
+            mensaje=mensaje+l
+        if len (p) > 0:  
+            if len (mensaje) > 0:
+                mensaje=mensaje+'|' 
+            mensaje=mensaje+p    
+        if len (h) > 0:  
+            if len (mensaje) > 0:
+                mensaje=mensaje+'|'  
+            mensaje=mensaje+h           
+         
+        msg.data = mensaje
+    
+        if not detener:
+            sensores.publish(msg) 
+            print "envio sensores",msg.data
+            
+        dataLineDetectColor=None
+        dataHeadVisionSensor=None
+        dataProximitySensor=None
+        time.sleep(delay)
     
 
 def processCommand(data):
@@ -206,15 +208,10 @@ def inputsManual():
 
 #se detiene el envio de sensores si el estado es nada               
 def setEstado(data):   
-       estado=data.data[0]
-       detener = estado == 0 
-           
-       print "Llego estado" , detener 
-
-
-
-
-
+       global detener
+       aux=data.data[0]
+       detener = aux == 0            
+       print "Llego estado detener> " , detener 
 
 
 if __name__ == '__main__':
@@ -232,10 +229,7 @@ if __name__ == '__main__':
     rospy.Subscriber("/vrep/sensorLineDetectColorData", String, atenderSensorLineDetectColor) #vision color y angulo
     rospy.Subscriber("/vrep/headSensor", String,atenderHeadVisionSensor)#distancia   
     rospy.Subscriber("/vrep/proximitySensorData", String, atenderProximitySensor )
-
-    while True:
-        envioSensados()
-	time.sleep(delay)	
+    envioSensados()	
     if ((len(sys.argv) == 1) or ((len(sys.argv) > 1) and sys.argv[1] == "manual")):
         inputsManual()
     elif (len(sys.argv) > 1) and (sys.argv[1] == "vrep"):
