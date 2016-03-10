@@ -1069,7 +1069,7 @@ if __name__ == '__main__':
     rospy.init_node('maestro', anonymous=True) 
     id=0
     dicComp=loadBehavior.load_abstract_behavior()
-    dicComp.remove("irA")
+    #dicComp.remove("irA")
     dicComp.append('init')
     print "diccionario comportamientos ",dicComp
     rospy.Subscriber("command", String, atenderComandos)
