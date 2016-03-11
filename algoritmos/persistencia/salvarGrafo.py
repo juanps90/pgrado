@@ -4,7 +4,7 @@ import sys
 import os
 import constPersist
 import fnmatch
-from lxml import etree, objectify
+from lxml import etree
 import lxml.etree
 import lxml.builder
 

@@ -417,7 +417,7 @@ def lanzarNodo(idNodo,idComportamiento): #es el id numerico del comportamiento
     else :
         sensado=paramToString(dicNodoParam)
         data= str(idNodo)
-        if len(sensado)>1:
+        if len(sensado)>1 and idNodo!=-1:
             print "diccionario nodo param ",dicNodoParam,idNodo,dicNodoParam[int(idNodo)]
             data=data + '|' + paramToString(dicNodoParam[int(idNodo)])              
         node = roslaunch.core.Node(pkg, execution, args=str(data) )
@@ -998,6 +998,8 @@ def aprender():
     msg.data = [1,1]#podria ser el segundo valor el id del comportamiento
     estado.publish(msg)
 
+
+#Falta pasarle el id de la tarea a cargar
 def ejecutar():
     global nodosParaAprender
     global nodosParaEjecutar
@@ -1008,6 +1010,7 @@ def ejecutar():
     global Diccionario
     global dicNodoComp
     global dicNodoParam
+    global idTarea
     
     #mata los nodos que hubiera activos
     for it in nodosParaAprender.values():
@@ -1023,9 +1026,13 @@ def ejecutar():
     #grafoGeneral=[(0,1,1,2,0),(0,1,2,0,0),(1,2,2,0,0)] #para no complicarla mucho uso como general este link cortito
     #linkEnEjecucion=[(0,1,1,2,0),(0,1,2,0,0),(1,2,2,0,0)]
     #linkEnEjecucion=[(0,1,1,2,0),(0,1,2,1,0),(0,1,3,0,0),(1,2,3,0,0),(2,1,3,0,0),(1,1,2,1,0)]
-
+    lcs.cargarEstructuras(idTarea) #se le deberia pasar id de la tarea a cargar
     dicNodoComp=lcs.getDicComportamientos()
     dicNodoParam=lcs.getDicParametros()
+    print "dicc nodo param ", dicNodoParam
+    if len (dicNodoParam)==0:
+        print "No hay nada para ejecutar", dicNodoComp
+        return
 
     #enlaces=[(0,1,1,2,2),(0,1,2,0,0),(1,2,2,0,0)]	     
 

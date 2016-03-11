@@ -2,8 +2,10 @@
 
 import os
 
-#from salvarGrafo import salvarGrafo
-#from cargarGrafo import cargarGrafo
+
+import cargarGrafo  
+import salvarGrafo 
+
 
 MejorCamino=[]
 topologiaGeneral=[]
@@ -423,6 +425,26 @@ def anexarNuevoNetwork (topologia,network,anexar):
 #para cada sucesur se verifica en el diccionario con clave el nodo actual, si no esta se agrega un link de orden
 
 
+def cargarEstructuras(idTarea): 
+    global topologiaGeneral
+    global networkGeneral
+    global diccionario
+    global parComp
+    if len(diccionario)>0:
+        return
+    cargado= cargarGrafo.obtener_definicion(idTarea)
+    diccionario=cargado [1]
+    topologiaGeneral=cargado [2]
+    networkGeneral=cargado [3] 
+    
+    if len (diccionario)==0:   
+        #diccionario={0:1,1:2,2:0}
+        parComp={0:{1:[0.166778260469],2:[0.5 , 3.0]},1:{1:[0.166778260469],2:[0.5 , 5.0]}}
+        diccionario={0:"irA",1:"irA",2:"init"}
+        networkGeneral=[(0,1,0),(0,2,0),(1,2,0)]
+        topologiaGeneral=[(0,1),(1,2)]
+        
+        
 
 def getNetworkGeneral():
     global networkGeneral
@@ -442,15 +464,21 @@ def getDicComportamientos():
     global diccionario
     global networkGeneral
     global parComp
-    if len (diccionario)==0:
+    
+    
+
+
+
+
+    '''
         #diccionario={0:1,1:2,2:0}
         parComp={0:{0:[0,0,0]},1:{0:[2,2,2]}}
         diccionario={0:"localizar",1:"avanzar",2:"init"}
         networkGeneral=[(0,1,2),(0,2,0),(1,2,0)]
         topologiaGeneral=[(0,1),(1,2)]
+    
+    '''
     return diccionario
-
-
 
 
 def setNetworkGeneral(network):
@@ -465,11 +493,11 @@ def setTopologiaGeneral(topologia):
 #ARREGLAR ACA ES APPEND
 def setDicParametros(param):
     global parComp
-    parComp =param
+    parComp.update(param)
 
 def appendDicCom(comp):
     global diccionario
-    diccionario =comp
+    diccionario.update(comp)
 
 
 def getNewId():
@@ -490,8 +518,8 @@ def nuevaDemostracion(topologiaNueva,networkNueva,idTarea):
     global networkGeneral
     global diccionario
     
-    #cargarGrafo.obtener_definicion(idTarea)
-    
+
+    cargarEstructuras(idTarea)
     
     X=tranTopoACamino(topologiaNueva)
     #X=asociarCompPorCaminos(nuevoCamino, diccionario)
@@ -520,7 +548,7 @@ def nuevaDemostracion(topologiaNueva,networkNueva,idTarea):
     graficarTopologia(topologiaGeneral,"topologia")
     graficarNetwork(networkGeneral,"network")
     
-    #salvarGrafo.persistir_Demostracion(idTarea, 'fullDemo', True, diccionario, topologiaGeneral, networkGeneral)
+    salvarGrafo.persistir_Demostracion(idTarea, 'fullDemo', True, diccionario, topologiaGeneral, networkGeneral)
     
     
   

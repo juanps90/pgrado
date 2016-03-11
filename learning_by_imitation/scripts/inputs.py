@@ -224,7 +224,7 @@ if __name__ == '__main__':
     command = rospy.Publisher('command', String, queue_size=10)    
     #processHeadVisionSensor = rospy.Publisher('processHeadVisionSensor', Float64MultiArray, queue_size=10)   
     
-    rospy.Subscriber("topicoEstado", Int32MultiArray, setEstado) #comandos   
+    rospy.Subscriber("topicoEstado", Int32MultiArray, setEstado)  
     rospy.Subscriber("/vrep/command", String, processCommand)#colores en el suelo
     rospy.Subscriber("/vrep/sensorLineDetectColorData", String, atenderSensorLineDetectColor) #vision color y angulo
     rospy.Subscriber("/vrep/headSensor", String,atenderHeadVisionSensor)#distancia   
