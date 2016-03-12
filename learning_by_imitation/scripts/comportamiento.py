@@ -40,7 +40,7 @@ class comportamiento(object):
     topicoAct=None
     topicoOrd=None
 
-
+    borrando=False
 
 
     '''
@@ -204,18 +204,25 @@ class comportamiento(object):
 
 
     def realizarBad(self,borrar):
+        global borrando
+        borrando=True
         msg = Int32MultiArray()
+
+        #se borran de permanencia y de habilitacion y se agregan de orden y se da cumplidos
         if self.permanent.has_key(borrar):
             del self.permanent[borrar]
+            self.ordering[borrar]=True
         if  self.enablig.has_key(borrar): 
             del self.enablig[borrar]
-        if  self.ordering.has_key(borrar):    
-            del self.ordering[borrar]
-        
-        for c in self.caminos:
-            if borrar in c:
-                c.remove(borrar)
+            self.ordering[borrar]=True
+            
+        #se agrega de orden si no esta  en vez del borrado  
+        if self.ordering.has_key(borrar):
+            self.ordering[borrar]=True
+            
+
         #if self.identify== data:#por las dudas hago que todos liberen los actuadores
+        borrando=False
         msg.data = [self.identify,0,-1]  
         self.solicitarOLiberarMotores.publish(msg)	
 
@@ -268,21 +275,21 @@ class comportamiento(object):
 
 
     def setting(self,data):
-                #rospy.loginfo("entro en setting id>"+ str(self.identify) )
+        #rospy.loginfo("entro en setting id>"+ str(self.identify) )
 	
 	        # data.data[0] = fromCompID, data.data[1] = toCompID, data.data[2] = linkType. linkType puede ser permantente(0), de orden(1) o de habilitacion(2)
-                if data.data[1] == self.identify:
-                        print "es mi id"
-                        if data.data[2] == 2:
-                                self.permanent[data.data[0]] = False
-                                print "permanente "
-                                print len(self.permanent)
-                        elif data.data[2] == 1:
-                                print "habilitacion "
-                                self.enablig[data.data[0]] = False
-                        elif data.data[2] == 0:
-                                print "orden "
-                                self.ordering[data.data[0]] = False
+        if data.data[1] == self.identify:
+                print "es mi id"
+                if data.data[2] == 2:
+                        self.permanent[data.data[0]] = False
+                        print "permanente "
+                        print len(self.permanent)
+                elif data.data[2] == 1:
+                        print "habilitacion "
+                        self.enablig[data.data[0]] = False
+                elif data.data[2] == 0:
+                        print "orden "
+                        self.ordering[data.data[0]] = False
 
  
 
@@ -313,27 +320,30 @@ class comportamiento(object):
         return salida
 
     def atenderNivel (self,data):
-        #  #rospy.loginfo("Entro en nivel")
-        msg = Int32MultiArray() 
+        try:
+            #  #rospy.loginfo("Entro en nivel")
+            msg = Int32MultiArray() 
+    
+            if data.data[1] == self.identify:
+                #rospy.loginfo("me llego nivel id>"+str(data.data[2])+": "+str(self.identify)+"<<"+str(data.data[0]))
+                #no se suman niveles solo se verifica si es uno o cero
+                self.nivelActivacion=data.data[2]
+                nivelAtras=0
+                if data.data[2] !=0 and not self.evaluarPrecondicionesPorCaminos(): 
+                    nivelAtras=1         
+    	            
+                #se verifica si hay un camino cumplido se les manda a los predecesores inmediaros mensajes a 0
+                #sino se envia mensaje de nivel 1 
+    
+                for c in self.caminos:
+                    rospy.loginfo("lacan "+ str(len(c)))
+                    ultimoNodo=c[len(c)-1] #ultimo nodo del camino previo
+                    msg.data = [self.identify, ultimoNodo,nivelAtras]#manda para atras el nivel  
+                    self.nivel.publish(msg)
 
-        if data.data[1] == self.identify:
-            #rospy.loginfo("me llego nivel id>"+str(data.data[2])+": "+str(self.identify)+"<<"+str(data.data[0]))
-            #no se suman niveles solo se verifica si es uno o cero
-            self.nivelActivacion=data.data[2]
-            nivelAtras=0
-            if data.data[2] !=0 and not self.evaluarPrecondicionesPorCaminos(): 
-                nivelAtras=1         
-	            
-            #se verifica si hay un camino cumplido se les manda a los predecesores inmediaros mensajes a 0
-            #sino se envia mensaje de nivel 1 
-
-            for c in self.caminos:
-                ultimoNodo=c[len(c)-1] #ultimo nodo del camino previo
-                msg.data = [self.identify, ultimoNodo,nivelAtras]#manda para atras el nivel  
-                self.nivel.publish(msg)
-
-
-
+        except: # catch *all* exceptions
+            e = sys.exc_info()[0]
+            rospy.loginfo("error "+ str(e))
 
     def evaluarPrecondicion(self,data):#invocado en etapa de ejecucion cuando llega una postcondicion
         print "entro en evaluarPrecondicion id>",self.identify 

@@ -108,32 +108,6 @@ class irA(comportamiento):
 
 
 
-#    def getAction(self, color, distance, angle):
-#        see = False        
-#        sensoVision = self.dataSensor.has_key(Const.SENSOR_VISION_HEAD_ID) 
-#        if sensoVision :  
-#            rospy.loginfo("VISTO")   
-#            see = True  
-#            if self.dataSensor[Const.SENSOR_VISION_HEAD_ID][1] == color: 
-#                if self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):                
-#                    if self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] > distance + self.DELTA_DISTANCE:
-#                        self.action = self.ACTION_FORWARD
-#                    elif self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] < distance - self.DELTA_DISTANCE:
-#                        self.action = self.ACTION_BACK
-#                    elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] < angle + self.DELTA_ANGLE:
-#                        self.action = self.ACTION_TURN_LEFT
-#                    elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] > angle - self.DELTA_ANGLE:
-#                        self.action = self.ACTION_TURN_RIGHT
-#                else:
-#                    self.action = self.ACTION_FORWARD
-#            #no es el color buscado 
-#            elif self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):
-#                # estoy muy cerca entonces retrocedo
-#                if self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] < 0.1 :  
-#                    self.action = self.ACTION_BACK
-#                elif randint(0, 1) == 0:
-#                    self.action = self.ACTION_TURN_LEFT 
-#        return see
 
 		   
     ##
@@ -321,6 +295,32 @@ if __name__ == '__main__':
 
 
 
+#    def getAction(self, color, distance, angle):
+#        see = False        
+#        sensoVision = self.dataSensor.has_key(Const.SENSOR_VISION_HEAD_ID) 
+#        if sensoVision :  
+#            rospy.loginfo("VISTO")   
+#            see = True  
+#            if self.dataSensor[Const.SENSOR_VISION_HEAD_ID][1] == color: 
+#                if self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):                
+#                    if self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] > distance + self.DELTA_DISTANCE:
+#                        self.action = self.ACTION_FORWARD
+#                    elif self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] < distance - self.DELTA_DISTANCE:
+#                        self.action = self.ACTION_BACK
+#                    elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] < angle + self.DELTA_ANGLE:
+#                        self.action = self.ACTION_TURN_LEFT
+#                    elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] > angle - self.DELTA_ANGLE:
+#                        self.action = self.ACTION_TURN_RIGHT
+#                else:
+#                    self.action = self.ACTION_FORWARD
+#            #no es el color buscado 
+#            elif self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):
+#                # estoy muy cerca entonces retrocedo
+#                if self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] < 0.1 :  
+#                    self.action = self.ACTION_BACK
+#                elif randint(0, 1) == 0:
+#                    self.action = self.ACTION_TURN_LEFT 
+#        return see
 
 
 

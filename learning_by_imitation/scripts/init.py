@@ -57,12 +57,18 @@ def atenderOrdenes(data):
         realizarBad(data.data[1])
 
 
-def realizarBad(borrar):  
-    if  ordering.has_key(borrar):    
-        del  ordering[borrar]    
-    for c in caminos:
-        if borrar in c:
-            c.remove(borrar) 
+def realizarBad(borrar):
+
+    #se borran de permanencia y de habilitacion 
+    if ordering.has_key(borrar):
+         ordering[borrar]=True
+
+
+
+
+
+
+
             
             
 
@@ -158,6 +164,118 @@ def separarCaminos(caminos):
         inicio=fin+1    
     return salida  
 
+
+
+
+
+
+
+def arranqueNivel():
+  # print "nivel de activacion init"
+    global nivel
+    global nodoEnEjecucion
+    global nodoEnEjecucionAnterior
+    global ordering
+    msg = Int32MultiArray()
+        
+    #rospy.loginfo("nodo en ejecucion "+str(nodoEnEjecucion))    
+    
+    #rospy.loginfo("order init"+str(ordering))   
+ 
+ 
+    msg.data = [identify, -1,-1]#manda para atras el nivel  
+    nivel.publish(msg)
+
+    nivelAtras=0    
+    try:    
+        if not evaluarPrecondicionesPorCaminos(): 
+            nivelAtras=1         
+                
+        for c in caminos:
+            ultimoNodo=c[len(c)-1] #ultimo nodo del camino previo
+            msg.data = [identify, ultimoNodo,nivelAtras]#manda para atras el nivel  
+            nivel.publish(msg)    
+    
+        if nivelAtras==0:
+            global estado
+            msg = Int32MultiArray()
+            rospy.loginfo("termino el ciclo") 
+
+            msg.data = [-1,-1] #por si necesito otro parametro        
+            nodoEjecutando.publish(msg) 
+            msg.data = [0,1]
+            pubEstado.publish(msg)            
+            
+    except: # catch *all* exceptions
+        e = sys.exc_info()[0]
+        rospy.loginfo("error "+ str(e))
+
+#invocado en etapa de ejecucion cuando llega una postcondicion de un nodo a ver si corresponde
+#a una precondicion del nodo actual 
+def evaluarPrecondicion(data):
+    global ordering
+    global dicPostCondicion 
+    nodo=data.data[0] 
+    postcondicion=data.data[1]
+
+    if ordering.has_key(nodo):
+        ordering[nodo] = ordering[nodo] or (postcondicion == 1)  
+       
+
+    #se detecta cumplimiento de una postcondicion...entonces el init manda su nivel de activacion para
+    #atras...si un nodo recibe y puede ejecutar ejecuta, si no puede manda
+    #su nivel para atras y pone su nivel en 0 (no es tan asi VERIFICAR)
+    #if postcondicion:
+    
+
+    #si hay un cambio en la postcondicion de algun nodo se lanza nivel
+    #activarNivel=False
+    if not dicPostCondicion.has_key(nodo):
+        dicPostCondicion[nodo]=postcondicion
+        #activarNivel=True
+
+    if dicPostCondicion[nodo]!=postcondicion:
+        dicPostCondicion[nodo]=postcondicion 
+        #activarNivel=True
+
+
+    #if activarNivel:
+    arranqueNivel()
+
+    #rospy.loginfo("activarNivel "+str(activarNivel))
+
+
+if __name__ == '__main__':
+    print "iniciando localizar"  
+
+    rospy.init_node('localizar', anonymous=True)
+
+    
+    #global identify
+    identify=int(rospy.myargv(argv=sys.argv)[1])
+    #rospy.loginfo("identificador init "+str(identify))
+    pubEstado=rospy.Publisher('topicoEstado', Int32MultiArray, queue_size = 10) 
+    motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
+    postConditionDetect = rospy.Publisher('postConditionDetect', Int32MultiArray, queue_size=10) #usado para aprender
+    preConditionDetect = rospy.Publisher('preConditionDetect', Int32MultiArray, queue_size=10) #usado para ejecutar
+    #rospy.Subscriber("input", Int32MultiArray, atenderSensores)
+    rospy.Subscriber("preConditionDetect", Int32MultiArray, evaluarPrecondicion)
+    rospy.Subscriber("preConditionsSetting", Int32MultiArray, setting)	    
+    rospy.Subscriber("topicoEstado", Int32MultiArray, setEstado)
+    #rospy.Subscriber("topicoNivel", Int32MultiArray, nivel)
+    nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10)
+    nodoEjecutando=rospy.Publisher('topicoNodoEjecutando', Int32MultiArray, queue_size=10)
+    rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, atenderNodoEjecutando)
+    rospy.Subscriber("topicoCaminos", Int32MultiArray, atenderCaminos)
+    rospy.Subscriber("topicoOrdenes", Int32MultiArray, atenderOrdenes)   
+    rospy.spin()
+    
+    
+    
+    
+    
+    
+    
 '''
 def arranqueNivel():
   # print "nivel de activacion init"
@@ -221,105 +339,29 @@ def arranqueNivel():
 
 
 
+''' 
+    
+    
+'''
+def realizarBad(borrar):     
+    global caminos   
+    auxCaminos=[]
+    auxC=[]
+    vacio=True
+    #esto es para borrar solo si al hacerlo no queda una estructura vacia
+    for c in caminos:
+        auxC=list(c)      
+        
+        if borrar in auxC:
+            auxC.remove(borrar)
+        if len(auxC)>0:
+            vacio=False
+        auxCaminos.append(auxC)
+    if not vacio:
+        caminos=auxCaminos            
+        #como se comprobo que no queda vacio se borran los network 
+        if  ordering.has_key(borrar):    
+            del ordering[borrar]   
 '''
 
-
-
-
-
-def arranqueNivel():
-  # print "nivel de activacion init"
-    global nivel
-    global nodoEnEjecucion
-    global nodoEnEjecucionAnterior
-    global ordering
-    msg = Int32MultiArray()
-        
-    #rospy.loginfo("nodo en ejecucion "+str(nodoEnEjecucion))    
-    
-    #rospy.loginfo("order init"+str(ordering))   
- 
- 
-    msg.data = [identify, -1,-1]#manda para atras el nivel  
-    nivel.publish(msg)
-
-    nivelAtras=0
-    if not evaluarPrecondicionesPorCaminos(): 
-        nivelAtras=1         
-        
-
-    for c in caminos:
-        ultimoNodo=c[len(c)-1] #ultimo nodo del camino previo
-        msg.data = [identify, ultimoNodo,nivelAtras]#manda para atras el nivel  
-        nivel.publish(msg)
-
-
-    if nivelAtras==0:
-        global estado
-        msg = Int32MultiArray()
-        rospy.loginfo("termino el ciclo") 
-        msg.data = [0,1]
-        pubEstado.publish(msg)
-
-
-#invocado en etapa de ejecucion cuando llega una postcondicion de un nodo a ver si corresponde
-#a una precondicion del nodo actual 
-def evaluarPrecondicion(data):
-    global ordering
-    global dicPostCondicion
-    skip = False
-    nodo=data.data[0] 
-    postcondicion=data.data[1]
-
-    if ordering.has_key(nodo):
-        ordering[nodo] = ordering[nodo] or (postcondicion == 1)  
-       
-
-    #se detecta cumplimiento de una postcondicion...entonces el init manda su nivel de activacion para
-    #atras...si un nodo recibe y puede ejecutar ejecuta, si no puede manda
-    #su nivel para atras y pone su nivel en 0 (no es tan asi VERIFICAR)
-    #if postcondicion:
-    
-
-    #si hay un cambio en la postcondicion de algun nodo se lanza nivel
-    activarNivel=False
-    if not dicPostCondicion.has_key(nodo):
-        dicPostCondicion[nodo]=postcondicion
-        activarNivel=True
-
-    if dicPostCondicion[nodo]!=postcondicion:
-        dicPostCondicion[nodo]=postcondicion 
-        activarNivel=True
-
-
-    #if activarNivel:
-    arranqueNivel()
-
-    #rospy.loginfo("activarNivel "+str(activarNivel))
-
-
-if __name__ == '__main__':
-    print "iniciando localizar"  
-
-    rospy.init_node('localizar', anonymous=True)
-
-    
-    #global identify
-    identify=int(rospy.myargv(argv=sys.argv)[1])
-    #rospy.loginfo("identificador init "+str(identify))
-    pubEstado=rospy.Publisher('topicoEstado', Int32MultiArray, queue_size = 10) 
-    motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
-    postConditionDetect = rospy.Publisher('postConditionDetect', Int32MultiArray, queue_size=10) #usado para aprender
-    preConditionDetect = rospy.Publisher('preConditionDetect', Int32MultiArray, queue_size=10) #usado para ejecutar
-    #rospy.Subscriber("input", Int32MultiArray, atenderSensores)
-    rospy.Subscriber("preConditionDetect", Int32MultiArray, evaluarPrecondicion)
-    rospy.Subscriber("preConditionsSetting", Int32MultiArray, setting)	    
-    rospy.Subscriber("topicoEstado", Int32MultiArray, setEstado)
-    #rospy.Subscriber("topicoNivel", Int32MultiArray, nivel)
-    nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10)
-    nodoEjecutando=rospy.Publisher('topicoNodoEjecutando', Int32MultiArray, queue_size=10)
-    rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, atenderNodoEjecutando)
-    rospy.Subscriber("topicoCaminos", Int32MultiArray, atenderCaminos)
-    rospy.Subscriber("topicoOrdenes", Int32MultiArray, atenderOrdenes)   
-    rospy.spin()
     

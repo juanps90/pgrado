@@ -44,18 +44,18 @@ errorRuido = 2000
 # usado para determinar tipos de links puede pasar que se cierre un comportamiento luego de cerrar otro
 epsilon = 200
 # tiempo que se acepta luego de terminado un comportamiento para indicar que se debe eliminar del grafo
-tiempoEsperaBad = 5000 
+tiempoBad = 1
 enablig = {}
 ordering = {}
 permanent = {}
 fase="nada"
 # el primer par de indices es el nodo anterior id,tiempo de fin el segundo es el nodo actual para evaluar los 10 segundos se recuerda el anterior
 # esto se usa para el caso BAD
-nodoEjecutando = (-1,-1,-1,-1)
+nodoEjecutando = ( (-1,-1) , (-1,-1) )
 idCome = -1
 # grafo generado tras varias demostraciones
 grafoGeneral = []
-tiempoBad = 5000
+
 # se lanzan nodos con el fin de aprender
 nodosParaAprender = {}
 # nodos lanzados an el proceso de ejecucion
@@ -482,87 +482,48 @@ def ejecutarBad():
     global ordenes
     tiempoActual = current_milli_time()
     # si el nodo actual inicio hace menos de tiempoBad se borra el nodo anterior    
-    tiempoDif = tiempoActual - nodoEjecutando[1]
-    dentroDElTiempo = tiempoDif < tiempoBad
-    existeNodoAnterior = nodoEjecutando[0] >= 0
+    tiempoDif = tiempoActual - nodoEjecutando[1][1]
+    dentroDelTiempo = tiempoDif < tiempoBad
+    existeNodoAnterior = nodoEjecutando[0][0] != -1
     
-    # se elimina el nodo que esta en ejecucion, notar que si es el ultimo nodo tambien funciona porque al no haber
-    # comportamiento posteriores el valor de ejecutando queda seteado en el ultimo nodo, es decir solo se modifica si un
-    # nuevo nodo ejecuta, en caso de dejar de ejecutar no se notifica
-    nodoABorrar = nodoEjecutando[2]
-    if existeNodoAnterior and dentroDElTiempo:
-        nodoABorrar = nodoEjecutando[0]            
-    lcs.borrarNodoBad(nodoABorrar)        
+    # se elimina el nodo que esta en ejecucion,si se termino el ciclo
+    #init envia un valor de -1 entonces se borra siempre el anterior a init
+    nodoABorrar = nodoEjecutando[1][0]
+    #si esta en init o existe el anterior y estoy en el tiempo se borra el anterior        
+    if ( nodoABorrar==-1) or ( existeNodoAnterior and dentroDelTiempo):
+        nodoABorrar = nodoEjecutando[0][0]   
+
+    if nodoABorrar==-1:
+        return
+         
+    borrar=lcs.borrarNodoBad(nodoABorrar)        
     lcs.graficar("bad")   
     
+
+  
     #se publica estado a Bad capaz el nombre habria que cambiarlo,
-    msg = Int32MultiArray()
-    msg.data = [0,nodoABorrar] 
-    ordenes.publish(msg)
+    if borrar:  
+        msg = Int32MultiArray()
+        msg.data = [0,nodoABorrar] 
+        ordenes.publish(msg)
 
-##lo siguiente de bad ya no iria
 
-#se elimina un nodo de la lista habria que verificar si pasaron menos de tiempoBad desde que inicio el comportamiento actual y existe anterior
-#en tal caso se elimina el nodo anterior si pasaron mas de tiempoEsperaBad segundos se asume que se quiere borrar el nodo actual Verificar
-def BACKejecutarBad(linksAModificar):
-    global nodoEjecutando 
-    global tiempoBad
-    tiempoActual=current_milli_time()
-    #si el nodo actual inicio hace menos de tiempoBad se borra el nodo anterior    
-    tiempoDif= tiempoActual - nodoEjecutando[1]
-    dentroDElTiempo=tiempoDif<tiempoBad
-    existeNodoAnterior=nodoEjecutando[0] >=0
-    
-    if existeNodoAnterior and dentroDElTiempo:
-        borrarNodoBad(linksAModificar,nodoEjecutando[0])               
-    
-    #se elimina el nodo que esta en ejecucion, notar que si es el ultimo nodo tambien funciona porque al no haber
-    #comportamiento posteriores el valor de ejecutando queda seteado en el ultimo nodo, es decir solo se modifica si un
-    #nuevo nodo ejecuta, en caso de dejar de ejecutar no se notifica
-    else :
-        borrarNodoBad(linksAModificar,nodoEjecutando[2])
+
+
         
-    return linksAModificar     
-        
-    
-#Nota los links no tienen un orden en la lista, el nodo init no se debe borrar (controlar en el q llama a este metodo)
-def borrarNodoBad(linksBad,idBad):      
-    #creo la lista de destinos del nodo a borrar
-    listaDestino=[]
-    print "linkbad",linksBad
-    for d in range(len(linksBad)):
-        if (linksBad[d][0]==idBad):
-            #se agregan los id y comportamiento a listaDestino 
-            listaDestino.append((linksBad[d][2],linksBad[d][3]))    
-                    
-    print "destinos del nodo borrado",listaDestino
-            
-    # de los que son origen del nodo a borrar agrega los destinos del nodo a borrar
-    for l in range(len(linksBad)):
-        if (linksBad[l][2]==idBad):#idborrar es destino del links
-            for d in range(len(listaDestino)):    
-                # se agregan links de orden entre los origens de los nodos y los destinos del nodo borrado 
-                linksBad.append((linksBad[l][0],linksBad[l][1],listaDestino[d][0],listaDestino[d][1],0))
-    
-    print "linkbad",linksBad
-    
-    # se eliminana todos los links que tengan a idborrar como origen o destino
-    for b in range(len(linksBad)-1,-1,-1):
-        if (linksBad[b][0]==idBad or linksBad[b][2]==idBad):
-            del linksBad[b]
-    return linksBad
+
     
 def atenderNodoEjecutando(data):
     global nodoEjecutando
     # llega un nuevo nodo ejecutando
-    if  data.data[0] != nodoEjecutando[2]: 
+    if  data.data[0] != nodoEjecutando[1][0]: 
         # acomodo los datos del que era ultimo pasa a ser el anterior        
-        a=nodoEjecutando[2]
-        b=nodoEjecutando[3]
+        anterior=nodoEjecutando[1]
         # agrero el nuevo nodo ejecutando con su tiempo de inicio
-        c=data.data[0]
-        d=current_milli_time()
-        nodoEjecutando=(a,b,c,d)
+        a=data.data[0]
+        b=current_milli_time()
+        actual=(a,b)
+        nodoEjecutando=(anterior,actual)
 
 #verificar como se agrega un tramo entre el ultimo nodo y el init si hay lios con el BAD
 
@@ -572,7 +533,7 @@ def ejecutarCome ():
     #se establece a partir del nodo actual el corte y se agrega lo aprendido justo antes de este nodo
     global idCome
     global estado
-    idCome=nodoEjecutando[2]
+    idCome=nodoEjecutando[1][0]
     msg = Int32MultiArray()
     msg.data = [3,3] #estado para agregar comportamientos
     estado.publish(msg)
@@ -586,6 +547,8 @@ def ejecutarHere():
     global estado
     global fase
     global nodosParaAprender
+    global Diccionario
+    global nodos
     nodosParaAprender = {}
     for n in dicComp:
         if n!=0:#lanza nodos sin ser el init
@@ -610,6 +573,7 @@ def ejecutarGo():
     global links
     #se corta el grafo general 
     global grafoGeneral 
+    global fase
     fase="nada"
     msg.data = [0,1]#debe avisar antes de hacer offline que se cierra asi no quedan mensajes colgados 
     estado.publish(msg)
@@ -926,6 +890,7 @@ def aprender():
     global dicComp
     global nodos
     global Diccionario
+    global idNA
     
     #if  fase=="aprender":
     #   return    
@@ -946,7 +911,7 @@ def aprender():
     fase="aprender"	    
     Diccionario = {}
     nodos = {}
-    id = 0
+    idNA = 0
     msg.data = [1,1] # podria ser el segundo valor el id del comportamiento
     estado.publish(msg)
 
@@ -1008,12 +973,15 @@ def ejecutar():
     #arranqueNivel()
 
 #event = threading.Event()
-
-def handler(signum, frame):    
-    global event
-    event.set()
-    print('Signal handler called with signal [%s]' % signum)
-
+ 
+ 
+def finEjecutar():
+    global estado
+    global fase 
+    fase="nada"
+    msg.data = [0,0] # podria ser el segundo valor el id del comportamiento
+    estado.publish(msg)    
+ 
 
 def atenderComandos(data):
     global comando
@@ -1029,8 +997,8 @@ def atenderComandos(data):
     elif aux[0] == str(Const.COMMAND_PLAY):
         comando="ejecutar" 
         idTarea = aux[1]
-    #elif aux[0] == str(Const.COMMAND_STOP):
-    #    comando="salir"
+    elif aux[0] == str(Const.COMMAND_STOP):
+        comando="finEjecutar"
     elif aux[0] == str(Const.COMMAND_BAD):
         comando="bad"            
     elif aux[0] == str(Const.COMMAND_GO):
@@ -1084,6 +1052,10 @@ if __name__ == '__main__':
             aprender()
 	elif comando == "ejecutar":
 	    ejecutar()
+	elif comando == "finEjecutar":
+	    finEjecutar()   
+     
+     
 	elif comando == "bad":    
 	    #posiblemente se realice el algoritmo en vez de 
 	    #sobre linkEnEjecucion sobre el grafo general	    
@@ -1103,8 +1075,8 @@ if __name__ == '__main__':
 	    grafoGeneral = [(1,1,3,3,0),(2,2,3,3,0),(3,3,4,4,0),(3,3,5,5,0)]
 	    nuevolinks = [(0,6,1,0,0)]
 	    cortarGo(nuevolinks,grafoGeneral,3)	    
-	elif comando == "sc": 
-	    print separarCaminos()
+	#elif comando == "sc": 
+	   # print separarCaminos()
 	elif comando == "topo": 
             linkEnEjecucion = [(0,1,0),(0,2,0),(0,3,0),(1,2,0),(1,3,0),(2,3,0)]
 	    print crearTopologia(linkEnEjecucion)
@@ -1220,5 +1192,69 @@ def arranqueNivel():
             fin=False
     #if fin:
         #rospy.loginfo("termino el ciclo")
+            
+##lo siguiente de bad ya no iria
+
+#se elimina un nodo de la lista habria que verificar si pasaron menos de tiempoBad desde que inicio el comportamiento actual y existe anterior
+#en tal caso se elimina el nodo anterior si pasaron mas de tiempoEsperaBad segundos se asume que se quiere borrar el nodo actual Verificar
+def BACKejecutarBad(linksAModificar):
+    global nodoEjecutando 
+    global tiempoBad
+    tiempoActual=current_milli_time()
+    #si el nodo actual inicio hace menos de tiempoBad se borra el nodo anterior    
+    tiempoDif= tiempoActual - nodoEjecutando[1]
+    dentroDElTiempo=tiempoDif<tiempoBad
+    existeNodoAnterior=nodoEjecutando[0] >=0
+    
+    if existeNodoAnterior and dentroDElTiempo:
+        borrarNodoBad(linksAModificar,nodoEjecutando[0])               
+    
+    #se elimina el nodo que esta en ejecucion, notar que si es el ultimo nodo tambien funciona porque al no haber
+    #comportamiento posteriores el valor de ejecutando queda seteado en el ultimo nodo, es decir solo se modifica si un
+    #nuevo nodo ejecuta, en caso de dejar de ejecutar no se notifica
+    else :
+        borrarNodoBad(linksAModificar,nodoEjecutando[2])
+        
+    return linksAModificar                 
+            
+            
+            
+            
+    
+#Nota los links no tienen un orden en la lista, el nodo init no se debe borrar (controlar en el q llama a este metodo)
+def borrarNodoBad(linksBad,idBad):      
+    #creo la lista de destinos del nodo a borrar
+    listaDestino=[]
+    print "linkbad",linksBad
+    for d in range(len(linksBad)):
+        if (linksBad[d][0]==idBad):
+            #se agregan los id y comportamiento a listaDestino 
+            listaDestino.append((linksBad[d][2],linksBad[d][3]))    
+                    
+    print "destinos del nodo borrado",listaDestino
+            
+    # de los que son origen del nodo a borrar agrega los destinos del nodo a borrar
+    for l in range(len(linksBad)):
+        if (linksBad[l][2]==idBad):#idborrar es destino del links
+            for d in range(len(listaDestino)):    
+                # se agregan links de orden entre los origens de los nodos y los destinos del nodo borrado 
+                linksBad.append((linksBad[l][0],linksBad[l][1],listaDestino[d][0],listaDestino[d][1],0))
+    
+    print "linkbad",linksBad
+    
+    # se eliminana todos los links que tengan a idborrar como origen o destino
+    for b in range(len(linksBad)-1,-1,-1):
+        if (linksBad[b][0]==idBad or linksBad[b][2]==idBad):
+            del linksBad[b]
+    return linksBad          
+            
+            
+            
+            
+            
+            
+            
+            
+            
         
 '''       

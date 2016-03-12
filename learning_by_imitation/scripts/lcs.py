@@ -609,6 +609,10 @@ def borrarNodoBad(idBad):
     global topologiaGeneral
     global networkGeneral
     
+    #se evita que se borren todos los nodos al menos un enlace debe quedar hacia el init
+    if len(topologiaGeneral)==1 and (topologiaGeneral[0][0]==idBad or topologiaGeneral[0][1]==idBad):    
+        return False
+    
     #primero borra de la topologia
     
     #creo la lista de destinos del nodo a borrar
@@ -643,6 +647,7 @@ def borrarNodoBad(idBad):
     for b in range(len(networkGeneral)-1,-1,-1):
         if (networkGeneral[b][0]==idBad or networkGeneral[b][1]==idBad):
             del networkGeneral[b] 
+    return True
 
 
 #para no repetir id se pregunta antes de una demo el id mas alto y de ahi se empiezan a contar

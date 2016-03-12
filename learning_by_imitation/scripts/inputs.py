@@ -5,7 +5,7 @@ from std_msgs.msg import String, Float64, Float64MultiArray,Int32MultiArray
 import Const
 import time
 
-delay=0.2
+delay=1.2
 contador=0
 topeContador=1
 
@@ -84,7 +84,7 @@ def processHeadVisionSensor(data):
     strData = str(data.data)
     # rospy.loginfo("comportamiento datos recibidos"+str(data))
     separar= map(str, strData.split('|'))
-    print "separar", separar
+    #print "separar", separar
     
     #llegan datos de varios objetos
     for s in  separar:
@@ -142,7 +142,7 @@ def processHeadVisionSensor(data):
                 if len (salida)==0:
                     salida=[Const.SENSOR_VISION_HEAD_ID]
                 salida =salida+ [ datos[3], colorCode]
-    print "cabeza ",salida
+   #print "cabeza ",salida
     return salida
 
 
