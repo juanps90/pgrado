@@ -238,7 +238,7 @@ class comportamiento(object):
         self.estado=data.data[0]
         if self.estado==3:
             #se detienen los motores estamos en estado come 
-            msg = Int32MultiArray() 
+            msg = Float64MultiArray() 
             msg.data = [self.identify,0,0] 	 
             self.motores.publish(msg) 
         #rospy.loginfo("estado"+str(self.estado))
@@ -343,29 +343,31 @@ class comportamiento(object):
 
         except: # catch *all* exceptions
             e = sys.exc_info()[0]
-            rospy.loginfo("error "+ str(e))
+            rospy.loginfo("error "+ str(e)) 
 
     def evaluarPrecondicion(self,data):#invocado en etapa de ejecucion cuando llega una postcondicion
         print "entro en evaluarPrecondicion id>",self.identify 
         comportamiento=data.data[0] 
         postcondicion=data.data[1]
-
-        if self.permanent.has_key(comportamiento):
-            self.permanent[comportamiento] = postcondicion == 1
-            if self.permanent[comportamiento]:
-                print "es permanente"
-            else:
-                print "salio de permanente"
-        elif self.enablig.has_key(comportamiento):
-            self.enablig[comportamiento] = postcondicion == 1
-            if self.enablig[comportamiento] or self.ejecutando:#si se esta ejecutando no importa que se apague
-                print "esta habilitado"	
-            else:
-                print "se inhabilito"
-        elif self.ordering.has_key(comportamiento):
-            self.ordering[comportamiento] = self.ordering[comportamiento] or (postcondicion == 1)
-            print "es de orden"
-
+        try:
+            if self.permanent.has_key(comportamiento):
+                self.permanent[comportamiento] = postcondicion == 1
+                if self.permanent[comportamiento]:
+                    print "es permanente"
+                else:
+                    print "salio de permanente"
+            elif self.enablig.has_key(comportamiento):
+                self.enablig[comportamiento] = postcondicion == 1
+                if self.enablig[comportamiento] or self.ejecutando:#si se esta ejecutando no importa que se apague
+                    print "esta habilitado"	
+                else:
+                    print "se inhabilito"
+            elif self.ordering.has_key(comportamiento):
+                self.ordering[comportamiento] = self.ordering[comportamiento] or (postcondicion == 1)
+                print "es de orden"
+        except: # catch *all* exceptions
+            e = sys.exc_info()[0]
+            rospy.loginfo("error "+ str(e)) 
 
     def atenderMotorLockeado(self,data):   
         if data.data[1] == -1 or data.data[1]== self.identify:   #el valor 0 es para el id del motor

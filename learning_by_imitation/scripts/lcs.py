@@ -216,8 +216,9 @@ def graficarTopologia(topologia,idArchivo):
     file.write("digraph pcspec{\n\n")  
     
     color_nodes = {}
-    
+    print "diccionario ",diccionario
     for t in topologia:
+        print "valor de t",t
         label=str(diccionario[t[0]])+ "-"+str(diccionario[t[1]])
         file.write(str(t[0])+ "->"+str(t[1])+' [ label="' + label + '" ]; \n')
         try:
@@ -723,7 +724,7 @@ def cortarGoCaminos(nuevaTopologia,nuevaNetwork,idCome,idPrevio):
     final=-1
     camino=tranTopoACamino(nuevaTopologia)
     inicial=camino[0]
-    final=camino[ len(camino)-1 ]
+    final=camino[ len(camino)-2 ]#no se toma al init
     
     #se elimina el enlace al nodo init y se determina el nodo final en realidad el final si hay init es el
     #es camino el nodo anterior al init
@@ -736,44 +737,54 @@ def cortarGoCaminos(nuevaTopologia,nuevaNetwork,idCome,idPrevio):
  
 
     #se agrega al idcome como sucesor de la nueva topologia
-    sucesores.append(idCome)
+    #sucesores.append(idCome)
+    
+
     '''
-    #se recorre la topologia y se agregan predecesores
-    #ademas se borran los enlaces que iban al idCome    
     for g in range (len(topologiaGeneral)-1,-1,-1):  
         if topologiaGeneral[g][1]==idCome and not (topologiaGeneral[g][0]  in predecesores ):
             predecesores.append( topologiaGeneral[g][0] )
             topologiaGeneral.remove(topologiaGeneral[g])
     '''
-    predecesores.append( idPrevio )
-    for g in range (len(topologiaGeneral)-1,-1,-1):
-        if topologiaGeneral[g][0]==idPrevio and topologiaGeneral[g][1]== idCome :                     
-            topologiaGeneral.remove( (idPrevio,idCome))      
+    #sse rompe el link entre idprevioe idcome  
+    if idPrevio!=-1:
+        predecesores.append( idPrevio )
+        for g in range (len(topologiaGeneral)-1,-1,-1):
+            if topologiaGeneral[g][0]==idPrevio and topologiaGeneral[g][1]== idCome :                     
+                topologiaGeneral.remove( (idPrevio,idCome))      
              
     print "nuevaTopologia ",nuevaTopologia 
     print "predecesores  ",predecesores
-    print "sucesores ",sucesores 
+    #print "sucesores ",sucesores 
             
     for p in predecesores: 
         topologiaGeneral.append((p,inicial))
-    for s in sucesores:
-        topologiaGeneral.append((final,s))
+    #sustituyo el init por el idcome
+    for n in range (len(nuevaTopologia)-1,-1,-1):
+        if diccionario[ nuevaTopologia[n][1] ]=="init":
+            nuevaTopologia.append((nuevaTopologia[n][0],idCome))
+            nuevaTopologia.remove( nuevaTopologia[n] )      
             
     topologiaGeneral=list(set(topologiaGeneral+nuevaTopologia))
+    
+    
+    ###################
     
     #agrega en la network    
     predecesores=[]
     sucesores=[]
     nuevos=[]
-    for g in range (len( networkGeneral)-1,-1,-1):
-        if networkGeneral[g][0] == idPrevio and networkGeneral[g][1] == idCome and  networkGeneral[g][2] > Const.LINK_ORD:                     
-            networkGeneral.remove( networkGeneral[g])      
-            networkGeneral.append((idPrevio, idCome, Const.LINK_ORD))
+    if idPrevio!=-1:
+        for g in range (len( networkGeneral)-1,-1,-1):
+            if networkGeneral[g][0] == idPrevio and networkGeneral[g][1] == idCome and  networkGeneral[g][2] > Const.LINK_ORD:                     
+                networkGeneral.remove( networkGeneral[g])      
+                networkGeneral.append((idPrevio, idCome, Const.LINK_ORD))
 
     #se agrega al idcome como sucesor de la nueva network
     sucesores.append(idCome)
     #se agrega al idPrevio como predecesor de la nueva network
-    predecesores.append( idPrevio)
+    if idPrevio!=-1:
+        predecesores.append( idPrevio)
     #se recorre la network y se agregan sucesores y predecesores
     for g in networkGeneral:  
         if g[1] == idPrevio and not (g[0]  in predecesores ):
@@ -787,7 +798,7 @@ def cortarGoCaminos(nuevaTopologia,nuevaNetwork,idCome,idPrevio):
         if not (  nuevaNetwork[n][0] in nuevos ): 
             nuevos.append(nuevaNetwork[n][0])
         if not (nuevaNetwork[n][1] in nuevos ):
-            if diccionario[nuevaNetwork[n][1]] != 0:#no se agrega el init
+            if diccionario[nuevaNetwork[n][1]] != "init":#no se agrega el init
                 nuevos.append(nuevaNetwork[n][1])
             else:
                 nuevaNetwork.remove(nuevaNetwork[n])

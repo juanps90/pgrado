@@ -44,7 +44,7 @@ errorRuido = 2000
 # usado para determinar tipos de links puede pasar que se cierre un comportamiento luego de cerrar otro
 epsilon = 200
 # tiempo que se acepta luego de terminado un comportamiento para indicar que se debe eliminar del grafo
-tiempoBad = 1
+tiempoBad = 10000
 enablig = {}
 ordering = {}
 permanent = {}
@@ -54,7 +54,7 @@ fase="nada"
 nodoEjecutando = ( (-1,-1) , (-1,-1) )
 idCome = -1
 # grafo generado tras varias demostraciones
-grafoGeneral = []
+grafoNuevo = []
 
 # se lanzan nodos con el fin de aprender
 nodosParaAprender = {}
@@ -533,13 +533,19 @@ def ejecutarCome ():
     #se establece a partir del nodo actual el corte y se agrega lo aprendido justo antes de este nodo
     global idCome
     global estado
+    global Diccionario
+    global nodos
+    global fase
+    global idNA
     idCome=nodoEjecutando[1][0]
     msg = Int32MultiArray()
     msg.data = [3,3] #estado para agregar comportamientos
     estado.publish(msg)
 
-    
-
+    Diccionario={}
+    nodos = {}
+    idNA=0
+    fase="come"
 
 #a partir de aqui se debe pasar a una etapa de aprendizaje el link obtenido se debe guardar, recordar que para aprender se lanzan nuevos nodos
 #por lo cual el estado de los nodos no se modifica 
@@ -547,15 +553,13 @@ def ejecutarHere():
     global estado
     global fase
     global nodosParaAprender
-    global Diccionario
-    global nodos
+
     nodosParaAprender = {}
     for n in dicComp:
-        if n!=0:#lanza nodos sin ser el init
+        if n!="init":#lanza nodos sin ser el init
             nodosParaAprender[n]= lanzarNodo(-1,n) 
-    fase="aprender"	    
-    Diccionario={}
-    nodos = []
+    fase="aprender"	   
+
     msg.data = [1,1]#podria ser el segundo valor el id del comportamiento
     estado.publish(msg)
     print "ejecuto here"
@@ -569,10 +573,12 @@ def ejecutarGo():
     global estado
     global idCome
     global nodosParaAprender
+    global auxDicNodoParam
+    global auxDicNodoComp    
+    
     #se obtiene el grafo generado en la mini demostracion
     global links
     #se corta el grafo general 
-    global grafoGeneral 
     global fase
     fase="nada"
     msg.data = [0,1]#debe avisar antes de hacer offline que se cierra asi no quedan mensajes colgados 
@@ -581,131 +587,32 @@ def ejecutarGo():
         print it.stop()	
     print "antes de offline en go"   
     offLine()         
-    print grafoGeneral   
-
-    lcs.cortarGoCaminos(grafoGeneral,links,idCome,nodoEjecutando[0])
-    lcs.graficar("go")
+    
     #cortarGo(links,grafoGeneral,idCome)     
     #se vuelve al estado ejecucion
     fase="ejecutar"
     msg.data = [2,2] 
-    estado.publish(msg) 
+    estado.publish(msg)  
     
-#lo que sigue de go no iria       
-
-def cortarGo(nuevolinks,grafoGeneral,idCome): 
-    if len(nuevolinks) == 0:
-        print "link de tama;o cero en cortar"
-        return grafoGeneral
-
-    #se van a dar id repetidos
-    #se halla el maximo id del general, y se suma a los id del links nuevo
-    idMAximoGeneral=-1
-    for l in grafoGeneral:
-        if idMAximoGeneral<l[0]:
-            idMAximoGeneral=l[0]
-        if idMAximoGeneral<l[2]:
-            idMAximoGeneral=l[2]      
-    idMAximoGeneral=idMAximoGeneral+1
-    print "idMAximoGeneral", idMAximoGeneral
-    for i in range(len(nuevolinks)):
-        aux=nuevolinks[i]
-        #a cada nodo se le suma en su id el idMAximoGeneral
-        modificado=(aux[0]+idMAximoGeneral,aux[1],aux[2]+idMAximoGeneral,aux[3],aux[4])
-        nuevolinks[i]=modificado
-                
-    print "nuevolinks ",nuevolinks  
+  
+    # agregarNodoInit()#agrega el nodo init al final de link y agrega enlaces de orden
+    # aca se podria agregar el comportamiento del capitulo 5
+    if len (links) > 0:
+        grafoNuevo= crearTopologia(links)
+        lcs.setDicParametros(auxDicNodoParam)
+        lcs.appendDicCom(auxDicNodoComp)
+        
+        lcs.graficarTopologia(grafoNuevo,"NuevaDemo")
+        lcs.cortarGoCaminos(grafoNuevo,links,idCome,nodoEjecutando[0][0])
+        lcs.graficar("ComeGo")         
+    else:
+        print "ATENCION: La demostracion no genero nodos"    
     
-    '''
-    sinSucesores=[]
-    sinPredecesores=[]
-    #agrego todos los id de los nodos a las listas sin..
-    for l in nuevolinks:    
-        grafoGeneral.append(l)
-        if not l[0] in sinSucesores:
-            sinSucesores.append(l[0])
-            sinPredecesores.append(l[0])
-        if not l[2] in sinSucesores:
-            sinSucesores.append(l[2])
-            sinPredecesores.append(l[2])
-    print   "grafoGeneral",grafoGeneral         
-    print   "nuevos ",nuevolinks   
     
-    #se sacn los que tienen sucesor y predecesor respectivamente, los que queden en las listas seran final e inicio respectivamente
-    for l in nuevolinks:
-        if (l[0] in sinSucesores):
-            sinSucesores.remove(l[0]) 
-        if (l[2] in sinPredecesores):
-            sinPredecesores.remove(l[2]) 
-     
-    print "sinPredecesores",sinPredecesores
-    print "sinSucesores",sinSucesores
-     
-    inicio=buscarComportamiento(sinPredecesores[0],nuevolinks)
-    fin=buscarComportamiento(sinSucesores[0],nuevolinks)
      
     
-    #de los nodos previos al objetivo, agregar links con destino al nodo inicial del nuevo link
-    #hay que borrar los enlaces que tienen como destino el nodo objetivo
     
-    #se agregan los enlaces de los nodos previo al nodo inicial del nuevo link
-    for i in range(len(grafoGeneral)):
-        if grafoGeneral[i][2]==idCome:
-            aux=grafoGeneral[i]
-            grafoGeneral.append((aux[0],aux[1],inicio[0],inicio[1],0))    
-    
-    
-    #se borran los enlaces con destino a objetivo
-    for i in range(len(grafoGeneral)-1,-1,-1):
-        if grafoGeneral[i][2]==idCome:
-            del grafoGeneral[i]
-    
-    
-    
-    #del nodo final del nuevo link agregar enlace al nodo objetivo 
-    objetivo=buscarComportamiento(idCome,grafoGeneral)  
-    grafoGeneral.append((fin[0],fin[1],objetivo[0],objetivo[1],0))
-    ''' 
-    
-    # diccionarios con clave el id del nodo y valor el id del comportamiento
-    predecesores = {}
-    sucesores = {}
-    nuevos = {}     
-    
-    for g in grafoGeneral:  
-        if g[2] == idCome and not (predecesores.has_key(g[0])):
-            predecesores[g[0]] = g[1]
-        if g[0] == idCome:
-            #se agrega el nodo come como un sucesor
-            if not (sucesores.has_key(g[0])):
-                sucesores[g[0]] = g[1]   
-            #se agrega el sucesor si no estaba en la lista        
-            if not (sucesores.has_key(g[2])): 
-                sucesores[g[2]] = g[3]            
-            
-    for n in nuevolinks:       
-        #se agregan nodos nuevos a una lista
-        if not (nuevos.has_key(n[0])): 
-            nuevos[n[0]] = n[1]
-        if not (nuevos.has_key(n[2])) and n[3] != 0:#no se agrega el init
-            nuevos[n[2]] = n[3]  
-      
-    print "nuevos ",nuevos
-    print "predecesores  ",predecesores
-    print "sucesores ",sucesores 
-            
-    for n in nuevos:
-        for p in predecesores:
-            print p,n
-            grafoGeneral.append((p,predecesores[p],n,nuevos[n],Const.LINK_ORD))
-        for s in sucesores:
-            grafoGeneral.append((n,nuevos[n],s,sucesores[s],Const.LINK_ORD)) 
-    
-    
-    print "grafo general al terminar cortargo", grafoGeneral
-    
-    return grafoGeneral
-     
+  
      
 def buscarComportamiento(idNodo,linksBuscar): 
     for b in linksBuscar:
@@ -813,39 +720,7 @@ def enviarCaminos(caminos):
         # print salida  
         pubCaminos.publish(msg)    
         
-'''
-def atenderCaminos(data):
-    #global pathPosibles
-    #si es mi id agrego la lismsg)
 
-def ta de caminos camino el nodo
-    #if data.data[0] == identify:
-    if True: 
-        #elimina de la lista el dato del id
-        lista=list(data.data)        
-        #print lista
-        del lista[0]
-        
-        print separarCaminos(lista)
-        #pathPosibles[data.data[1]]=lista
-        #print lista
-
-def separarCaminos(caminos):
-    salida = []
-    #caminos = [1,2,3,-10,4,5,6,-10,7,8,9,-10]
-    inicio=0
-    fin=0
-    while inicio< len (caminos):    
-        fin=caminos.index(-10,inicio)
-        #print fin
-        tramo=caminos[inicio:fin]
-        #print tramo
-        salida.append(tramo) 
-        inicio=fin+1
-    
-    return salida
- 
-'''
  
 #######################
 #Metodo Principal
@@ -857,6 +732,8 @@ def finDemo():
     global fase
     global estado
     global idTarea
+    global auxDicNodoParam
+    global auxDicNodoComp    
     
     if fase != "aprender":
         print "ATENCION: no se inicio aprendizaje"
@@ -905,7 +782,7 @@ def aprender():
     
     nodosParaAprender = {}
     for n in dicComp:
-        if n != 0: # lanza nodos sin ser el init
+        if n!="init":#lanza nodos sin ser el init
             nodosParaAprender[n] = lanzarNodo(-1,n) 
 
     fase="aprender"	    
@@ -1076,7 +953,7 @@ if __name__ == '__main__':
 	elif comando == "probarGo": 
 	    grafoGeneral = [(1,1,3,3,0),(2,2,3,3,0),(3,3,4,4,0),(3,3,5,5,0)]
 	    nuevolinks = [(0,6,1,0,0)]
-	    cortarGo(nuevolinks,grafoGeneral,3)	    
+	    #cortarGo(nuevolinks,grafoGeneral,3)	    
 	#elif comando == "sc": 
 	   # print separarCaminos()
 	elif comando == "topo": 
@@ -1099,7 +976,7 @@ if __name__ == '__main__':
 	#se puede dar bad cuando se ejecuta 
 	elif comando == "algoritmoBad":  
 	    linksBad = [(1,1,3,3,0),(2,2,3,3,0),(3,3,4,4,0),(3,3,5,5,0),(5,5,6,6,2)]	
-	    salida = borrarNodoBad(linksBad,3)
+	    #salida = borrarNodoBad(linksBad,3)
 	    salida = ejecutarBad(linksBad)
 	    print salida
 	    #msg.data = [0,0] 
@@ -1249,14 +1126,162 @@ def borrarNodoBad(linksBad,idBad):
         if (linksBad[b][0]==idBad or linksBad[b][2]==idBad):
             del linksBad[b]
     return linksBad          
-            
-            
-            
-            
-            
-            
-            
-            
-            
-        
+     
 '''       
+
+'''
+sinSucesores=[]
+sinPredecesores=[]
+#agrego todos los id de los nodos a las listas sin..
+for l in nuevolinks:    
+    grafoGeneral.append(l)
+    if not l[0] in sinSucesores:
+        sinSucesores.append(l[0])
+        sinPredecesores.append(l[0])
+    if not l[2] in sinSucesores:
+        sinSucesores.append(l[2])
+        sinPredecesores.append(l[2])
+print   "grafoGeneral",grafoGeneral         
+print   "nuevos ",nuevolinks   
+
+#se sacn los que tienen sucesor y predecesor respectivamente, los que queden en las listas seran final e inicio respectivamente
+for l in nuevolinks:
+    if (l[0] in sinSucesores):
+        sinSucesores.remove(l[0]) 
+    if (l[2] in sinPredecesores):
+        sinPredecesores.remove(l[2]) 
+ 
+print "sinPredecesores",sinPredecesores
+print "sinSucesores",sinSucesores
+ 
+inicio=buscarComportamiento(sinPredecesores[0],nuevolinks)
+fin=buscarComportamiento(sinSucesores[0],nuevolinks)
+ 
+
+#de los nodos previos al objetivo, agregar links con destino al nodo inicial del nuevo link
+#hay que borrar los enlaces que tienen como destino el nodo objetivo
+
+#se agregan los enlaces de los nodos previo al nodo inicial del nuevo link
+for i in range(len(grafoGeneral)):
+    if grafoGeneral[i][2]==idCome:
+        aux=grafoGeneral[i]
+        grafoGeneral.append((aux[0],aux[1],inicio[0],inicio[1],0))    
+
+
+#se borran los enlaces con destino a objetivo
+for i in range(len(grafoGeneral)-1,-1,-1):
+    if grafoGeneral[i][2]==idCome:
+        del grafoGeneral[i]
+
+
+
+#del nodo final del nuevo link agregar enlace al nodo objetivo 
+objetivo=buscarComportamiento(idCome,grafoGeneral)  
+grafoGeneral.append((fin[0],fin[1],objetivo[0],objetivo[1],0))
+''' 
+
+
+
+'''  
+#lo que sigue de go no iria       
+
+def cortarGo(nuevolinks,grafoGeneral,idCome): 
+    if len(nuevolinks) == 0:
+        print "link de tama;o cero en cortar"
+        return grafoGeneral
+
+    #se van a dar id repetidos
+    #se halla el maximo id del general, y se suma a los id del links nuevo
+    idMAximoGeneral=-1
+    for l in grafoGeneral:
+        if idMAximoGeneral<l[0]:
+            idMAximoGeneral=l[0]
+        if idMAximoGeneral<l[2]:
+            idMAximoGeneral=l[2]      
+    idMAximoGeneral=idMAximoGeneral+1
+    print "idMAximoGeneral", idMAximoGeneral
+    for i in range(len(nuevolinks)):
+        aux=nuevolinks[i]
+        #a cada nodo se le suma en su id el idMAximoGeneral
+        modificado=(aux[0]+idMAximoGeneral,aux[1],aux[2]+idMAximoGeneral,aux[3],aux[4])
+        nuevolinks[i]=modificado
+                
+    print "nuevolinks ",nuevolinks  
+    
+
+    
+    # diccionarios con clave el id del nodo y valor el id del comportamiento
+    predecesores = {}
+    sucesores = {}
+    nuevos = {}     
+    
+    for g in grafoGeneral:  
+        if g[2] == idCome and not (predecesores.has_key(g[0])):
+            predecesores[g[0]] = g[1]
+        if g[0] == idCome:
+            #se agrega el nodo come como un sucesor
+            if not (sucesores.has_key(g[0])):
+                sucesores[g[0]] = g[1]   
+            #se agrega el sucesor si no estaba en la lista        
+            if not (sucesores.has_key(g[2])): 
+                sucesores[g[2]] = g[3]            
+            
+    for n in nuevolinks:       
+        #se agregan nodos nuevos a una lista
+        if not (nuevos.has_key(n[0])): 
+            nuevos[n[0]] = n[1]
+        if not (nuevos.has_key(n[2])) and n[3] != 0:#no se agrega el init
+            nuevos[n[2]] = n[3]  
+      
+    print "nuevos ",nuevos
+    print "predecesores  ",predecesores
+    print "sucesores ",sucesores 
+            
+    for n in nuevos:
+        for p in predecesores:
+            print p,n
+            grafoGeneral.append((p,predecesores[p],n,nuevos[n],Const.LINK_ORD))
+        for s in sucesores:
+            grafoGeneral.append((n,nuevos[n],s,sucesores[s],Const.LINK_ORD)) 
+    
+    
+    print "grafo general al terminar cortargo", grafoGeneral
+    
+    return grafoGeneral
+'''   
+
+
+
+'''
+def atenderCaminos(data):
+    #global pathPosibles
+    #si es mi id agrego la lismsg)
+
+def ta de caminos camino el nodo
+    #if data.data[0] == identify:
+    if True: 
+        #elimina de la lista el dato del id
+        lista=list(data.data)        
+        #print lista
+        del lista[0]
+        
+        print separarCaminos(lista)
+        #pathPosibles[data.data[1]]=lista
+        #print lista
+
+def separarCaminos(caminos):
+    salida = []
+    #caminos = [1,2,3,-10,4,5,6,-10,7,8,9,-10]
+    inicio=0
+    fin=0
+    while inicio< len (caminos):    
+        fin=caminos.index(-10,inicio)
+        #print fin
+        tramo=caminos[inicio:fin]
+        #print tramo
+        salida.append(tramo) 
+        inicio=fin+1
+    
+    return salida
+ 
+'''

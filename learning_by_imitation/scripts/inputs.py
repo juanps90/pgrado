@@ -243,7 +243,10 @@ def processCommand(data):
         msg.data = str(Const.COMMAND_EXIT)
         
     #solo se podria calibrar si no se esta ahciendo nada
-    if estado ==0:    
+    if estado ==0:   
+        if comando[0] == "DEL_CALIBRATE":
+           if calibrarColor!=-1:
+               dicColores[calibrarColor]= [[10,10,10], [-1,-1,-1]]  
         if comando[0] == "RED_CALIBRATE":
            calibrarColor= Const.SENSOR_COLOR_DETECT_RED
         elif comando[0] == "GREEN_CALIBRATE":
@@ -255,6 +258,7 @@ def processCommand(data):
         elif comando[0] == "YELLOW_CALIBRATE":
             calibrarColor=Const.SENSOR_COLOR_DETECT_YELLOW
         elif comando[0] == "END_CALIBRATE": 
+            salvarXML.persistirConfiguracion(Const.CONFIG_XML_NAME, dicColores)
             calibrarColor=-1
             print "fin calibrar"
    

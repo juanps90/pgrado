@@ -41,7 +41,7 @@ def setEstado(data):
     estado=data.data[0]
     if estado==3:
 	#se detienen los motores estamos en estado come 
-	msg = Int32MultiArray() 
+	msg = Float64MultiArray() 
 	msg.data = [identify,0,0] 	 
         motores.publish(msg) 
     elif estado==2:
