@@ -121,10 +121,6 @@ def processHeadVisionSensor(data):
                     dicColores[Const.SENSOR_COLOR_DETECT_BLUE]= [[0.0, 0.0, 0.55], [0.25, 0.25, 1.0]] 
                     dicColores[Const.SENSOR_COLOR_DETECT_ORANGE]= [[0.65, 0.50, 0.20], [1.0, 1.0, 0.46]]
                
-               
-
-              
-               
                 match=False
                 for c in dicColores:
                     
@@ -212,7 +208,7 @@ def envioSensados():
     
         if not detener and len(mensaje)>0:
             sensores.publish(msg) 
-            #print "envio sensores",msg.data
+            print "envio sensores",msg.data
             
         dataLineDetectColor=None
         dataHeadVisionSensor=None
@@ -266,27 +262,6 @@ def processCommand(data):
     command.publish(msg)
 
 
-def inputsManual():
-    print "Comienzo de la demostracion"
-    ingreso=raw_input()
-    while ingreso!= "salir":
-        # Aca se debe leer sensores     
-	
-        msg = Float64MultiArray()
-        if ingreso == "negro":
-            msg.data = [0,0,0,0]
-            sensores.publish(msg)
-        elif ingreso == "blanco":
-            msg.data = [0,1,1,1]
-            sensores.publish(msg)
-        elif ingreso == "verde":
-            msg.data = [0,2,2,2]
-            sensores.publish(msg)            
-        elif ingreso == "rojo":
-            msg.data = [0,3,3,3]
-            sensores.publish(msg)
-        ingreso=raw_input()
-    print "Fin del ingreso de datos"
 
 
 #se detiene el envio de sensores si el estado es nada               
@@ -338,7 +313,29 @@ if __name__ == '__main__':
     
 
 
-     
+'''
+def inputsManual():
+    print "Comienzo de la demostracion"
+    ingreso=raw_input()
+    while ingreso!= "salir":
+        # Aca se debe leer sensores     
+	
+        msg = Float64MultiArray()
+        if ingreso == "negro":
+            msg.data = [0,0,0,0]
+            sensores.publish(msg)
+        elif ingreso == "blanco":
+            msg.data = [0,1,1,1]
+            sensores.publish(msg)
+        elif ingreso == "verde":
+            msg.data = [0,2,2,2]
+            sensores.publish(msg)            
+        elif ingreso == "rojo":
+            msg.data = [0,3,3,3]
+            sensores.publish(msg)
+        ingreso=raw_input()
+    print "Fin del ingreso de datos"
+'''  
     
        
  
