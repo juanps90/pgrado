@@ -14,14 +14,14 @@ import lxml.builder
 #	El primer parametro es el identificador de la tarea a persistir. 
 #   El segundo parametro indica que tipo de demostracion esta asociada a este archivo (fullDemo, bad, comeNgo)
 #   El tercer parametro determina si es un grafo generalizado (TRUE) o no (FALSE).
-#	El cuarto, quinto y sexto  parametro son (respectivamente) las listas que describen los nodos y sus tareas asociadas, el grafo topologico y el grafo de red de componentes.
+#	El cuarto, quinto y sexto  parametro son (respectivamente) el diccionario de nodos y sus tareas asociadas, el grafo topologico (lista) y el grafo de red de componentes (lista).
 #	Esta funcion retorna el id del grafo salvado. Este sera 0 para una generaliacion, 1 o mas para una demostracion o -1 si ocurrio algun error.
 #	Las 3 listas deben existir, si alguna de ellas fuera None, el procedimiento falla.
 #
-# 	persistir_Demostracion(proceso=String, tipo=string, generalizado=Boolean, nodos=listaNodos, topologia=topologico, networkDef=networkCmp) -> int
-#		listaNodos = [(int,int),(int,int),...,(int,int)]
-#		topologico = [(int,int),(int,int),...,(int,int)]
-#		networkCmp = [(int,int,int),(int,int,int),...,(int,int,int)]
+# 	persistir_Demostracion(proceso=String, tipo=string, generalizado=Boolean, nodos=DiccionarioNodos, topologia=topologico, networkDef=networkCmp) -> int
+#		DiccionarioNodos = {(int:int),...} = {(idNodo:idComportamiento),...} 
+#		topologico = [(int,int),...] = [(idNodoIni,idNodoFin),...]
+#		networkCmp = [(int,int,int),...] = [(idNodoIni,idNodoFin,idTipoLink),...]
 #
 def persistir_Demostracion(proceso, tipo, generalizado, nodos, topologia, networkDef):
     print('proceso: {0}\ngeneralizado: {1}\nnodos: {2}\ntopologia: {3}\nnetwork: {4}\n'.format(proceso, generalizado, nodos, topologia, networkDef))
@@ -52,8 +52,8 @@ def persistir_Demostracion(proceso, tipo, generalizado, nodos, topologia, networ
     XMLtopologia = definicion(seccion = constPersist.SECCION_TOPOLOGIA)
     XMLNetwork = definicion(seccion = constPersist.SECCION_NETWORK)
     #Ahora agrego a cada seccion lo que le corresponde
-    for n in nodos:
-        XMLnodos.append(nodo(idNodo('{0}'.format(n[0])),idComportamiento('{0}'.format(n[1]))))    
+    for n, c in nodos.items():     
+        XMLnodos.append(nodo(idNodo('{0}'.format(n)),idComportamiento('{0}'.format(c))))    
     for t in topologia:
         XMLtopologia.append(link_topoligico(IdNodoInicial('{0}'.format(t[0])),IdNodoFinal('{0}'.format(t[1]))))    
     for nd in networkDef:
@@ -69,6 +69,6 @@ def persistir_Demostracion(proceso, tipo, generalizado, nodos, topologia, networ
         f.write(DocumentoXML)    
 
 if __name__ == "__main__":
-    persistir_Demostracion(sys.argv[1], 'fullDemo', False, [[1,99],[2,88],[3,77]],[[1,2],[2,3]],[[1,2,constPersist.LINK_PRM],[2,3,constPersist.LINK_ORD],[1,3,constPersist.LINK_ORD]])
-    persistir_Demostracion(sys.argv[1], 'fullDemo', True, [[1,99],[2,88],[3,77]],[[1,2],[2,3]],[[1,2,constPersist.LINK_PRM],[2,3,constPersist.LINK_ORD],[1,3,constPersist.LINK_ORD]])
+    persistir_Demostracion(sys.argv[1], 'fullDemo', False, {1:"A",2:"B",3:"C"},[(1,2),(2,3)],[(1,2,constPersist.LINK_PRM),(2,3,constPersist.LINK_ORD),(1,3,constPersist.LINK_ORD)])
+    persistir_Demostracion(sys.argv[1], 'fullDemo', True, {1:"A",2:"B",3:"C"},[(1,2),(2,3)],[(1,2,constPersist.LINK_PRM),(2,3,constPersist.LINK_ORD),(1,3,constPersist.LINK_ORD)])
     
