@@ -52,7 +52,7 @@ def processSensorLineDetectColorData(data):
 
     #id del sensor, datos...
     salida = [Const.SENSOR_COLOR_DETECT_LINE_ID,  sensorsData[0], sensorsData[1], sensorsData[2]]
-    print "color: ",sensorsData[1]
+    #print "color: ",sensorsData[1]
     return salida
        
 
@@ -67,8 +67,13 @@ def processSensorLineDetectColorData(data):
 # En la posicion 2 un valor entero que indica el color del objeto segun las constantes establecidas en Const.
 def processHeadVisionSensor(data):
     if data==None:
+        print "********************   NONE   ****************************"
         return []
     salida=[]
+    print "**************************************************************"
+    print data.data
+    print "**************************************************************"
+
     dataSensor = map(float, data.data.split('|'))
     
     codeColor = Const.SENSOR_COLOR_DETECT_NONE
@@ -91,8 +96,6 @@ def processHeadVisionSensor(data):
     #msgVisionSensorData.data = [Const.SENSOR_VISION_HEAD_ID,2, dataSensor[0], codeColor]
     salida = [Const.SENSOR_VISION_HEAD_ID,  dataSensor[0], codeColor]
  
-    #sensores.publish(msgVisionSensorData)
-    print "processHeadVisionSensor = ", salida
     return salida
 
 
@@ -156,7 +159,7 @@ def envioSensados():
 
     if not detener:
         sensores.publish(msg) 
-        print "envio sensores",msg.data
+#        print "envio sensores",msg.data
         
     dataLineDetectColor=None
     dataHeadVisionSensor=None
@@ -176,12 +179,6 @@ def processCommand(data):
     elif data.data == "BAD":
         msg.data = str(Const.COMMAND_BAD)
     command.publish(msg)
-
-
-
-def inputsAutomatico():
-    print "enviando"
-    
 
 
 def inputsManual():
