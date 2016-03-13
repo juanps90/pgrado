@@ -54,9 +54,23 @@ class avanzar(comportamiento):
                         self.ejecutando=False
 
 
- 
+    def veriPosSenAprender(self, data):
+        activate=False
+	
+	if not data.has_key(Const.SENSOR_COLOR_DETECT_LINE_ID):
+	    return False
+	
+	sensado=data[Const.SENSOR_COLOR_DETECT_LINE_ID]	
+	self.processSensorLineDetectedColorData(sensado)		
+	#esto es para probar con un comportamiento loc con otro color se haria con un topico de parametros     
+	if sensado[1] == 2:
+	    print "se cumple postcondicion localizar"
+	    activate=True
+	print "Active localizar",activate
+        return activate   
+    
 
-    def verificarPoscondicionesSensores(self,data):
+    def veriPosSenEjecutar(self,data):
         activate=False
 	
 	if not data.has_key(Const.SENSOR_COLOR_DETECT_LINE_ID):

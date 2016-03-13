@@ -16,11 +16,13 @@ class irA(comportamiento):
     ACTION_BACK = 4
 
     DELTA_DISTANCE = 0.1
-    DELTA_ANGLE = 0.25
+    DELTA_ANGLE = 0.5
     
+ 
     PARAM_COLOR = Const.SENSOR_COLOR_DETECT_RED
     PARAM_DISTANCE = 0.5
-    PARAM_ANGLE = 0.3    
+    PARAM_ANGLE = 0.5    
+ 
     
     action = ACTION_TURN_RIGHT
     delay = 0
@@ -135,8 +137,8 @@ class irA(comportamiento):
             rospy.loginfo(">>>OFF irA id:"+str(self.identify))
             self.ejecutando=False
 
-    
-    def verificarPoscondicionesSensores(self, data):
+   
+    def veriPosSenAprender(self, data):
        activate=False
        if (not data.has_key(Const.SENSOR_VISION_HEAD_ID)) or (not data.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID)):
            return False
@@ -147,15 +149,45 @@ class irA(comportamiento):
        # La condicion es que color sea igual al color dado.
        # La distancia este en el intervalo [PARAM_DISTANCE - DELTA_DISTANCE, PARAM_DISTANCE + self.DELTA_DISTANCE]
        # El angulo este en el intervalo [PARAM_ANGLE - DELTA_ANGLE, PARAM_ANGLE + self.DELTA_ANGLE]
-       cond0=False
-       if self.estado ==1 and headSensor[1] in self.colorValido:
-          cond0=True
-       if self.estado ==2 and self.parametros[Const.SENSOR_VISION_HEAD_ID][1]==headSensor[1]:
-          cond0=True
+        
+       
+       cond0=  headSensor[1] in self.colorValido 
        cond1=self.PARAM_DISTANCE - self.DELTA_DISTANCE <= noseSensor 
        cond2=noseSensor[0] <= self.PARAM_DISTANCE + self.DELTA_DISTANCE  
        cond3=self.PARAM_ANGLE - self.DELTA_ANGLE <= headSensor[0] 
        cond4=headSensor[0] <= self.PARAM_ANGLE + self.DELTA_ANGLE
+       
+       if cond0 and cond1 and cond2 and cond3 and cond4:       
+       
+           rospy.loginfo("SE CUMPLE POSTCONDICION IR A")
+           activate=True
+       rospy.loginfo("Active irA" + str(activate))
+       rospy.loginfo("color = " + str(headSensor[1]) + " distancia  = " + str(noseSensor) + " angulo = " + str(headSensor[0]))
+       return activate
+       
+       
+       
+
+    
+    def veriPosSenEjecutar(self,data):
+       activate=False
+       if (not data.has_key(Const.SENSOR_VISION_HEAD_ID)) or (not data.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID)):
+           return False
+           
+       headSensor = data[Const.SENSOR_VISION_HEAD_ID]
+       noseSensor = data[Const.SENSOR_NOSE_ULTRASONIC_ID]
+       
+       # La condicion es que color sea igual al color dado.
+       # La distancia este en el intervalo [PARAM_DISTANCE - DELTA_DISTANCE, PARAM_DISTANCE + self.DELTA_DISTANCE]
+       # El angulo este en el intervalo [PARAM_ANGLE - DELTA_ANGLE, PARAM_ANGLE + self.DELTA_ANGLE]
+       angulo=self.parametros[Const.SENSOR_VISION_HEAD_ID][0]
+       distancia=self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID][0]
+       
+       cond0=self.parametros[Const.SENSOR_VISION_HEAD_ID][1]==headSensor[1]
+       cond1= distancia - self.DELTA_DISTANCE <= noseSensor 
+       cond2=noseSensor[0] <= distancia + self.DELTA_DISTANCE  
+       cond3= angulo - self.DELTA_ANGLE <= headSensor[0] 
+       cond4=headSensor[0] <= angulo + self.DELTA_ANGLE
        
        if cond0 and cond1 and cond2 and cond3 and cond4:       
        

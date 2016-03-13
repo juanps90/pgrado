@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import sys
 import rospy
-from std_msgs.msg import String, Float64, Float64MultiArray
+from std_msgs.msg import String, Float64, Float64MultiArray,Int32MultiArray
 import Const
 import time
 
@@ -13,7 +13,7 @@ topeContador=1
 dataLineDetectColor=None
 dataHeadVisionSensor=None
 dataProximitySensor=None
-
+detener=False
  
 
 def joinData(data):
@@ -92,7 +92,7 @@ def processHeadVisionSensor(data):
     salida = [Const.SENSOR_VISION_HEAD_ID,  dataSensor[0], codeColor]
  
     #sensores.publish(msgVisionSensorData)
-    print "processHeadVisionSensor = ", data.data
+    print "processHeadVisionSensor = ", salida
     return salida
 
 
@@ -128,6 +128,7 @@ def envioSensados():
     global dataHeadVisionSensor 
     global dataProximitySensor 
     global delayClearSensor
+    global detener
     
     msg=String()
 
@@ -152,9 +153,11 @@ def envioSensados():
         mensaje=mensaje+h           
      
     msg.data = mensaje
-    print "envio sensores",msg.data
-    sensores.publish(msg) 
-    
+
+    if not detener:
+        sensores.publish(msg) 
+        print "envio sensores",msg.data
+        
     dataLineDetectColor=None
     dataHeadVisionSensor=None
     dataProximitySensor=None
@@ -204,29 +207,35 @@ def inputsManual():
     print "Fin del ingreso de datos"
 
 
+#se detiene el envio de sensores si el estado es nada               
+def setEstado(data):   
+       estado=data.data[0]
+       detener = estado == 0 
+           
+       print "Llego estado" , detener 
+
+
+
+
+
+
 
 if __name__ == '__main__':
     print "sensado"
     rospy.init_node('inputs', anonymous=True)
+    
+    proximitySensorData = rospy.Publisher('proximitySensorData', Float64, queue_size=50)
     sensores = rospy.Publisher('topicoSensores', String, queue_size=20)
     sensorLineDetectColorData = rospy.Publisher('sensorLineDetectedColorData', Float64MultiArray, queue_size=10)    
-    
-    
-    
-    #Me suscribo a datos de los commandos
-    rospy.Subscriber("/vrep/command", String, processCommand)
     command = rospy.Publisher('command', String, queue_size=10)    
+    #processHeadVisionSensor = rospy.Publisher('processHeadVisionSensor', Float64MultiArray, queue_size=10)   
     
-    #Me suscribo a datos de los sensores de vision que detectan colores en el suelo
-    rospy.Subscriber("/vrep/sensorLineDetectColorData", String, atenderSensorLineDetectColor)
-    
-    #Me suscribo a datos del sensor de vision que detectan color y angulo
-    rospy.Subscriber("/vrep/headSensor", String,atenderHeadVisionSensor)
-    #processHeadVisionSensor = rospy.Publisher('processHeadVisionSensor', Float64MultiArray, queue_size=10)
-    
-    #Me suscribo a datos de los sensores de distancia
+    rospy.Subscriber("topicoEstado", Int32MultiArray, setEstado) #comandos   
+    rospy.Subscriber("/vrep/command", String, processCommand)#colores en el suelo
+    rospy.Subscriber("/vrep/sensorLineDetectColorData", String, atenderSensorLineDetectColor) #vision color y angulo
+    rospy.Subscriber("/vrep/headSensor", String,atenderHeadVisionSensor)#distancia   
     rospy.Subscriber("/vrep/proximitySensorData", String, atenderProximitySensor )
-    proximitySensorData = rospy.Publisher('proximitySensorData', Float64, queue_size=50)
+
     while True:
         envioSensados()
 	time.sleep(delay)	

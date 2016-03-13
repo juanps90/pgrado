@@ -153,7 +153,23 @@ class localizar(comportamiento):
         return activate
     '''
 
-    def verificarPoscondicionesSensores(self,data):
+    def veriPosSenAprender(self, data):
+        activate=False
+	
+	if not data.has_key(Const.SENSOR_COLOR_DETECT_LINE_ID):
+	    return False
+	
+	sensado=data[Const.SENSOR_COLOR_DETECT_LINE_ID]	
+	self.processSensorLineDetectedColorData(sensado)	
+	#esto es para probar con un comportamiento loc con otro color se haria con un topico de parametros     
+	if sensado[1] == 0:# or sensado[1] == 2:#para que sea de permanencia, hay que revisar
+	    print "se cumple postcondicion localizar"
+	    activate=True
+	print "Active localizar",activate
+        return activate
+
+
+    def veriPosSenEjecutar(self,data):
         activate=False
 	
 	if not data.has_key(Const.SENSOR_COLOR_DETECT_LINE_ID):

@@ -12,7 +12,10 @@ pkg = "learning_by_imitation"#paquete donde se encuentran los archivo py
 #pkg = "vrep_ros_demo"
 #pkg="behavior"
  
- 
+#identidicador del tipo de tarea
+idTarea=1
+
+#id de los nosdos que se van agregando
 idNA= 0
 #dicComp={0:'init',1:'localizar', 2:'avanzar', 3:'irA'} #asocia idnumerico con nombres de comportamientos
 dicComp={0:'init'} #asocia idnumerico con nombres de comportamientos
@@ -364,9 +367,9 @@ def crearTopologia (enlaces):
     return salida
 
 
-def merggearNuevaDemo():
+def merggearNuevaDemo(idTarea):
     global links
-    lcs.nuevaDemostracion( crearTopologia (links),links)
+    lcs.nuevaDemostracion( crearTopologia (links),links,idTarea)
                 
 ############################ 
 #Lanzar un nodo para
@@ -925,7 +928,7 @@ def finDemo():
     global nodosParaEjecutar
     global fase
     global estado
-    
+    global idTarea
     
     if fase != "aprender":
         print "ATENCION: no se inicio aprendizaje"
@@ -948,7 +951,7 @@ def finDemo():
     if len (links)>0:
         lcs.setDicParametros(auxDicNodoParam)
         lcs.appendDicCom(auxDicNodoComp)
-        lcs.nuevaDemostracion( crearTopologia (links),links) 
+        lcs.nuevaDemostracion( crearTopologia (links),links,idTarea) 
     else:
         print "ATENCION: La demostracion no genero nodos"
     
@@ -1096,13 +1099,14 @@ if __name__ == '__main__':
     
     
     #event.wait()
-    
-    
+    msg = Int32MultiArray()
+    msg.data = [0,1]
+    estado.publish(msg)
     
     print "inicio master" 
     #comando=raw_input("> ") 
     comando=""
-    msg = Int32MultiArray()
+    
     while comando != "salir":
         comando=""
         while comando == "":

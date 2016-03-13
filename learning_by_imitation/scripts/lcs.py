@@ -2,7 +2,8 @@
 
 import os
 
-
+#from salvarGrafo import salvarGrafo
+#from cargarGrafo import cargarGrafo
 
 MejorCamino=[]
 topologiaGeneral=[]
@@ -115,20 +116,42 @@ def recursionSucesores(nodo,  sucesores, sucesoresTopologicos):
 #########################################################
 
 
+
 def compararParamComportamiento(x,y):
-    global paramCom
+    global parComp
     global diccionario
-    '''
+    errorTol=0.5
+    
+    #init noo tiene parametros se verifica que son ambos init
+    if diccionario[x]==diccionario[y] and diccionario[x]=="init":
+        return True
+        
     #aca se deberia comparar por parametros tambien hay que tener
-    #en cuenta un cierto margen de error
+    #en cuenta un cierto margen de error  
     if diccionario[x]==diccionario[y]:
-        parX=paramCom[x]
-        parY=paramCom[y]
-        for px in parX:
-            lista=parX
-            for 
-    '''
-    return diccionario[x]==diccionario[y]
+        parX=parComp[x]
+        parY=parComp[y]
+        lpx=[]
+        lpy=[]
+        if len (parX)== len (parY):
+            for px in parX:
+                lpx=parX[px]
+                #tiene que tener los mismos sensados que px
+                if parY.has_key(px):
+                    lpy=parY[px]
+                    if len(lpy) == len (lpx):
+                        for i in range(len (lpx)-1,-1,-1):
+                            if abs (lpy[i] - lpx[i]) > errorTol:
+                                return False
+                    else:
+                        return False
+                    
+                else:
+                    return False                
+        else:
+            return False        
+    else:
+        return False  
     
      
 
@@ -460,11 +483,16 @@ def getNewId():
             
     return salida+1
 
-def nuevaDemostracion(topologiaNueva,networkNueva):
+#hay que agregar parametro id
+def nuevaDemostracion(topologiaNueva,networkNueva,idTarea):
     global MejorCamino
     global topologiaGeneral
     global networkGeneral
     global diccionario
+    
+    #cargarGrafo.obtener_definicion(idTarea)
+    
+    
     X=tranTopoACamino(topologiaNueva)
     #X=asociarCompPorCaminos(nuevoCamino, diccionario)
     MA=obtenerMejorAjuste (X,topologiaGeneral,diccionario)
@@ -491,6 +519,13 @@ def nuevaDemostracion(topologiaNueva,networkNueva):
     print "topologia",topologiaGeneral
     graficarTopologia(topologiaGeneral,"topologia")
     graficarNetwork(networkGeneral,"network")
+    
+    #salvarGrafo.persistir_Demostracion(idTarea, 'fullDemo', True, diccionario, topologiaGeneral, networkGeneral)
+    
+    
+  
+    
+    
     return topologiaGeneral
 
 

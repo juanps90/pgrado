@@ -69,11 +69,15 @@ class comportamiento(object):
     def actuar( self ):
         pass              
 
-    def verificarPoscondicionesSensores(self,data):
+    def veriPosSenEjecutar(self,data):
         pass
         
     def getParAprendidos(self):
         pass
+
+    def veriPosSenAprender(self, data):
+        pass
+
 
 #############################
 #procesado de sensores
@@ -150,11 +154,15 @@ class comportamiento(object):
         rospy.loginfo(str(self.dataSensor))
         
         
-        if self.verificarPoscondicionesSensores(self.dataSensor):
-            print "se cumple postcondicion id>",self.identify, self.dataSensor
-            valorEncendido=1            
-        else:#redundante solo para ver que paso
-            print "se apago postcondicion id>",self.identify 
+        if self.estado ==2:
+            if self.veriPosSenEjecutar(self.dataSensor):
+                print "se cumple postcondicion id>",self.identify, self.dataSensor
+                valorEncendido=1  
+        elif self.estado ==1 or self.estado ==3:  
+            if self.veriPosSenAprender(self.dataSensor):
+                print "se cumple postcondicion id>",self.identify, self.dataSensor
+                valorEncendido=1            
+            
          
         ##rospy.loginfo(estado)
         if self.estado ==1 and self.identify==-1:#aprender el -1 es para que contesten nodos lanzados para aprender	
