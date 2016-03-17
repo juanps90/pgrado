@@ -15,8 +15,8 @@ class irA(comportamiento):
     ACTION_TURN_RIGHT = 3
     ACTION_BACK = 4
 
-    DELTA_DISTANCE = 0.1
-    DELTA_ANGLE = 0.5
+    DELTA_DISTANCE = 0.08
+    DELTA_ANGLE = 0.2
     
  
     PARAM_COLOR = Const.SENSOR_COLOR_DETECT_RED
@@ -42,23 +42,34 @@ class irA(comportamiento):
     def getAction(self, color, distance, angle):
         see = False        
         sensoVision = self.dataSensor.has_key(Const.SENSOR_VISION_HEAD_ID) 
-        colorVisto=""       
-        if sensoVision :            
-            colorVisto=str(self.dataSensor[Const.SENSOR_VISION_HEAD_ID][1]) 
+        #colorVisto=""       
+        if sensoVision :  
+            rospy.loginfo("visto")   
+            see = True  
+            #colorVisto=str(self.dataSensor[Const.SENSOR_VISION_HEAD_ID][1]) 
             if self.dataSensor[Const.SENSOR_VISION_HEAD_ID][1] == color: 
-                see = True          
+                   
                 if self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):                
-                    if self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID] > distance + self.DELTA_DISTANCE:
+                    if self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] > distance + self.DELTA_DISTANCE:
                         self.action = self.ACTION_FORWARD
-                    elif self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID] < distance - self.DELTA_DISTANCE:
+                    elif self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] < distance - self.DELTA_DISTANCE:
                         self.action = self.ACTION_BACK
-                    elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] > angle + self.DELTA_ANGLE:
-                            self.action = self.ACTION_TURN_LEFT
-                    elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] < angle - self.DELTA_ANGLE:
-                            self.action = self.ACTION_TURN_RIGHT
+                    elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] < angle + self.DELTA_ANGLE:
+                        self.action = self.ACTION_TURN_LEFT
+                    elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] > angle - self.DELTA_ANGLE:
+                        self.action = self.ACTION_TURN_RIGHT
                 else:
                     self.action = self.ACTION_FORWARD
-        rospy.loginfo("action " + str( self.action )+ " "+colorVisto+" "+str(see))   
+            #no es el color buscado 
+            elif self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):
+                #rospy.loginfo("otro color"+str(self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0]))  
+                # estoy muy cerca entonces retrocedo
+                if self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] < 0.1 :  
+                    self.action = self.ACTION_BACK
+                elif randint(0, 1) == 0:
+                    self.action = self.ACTION_TURN_LEFT 
+
+        #rospy.loginfo("action " + str( self.action )+ " "+colorVisto+" "+str(see))   
         return see
 		   
 		   
@@ -71,10 +82,29 @@ class irA(comportamiento):
 
         wander=not self.getAction(color, distance, angle)
   
+        
+ 
+ 
+        if wander and self.changeTime < rospy.Time.now(): 
+            if self.action == self.ACTION_FORWARD or self.action == self.ACTION_BACK:
+                if randint(0, 1) == 0:
+                    self.action = self.ACTION_TURN_LEFT
+                    print "IZQUIERDA"
+                else:
+                    self.action = self.ACTION_TURN_RIGHT
+                    print "DERECHA"
+            else:
+                self.action = self.ACTION_FORWARD
+                print "ADELANTE"
+            self.delay = randint(2, 9)
+            self.changeTime = rospy.Time.now() + rospy.Duration(self.delay)
+            self.rate.sleep() 
+            
+ 
         if self.action == self.ACTION_BACK:
             # voy hacia atras
             #azar=randint(0,2)
-            self.publish(-self.speed, -self.speed + 2)
+            self.publish(-self.speed, -self.speed)
         elif self.action == self.ACTION_FORWARD:
             # sigo hacia adelante
             self.publish(self.speed, self.speed)
@@ -83,27 +113,10 @@ class irA(comportamiento):
             self.publish(-self.speed/2, self.speed/2)
         else:
             # girar a la derecha
-            self.publish(self.speed/2, -self.speed/2)
- 
- 
-        if self.changeTime < rospy.Time.now():
-            if wander:
-                if self.action == self.ACTION_FORWARD or self.action == self.ACTION_BACK:
-                    if randint(0, 1) == 0:
-                        self.action = self.ACTION_TURN_LEFT
-                        print "IZQUIERDA"
-                    else:
-                        self.action = self.ACTION_TURN_RIGHT
-                        print "DERECHA"
-                else:
-                    self.action = self.ACTION_FORWARD
-                    print "ADELANTE"
-            self.delay = randint(2, 9)
-            self.changeTime = rospy.Time.now() + rospy.Duration(self.delay)
-            self.rate.sleep() 
- 
- 
-        rospy.loginfo("action " + str( self.action )+ " color "+str(color)) 
+            self.publish(self.speed/2, -self.speed/2)   
+         
+         
+        rospy.loginfo("action " + str( self.action )+ " color "+str(color)+str(wander)) 
 
   
  
@@ -114,8 +127,12 @@ class irA(comportamiento):
         if self.cumplePrecondiciones () and self.nivelActivacion>0 and self.motorLibre:
             
             # SE DEBE RECIBIR EL PARAMETROS DEL COLOR DISTANCIA Y ANGULO.
-            head=self.parametros[Const.SENSOR_VISION_HEAD_ID]
-            dist=self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID]
+            head=[-1,-1]
+            if self.parametros.has_key(Const.SENSOR_VISION_HEAD_ID):
+                head=self.parametros[Const.SENSOR_VISION_HEAD_ID]
+            dist=[200]
+            if self.parametros.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):    
+                dist=self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID]
             self.findObject(head[1], dist[0], head[0])
 #            rospy.loginfo(">>>ON irA id:"+str(self.identify))
             #rospy.loginfo( nivelActivacion)
@@ -166,6 +183,10 @@ class irA(comportamiento):
            
        headSensor = data[Const.SENSOR_VISION_HEAD_ID]
        noseSensor = data[Const.SENSOR_NOSE_ULTRASONIC_ID]
+       
+       
+       rospy.loginfo("parametros " + str(self.parametros))       
+       
        
        # La condicion es que color sea igual al color dado.
        # La distancia este en el intervalo [PARAM_DISTANCE - DELTA_DISTANCE, PARAM_DISTANCE + self.DELTA_DISTANCE]

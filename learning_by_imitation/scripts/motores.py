@@ -1,19 +1,7 @@
 #!/usr/bin/env python
 
 
-import os 
-import logging 
-import socket 
-import sys 
-import xmlrpclib 
-import roslib.names  
-import roslib.network  
-import rospkg
-import roslaunch.core
-import roslaunch.remote
 
-
-import sys
 import rospy
 from std_msgs.msg import Int32MultiArray, Float64, Float64MultiArray
 
@@ -31,7 +19,7 @@ def atendersolicitarOLiberarMotores(data):
     global NodoActivo    
     nodo=data.data[0] 
     nodoEjecutable=data.data[1]
-    idMotor=data.data[2]
+    # idMotor=data.data[2]
     
     
        
@@ -45,7 +33,7 @@ def atendersolicitarOLiberarMotores(data):
     elif NodoActivo == -1 and nodoEjecutable == 1:
         NodoActivo = nodo #se asigna al nodo 	
         
-    print "motores nodo activo: ", str(NodoActivo),str(data.data)     
+    print "motores node activo: ", str(NodoActivo),str(data.data)     
         
     msg = Int32MultiArray()   
     msg.data = [identify,NodoActivo] #por si necesito los id del par motor     
@@ -81,25 +69,26 @@ def actuarMotoresVREP(data):
                
 #al iniciar una nueva ejecucion se debe reiniciar la estructura                
 def setEstado(data):  
+    print "Llego estado" , data.data[0]
        #postConditionDetect = None
-    identify=0
+    global NodoActivo
     NodoActivo = -1   
     leftVelocity.publish(0)
     rightVelocity.publish(0)
-    print "Llego estado" , data.data[0]
+
     print "motores nodo activo: ", str(NodoActivo),str(data.data)         
 
 if __name__ == '__main__':
-        print "motores inicializados"  
+    print "motores inicializados"  
 
-        rospy.init_node('motores', anonymous=True)
-        motoresLockeado = rospy.Publisher('topicoMotorLockeado', Int32MultiArray, queue_size=1)
-        rospy.Subscriber("topicoActuarMotores", Float64MultiArray, actuarMotoresVREP)
-        leftVelocity=rospy.Publisher('/vrep/leftMotorVelocity', Float64, queue_size = 1)
-        rightVelocity=rospy.Publisher('/vrep/rightMotorVelocity', Float64, queue_size = 1)
-        rospy.Subscriber("topicosolicitarOLiberarMotores", Int32MultiArray, atendersolicitarOLiberarMotores)
-        rospy.Subscriber("topicoEstado", Int32MultiArray, setEstado)
+    rospy.init_node('motores', anonymous=True)
+    motoresLockeado = rospy.Publisher('topicoMotorLockeado', Int32MultiArray, queue_size=1)
+    rospy.Subscriber("topicoActuarMotores", Float64MultiArray, actuarMotoresVREP)
+    leftVelocity=rospy.Publisher('/vrep/leftMotorVelocity', Float64, queue_size = 1)
+    rightVelocity=rospy.Publisher('/vrep/rightMotorVelocity', Float64, queue_size = 1)
+    rospy.Subscriber("topicosolicitarOLiberarMotores", Int32MultiArray, atendersolicitarOLiberarMotores)
+    rospy.Subscriber("topicoEstado", Int32MultiArray, setEstado)  
    
    
-        rospy.spin()
+    rospy.spin()
         
