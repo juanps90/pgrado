@@ -4,8 +4,8 @@ from Atributo import Atributo
 import Const
 
 class Color(Atributo):
-    
-    SENSOR_ID = Const.SENSOR_COLOR_DETECT_LINE_ID
+
+    ATT_ID = Const.ATR_COLOR
     
     """Compara"""
     def similar(self, at2):
