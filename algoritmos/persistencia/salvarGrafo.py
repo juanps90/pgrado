@@ -23,8 +23,8 @@ import lxml.builder
 #		topologico = [(int,int),...] = [(idNodoIni,idNodoFin),...]
 #		networkCmp = [(int,int,int),...] = [(idNodoIni,idNodoFin,idTipoLink),...]
 #
-def persistir_Demostracion(proceso, tipo, generalizado, nodos, topologia, networkDef):
-    print('proceso: {0}\ngeneralizado: {1}\nnodos: {2}\ntopologia: {3}\nnetwork: {4}\n'.format(proceso, generalizado, nodos, topologia, networkDef))
+def persistir_Demostracion(proceso, tipo, generalizado, DicNodos, DicParametros, ListTopologia, ListNetworkDef):
+    print('proceso: {0}\ngeneralizado: {1}\nnodos: {2}\nparametros: {3}\ntopologia: {4}\nnetwork: {5}\n'.format(proceso, generalizado, DicNodos, DicParametros, ListTopologia, ListNetworkDef))
     if generalizado:
         # Este va a ser 0 siempre porque es el generalizado
         idGrafo = 0
@@ -42,25 +42,43 @@ def persistir_Demostracion(proceso, tipo, generalizado, nodos, topologia, networ
     nodo = E.nodo
     idNodo = E.idNodo
     idComportamiento = E.idComportamiento
+    registro = E.registro
+    sensor = E.sensor
+    idSensor = E.idSensor
+    parametros = E.Parametros
+    data = E.data        
     network_link = E.network_link
     link_topoligico = E.link_topoligico
     IdNodoInicial = E.IdNodoInicial
     IdNodoFinal = E.IdNodoFinal    
     tipoLink = E.tipoLink
     # Creo las secciones basicas (sin contenido en principio)
-    XMLnodos = definicion(seccion = constPersist.SECCION_NODOS)
-    XMLtopologia = definicion(seccion = constPersist.SECCION_TOPOLOGIA)
+    XMLNodos = definicion(seccion = constPersist.SECCION_NODOS)
+    XMLParams = definicion(seccion = constPersist.SECCION_PARAMETROS)
+    XMLTopologia = definicion(seccion = constPersist.SECCION_TOPOLOGIA)
     XMLNetwork = definicion(seccion = constPersist.SECCION_NETWORK)
     #Ahora agrego a cada seccion lo que le corresponde
-    for n, c in nodos.items():     
-        XMLnodos.append(nodo(idNodo('{0}'.format(n)),idComportamiento('{0}'.format(c))))    
-    for t in topologia:
-        XMLtopologia.append(link_topoligico(IdNodoInicial('{0}'.format(t[0])),IdNodoFinal('{0}'.format(t[1]))))    
-    for nd in networkDef:
-        XMLNetwork.append(link_topoligico(IdNodoInicial('{0}'.format(nd[0])),IdNodoFinal('{0}'.format(nd[1])),tipoLink('{0}'.format(nd[2]))))
+    for n, c in DicNodos.items():     
+        XMLNodos.append(nodo(idNodo('{0}'.format(n)),idComportamiento('{0}'.format(c))))    
+    for n, p in DicParametros.items():
+        AuxRegistro = registro()
+        AuxRegistro.append((idNodo('{0}'.format(n))))        
+        for s, v in p.items():
+            AuxSensor = sensor()
+            AuxSensor.append(idSensor('{0}'.format(s)))
+            AUXParams = parametros()
+            for d in v:
+                AUXParams.append(data('{0}'.format(d)))
+            AuxSensor.append(AUXParams)
+            AuxRegistro.append(AuxSensor)
+        XMLParams.append(AuxRegistro)
+    for t in ListTopologia:
+        XMLTopologia.append(link_topoligico(IdNodoInicial('{0}'.format(t[0])),IdNodoFinal('{0}'.format(t[1]))))    
+    for nd in ListNetworkDef:
+        XMLNetwork.append(network_link(IdNodoInicial('{0}'.format(nd[0])),IdNodoFinal('{0}'.format(nd[1])),tipoLink('{0}'.format(nd[2]))))
     #
     # Ahora genero el XML Temporal
-    DocumentoTMP = grafo(XMLnodos, XMLtopologia, XMLNetwork, proceso='{0}'.format(proceso), idGrafo='{0}'.format(idGrafo), tipo='{0}'.format(tipo))
+    DocumentoTMP = grafo(XMLNodos, XMLParams, XMLTopologia, XMLNetwork, proceso='{0}'.format(proceso), idGrafo='{0}'.format(idGrafo), tipo='{0}'.format(tipo))
     # Para debug lo imprimo
     #print lxml.etree.tostring(DocumentoTMP, pretty_print=True, xml_declaration=True, encoding='utf-8')
     # Ahora Salvamos (sobreescribe por defecto)
@@ -69,6 +87,12 @@ def persistir_Demostracion(proceso, tipo, generalizado, nodos, topologia, networ
         f.write(DocumentoXML)    
 
 if __name__ == "__main__":
-    persistir_Demostracion(sys.argv[1], 'fullDemo', False, {1:"A",2:"B",3:"C"},[(1,2),(2,3)],[(1,2,constPersist.LINK_PRM),(2,3,constPersist.LINK_ORD),(1,3,constPersist.LINK_ORD)])
-    persistir_Demostracion(sys.argv[1], 'fullDemo', True, {1:"A",2:"B",3:"C"},[(1,2),(2,3)],[(1,2,constPersist.LINK_PRM),(2,3,constPersist.LINK_ORD),(1,3,constPersist.LINK_ORD)])
-    
+    #
+    n = {1:"A",2:"B",3:"C"} #nodos    
+    p = {1:{1:[0.167],2:[0.5,3.0]},2:{1:[0.099],2:[4.66,5.3]},3:{1:[0.169],2:[0.75,6.5]}} #parametros
+    t = [(1,2),(2,3)] #topologia
+    k = [(1,2,constPersist.LINK_PRM),(2,3,constPersist.LINK_ORD),(1,3,constPersist.LINK_ORD)] #network
+    #
+    #persistir_Demostracion(sys.argv[1], 'fullDemo', False, n, p, t, k)
+    persistir_Demostracion(sys.argv[1], 'fullDemo', True, n, p, t, k)
+    #    
