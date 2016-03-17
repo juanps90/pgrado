@@ -13,7 +13,7 @@ pkg = "learning_by_imitation"#paquete donde se encuentran los archivo py
 #pkg="behavior"
  
 #identidicador del tipo de tarea
-idTarea=1
+idTarea="TESTING"
 
 #id de los nosdos que se van agregando
 idNA= 0

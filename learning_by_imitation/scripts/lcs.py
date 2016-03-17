@@ -88,7 +88,6 @@ def todosLosSucesores( topologia):
          
     return salida    
 
-
 #se recibe un path, se verifica si hay un path que concida hasta el final
 #en tal caso se sobreescribe el path mas corto que habia, la idea es que algun otro nodo se agrego al path..
 #luego el nuevo path se envia a los nodos sucesores de forma recursiva
@@ -104,20 +103,7 @@ def recursionSucesores(nodo,  sucesores, sucesoresTopologicos):
     #print sucesores
     return sucesores[nodo]
 
-
-
-
-
-
-
-
-
-
-
-
 #########################################################
-
-
 
 def compararParamComportamiento(x,y):
     global parComp
@@ -432,17 +418,18 @@ def cargarEstructuras(idTarea):
     global parComp
     if len(diccionario)>0:
         return
-    cargado= cargarGrafo.obtener_definicion(idTarea)
-    diccionario=cargado [1]
-    topologiaGeneral=cargado [2]
-    networkGeneral=cargado [3] 
+    cargado = cargarGrafo.obtener_definicion(idTarea)
+    diccionario = cargado [1]
+    parComp = cargado [2]
+    topologiaGeneral = cargado [3]
+    networkGeneral = cargado [4] 
     
     if len (diccionario)==0:   
         #diccionario={0:1,1:2,2:0}
-        parComp={0:{1:[0.166778260469],2:[0.5 , 3.0]},1:{1:[0.166778260469],2:[0.5 , 5.0]}}
         diccionario={0:"irA",1:"irA",2:"init"}
-        networkGeneral=[(0,1,0),(0,2,0),(1,2,0)]
+        parComp={0:{1:[0.166778260469],2:[0.5 , 3.0]},1:{1:[0.166778260469],2:[0.5 , 5.0]}}
         topologiaGeneral=[(0,1),(1,2)]
+        networkGeneral=[(0,1,0),(0,2,0),(1,2,0)]
         
         
 
@@ -548,7 +535,7 @@ def nuevaDemostracion(topologiaNueva,networkNueva,idTarea):
     graficarTopologia(topologiaGeneral,"topologia")
     graficarNetwork(networkGeneral,"network")
     
-    salvarGrafo.persistir_Demostracion(idTarea, 'fullDemo', True, diccionario, topologiaGeneral, networkGeneral)
+    salvarGrafo.persistir_Demostracion(idTarea, 'fullDemo', True, diccionario, parComp, topologiaGeneral, networkGeneral)
     
     
   
