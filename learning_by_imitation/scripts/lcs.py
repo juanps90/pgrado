@@ -2,7 +2,7 @@
 
 import os
 
-
+import Const
 import cargarGrafo  
 import salvarGrafo 
 
@@ -217,12 +217,12 @@ def graficarNetwork(network,idArchivo):
 
     for t in network:
         link=t[2]
-        if link==0:
-            tipoLink="Ord"
-        elif link==1:
-            tipoLink="Hab"
-        elif link==2:
-            tipoLink="Per"
+        if link == Const.LINK_ORD:
+            tipoLink = "Ord"
+        elif link == Const.LINK_ENA:
+            tipoLink = "Hab"
+        elif link == Const.LINK_PRM:
+            tipoLink = "Per"
         origen=str(t[0])
         destino=str(t[1])          
         file.write( origen+ "->"+destino+' [ label="' + tipoLink + '" ]; \n')
@@ -425,11 +425,10 @@ def cargarEstructuras(idTarea):
     networkGeneral = cargado [4] 
     
     if len (diccionario)==0:   
-        #diccionario={0:1,1:2,2:0}
         diccionario={0:"irA",1:"irA",2:"init"}
-        parComp={0:{1:[0.166778260469],2:[0.5 , 3.0]},1:{1:[0.166778260469],2:[0.5 , 5.0]}}
+        parComp={0:{Const.SENSOR_NOSE_ULTRASONIC_ID:[0.166778260469],Const.SENSOR_VISION_HEAD_ID:[0.5 , 3.0]},1:{Const.SENSOR_NOSE_ULTRASONIC_ID:[0.166778260469],Const.SENSOR_VISION_HEAD_ID:[0.5 , 5.0]}}
         topologiaGeneral=[(0,1),(1,2)]
-        networkGeneral=[(0,1,0),(0,2,0),(1,2,0)]
+        networkGeneral=[(0,1,Const.LINK_ORD),(0,2,Const.LINK_ORD),(1,2,Const.LINK_ORD)]
         
         
 
@@ -451,11 +450,6 @@ def getDicComportamientos():
     global diccionario
     global networkGeneral
     global parComp
-    
-    
-
-
-
 
     '''
         #diccionario={0:1,1:2,2:0}
@@ -504,7 +498,6 @@ def nuevaDemostracion(topologiaNueva,networkNueva,idTarea):
     global topologiaGeneral
     global networkGeneral
     global diccionario
-    
 
     cargarEstructuras(idTarea)
     
@@ -521,12 +514,10 @@ def nuevaDemostracion(topologiaNueva,networkNueva,idTarea):
     iguales=map (int, comun.split("&"))
 
     print "iguales",iguales,comun
-
  
     anexar=igualar(networkNueva,iguales)
     print "anexar",anexar
     networkGeneral=anexarNuevoNetwork (topologiaGeneral,networkGeneral,anexar)
-    
     
     print "backtrack: ", comun
     anexar= tranComCamATopologia(X)    
@@ -537,16 +528,7 @@ def nuevaDemostracion(topologiaNueva,networkNueva,idTarea):
     
     salvarGrafo.persistir_Demostracion(idTarea, 'fullDemo', True, diccionario, parComp, topologiaGeneral, networkGeneral)
     
-    
-  
-    
-    
     return topologiaGeneral
-
-
-
-
-
 
 #Nota los links no tienen un orden en la lista, el nodo init no se debe borrar (controlar en el q llama a este metodo)
 #por caminos solo elimina el enlace entre el previo y el nodo a eliminar y agrega un links entre previo y siguientes 
@@ -590,23 +572,16 @@ def borrarNodoBadCaminos(idBad, idPrevio):
         for b in range(len(networkGeneral)-1,-1,-1):
             if (networkGeneral[b][0]==idPrevio and networkGeneral[b][1]==idBad and networkGeneral[b][2]>0):
                 del networkGeneral[b]
-                networkGeneral.append((idPrevio,idBad,0)) 
+                networkGeneral.append((idPrevio,idBad,Const.LINK_ORD)) 
     #se borra el nodo completo si solo hay un predecesor           
     else :    
         borrarNodoBad(idBad)
-
-
-
-
- 
-
-
 
 #Nota los links no tienen un orden en la lista, el nodo init no se debe borrar (controlar en el q llama a este metodo)
 def borrarNodoBad(idBad):
     global topologiaGeneral
     global networkGeneral
-
+    
     #primero borra de la topologia
     
     #creo la lista de destinos del nodo a borrar
@@ -651,12 +626,6 @@ def getMaxIdNodo():
             salida=d
     return salida+1
 
-
-
-
-
-
-
 #no importa si la demo trae o no el nodo init se contemplan ambos casos
 #se supone que no hay id repetidos de la nueva demo 
 def cortarGoCaminos(nuevaTopologia,nuevaNetwork,idCome,idPrevio):
@@ -664,7 +633,7 @@ def cortarGoCaminos(nuevaTopologia,nuevaNetwork,idCome,idPrevio):
     global networkGeneral
     global diccionario
     
-    if len(nuevaTopologia) ==0 or len(nuevaNetwork) ==0  :
+    if len(nuevaTopologia) == 0 or len(nuevaNetwork) == 0  :
         print "links de tamano cero en cortar"
         return topologiaGeneral
 
@@ -690,14 +659,11 @@ def cortarGoCaminos(nuevaTopologia,nuevaNetwork,idCome,idPrevio):
                 print "el camino agregado ya existia"
                 return
    
-   
     #diccionarios con clave el id del nodo y valor el id del comportamiento
     predecesores=[]
     sucesores=[]
-     
-
+    
     #agrega en la topologia
-
     #el inicial se agrega como sucesor de los predecesores de idcome
     #el final tiene de sucesor solo al idcome                                   
     final=-1
@@ -707,10 +673,10 @@ def cortarGoCaminos(nuevaTopologia,nuevaNetwork,idCome,idPrevio):
     
     #se elimina el enlace al nodo init y se determina el nodo final en realidad el final si hay init es el
     #es camino el nodo anterior al init
-    if diccionario[final] ==0:#no se agrega el init
+    if diccionario[final] == 0: #no se agrega el init
         for n in nuevaTopologia: 
-            if diccionario[n[1]] ==0:#no se agrega el init
-                final=n[0]
+            if diccionario[n[1]] == 0: #no se agrega el init
+                final = n[0]
                 nuevaTopologia.remove(n)
                 break            
  
@@ -725,16 +691,12 @@ def cortarGoCaminos(nuevaTopologia,nuevaNetwork,idCome,idPrevio):
             predecesores.append( topologiaGeneral[g][0] )
             topologiaGeneral.remove(topologiaGeneral[g])
     '''
-
-            
     predecesores.append( idPrevio )
     for g in range (len(topologiaGeneral)-1,-1,-1):
         if topologiaGeneral[g][0]==idPrevio and topologiaGeneral[g][1]== idCome :                     
             topologiaGeneral.remove( (idPrevio,idCome))      
- 
-            
-    print "nuevaTopologia ",nuevaTopologia   
-       
+             
+    print "nuevaTopologia ",nuevaTopologia 
     print "predecesores  ",predecesores
     print "sucesores ",sucesores 
             
@@ -745,17 +707,14 @@ def cortarGoCaminos(nuevaTopologia,nuevaNetwork,idCome,idPrevio):
             
     topologiaGeneral=list(set(topologiaGeneral+nuevaTopologia))
     
- 
-    #agrega en la network
-    
+    #agrega en la network    
     predecesores=[]
     sucesores=[]
     nuevos=[]
-
     for g in range (len( networkGeneral)-1,-1,-1):
-        if networkGeneral[g][0]==idPrevio and networkGeneral[g][1]== idCome and  networkGeneral[g][2]>0:                     
+        if networkGeneral[g][0] == idPrevio and networkGeneral[g][1] == idCome and  networkGeneral[g][2] > Const.LINK_ORD:                     
             networkGeneral.remove( networkGeneral[g])      
-            networkGeneral.append((idPrevio,idCome,0))
+            networkGeneral.append((idPrevio, idCome, Const.LINK_ORD))
 
     #se agrega al idcome como sucesor de la nueva network
     sucesores.append(idCome)
@@ -763,18 +722,18 @@ def cortarGoCaminos(nuevaTopologia,nuevaNetwork,idCome,idPrevio):
     predecesores.append( idPrevio)
     #se recorre la network y se agregan sucesores y predecesores
     for g in networkGeneral:  
-        if g[1]==idPrevio and not (g[0]  in predecesores ):
+        if g[1] == idPrevio and not (g[0]  in predecesores ):
             predecesores.append(g[0])
-        if g[0]==idCome and not (g[1]  in sucesores): 
+        if g[0] == idCome and not (g[1]  in sucesores): 
             sucesores.append(g[1])
             
-    print     "nuevaNetwork",    nuevaNetwork
+    print "nuevaNetwork", nuevaNetwork
     for n in range (len(nuevaNetwork)-1,-1,-1):       
         #se agregan nodos nuevos a una lista
         if not (  nuevaNetwork[n][0] in nuevos ): 
             nuevos.append(nuevaNetwork[n][0])
         if not (nuevaNetwork[n][1] in nuevos ):
-            if diccionario[nuevaNetwork[n][1]] !=0:#no se agrega el init
+            if diccionario[nuevaNetwork[n][1]] != 0:#no se agrega el init
                 nuevos.append(nuevaNetwork[n][1])
             else:
                 nuevaNetwork.remove(nuevaNetwork[n])
@@ -785,21 +744,11 @@ def cortarGoCaminos(nuevaTopologia,nuevaNetwork,idCome,idPrevio):
             
     for n in nuevos:
         for p in predecesores: 
-            networkGeneral.append((p,n,0))
+            networkGeneral.append((p,n,Const.LINK_ORD))
         for s in sucesores:
-            networkGeneral.append((n,s,0)) 
+            networkGeneral.append((n,s,Const.LINK_ORD)) 
     networkGeneral=list(set(networkGeneral+nuevaNetwork))
-     
-
- 
-
-
-
-
-
-
-
-
+    
 #no importa si la demo trae o no el nodo init se contemplan ambos casos
 #se supone que no hay id repetidos de la nueva demo
 def cortarGo(nuevaTopologia,nuevaNetwork,idCome):
@@ -807,23 +756,18 @@ def cortarGo(nuevaTopologia,nuevaNetwork,idCome):
     global networkGeneral
     global diccionario
     
-    if len(nuevaTopologia) ==0 or len(nuevaNetwork) ==0  :
+    if len(nuevaTopologia) ==0  or len(nuevaNetwork) == 0  :
         print "links de tamano cero en cortar"
         return topologiaGeneral
 
     #se verifica si al intentar agregar el nuevo tramo ya no habia un tramo igual y entonces no se agrega
-
     #HACER
-
-
-   
+  
     #diccionarios con clave el id del nodo y valor el id del comportamiento
     predecesores=[]
-    sucesores=[]
-     
+    sucesores=[]    
 
     #agrega en la topologia
-
     #el inicial se agrega como sucesor de los predecesores de idcome
     #el final tiene de sucesor solo al idcome                                   
     final=-1
@@ -838,38 +782,28 @@ def cortarGo(nuevaTopologia,nuevaNetwork,idCome):
             if diccionario[n[1]] ==0:#no se agrega el init
                 final=n[0]
                 nuevaTopologia.remove(n)
-                break            
- 
+                break             
 
     #se agrega al idcome como sucesor de la nueva topologia
     sucesores.append(idCome)
-
     
     #se recorre la topologia y se agregan predecesores
     #ademas se borran los enlaces que iban al idCome    
     for g in range (len(topologiaGeneral)-1,-1,-1):  
         if topologiaGeneral[g][1]==idCome and not (topologiaGeneral[g][0]  in predecesores ):
             predecesores.append( topologiaGeneral[g][0] )
-            topologiaGeneral.remove(topologiaGeneral[g])
+            topologiaGeneral.remove(topologiaGeneral[g]) 
             
-
-            
-    print "nuevaTopologia ",nuevaTopologia   
-       
+    print "nuevaTopologia ",nuevaTopologia
     print "predecesores  ",predecesores
     print "sucesores ",sucesores 
             
     for p in predecesores: 
         topologiaGeneral.append((p,inicial))
     for s in sucesores:
-        topologiaGeneral.append((final,s))
-            
+        topologiaGeneral.append((final,s))            
     topologiaGeneral=list(set(topologiaGeneral+nuevaTopologia))
     
- 
-
-
-
     #agrega en la network
 
     predecesores=[]
@@ -878,41 +812,36 @@ def cortarGo(nuevaTopologia,nuevaNetwork,idCome):
 
     #se agrega al idcome como sucesor de la nueva network
     sucesores.append(idCome)
+    
     #se recorre la network y se agregan sucesores y predecesores
     for g in networkGeneral:  
-        if g[1]==idCome and not (g[0]  in predecesores ):
+        if g[1] == idCome and not (g[0]  in predecesores ):
             predecesores.append(g[0])
-        if g[0]==idCome and not (g[1]  in sucesores): 
+        if g[0] == idCome and not (g[1]  in sucesores): 
             sucesores.append(g[1])
             
-    print     "nuevaNetwork",    nuevaNetwork
+    print "nuevaNetwork", nuevaNetwork
     for n in range (len(nuevaNetwork)-1,-1,-1):       
         #se agregan nodos nuevos a una lista
         if not (  nuevaNetwork[n][0] in nuevos ): 
             nuevos.append(nuevaNetwork[n][0])
         if not (nuevaNetwork[n][1] in nuevos ):
-            if diccionario[nuevaNetwork[n][1]] !=0:#no se agrega el init
+            if diccionario[nuevaNetwork[n][1]] != 0:#no se agrega el init
                 nuevos.append(nuevaNetwork[n][1])
             else:
                 nuevaNetwork.remove(nuevaNetwork[n])
-                  
+    #              
     print "nuevos ",nuevos
     print "predecesores  ",predecesores
     print "sucesores ",sucesores 
-            
+    #            
     for n in nuevos:
         for p in predecesores: 
-            networkGeneral.append((p,n,0))
+            networkGeneral.append((p,n,Const.LINK_ORD))
         for s in sucesores:
-            networkGeneral.append((n,s,0)) 
+            networkGeneral.append((n,s,Const.LINK_ORD)) 
     networkGeneral=list(set(networkGeneral+nuevaNetwork))
-     
-
- 
-
-
-
-
+    
 ######################################### 
 
 def probarLCS():
@@ -922,13 +851,14 @@ def probarLCS():
 
     parComp={0:{},1:{},2:{},3:{},4:{},5:{},6:{},7:{},8:{}}
     diccionario={0:1,1:1,2:0}
-    network=[(0,1,2),(1,2,0),(0,2,0)]
+    network=[(0,1,Const.LINK_PRM),(1,2,Const.LINK_ORD),(0,2,Const.LINK_ORD)]
     network=[]
     topologia=[(0,1),(1,2)]
     topologia=[]
+    #
     topologiaNueva=[(0,1),(1,2)]
-    nuevaNetwork=[(0,1,2),(1,2,0),(0,2,0)]
-    topologia=nuevaDemostracion(topologiaNueva,nuevaNetwork)
+    nuevaNetwork=[(0,1,Const.LINK_PRM),(1,2,Const.LINK_ORD),(0,2,Const.LINK_ORD)]
+    topologia=nuevaDemostracion(topologiaNueva, nuevaNetwork)
 
 def probarLCSPapper():
 
@@ -938,12 +868,9 @@ def probarLCSPapper():
     global networkGeneral
     parComp={0:{},1:{},2:{},3:{},4:{},5:{},6:{},7:{},8:{},9:{},10:{},11:{}}
     #diccionario={0:1,1:3,2:2,3:6,4:1,5:1,6:2,7:6,8:3,9:5,10:3,11:0}
-
     diccionario={0:"A",1:"C",2:"B",3:"F",4:"A",5:"A",6:"B",7:"F",8:"C",9:"E",10:"F",11:0}
-
-    
     topologiaGeneral=[(0,1),(1,2),(2,3),(3,4)]
-    networkGeneral=[(0,2,2),     (0,1,0),(1,2,2),(2,3,0),(3,4,0),(0,3,0),(0,4,2),(1,3,0),(1,4,2),(2,4,2)]
+    networkGeneral=[(0,2,2),(0,1,0),(1,2,2),(2,3,0),(3,4,0),(0,3,0),(0,4,2),(1,3,0),(1,4,2),(2,4,2)]
     #print todosLosSucesores( topologia) 
     #anexar=[(0,1,1),(1,2,2),(0,2,0)]
     #print anexarNuevoNetwork (network,anexar)
