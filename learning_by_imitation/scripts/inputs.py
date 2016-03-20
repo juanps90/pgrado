@@ -169,16 +169,17 @@ def envioSensados():
     
 
 def processCommand(data):
+    comando = data.data.split('|')
     msg = String()
-    if data.data == "INIT_LEARNING":
+    if comando[0] == "INIT_LEARNING":
         msg.data = str(Const.COMMAND_INIT_LEARNING)
-    elif data.data == "END_LEARNING":
-        msg.data = str(Const.COMMAND_END_LEARNING)
-    elif data.data == "PLAY":
-        msg.data = str(Const.COMMAND_PLAY)
-    elif data.data == "STOP":
+    elif comando[0] == "END_LEARNING":
+        msg.data = '{0}|{1}'.format(str(Const.COMMAND_END_LEARNING),comando[1]) 
+    elif comando[0] == "PLAY":
+        msg.data = '{0}|{1}'.format(str(Const.COMMAND_PLAY),comando[1])
+    elif comando[0] == "STOP":
         msg.data = str(Const.COMMAND_STOP)
-    elif data.data == "BAD":
+    elif comando[0] == "BAD":
         msg.data = str(Const.COMMAND_BAD)
     command.publish(msg)
 
@@ -225,15 +226,14 @@ if __name__ == '__main__':
     #processHeadVisionSensor = rospy.Publisher('processHeadVisionSensor', Float64MultiArray, queue_size=10)   
     
     rospy.Subscriber("topicoEstado", Int32MultiArray, setEstado)  
-    rospy.Subscriber("/vrep/command", String, processCommand)#colores en el suelo
-    rospy.Subscriber("/vrep/sensorLineDetectColorData", String, atenderSensorLineDetectColor) #vision color y angulo
-    rospy.Subscriber("/vrep/headSensor", String,atenderHeadVisionSensor)#distancia   
-    rospy.Subscriber("/vrep/proximitySensorData", String, atenderProximitySensor )
+    rospy.Subscriber("/vrep/command", String, processCommand) # interprete de comandos
+    rospy.Subscriber("/vrep/sensorLineDetectColorData", String, atenderSensorLineDetectColor) # Color en el piso (sensores de piso)
+    rospy.Subscriber("/vrep/headSensor", String,atenderHeadVisionSensor) # vision color y angulo ("casquito")
+    rospy.Subscriber("/vrep/proximitySensorData", String, atenderProximitySensor ) # distancia
     envioSensados()	
     if ((len(sys.argv) == 1) or ((len(sys.argv) > 1) and sys.argv[1] == "manual")):
         inputsManual()
-    elif (len(sys.argv) > 1) and (sys.argv[1] == "vrep"):
-        
+    elif (len(sys.argv) > 1) and (sys.argv[1] == "vrep"):        
         rospy.spin()
     else:
         print "El parametro debe ser el string 'manual' o el string 'vrep'"
