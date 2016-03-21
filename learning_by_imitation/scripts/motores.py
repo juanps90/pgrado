@@ -3,7 +3,7 @@
 
 
 import rospy
-from std_msgs.msg import Int32MultiArray, Float64, Float64MultiArray
+from std_msgs.msg import Int32MultiArray, Float64, Float64MultiArray, Int32
 
 #postConditionDetect = None
 identify=0
@@ -65,7 +65,8 @@ def actuarMotoresVREP(data):
 		leftVelocity.publish(leftMsg)
 		rightVelocity.publish(rightMsg)
                 
- 
+def actuatorLed1TopicProccessing(data):
+    light.publish(data)
                
 #al iniciar una nueva ejecucion se debe reiniciar la estructura                
 def setEstado(data):  
@@ -86,6 +87,13 @@ if __name__ == '__main__':
     rospy.Subscriber("topicoActuarMotores", Float64MultiArray, actuarMotoresVREP)
     leftVelocity=rospy.Publisher('/vrep/leftMotorVelocity', Float64, queue_size = 1)
     rightVelocity=rospy.Publisher('/vrep/rightMotorVelocity', Float64, queue_size = 1)
+    
+    #Publico el entero 1 para prender luz y 0 para apagarla.
+    light=rospy.Publisher('/vrep/actuatorLed1Topic', Int32, queue_size = 1)
+    
+    #Me suscribo para recibir los mensajes de encendido o apagado de luz
+    rospy.Subscriber("actuatorLed1Topic", Int32, actuatorLed1TopicProccessing)
+    
     rospy.Subscriber("topicosolicitarOLiberarMotores", Int32MultiArray, atendersolicitarOLiberarMotores)
     rospy.Subscriber("topicoEstado", Int32MultiArray, setEstado)  
    
