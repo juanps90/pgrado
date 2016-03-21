@@ -9,7 +9,6 @@ from comportamiento import comportamiento
 
 from atributos import Sensores
 
-
 class irA(comportamiento):
     rate=None
  

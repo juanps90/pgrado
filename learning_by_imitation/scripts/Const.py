@@ -37,3 +37,9 @@ SECCION_NODOS = 'nodos'
 SECCION_PARAMETROS = 'parametros'
 SECCION_TOPOLOGIA = 'topologia'
 SECCION_NETWORK = 'network'
+
+# Tipos de atributos
+
+ATR_COLOR = 1
+ATR_DIST  = 2
+ATR_ANGLE = 3
