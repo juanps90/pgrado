@@ -7,6 +7,9 @@ import Const
 from comportamiento import comportamiento
 
 
+from atributos import Sensores
+
+
 class irA(comportamiento):
     rate=None
  
@@ -180,32 +183,23 @@ class irA(comportamiento):
        activate=False
        if (not data.has_key(Const.SENSOR_VISION_HEAD_ID)) or (not data.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID)):
            return False
-           
-       headSensor = data[Const.SENSOR_VISION_HEAD_ID]
-       noseSensor = data[Const.SENSOR_NOSE_ULTRASONIC_ID]
-       
-       
+      
        rospy.loginfo("parametros " + str(self.parametros))       
        
-       
-       # La condicion es que color sea igual al color dado.
-       # La distancia este en el intervalo [PARAM_DISTANCE - DELTA_DISTANCE, PARAM_DISTANCE + self.DELTA_DISTANCE]
-       # El angulo este en el intervalo [PARAM_ANGLE - DELTA_ANGLE, PARAM_ANGLE + self.DELTA_ANGLE]
-       angulo=self.parametros[Const.SENSOR_VISION_HEAD_ID][0]
-       distancia=self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID][0]
-       
-       cond0=self.parametros[Const.SENSOR_VISION_HEAD_ID][1]==headSensor[1]
-       cond1= distancia - self.DELTA_DISTANCE <= noseSensor 
-       cond2=noseSensor[0] <= distancia + self.DELTA_DISTANCE  
-       cond3= angulo - self.DELTA_ANGLE <= headSensor[0] 
-       cond4=headSensor[0] <= angulo + self.DELTA_ANGLE
-       
-       if cond0 and cond1 and cond2 and cond3 and cond4:       
-       
+       print "toy en veriPosSenEjecutar"
+       rospy.loginfo("Estoy en veriPosSenEjecutar")
+       headSens = Sensores.get(Const.SENSOR_VISION_HEAD_ID,     self.parametros[Const.SENSOR_VISION_HEAD_ID])
+       ultrSens = Sensores.get(Const.SENSOR_NOSE_ULTRASONIC_ID, self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID])
+
+       if headSens.similar(data[Const.SENSOR_VISION_HEAD_ID]) and ultrSens.similar(data[Const.SENSOR_NOSE_ULTRASONIC_ID]):       
+           print "Se cumple la postcondicion en irA"
            rospy.loginfo("SE CUMPLE POSTCONDICION IR A")
            activate=True
+       else:
+           print "-- NO Se cumple la postcondicion en irA"
+           rospy.loginfo("NO SE CUMPLE POSTCONDICION IR A")
        rospy.loginfo("Active irA" + str(activate))
-       rospy.loginfo("color = " + str(headSensor[1]) + " distancia  = " + str(noseSensor) + " angulo = " + str(headSensor[0]))
+       
        return activate
 
 
