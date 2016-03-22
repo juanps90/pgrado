@@ -14,6 +14,9 @@ dataLineDetectColor=None
 dataHeadVisionSensor=None
 dataProximitySensor=None
 detener=False
+calibrarColor=-1
+dicColores={}#diccionario de colores clave el color, dos array uno con lecturas de min y otra de max para RGB
+estado=0
  
 
 def joinData(data):
@@ -66,36 +69,70 @@ def processSensorLineDetectColorData(data):
 # posible de la imagen. 1 indica que el objeto esta lo mas a la derecha posible de la imagen.
 # En la posicion 2 un valor entero que indica el color del objeto segun las constantes establecidas en Const.
 def processHeadVisionSensor(data):
+    global calibrarColor
+    global dicColores 
+    print "data vision:",data
     if data==None:
         #print "********************   NONE   ****************************"
         return []
     salida=[]
-#   print "**************************************************************"
-#   print data.data
-#   print "**************************************************************"
-
-    dataSensor = map(float, data.data.split('|'))
-    
-    codeColor = Const.SENSOR_COLOR_DETECT_NONE
-    #Rojo
-    if dataSensor[1] == 1:
-         codeColor = Const.SENSOR_COLOR_DETECT_RED
-    #verde
-    elif dataSensor[1] == 2:
-         codeColor = Const.SENSOR_COLOR_DETECT_GREEN
-    #azul
-    elif dataSensor[1] == 3:
-         codeColor = Const.SENSOR_COLOR_DETECT_BLUE
-    #amarillo
-    elif dataSensor[1] == 4:
-         codeColor = Const.SENSOR_COLOR_DETECT_YELLOW
-    #naranja
-    elif dataSensor[1] == 5:
-         codeColor = Const.SENSOR_COLOR_DETECT_ORANGE
-
-    #msgVisionSensorData.data = [Const.SENSOR_VISION_HEAD_ID,2, dataSensor[0], codeColor]
-    salida = [Const.SENSOR_VISION_HEAD_ID,  dataSensor[0], codeColor]
  
+    # print "callback: ",data
+    strData = str(data.data)
+    # rospy.loginfo("comportamiento datos recibidos"+str(data))
+    separar= map(str, strData.split('|'))
+    print "separar", separar
+    
+    #llegan datos de varios objetos
+    for s in  separar:
+        if len(s)>1: 
+            datos = map(float, s.split('#'))  
+            colorCode = Const.SENSOR_COLOR_DETECT_NONE
+            
+            #en caso de quese este calibrando se ajustan minimos y maximos de cada color a calibrar
+            if calibrarColor!=-1:
+                vacio= not dicColores.has_key(calibrarColor) 
+                for i in range(3):
+                    if vacio or datos[i]<dicColores[calibrarColor][0][i]:
+                        dicColores[calibrarColor][0][i]=datos[i]
+                    if vacio or datos[i]<dicColores[calibrarColor][1][i]:
+                        dicColores[calibrarColor][1][i]=datos[i]     
+                print "dicCol ",dicColores
+            else:                
+                #se compara con los datos ya calibrados si los hay sino se harcodea
+                match=False
+                for c in dicColores:
+                    
+                    for i in range(3):
+                        min=dicColores[c][0][i]
+                        max=dicColores[c][0][i]
+                        cond=min<datos[i] and datos[i] <max
+                        if not cond:
+                            break
+                        elif i==2:
+                            match=True
+                            colorCode=c
+                    if match:
+                        break
+                
+                
+                if len(dicColores) ==0:                
+                    if (datos[0]<0.15)and(datos[1]>0.70)and(datos[2]<0.22):
+                        colorCode = Const.SENSOR_COLOR_DETECT_GREEN  
+                    elif (datos[0]>0.70)and(datos[1]>0.55)and(datos[2]>0.20)and(datos[2]<0.42):
+                        colorCode = Const.SENSOR_COLOR_DETECT_ORANGE  
+                    elif (datos[0]<0.15)and(datos[1]<0.15)and(datos[2]>0.70):
+                        colorCode = Const.SENSOR_COLOR_DETECT_BLUE
+                    elif (datos[0]>0.70)and(datos[1]>0.70)and(datos[2]<0.20):
+                        colorCode = Const.SENSOR_COLOR_DETECT_YELLOW
+                    elif (datos[0]>0.70)and(datos[1]<0.12)and(datos[2]<0.12):
+                        colorCode =  Const.SENSOR_COLOR_DETECT_RED  
+            
+                #msgVisionSensorData.data = [Const.SENSOR_VISION_HEAD_ID,2, dataSensor[0], codeColor]
+                if len (salida)==0:
+                    salida=[Const.SENSOR_VISION_HEAD_ID]
+                salida =salida+ [Const.SENSOR_VISION_HEAD_ID,  datos[3], colorCode]
+    print "cabeza ",salida
     return salida
 
 
@@ -135,7 +172,8 @@ def envioSensados():
         global detener
         
         msg=String()
-    
+        
+ 
         head=processHeadVisionSensor(dataHeadVisionSensor)
         line=processSensorLineDetectColorData(dataLineDetectColor)
         proximity=processProximitySensorData(dataProximitySensor)
@@ -158,17 +196,21 @@ def envioSensados():
          
         msg.data = mensaje
     
-        if not detener:
+        if not detener and len(mensaje)>0:
             sensores.publish(msg) 
-            print "envio sensores",msg.data
+            #print "envio sensores",msg.data
             
         dataLineDetectColor=None
         dataHeadVisionSensor=None
         dataProximitySensor=None
         time.sleep(delay)
     
+    
+    
 
 def processCommand(data):
+    global calibrarColor
+    global estado
     comando = data.data.split('|')
     msg = String()
     if comando[0] == "INIT_LEARNING":
@@ -181,6 +223,24 @@ def processCommand(data):
         msg.data = str(Const.COMMAND_STOP)
     elif comando[0] == "BAD":
         msg.data = str(Const.COMMAND_BAD)
+        
+    #solo se podria calibrar si no se esta ahciendo nada
+    if estado ==0:    
+        if comando[0] == "RED_CALIBRATE":
+           calibrarColor= Const.SENSOR_COLOR_DETECT_RED
+        elif comando[0] == "GREEN_CALIBRATE":
+            calibrarColor=Const.SENSOR_COLOR_DETECT_GREEN
+        elif comando[0] == "BLUE_CALIBRATE":
+            calibrarColor=Const.SENSOR_COLOR_DETECT_BLUE
+        elif comando[0] == "ORANGE_CALIBRATE":
+            calibrarColor=Const.SENSOR_COLOR_DETECT_ORANGE
+        elif comando[0] == "YELLOW_CALIBRATE":
+            calibrarColor=Const.SENSOR_COLOR_DETECT_YELLOW
+        elif comando[0] == "END_CALIBRATE": 
+            calibrarColor=-1
+   
+   
+   
     command.publish(msg)
 
 
@@ -210,9 +270,11 @@ def inputsManual():
 #se detiene el envio de sensores si el estado es nada               
 def setEstado(data):   
        global detener
-       aux=data.data[0]
-       detener = aux == 0            
+       global estado
+       estado=data.data[0]
+       detener = estado == 0            
        print "Llego estado detener> " , detener 
+
 
 
 if __name__ == '__main__':
@@ -231,13 +293,7 @@ if __name__ == '__main__':
     rospy.Subscriber("/vrep/headSensor", String,atenderHeadVisionSensor) # vision color y angulo ("casquito")
     rospy.Subscriber("/vrep/proximitySensorData", String, atenderProximitySensor ) # distancia
     envioSensados()	
-    if ((len(sys.argv) == 1) or ((len(sys.argv) > 1) and sys.argv[1] == "manual")):
-        inputsManual()
-    elif (len(sys.argv) > 1) and (sys.argv[1] == "vrep"):        
-        rospy.spin()
-    else:
-        print "El parametro debe ser el string 'manual' o el string 'vrep'"
-
+    rospy.spin()
     
 
 
