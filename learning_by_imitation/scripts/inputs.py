@@ -5,7 +5,7 @@ from std_msgs.msg import String, Float64, Float64MultiArray,Int32MultiArray
 import Const
 import time
 
-delay=0.2
+delay=1.2
 contador=0
 topeContador=1
 
@@ -71,7 +71,7 @@ def processSensorLineDetectColorData(data):
 def processHeadVisionSensor(data):
     global calibrarColor
     global dicColores 
-    print "data vision:",data
+    #print "data vision:",data
     if data==None:
         #print "********************   NONE   ****************************"
         return []
@@ -90,23 +90,36 @@ def processHeadVisionSensor(data):
             colorCode = Const.SENSOR_COLOR_DETECT_NONE
             
             #en caso de quese este calibrando se ajustan minimos y maximos de cada color a calibrar
-            if calibrarColor!=-1:
-                vacio= not dicColores.has_key(calibrarColor) 
-                for i in range(3):
-                    if vacio or datos[i]<dicColores[calibrarColor][0][i]:
-                        dicColores[calibrarColor][0][i]=datos[i]
-                    if vacio or datos[i]<dicColores[calibrarColor][1][i]:
-                        dicColores[calibrarColor][1][i]=datos[i]     
+            if calibrarColor!=-1: 
+                if dicColores.has_key(calibrarColor) :
+                    for i in range(3):
+                        if datos[i]<dicColores[calibrarColor][0][i]:
+                            dicColores[calibrarColor][0][i]=datos[i]
+                        if datos[i]>dicColores[calibrarColor][1][i]:
+                            dicColores[calibrarColor][1][i]=datos[i]
+                else:
+                    dicColores[calibrarColor]=[ [datos[0],datos[1],datos[2]],[datos[0],datos[1],datos[2]] ]
                 print "dicCol ",dicColores
             else:                
                 #se compara con los datos ya calibrados si los hay sino se harcodea
+                if len(dicColores) ==0:     
+                    dicColores[2]= [[0.0, 0.65882354974747, 0.074509806931019], [0.16078431904316, 0.83137255907059, 0.22352941334248]]
+                    dicColores[3]= [[0.61960786581039, 0.0, 0.019607843831182], [0.71764707565308, 0.066666670143604, 0.078431375324726]]
+                    dicColores[4]= [[0.69019609689713, 0.69019609689713, 0.054901961237192], [0.99607843160629, 0.99607843160629, 0.28627452254295]]
+                    dicColores[5]= [[0.015686275437474, 0.0, 0.67058825492859], [0.2392156869173, 0.2392156869173, 0.87058824300766]] 
+                    dicColores[6]= [[0.65882354974747, 0.50588238239288, 0.062745101749897], [0.95294117927551, 0.80392158031464, 0.45490196347237]]
+               
+               
+               
+               
+               
                 match=False
                 for c in dicColores:
                     
                     for i in range(3):
                         min=dicColores[c][0][i]
-                        max=dicColores[c][0][i]
-                        cond=min<datos[i] and datos[i] <max
+                        max=dicColores[c][1][i]
+                        cond=min<=datos[i] and datos[i] <= max
                         if not cond:
                             break
                         elif i==2:
@@ -115,23 +128,12 @@ def processHeadVisionSensor(data):
                     if match:
                         break
                 
-                
-                if len(dicColores) ==0:                
-                    if (datos[0]<0.15)and(datos[1]>0.70)and(datos[2]<0.22):
-                        colorCode = Const.SENSOR_COLOR_DETECT_GREEN  
-                    elif (datos[0]>0.70)and(datos[1]>0.55)and(datos[2]>0.20)and(datos[2]<0.42):
-                        colorCode = Const.SENSOR_COLOR_DETECT_ORANGE  
-                    elif (datos[0]<0.15)and(datos[1]<0.15)and(datos[2]>0.70):
-                        colorCode = Const.SENSOR_COLOR_DETECT_BLUE
-                    elif (datos[0]>0.70)and(datos[1]>0.70)and(datos[2]<0.20):
-                        colorCode = Const.SENSOR_COLOR_DETECT_YELLOW
-                    elif (datos[0]>0.70)and(datos[1]<0.12)and(datos[2]<0.12):
-                        colorCode =  Const.SENSOR_COLOR_DETECT_RED  
+                  
             
                 #msgVisionSensorData.data = [Const.SENSOR_VISION_HEAD_ID,2, dataSensor[0], codeColor]
                 if len (salida)==0:
                     salida=[Const.SENSOR_VISION_HEAD_ID]
-                salida =salida+ [Const.SENSOR_VISION_HEAD_ID,  datos[3], colorCode]
+                salida =salida+ [ datos[3], colorCode]
     print "cabeza ",salida
     return salida
 
@@ -238,7 +240,7 @@ def processCommand(data):
             calibrarColor=Const.SENSOR_COLOR_DETECT_YELLOW
         elif comando[0] == "END_CALIBRATE": 
             calibrarColor=-1
-   
+            print "fin calibrar"
    
    
     command.publish(msg)
