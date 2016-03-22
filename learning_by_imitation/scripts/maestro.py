@@ -7,6 +7,11 @@ from std_msgs.msg import String,Int32MultiArray, Float64MultiArray
 import Const
 import threading, time
 import loadBehavior
+
+
+
+from atributos import Sensores
+
 # paquete donde se encuentran los archivo py
 pkg = "learning_by_imitation"
     #pkg = "vrep_ros_demo"
@@ -87,6 +92,16 @@ def separarSensados(separar):
 
 # habria que mandar tolerancias
 def compararParametros(data1,data2):
+    print "comparamos parametros"
+    # Recorremos cada clave en el diccionario
+    for d in data1: # d tiene el Id de cada SENSOR
+        print "Comparo ", data1[d], " con ", data2[d]
+        sns = Sensores.get(d, data1[d]) # Obtenemos un sensor a partir de las lecturas en data1
+        print "sns queda", sns
+        if not sns.similar(data2[d]):   # Comparamos los datos de data1 con data2
+            print "Encontramos datos dinstitos: ", data1[d], "vs", data2[d]
+            return False
+    print "SON IGUALES"
     return True
 
 # se pueden pasar parametros como un array donde el primer elemento indica el tipo 
@@ -145,7 +160,7 @@ def callback(data):
         hayQueMerger=False        
         ultimo=list(lista[tamanio-1])
         #ultimo=list(id)        
-
+        
         #hay mas de un nodo se verifica si hay que hacer merge
         if tamanio > 1:            
             anterior=list(lista[tamanio-2])
