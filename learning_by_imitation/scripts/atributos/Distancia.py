@@ -9,5 +9,5 @@ class Distancia(Atributo):
     
     """Compara"""
     def similar(self,at2):
-        return abs(self.valor - at2.valor ) < 0.1
-	 
+        #return abs(self.valor - at2.valor ) < 0.1
+        return abs(self.valor - at2.valor ) < 0.08

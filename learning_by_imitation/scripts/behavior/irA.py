@@ -242,16 +242,13 @@ class irA(comportamiento):
        if (not data.has_key(Const.SENSOR_VISION_HEAD_ID)) or (not data.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID)):
            return False
       
-       rospy.loginfo("parametros " + str(self.parametros))       
-       
-       print "toy en veriPosSenEjecutar"
        rospy.loginfo("Estoy en veriPosSenEjecutar")
        headSens = Sensores.get(Const.SENSOR_VISION_HEAD_ID,     self.parametros[Const.SENSOR_VISION_HEAD_ID])
        ultrSens = Sensores.get(Const.SENSOR_NOSE_ULTRASONIC_ID, self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID])
        msgLight = Int32()
 
        if headSens.similar(data[Const.SENSOR_VISION_HEAD_ID]) and ultrSens.similar(data[Const.SENSOR_NOSE_ULTRASONIC_ID]):       
-           rospy.loginfo("SE CUMPLE POSTCONDICION IR A")
+           rospy.loginfo("SE CUMPLE POSTCONDICION IR PARA DISTANCIA " + str(self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID]) + ", COLOR Y ANGULO " + str(self.parametros[Const.SENSOR_VISION_HEAD_ID]))
            msgLight.data = 1
            self.light.publish(msgLight)
            activate=True

@@ -9,5 +9,5 @@ class Angulo(Atributo):
     
     """Compara"""
     def similar(self,at2):
-        return abs(self.valor - at2.valor ) < 0.5
-	 
+        #return abs(self.valor - at2.valor ) < 0.5
+	 return abs(self.valor - at2.valor ) < 0.2
