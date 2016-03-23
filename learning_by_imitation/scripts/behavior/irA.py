@@ -25,7 +25,7 @@ class irA(comportamiento):
     PARAM_DISTANCE = 0.5
     PARAM_ANGLE = 0.5
     light = None
- 
+    isCenter = False 
     
     action = ACTION_TURN_RIGHT
     delay = 0
@@ -43,6 +43,31 @@ class irA(comportamiento):
         self.rate = rospy.Rate(10)
         self.light = rospy.Publisher('actuatorLed1Topic', Int32, queue_size = 1)
 
+
+
+
+    def center(self, color):
+        rospy.loginfo("====== INICIO DEL CENTRADO ======")
+        exitWhile = False
+        while not exitWhile:
+            sensoVision = self.dataSensor.has_key(Const.SENSOR_VISION_HEAD_ID)
+            if sensoVision and self.dataSensor[Const.SENSOR_VISION_HEAD_ID][1] == color:
+                if self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] < 0.5 - self.DELTA_ANGLE:
+                    rospy.loginfo("====== VEO AL OBJETO DEL COLOR " + str(color) + ", GIRO A LA IZQUIERDA ======")
+                    self.publish(-self.speed/2, self.speed/2)
+                elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] > 0.5 + self.DELTA_ANGLE:
+                    rospy.loginfo("====== VEO AL OBJETO DEL COLOR " + str(color) + ", GIRO A LA DERECHA ======")
+                    self.publish(self.speed/2, -self.speed/2)
+                else:
+                    rospy.loginfo("====== VEO AL OBJETO DEL COLOR " + str(color) + ", NO GIRO MAS ======")
+                    self.publish(0, 0) 
+                    exitWhile = True
+                    self.isCenter = True
+            else:
+                rospy.loginfo("====== NO VEO AL OBJETO DEL COLOR " + str(color) + " ======")
+                exitWhile = True
+        rospy.loginfo("====== FIN DEL CENTRADO ======")
+
     ##
     # Retorna un True si veo algun objeto. En caso de ser visto setea en action la correspondiente 
     # accion a ejecutar. Esta accion puede ser girar a la derecha, girar a la izquierda, avanzar o retroceder.
@@ -52,21 +77,23 @@ class irA(comportamiento):
     # @return Retorna un True si veo algun objeto. False en otro caso.
     #
     def getAction(self, color, distance, angle):
-        see = False        
+        see = False
         sensoVision = self.dataSensor.has_key(Const.SENSOR_VISION_HEAD_ID) 
         if sensoVision :  
             rospy.loginfo("VISTO")   
             see = True  
             if self.dataSensor[Const.SENSOR_VISION_HEAD_ID][1] == color:
-                if self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] > angle + self.DELTA_ANGLE:
-                    self.action = self.ACTION_TURN_LEFT
-                elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] < angle - self.DELTA_ANGLE:
-                    self.action = self.ACTION_TURN_RIGHT
-                elif self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID): 
+                #if not self.isCenter:
+                #    self.center(color)
+                if self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):                
                     if self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] > distance + self.DELTA_DISTANCE:
                         self.action = self.ACTION_FORWARD
                     elif self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] < distance - self.DELTA_DISTANCE:
                         self.action = self.ACTION_BACK
+                    elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] < angle - self.DELTA_ANGLE:
+                        self.action = self.ACTION_TURN_LEFT
+                    elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] > angle + self.DELTA_ANGLE:
+                        self.action = self.ACTION_TURN_RIGHT
                 else:
                     self.action = self.ACTION_FORWARD
             #no es el color buscado 
@@ -75,10 +102,11 @@ class irA(comportamiento):
                 if self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] < 0.1 :  
                     self.action = self.ACTION_BACK
                 elif randint(0, 1) == 0:
-                    self.action = self.ACTION_TURN_LEFT 
+                    self.action = self.ACTION_TURN_LEFT
+        else:
+            self.action = self.ACTION_FORWARD
+            
         return see
-
-
 
 
 
@@ -128,10 +156,8 @@ class irA(comportamiento):
             if self.action == self.ACTION_FORWARD or self.action == self.ACTION_BACK:
                 if randint(0, 1) == 0:
                     self.action = self.ACTION_TURN_LEFT
-                    print "IZQUIERDA"
                 else:
                     self.action = self.ACTION_TURN_RIGHT
-                    print "DERECHA"
             else:
                 self.action = self.ACTION_FORWARD
                 print "ADELANTE"
@@ -222,14 +248,17 @@ class irA(comportamiento):
        rospy.loginfo("Estoy en veriPosSenEjecutar")
        headSens = Sensores.get(Const.SENSOR_VISION_HEAD_ID,     self.parametros[Const.SENSOR_VISION_HEAD_ID])
        ultrSens = Sensores.get(Const.SENSOR_NOSE_ULTRASONIC_ID, self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID])
+       msgLight = Int32()
 
        if headSens.similar(data[Const.SENSOR_VISION_HEAD_ID]) and ultrSens.similar(data[Const.SENSOR_NOSE_ULTRASONIC_ID]):       
-           print "Se cumple la postcondicion en irA"
            rospy.loginfo("SE CUMPLE POSTCONDICION IR A")
+           msgLight.data = 1
+           self.light.publish(msgLight)
            activate=True
        else:
-           print "-- NO Se cumple la postcondicion en irA"
            rospy.loginfo("NO SE CUMPLE POSTCONDICION IR A")
+           msgLight.data = 0
+           self.light.publish(msgLight)
        rospy.loginfo("Active irA" + str(activate))
        
        return activate
