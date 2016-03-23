@@ -3,9 +3,7 @@
 import sys
 import os
 import Const
-from lxml import etree, objectify
-import lxml.etree
-import lxml.builder
+from lxml import etree, objectify, builder
 import fnmatch
 
 #   obtener_definicion
@@ -13,13 +11,13 @@ import fnmatch
 # 	Esta funcion devuelve toda la generalizacion de una tarea (identificada por el nombre "proceso")
 #
 # 	obtener_definicion(proceso=String, idGrafo=int) -> [errores, DiccionarioNodos, DiccionarioParams, topologico, networkCmp]
-#       errores = cantidad de errores encontrados (0 todo OK)
+#          errores = cantidad de errores encontrados (0 todo OK)
 #		DiccionarioNodos = {int:string,...} = {idNodo:idComportamiento,...} 
-#       DiccionarioParams = {int:{int:[float32,...]},...} = {idNodo:{idSensor:[valorParam,...]},...}
+#          DiccionarioParams = {int:{int:[float32,...]},...} = {idNodo:{idSensor:[valorParam,...]},...}
 #		topologico = [(int,int),...] = [(idNodoIni,idNodoFin),...]
 #		networkCmp = [(int,int,int),...] = [(idNodoIni,idNodoFin,idTipoLink),...]
 #
-def obtener_definicion(proceso):
+def obtenerGrafo(proceso):
     errores = 0
     nodos = {}
     parametros = {}
@@ -61,9 +59,37 @@ def obtener_definicion(proceso):
     # Retorno
     return [errores, nodos, parametros, topologia, networkDef]
 
+#   obtener_definicion
+#
+def obtenerConfiguracion(nombreConfiguracion):
+    errores = 0
+    colores = {}    
+    nombre = r'{0}.xml'.format(nombreConfiguracion)
+    if len(fnmatch.filter(os.listdir('.'), '{0}.xml'.format(nombreConfiguracion))) == 0:
+        print 'No se encuentra la calibracion solicitada ("{0}").'.format(nombreConfiguracion)
+        errores += 1
+    else:        
+        with open(nombre) as f:
+            xml = f.read()
+        root = objectify.fromstring(xml)
+        for seccion in root.getchildren():
+            if seccion.get("seccion") == Const.SECCION_COLORES:
+                for c in seccion.getchildren():
+                    idColor = int(c.idColor.text)
+                    RGB = [[ float(rgb.text) for rgb in c.minRGB.iterchildren() ], [ float(rgb.text) for rgb in c.maxRGB.iterchildren() ]]                    
+                    colores[idColor] = RGB
+            else:
+                print 'Seccion no esperada {0}'.format( seccion.get("seccion"))
+                errores += 1
+    #
+    return [errores, colores]
+    
 if __name__ == "__main__":
     #
-    resultado = obtener_definicion(sys.argv[1])
+    resultado = obtenerConfiguracion(sys.argv[1])
+    print 'errores: {0}'.format(resultado[0])
+    print 'colores: {0}'.format(resultado[1])
+    resultado = obtenerGrafo(sys.argv[1])
     print 'errores: {0}'.format(resultado[0])
     print 'nodos: {0}'.format(resultado[1])
     print 'parametros: {0}'.format(resultado[2])

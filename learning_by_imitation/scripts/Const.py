@@ -33,7 +33,7 @@ ORANGE_CALIBRATE=10
 YELLOW_CALIBRATE=11
 END_CALIBRATE=12
 #
-# Constantes para persistencia
+# Constantes para los tipos de links
 LINK_ORD=0
 LINK_ENA=1
 LINK_PRM=2
@@ -43,6 +43,7 @@ SECCION_NODOS = 'nodos'
 SECCION_PARAMETROS = 'parametros'
 SECCION_TOPOLOGIA = 'topologia'
 SECCION_NETWORK = 'network'
+SECCION_COLORES = 'colores'
 
 # Tipos de atributos
 

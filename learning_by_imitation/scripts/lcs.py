@@ -3,8 +3,8 @@
 import os
 
 import Const
-import cargarGrafo  
-import salvarGrafo 
+import cargarXML  
+import salvarXML 
 
 
 MejorCamino=[]
@@ -418,7 +418,7 @@ def cargarEstructuras(idTarea):
     global parComp
     if len(diccionario)>0:
         return
-    cargado = cargarGrafo.obtener_definicion(idTarea)
+    cargado = cargarXML.obtenerGrafo(idTarea)
     diccionario = cargado [1]
     parComp = cargado [2]
     topologiaGeneral = cargado [3]
@@ -526,7 +526,7 @@ def nuevaDemostracion(topologiaNueva,networkNueva,idTarea):
     graficarTopologia(topologiaGeneral,"topologia")
     graficarNetwork(networkGeneral,"network")
     
-    salvarGrafo.persistir_Demostracion(idTarea, 'fullDemo', True, diccionario, parComp, topologiaGeneral, networkGeneral)
+    salvarXML.persistirGrafo(idTarea, 'fullDemo', True, diccionario, parComp, topologiaGeneral, networkGeneral)
     
     return topologiaGeneral
 
