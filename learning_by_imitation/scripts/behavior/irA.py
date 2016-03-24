@@ -47,7 +47,16 @@ class irA(comportamiento):
         self.rate = rospy.Rate(10)
         self.light = rospy.Publisher('actuatorLed1Topic', Int32, queue_size = 1)
 
- 
+
+    ##
+    # Busca en los elementos impares de la lista de datos del sensor de vision
+    # el color deseado, retornando  True si lo encuentra y false en otro caso.
+    # @param ls lista de datos del sensor de vision.
+    # @param c Color buscado.
+    # @return Retorna True si encuentra el color. False en otro caso.
+    #
+    def hasColor(ls, c):
+        return c in ls[1::2]
 
     ##
     # Retorna un True si veo algun objeto. En caso de ser visto setea en action la correspondiente 
@@ -67,8 +76,9 @@ class irA(comportamiento):
             #Aca se deberia recibir todos los pares anguo color y ver si entr los vistos
             #esta el color buscado, hay que tener cuidado de no avanzar si 
             #hay un objeto en frente qu eno es nuestro color            
+            rospy.loginfo("DATA IN HEAD SENSOR " + str(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]))
             
-            if self.dataSensor[Const.SENSOR_VISION_HEAD_ID][1] == color:
+            if self.hasColor(self.dataSensor[Const.SENSOR_VISION_HEAD_ID], color):
                 if self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):                
                     if self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] > distance + self.DELTA_DISTANCE:
                         self.action = self.ACTION_FORWARD
@@ -239,13 +249,13 @@ class irA(comportamiento):
 
        if headSens.similar(data[Const.SENSOR_VISION_HEAD_ID]) and ultrSens.similar(data[Const.SENSOR_NOSE_ULTRASONIC_ID]):       
            rospy.loginfo("CUMPLE POSTCONDICION IR_A PARA " + str(self.identify) + " CON DISTANCIA " + str(self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID]) + ", COLOR Y ANGULO " + str(self.parametros[Const.SENSOR_VISION_HEAD_ID]))
-           msgLight.data = [self.identify,1]
+           #msgLight.data = [self.identify,1]
            self.light.publish(msgLight)
            activate=True
        else:
            rospy.loginfo("NO CUMPLE POSTCONDICION IR_A PARA " + str(self.identify))
            msgLight.data = [self.identify,0]
-           self.light.publish(msgLight)
+           #self.light.publish(msgLight)
        rospy.loginfo("Active irA" + str(activate))
        
        return activate
