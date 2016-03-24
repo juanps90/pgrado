@@ -3,6 +3,7 @@ from Sensor import Sensor
 # -- esta lista tendria que ser dinamica --
 from HeadSensor import HeadSensor
 from UltrasonicSensor import UltrasonicSensor
+from LineDetect import LineDetect
 
 
 
