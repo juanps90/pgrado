@@ -7,6 +7,8 @@ import cargarXML
 import salvarXML 
 
 
+from atributos import Sensores
+
 MejorCamino=[]
 topologiaGeneral=[]
 networkGeneral=[]
@@ -108,7 +110,6 @@ def recursionSucesores(nodo,  sucesores, sucesoresTopologicos):
 def compararParamComportamiento(x,y):
     global parComp
     global diccionario
-    errorTol=0.5
     
     #init noo tiene parametros se verifica que son ambos init
     if diccionario[x]==diccionario[y] and diccionario[x]=="init":
@@ -119,28 +120,15 @@ def compararParamComportamiento(x,y):
     if diccionario[x]==diccionario[y]:
         parX=parComp[x]
         parY=parComp[y]
-        lpx=[]
-        lpy=[]
-        if len (parX)== len (parY):
-            for px in parX:
-                lpx=parX[px]
-                #tiene que tener los mismos sensados que px
-                if parY.has_key(px):
-                    lpy=parY[px]
-                    if len(lpy) == len (lpx):
-                        for i in range(len (lpx)-1,-1,-1):
-                            if abs (lpy[i] - lpx[i]) > errorTol:
-                                return False
-                    else:
-                        return False
-                    
-                else:
-                    return False                
-        else:
-            return False        
-    else:
-        return False  
+        
+        for d in parX: # d tiene el Id de cada SENSOR
+            sns = Sensores.get(d, parX[d]) # Obtenemos un sensor a partir de las lecturas en parX
+            if not sns.similar(parY[d]):   # Comparamos los datos de parX con parY
+                return False
     
+        return True
+    
+    return False
      
 
 
