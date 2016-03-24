@@ -248,12 +248,12 @@ class irA(comportamiento):
        msgLight = Int32()
 
        if headSens.similar(data[Const.SENSOR_VISION_HEAD_ID]) and ultrSens.similar(data[Const.SENSOR_NOSE_ULTRASONIC_ID]):       
-           rospy.loginfo("SE CUMPLE POSTCONDICION IR PARA DISTANCIA " + str(self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID]) + ", COLOR Y ANGULO " + str(self.parametros[Const.SENSOR_VISION_HEAD_ID]))
+           rospy.loginfo("CUMPLE POSTCONDICION IR_A PARA " + str(self.identify) + " CON DISTANCIA " + str(self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID]) + ", COLOR Y ANGULO " + str(self.parametros[Const.SENSOR_VISION_HEAD_ID]))
            msgLight.data = 1
            self.light.publish(msgLight)
            activate=True
        else:
-           rospy.loginfo("NO SE CUMPLE POSTCONDICION IR A")
+           rospy.loginfo("NO CUMPLE POSTCONDICION IR_A PARA " + str(self.identify))
            msgLight.data = 0
            self.light.publish(msgLight)
        rospy.loginfo("Active irA" + str(activate))
