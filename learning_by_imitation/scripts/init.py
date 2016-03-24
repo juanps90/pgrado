@@ -47,9 +47,24 @@ def setEstado(data):
     elif estado==2:
         arranqueNivel()
     #rospy.loginfo("estado"+str(estado))
+    elif  estado==4:
+        nodoABorrar=data.data[1]
+        realizarBad(nodoABorrar)
 
 
+def atenderOrdenes(data):
+    if data.data[0]==0:
+        realizarBad(data.data[1])
 
+
+def realizarBad(borrar):  
+    if  ordering.has_key(borrar):    
+        del  ordering[borrar]    
+    for c in caminos:
+        if borrar in c:
+            c.remove(borrar) 
+            
+            
 
 #cuando un nodo ejecuta avisa que lo hace hasta que un nuevo comportamiento no ejecute no avisa
 #supongamos que el comportamiento habilante se esta ejecutandode repente el comportamiento que es habilitado recibe de sensore
@@ -305,6 +320,6 @@ if __name__ == '__main__':
     nodoEjecutando=rospy.Publisher('topicoNodoEjecutando', Int32MultiArray, queue_size=10)
     rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, atenderNodoEjecutando)
     rospy.Subscriber("topicoCaminos", Int32MultiArray, atenderCaminos)
-   
+    rospy.Subscriber("topicoOrdenes", Int32MultiArray, atenderOrdenes)   
     rospy.spin()
     
