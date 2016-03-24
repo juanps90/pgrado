@@ -5,7 +5,7 @@ from std_msgs.msg import String, Float64, Float64MultiArray,Int32MultiArray
 import Const
 import time
 
-delay=1.2
+delay=0.2
 contador=0
 topeContador=1
 

@@ -18,7 +18,7 @@ class irA(comportamiento):
     ACTION_BACK = 4
 
     DELTA_DISTANCE = 0.08
-    DELTA_ANGLE = 0.2
+    DELTA_ANGLE = 0.1
     
  
     PARAM_COLOR = Const.SENSOR_COLOR_DETECT_RED
@@ -34,6 +34,10 @@ class irA(comportamiento):
     colorValido=[Const.SENSOR_COLOR_DETECT_RED,Const.SENSOR_COLOR_DETECT_RED,
     Const.SENSOR_COLOR_DETECT_GREEN,Const.SENSOR_COLOR_DETECT_BLUE,
     Const.SENSOR_COLOR_DETECT_YELLOW,Const.SENSOR_COLOR_DETECT_ORANGE]
+    
+    #son las distancias minimas en aprender, angulo para esa distancia
+    minDist=200
+    angMinDist=1
 
     def __init__(self,datos): 
         super(irA,self).__init__(datos) 
@@ -43,30 +47,7 @@ class irA(comportamiento):
         self.rate = rospy.Rate(10)
         self.light = rospy.Publisher('actuatorLed1Topic', Int32, queue_size = 1)
 
-
-
-
-    def center(self, color):
-        rospy.loginfo("====== INICIO DEL CENTRADO ======")
-        exitWhile = False
-        while not exitWhile:
-            sensoVision = self.dataSensor.has_key(Const.SENSOR_VISION_HEAD_ID)
-            if sensoVision and self.dataSensor[Const.SENSOR_VISION_HEAD_ID][1] == color:
-                if self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] < 0.5 - self.DELTA_ANGLE:
-                    rospy.loginfo("====== VEO AL OBJETO DEL COLOR " + str(color) + ", GIRO A LA IZQUIERDA ======")
-                    self.publish(-self.speed/2, self.speed/2)
-                elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] > 0.5 + self.DELTA_ANGLE:
-                    rospy.loginfo("====== VEO AL OBJETO DEL COLOR " + str(color) + ", GIRO A LA DERECHA ======")
-                    self.publish(self.speed/2, -self.speed/2)
-                else:
-                    rospy.loginfo("====== VEO AL OBJETO DEL COLOR " + str(color) + ", NO GIRO MAS ======")
-                    self.publish(0, 0) 
-                    exitWhile = True
-                    self.isCenter = True
-            else:
-                rospy.loginfo("====== NO VEO AL OBJETO DEL COLOR " + str(color) + " ======")
-                exitWhile = True
-        rospy.loginfo("====== FIN DEL CENTRADO ======")
+ 
 
     ##
     # Retorna un True si veo algun objeto. En caso de ser visto setea en action la correspondiente 
@@ -82,9 +63,12 @@ class irA(comportamiento):
         if sensoVision :  
             rospy.loginfo("VISTO")   
             see = True  
+            
+            #Aca se deberia recibir todos los pares anguo color y ver si entr los vistos
+            #esta el color buscado, hay que tener cuidado de no avanzar si 
+            #hay un objeto en frente qu eno es nuestro color            
+            
             if self.dataSensor[Const.SENSOR_VISION_HEAD_ID][1] == color:
-                #if not self.isCenter:
-                #    self.center(color)
                 if self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):                
                     if self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] > distance + self.DELTA_DISTANCE:
                         self.action = self.ACTION_FORWARD
@@ -94,8 +78,14 @@ class irA(comportamiento):
                         self.action = self.ACTION_TURN_LEFT
                     elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] > angle + self.DELTA_ANGLE:
                         self.action = self.ACTION_TURN_RIGHT
-                else:
-                    self.action = self.ACTION_FORWARD
+                else:   
+                    #ve el color pero no esta a una distancia adecuada centra y luego avanza
+                    if self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] < angle - self.DELTA_ANGLE:
+                        self.action = self.ACTION_TURN_LEFT
+                    elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] > angle + self.DELTA_ANGLE:
+                        self.action = self.ACTION_TURN_RIGHT
+                    else:
+                        self.action = self.ACTION_FORWARD
             #no es el color buscado 
             elif self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):
                 # estoy muy cerca entonces retrocedo
@@ -249,12 +239,12 @@ class irA(comportamiento):
 
        if headSens.similar(data[Const.SENSOR_VISION_HEAD_ID]) and ultrSens.similar(data[Const.SENSOR_NOSE_ULTRASONIC_ID]):       
            rospy.loginfo("SE CUMPLE POSTCONDICION IR PARA DISTANCIA " + str(self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID]) + ", COLOR Y ANGULO " + str(self.parametros[Const.SENSOR_VISION_HEAD_ID]))
-           msgLight.data = 1
+           msgLight.data = [self.identify,1]
            self.light.publish(msgLight)
            activate=True
        else:
            rospy.loginfo("NO SE CUMPLE POSTCONDICION IR A")
-           msgLight.data = 0
+           msgLight.data = [self.identify,0]
            self.light.publish(msgLight)
        rospy.loginfo("Active irA" + str(activate))
        
@@ -267,12 +257,23 @@ class irA(comportamiento):
         head=[]
         outHead=""
         outProxim=""
+        esDistMin=False
+        
+        if data.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):   
+            proxim=data[Const.SENSOR_NOSE_ULTRASONIC_ID] 
+            #se queda con la minima distancia
+            if proxim[0] <= self.minDist:
+                esDistMin=True
+                self.minDist=proxim[0]
+                
+            outProxim=str (Const.SENSOR_NOSE_ULTRASONIC_ID) + "#" +str(self.minDist) 
         if data.has_key(Const.SENSOR_VISION_HEAD_ID):
             head=data[Const.SENSOR_VISION_HEAD_ID]
-            outHead=str (Const.SENSOR_VISION_HEAD_ID) + "#" +str(head[0]) + "#" +str(head[1]) 
-        if data.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):   
-            proxim=data[Const.SENSOR_NOSE_ULTRASONIC_ID]
-            outProxim=str (Const.SENSOR_NOSE_ULTRASONIC_ID) + "#" +str(proxim[0]) 
+            #si es la minima distancia se guarda el angulo
+            if esDistMin:
+                self.angMinDist=head[0]
+            outHead=str (Const.SENSOR_VISION_HEAD_ID) + "#" +str(self.angMinDist) + "#" +str(head[1]) 
+
         salida=""
         if len(outHead)>0:
             salida=salida+outHead 

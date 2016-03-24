@@ -203,17 +203,18 @@ class comportamiento(object):
             ##rospy.loginfo("localizar ",valorEncendido)
 
 
-    def realizarBad(self,data):
-        if permanent.has_key(data):
-            del permanent[data]
-        if  enablig.has_key(data): 
-            del enablig[data]
-        if  ordering.has_key(data):    
-            del ordering[data]
+    def realizarBad(self,borrar):
+        msg = Int32MultiArray()
+        if self.permanent.has_key(borrar):
+            del self.permanent[borrar]
+        if  self.enablig.has_key(borrar): 
+            del self.enablig[borrar]
+        if  self.ordering.has_key(borrar):    
+            del self.ordering[borrar]
         
-        for c in caminos:
-            if data in c:
-                data.remove(data)
+        for c in self.caminos:
+            if borrar in c:
+                c.remove(borrar)
         #if self.identify== data:#por las dudas hago que todos liberen los actuadores
         msg.data = [self.identify,0,-1]  
         self.solicitarOLiberarMotores.publish(msg)	
@@ -221,7 +222,9 @@ class comportamiento(object):
 
         #fata matar al nodo bad
 
-
+    def atenderOrdenes(self,data):
+        if data.data[0]==0:
+            self.realizarBad(data.data[1])     
 
 	
     def setEstado(self,data):  
@@ -232,9 +235,9 @@ class comportamiento(object):
             msg.data = [self.identify,0,0] 	 
             self.motores.publish(msg) 
         #rospy.loginfo("estado"+str(self.estado))
-        if self.estado==4:
+        elif self.estado==4:
             nodoABorrar=data.data[1]
-
+            self.realizarBad(nodoABorrar)
  
 
 
@@ -396,6 +399,7 @@ class comportamiento(object):
         global topicoCam 
         global topicoEje 
         global topicoAct   
+        global topicoOrd
    
         topicoSen.unregister() 
         topicoPre.unregister()
@@ -405,7 +409,7 @@ class comportamiento(object):
         topicoCam.unregister() 
         topicoEje.unregister() 
         topicoAct.unregister()    
-        
+        topicoOrd.unregister()    
         return 0
     
     def initTopicos(self):
@@ -419,7 +423,7 @@ class comportamiento(object):
         global topicoAct   
             
                  
-                 
+        topicoOrd=rospy.Subscriber("topicoOrdenes", Int32MultiArray, self.atenderOrdenes)         
         topicoSen=rospy.Subscriber("topicoSensores", String, self.atenderSensores)
         topicoPre=rospy.Subscriber("preConditionDetect", Int32MultiArray, self.evaluarPrecondicion)
         topicoSet=rospy.Subscriber("preConditionsSetting", Int32MultiArray, self.setting)	    

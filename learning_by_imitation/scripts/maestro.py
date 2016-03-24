@@ -28,7 +28,7 @@ dicComp = {0:'init'}
 identify = -1
 Diccionario = {}
 nodosLanzados = {}
-nodos = {}
+nodos = {}#diccionario con clave id de nodo
 links = []
 linkEnEjecucion = []
 # asocia id de nodo con comportamiento
@@ -134,18 +134,20 @@ def callback(data):
         if idActivo!=-1:   
             #print "nodo comportamiento sigue activo"
             #actualizar datos del nodoactivo en ambas estructuras nodos y dicc
-            updateParam(nodos[idActivo], param)     
+            updateParam(nodos[idActivo], param)  
+            print "update nodos: ",nodos
         #no hay nodo activo se agrega uno nuevo
         else:
-            print "nodo comportamiento nuevo ",comportamiento
+           
             #agregar nodo            
             nuevoNodo=(idNA, current_milli_time(), -1, comportamiento, param)
-            print "idNA en call ",idNA," largo ",len (nodos) 
+            print "idNA en call ",idNA," largo ",len (nodos) ," ",nuevoNodo
+            print comportamiento,"nodo comportamiento nuevo ",nodos
             nodos[idNA]= nuevoNodo
             #nodos.append(nuevoNodo)
             Diccionario[comportamiento].append(nuevoNodo)       
             idNA = idNA+ 1
-            print "nodos: ",nodos
+
 
     #comportamiento que estaba activo y se apaga
     elif nodoActivo(comportamiento) != -1:
@@ -195,14 +197,20 @@ def callback(data):
             Diccionario[comportamiento]=lista
             nodos[ultimo[0]]=finalizado
             #cerrarNodo(ultimo[0],finalizado)
-            print "cerrar directamente ",comportamiento
+            print comportamiento, " cerrar directamente ", finalizado
 
         #print nodos  
 
-#Arreglar
+
+
+#El update solo se hace en la lista de nodos no en el diccionario de comportamientos usado 
+#como auxiliar
 def updateParam(nodo, paramNuevo):
-    salida=nodo
-    return salida
+    global nodos
+    nuevoNodo=(nodo[0],nodo[1],nodo[2],nodo[3], paramNuevo)
+    nodos[nodo[0]]=nuevoNodo
+    
+    
 
 def offLine ():	
     #hay que cerrar los comportamientos cuando se cierre la demostracion
@@ -229,8 +237,8 @@ def offLine ():
         if n[2] - n[1] > errorRuido:   #el nodo es menor a un errorRuido
             auxl = list (n)
             auxl[0] = idNodeAdd
+            auxNodos[idNodeAdd] = tuple(auxl)            
             idNodeAdd = idNodeAdd + 1
-            auxNodos[idNodeAdd] = tuple(auxl)
             print "valores de nodos a agregar ",n,n[2]-n[1]
     nodos =  auxNodos    
     # ultimo nodo es el init
@@ -471,6 +479,7 @@ def crearEnlaces(linksACrear):
 def ejecutarBad():
     global nodoEjecutando 
     global tiempoBad
+    global ordenes
     tiempoActual = current_milli_time()
     # si el nodo actual inicio hace menos de tiempoBad se borra el nodo anterior    
     tiempoDif = tiempoActual - nodoEjecutando[1]
@@ -488,8 +497,8 @@ def ejecutarBad():
     
     #se publica estado a Bad capaz el nombre habria que cambiarlo,
     msg = Int32MultiArray()
-    msg.data = [4,nodoABorrar] 
-    estado.publish(msg)
+    msg.data = [0,nodoABorrar] 
+    ordenes.publish(msg)
 
 ##lo siguiente de bad ya no iria
 
@@ -1037,7 +1046,7 @@ if __name__ == '__main__':
         dicComp.append('irA')
     print "diccionario comportamientos ",dicComp
     rospy.Subscriber("command", String, atenderComandos)
-    
+    ordenes = rospy.Publisher('topicoOrdenes', Int32MultiArray, queue_size = 10)    
     pub = rospy.Publisher('preConditionsSetting', Int32MultiArray, queue_size = 10)
     estado = rospy.Publisher('topicoEstado', Int32MultiArray, queue_size = 10)    
     nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10)

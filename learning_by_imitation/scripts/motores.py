@@ -65,8 +65,10 @@ def actuarMotoresVREP(data):
 		leftVelocity.publish(leftMsg)
 		rightVelocity.publish(rightMsg)
                 
+#VERIFICAR ESTO DEBE MANEJASRSE parecido a motor                
 def actuatorLed1TopicProccessing(data):
-    light.publish(data)
+    if NodoActivo == data.data[0]: 
+        light.publish(data.data[1])
                
 #al iniciar una nueva ejecucion se debe reiniciar la estructura                
 def setEstado(data):  
