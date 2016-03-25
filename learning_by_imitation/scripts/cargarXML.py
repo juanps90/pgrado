@@ -40,10 +40,13 @@ def obtenerGrafo(proceso):
                 for r in definicion.getchildren():
                     idNodo = int(r.idNodo.text)
                     params = {}
-                    for s in r.sensor:
-                        idSensor = int(s.idSensor.text)
-                        aux = [ float(d.text) for d in s.Parametros.iterchildren() ] 
-                        params[idSensor] = aux
+                    print 'idNodo: ', idNodo, ' - Tiene sensor: ', r.find("sensor")
+                    if r.find("sensor") != None:
+                        # Si tiene sensores asociados (puede no tener!)                        
+                        for s in r.sensor:
+                            idSensor = int(s.idSensor.text)
+                            aux = [ float(d.text) for d in s.Parametros.iterchildren() ] 
+                            params[idSensor] = aux
                     parametros[idNodo] = params   
             elif definicion.get("seccion") == Const.SECCION_TOPOLOGIA:
                 for linkT in definicion.getchildren():
@@ -86,13 +89,13 @@ def obtenerConfiguracion(nombreConfiguracion):
     
 if __name__ == "__main__":
     #
-    resultado = obtenerConfiguracion(sys.argv[1])
-    print 'errores: {0}'.format(resultado[0])
-    print 'colores: {0}'.format(resultado[1])
-    resultado = obtenerGrafo(sys.argv[1])
-    print 'errores: {0}'.format(resultado[0])
-    print 'nodos: {0}'.format(resultado[1])
-    print 'parametros: {0}'.format(resultado[2])
-    print 'topologico: {0}'.format(resultado[3])
-    print 'network: {0}'.format(resultado[4])
+    #resultado = obtenerConfiguracion(sys.argv[1])
+    #print 'errores: {0}'.format(resultado[0])
+    #print 'colores: {0}'.format(resultado[1])
+    #resultado = obtenerGrafo(sys.argv[1])
+#    print 'errores: {0}'.format(resultado[0])
+#    print 'nodos: {0}'.format(resultado[1])
+#    print 'parametros: {0}'.format(resultado[2])
+#    print 'topologico: {0}'.format(resultado[3])
+#    print 'network: {0}'.format(resultado[4])
     #
