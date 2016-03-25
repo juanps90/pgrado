@@ -246,6 +246,7 @@ class irA(comportamiento):
         while ((not ret) and (i < len(l))):
             ret = ret or headSens.similar([l[i - 1], l[i]])
             i = i + 2
+        rospy.loginfo("EN SIMILAR HEAD SENSOR LOS DATOS SON " + str(l) + " Y LA SALIDA ES " + str(ret))
         return ret
            
     def veriPosSenEjecutar(self,data):
