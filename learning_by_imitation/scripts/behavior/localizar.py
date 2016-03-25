@@ -1,27 +1,11 @@
 #!/usr/bin/env python
 
-
-import os 
-import logging 
-import socket 
 import sys 
-import xmlrpclib 
-import roslib.names  
-import roslib.network  
-import rospkg
-import roslaunch.core
-import roslaunch.remote
-
-
 import rospy
-from std_msgs.msg import Int32MultiArray, Float64MultiArray, Float64,String
+from std_msgs.msg import Int32MultiArray, Float64MultiArray
 from random import randint
 import Const
 from comportamiento import comportamiento
-
-
-
-
 
 class localizar(comportamiento):
     rate=None
@@ -47,9 +31,8 @@ class localizar(comportamiento):
     action = ACTION_BACK
     dataSensorColor = [Const.SENSOR_COLOR_DETECT_WHITE, Const.SENSOR_COLOR_DETECT_WHITE,Const.SENSOR_COLOR_DETECT_WHITE]
 
-   colorValido=[Const.SENSOR_COLOR_DETECT_BLACK,Const.SENSOR_COLOR_DETECT_YELLOW,Const.SENSOR_COLOR_DETECT_ORANGE]
+    colorValido=[Const.SENSOR_COLOR_DETECT_BLACK,Const.SENSOR_COLOR_DETECT_YELLOW,Const.SENSOR_COLOR_DETECT_ORANGE]
 
- 
 
     recienEstuveEnColor=False
     delay = 0
@@ -74,7 +57,7 @@ class localizar(comportamiento):
                 self.action = self.ACTION_TURN_LEFT
                 print "IZQUIERDA"
             elif self.dataSensorColor[1] == color:
-                action = self.ACTION_TURN_RIGHT
+                self.action = self.ACTION_TURN_RIGHT
                 print "DERECHA"  
             elif self.recienEstuveEnColor:
                 self.action = self.ACTION_BACK       
@@ -90,7 +73,6 @@ class localizar(comportamiento):
         self.motores.publish(msg)
 
     def wander(self,color): 
-        publish=self.publish
         self.getAction(color)      
  
         if self.action == self.ACTION_BACK:
@@ -171,6 +153,7 @@ class localizar(comportamiento):
             print "Active localizar",activate
         return activate   
     
+
 
     def veriPosSenEjecutar(self,data):
         activate=False
