@@ -88,6 +88,7 @@ def obtenerConfiguracion(nombreConfiguracion):
     return [errores, colores]
     
 if __name__ == "__main__":
+    print 'MAIN de cargar xml'
     #
     #resultado = obtenerConfiguracion(sys.argv[1])
     #print 'errores: {0}'.format(resultado[0])
