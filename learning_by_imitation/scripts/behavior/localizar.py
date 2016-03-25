@@ -47,6 +47,10 @@ class localizar(comportamiento):
     action = ACTION_BACK
     dataSensorColor = [Const.SENSOR_COLOR_DETECT_WHITE, Const.SENSOR_COLOR_DETECT_WHITE,Const.SENSOR_COLOR_DETECT_WHITE]
 
+   colorValido=[Const.SENSOR_COLOR_DETECT_BLACK,Const.SENSOR_COLOR_DETECT_YELLOW,Const.SENSOR_COLOR_DETECT_ORANGE]
+
+ 
+
     recienEstuveEnColor=False
     delay = 0
     changeTime = None
@@ -155,33 +159,34 @@ class localizar(comportamiento):
 
     def veriPosSenAprender(self, data):
         activate=False
-	
-	if not data.has_key(Const.SENSOR_COLOR_DETECT_LINE_ID):
-	    return False
-	
-	sensado=data[Const.SENSOR_COLOR_DETECT_LINE_ID]	
-	self.processSensorLineDetectedColorData(sensado)	
-	#esto es para probar con un comportamiento loc con otro color se haria con un topico de parametros     
-	if sensado[1] == 0:# or sensado[1] == 2:#para que sea de permanencia, hay que revisar
-	    print "se cumple postcondicion localizar"
-	    activate=True
-	print "Active localizar",activate
-        return activate
-
+        if not data.has_key(Const.SENSOR_COLOR_DETECT_LINE_ID):
+            return False
+        sensado=data[Const.SENSOR_COLOR_DETECT_LINE_ID]	
+        self.processSensorLineDetectedColorData(sensado)		
+        #se verifica el sensor del medio por eso es indice 1
+        #si esta entre los colores validos deben ser distintos de los de localizar
+        if sensado[1]  in self.colorValido :
+            print "se cumple postcondicion localizar"
+            activate=True
+            print "Active localizar",activate
+        return activate   
+    
 
     def veriPosSenEjecutar(self,data):
         activate=False
 	
-	if not data.has_key(Const.SENSOR_COLOR_DETECT_LINE_ID):
-	    return False
+        if not data.has_key(Const.SENSOR_COLOR_DETECT_LINE_ID):
+            return False
 	
-	sensado=data[Const.SENSOR_COLOR_DETECT_LINE_ID]	
-	self.processSensorLineDetectedColorData(sensado)	
-	#esto es para probar con un comportamiento loc con otro color se haria con un topico de parametros     
-	if sensado[1] == 0:# or sensado[1] == 2:#para que sea de permanencia, hay que revisar
-	    print "se cumple postcondicion localizar"
-	    activate=True
-	print "Active localizar",activate
+        sensado=data[Const.SENSOR_COLOR_DETECT_LINE_ID]	
+        self.processSensorLineDetectedColorData(sensado)		
+        #los colores deben ser diferentes que los de avanzar     
+        #es bastante cyancyo esto tuardar 3 valores y solo usar uno se 
+        #deberian separar los sensores eso es lo mas correcto
+        if sensado[1]==self.parametros[Const.SENSOR_COLOR_DETECT_LINE_ID][1] :
+            print "se cumple postcondicion localizar"
+            activate=True
+            print "Active localizar",activate
         return activate
 
 
