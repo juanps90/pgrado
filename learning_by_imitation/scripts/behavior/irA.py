@@ -55,7 +55,7 @@ class irA(comportamiento):
     # @param c Color buscado.
     # @return Retorna True si encuentra el color. False en otro caso.
     #
-    def hasColor(ls, c):
+    def hasColor(self, ls, c):
         return c in ls[1::2]
 
     ##
@@ -78,7 +78,7 @@ class irA(comportamiento):
             #hay un objeto en frente qu eno es nuestro color            
             rospy.loginfo("DATA IN HEAD SENSOR " + str(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]))
             
-            if hasColor(self.dataSensor[Const.SENSOR_VISION_HEAD_ID], color):
+            if self.hasColor(self.dataSensor[Const.SENSOR_VISION_HEAD_ID], color):
                 if self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):                
                     if self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] > distance + self.DELTA_DISTANCE:
                         self.action = self.ACTION_FORWARD
