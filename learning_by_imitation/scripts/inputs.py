@@ -40,16 +40,17 @@ def processSensorLineDetectColorData(data):
     ingreso = map(float, data.data.split('|'))  
     salida=[]
     sensorsData=[]
-    for it in ingreso:
-        #negro
+    for it in ingreso: 
+        if it > 0.1 and it < 0.2:
+             sensorsData.append(Const.SENSOR_COLOR_DETECT_BLACK) 
         if it > 0.2 and it < 0.3:
-             sensorsData.append(Const.SENSOR_COLOR_DETECT_BLACK)
-        #blanco
-        elif it > 0.6 and it < 0.8:
-             sensorsData.append(Const.SENSOR_COLOR_DETECT_WHITE)
-        #verde
-        elif it > 0.4 and it < 0.5:
-             sensorsData.append(Const.SENSOR_COLOR_DETECT_GREEN)
+             sensorsData.append(Const.SENSOR_COLOR_DETECT_BLUE) 
+        elif it > 0.3 and it < 0.35:
+             sensorsData.append(Const.SENSOR_COLOR_DETECT_RED)
+        elif it > 0.35 and it < 0.4:
+             sensorsData.append(Const.SENSOR_COLOR_DETECT_GREEN) 
+        elif it > 0.5 and it < 0.7:
+             sensorsData.append(Const.SENSOR_COLOR_DETECT_WHITE) 
         else:
              sensorsData.append(Const.SENSOR_COLOR_DETECT_NONE)
 
