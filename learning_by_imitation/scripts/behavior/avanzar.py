@@ -28,6 +28,7 @@ from comportamiento import comportamiento
 class avanzar(comportamiento):
         
     colorValido=[Const.SENSOR_COLOR_DETECT_RED,Const.SENSOR_COLOR_DETECT_GREEN,Const.SENSOR_COLOR_DETECT_BLUE]
+
          
     def __init__(self,datos): 
 		super(avanzar,self).__init__(datos) 
@@ -84,7 +85,7 @@ class avanzar(comportamiento):
         if sensado[1]==self.parametros[Const.SENSOR_COLOR_DETECT_LINE_ID][1] :
             print "se cumple postcondicion avanzar"
             activate=True
-            print "Active localizar",activate
+            print "Active avanzar",activate
         return activate
 
 
