@@ -55,7 +55,7 @@ class irA(comportamiento):
     # @param c Color buscado.
     # @return Retorna True si encuentra el color. False en otro caso.
     #
-    def hasColor(ls, c):
+    def hasColor(self, ls, c):
         return c in ls[1::2]
 
     ##
@@ -77,6 +77,7 @@ class irA(comportamiento):
             #esta el color buscado, hay que tener cuidado de no avanzar si 
             #hay un objeto en frente qu eno es nuestro color            
             rospy.loginfo("DATA IN HEAD SENSOR " + str(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]))
+
             
             if self.hasColor(self.dataSensor[Const.SENSOR_VISION_HEAD_ID], color):
                 if self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):                
@@ -236,7 +237,17 @@ class irA(comportamiento):
        rospy.loginfo("Active irA" + str(activate))
        rospy.loginfo("color = " + str(headSensor[1]) + " distancia  = " + str(noseSensor) + " angulo = " + str(headSensor[0]))
        return activate
-       
+
+
+
+    def similarHeadSensor(self, headSens, l):
+        ret = False
+        i = 1
+        while ((not ret) and (i < len(l))):
+            ret = ret or headSens.similar([l[i - 1], l[i]])
+            i = i + 2
+        return ret
+           
     def veriPosSenEjecutar(self,data):
        activate=False
        if (not data.has_key(Const.SENSOR_VISION_HEAD_ID)) or (not data.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID)):
@@ -245,16 +256,16 @@ class irA(comportamiento):
        rospy.loginfo("Estoy en veriPosSenEjecutar")
        headSens = Sensores.get(Const.SENSOR_VISION_HEAD_ID,     self.parametros[Const.SENSOR_VISION_HEAD_ID])
        ultrSens = Sensores.get(Const.SENSOR_NOSE_ULTRASONIC_ID, self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID])
-       msgLight = Int32()
+       #msgLight = Int32()
 
-       if headSens.similar(data[Const.SENSOR_VISION_HEAD_ID]) and ultrSens.similar(data[Const.SENSOR_NOSE_ULTRASONIC_ID]):       
+       if self.similarHeadSensor(headSens, data[Const.SENSOR_VISION_HEAD_ID]) and ultrSens.similar(data[Const.SENSOR_NOSE_ULTRASONIC_ID]):       
            rospy.loginfo("CUMPLE POSTCONDICION IR_A PARA " + str(self.identify) + " CON DISTANCIA " + str(self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID]) + ", COLOR Y ANGULO " + str(self.parametros[Const.SENSOR_VISION_HEAD_ID]))
            #msgLight.data = [self.identify,1]
-           self.light.publish(msgLight)
+           #self.light.publish(msgLight)
            activate=True
        else:
            rospy.loginfo("NO CUMPLE POSTCONDICION IR_A PARA " + str(self.identify))
-           msgLight.data = [self.identify,0]
+           #msgLight.data = [self.identify,0]
            #self.light.publish(msgLight)
        rospy.loginfo("Active irA" + str(activate))
        
