@@ -42,7 +42,7 @@ comando = ""
 # usado para errores de ruido
 errorRuido = 2000 
 # usado para determinar tipos de links puede pasar que se cierre un comportamiento luego de cerrar otro
-epsilon = 2000 
+epsilon = 200
 # tiempo que se acepta luego de terminado un comportamiento para indicar que se debe eliminar del grafo
 tiempoEsperaBad = 5000 
 enablig = {}
