@@ -146,11 +146,10 @@ class localizar(comportamiento):
         sensado=data[Const.SENSOR_COLOR_DETECT_LINE_ID]	
         self.processSensorLineDetectedColorData(sensado)		
         #se verifica el sensor del medio por eso es indice 1
-        #si esta entre los colores validos deben ser distintos de los de localizar
+        #si esta entre los colores validos deben ser distintos de los de avanzar
         if sensado[1]  in self.colorValido :
-            print "se cumple postcondicion localizar"
+            rospy.loginfo("Se cumple postcondicion localizar para el color " + str(sensado[1]))
             activate=True
-            print "Active localizar",activate
         return activate   
     
 
@@ -181,22 +180,14 @@ class localizar(comportamiento):
 
 if __name__ == '__main__':
 
+    print "iniciando localizar"  
 
-        print "iniciando localizar"  
-
-        rospy.init_node('localizar', anonymous=True) 
-        #aca se recibe string se desenvuelve y se obtiene id y parametros       
-        datos=str(rospy.myargv(argv=sys.argv)[1])
-        rospy.loginfo("datos localizar "+str(datos)) 
-        l = localizar(datos) 
-	rospy.spin()
-        l.endTopic() 
-
-
-
-
-
-
-
+    rospy.init_node('localizar', anonymous=True) 
+    #aca se recibe string se desenvuelve y se obtiene id y parametros       
+    datos=str(rospy.myargv(argv=sys.argv)[1])
+    rospy.loginfo("datos localizar "+str(datos)) 
+    l = localizar(datos) 
+    rospy.spin()
+    #l.endTopic() 
 
 

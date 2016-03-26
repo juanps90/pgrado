@@ -1,29 +1,11 @@
 #!/usr/bin/env python
 
-
-import os 
-import logging 
-import socket 
 import sys 
-import xmlrpclib 
-import roslib.names  
-import roslib.network  
-import rospkg
-import roslaunch.core
-import roslaunch.remote
 import Const
-
-import sys
 import rospy
-from std_msgs.msg import Int32MultiArray, Float64MultiArray,String
+from std_msgs.msg import Int32MultiArray, Float64MultiArray
 from random import randint
 from comportamiento import comportamiento
-
-
-
-
-
-
 
 class avanzar(comportamiento):
         
@@ -34,28 +16,35 @@ class avanzar(comportamiento):
 		super(avanzar,self).__init__(datos) 
                 self.idComportamiento="avanzar"
  
-        #se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores
+
+
+    ##
+    # Realiza las actuaciones correpondientes. En este caso solo avanza enviando a los motores los mensajes correspondientes.
+    # Se deben de mandar mensajes continuamente tanto como si se ejecuta como si no.
+    #
     def actuar(self):
-                msg = Int32MultiArray()
-                msgMotores = Float64MultiArray()
-                if self.cumplePrecondiciones () and self.nivelActivacion>0 and self.motorLibre:
-                        # Aca iria la operacion de wander.
-                        azar=randint(0,2)
-                        msgMotores.data = [self.identify, self.speed, azar]
-                        self.motores.publish(msgMotores)
-
-                        #rospy.loginfo(">>>ON avanzar id:"+str(self.identify))
-                        ##rospy.loginfo( nivelActivacion) 
-                        self.ejecutando=True
-                        msg2 = Int32MultiArray()  
-                        msg2.data = [self.identify,self.identify] #por si necesito otro parametro        
-                        self.nodoEjecutando.publish(msg2)  
-                
-                else: 
-                        #rospy.loginfo(">>>OFF avanzar id:"+str(self.identify))
-                        self.ejecutando=False
+        msgMotores = Float64MultiArray()
+        if self.cumplePrecondiciones () and self.nivelActivacion>0 and self.motorLibre:
+            azar=randint(0,2)
+            msgMotores.data = [self.identify, self.speed, azar]
+            self.motores.publish(msgMotores)
+    
+            #rospy.loginfo(">>>ON avanzar id:"+str(self.identify))
+            ##rospy.loginfo( nivelActivacion) 
+            self.ejecutando=True
+            msg2 = Int32MultiArray()  
+            msg2.data = [self.identify,self.identify] #por si necesito otro parametro        
+            self.nodoEjecutando.publish(msg2)  
+        else: 
+            #rospy.loginfo(">>>OFF avanzar id:"+str(self.identify))
+            self.ejecutando=False
 
 
+    ##
+    # Retorna True si se cumple las postcondiciones del avanzar al aprender. False en otro caso.
+    # @param data Datos sensados.
+    # @return Retorna True si se cumple las postcondiciones del avanzar al aprender. False en otro caso.
+    #
     def veriPosSenAprender(self, data):
         activate=False
         if not data.has_key(Const.SENSOR_COLOR_DETECT_LINE_ID):
@@ -65,12 +54,15 @@ class avanzar(comportamiento):
         #se verifica el sensor del medio por eso es indice 1
         #si esta entre los colores validos deben ser distintos de los de localizar
         if sensado[1]  in self.colorValido :
-            print "se cumple postcondicion avanzar"
+            rospy.loginfo("Se cumple postcondicion avanzar para el color " + str(sensado[1]))
             activate=True
-            print "Active avanzar",activate
         return activate   
     
-
+    ##
+    # Retorna True si se cumple las postcondiciones del avanzar al ejecutar. False en otro caso.
+    # @param data Datos sensados.
+    # @return Retorna True si se cumple las postcondiciones del avanzar al ejecutar. False en otro caso.
+    #
     def veriPosSenEjecutar(self,data):
         activate=False
 	
@@ -79,7 +71,7 @@ class avanzar(comportamiento):
 	
         sensado=data[Const.SENSOR_COLOR_DETECT_LINE_ID]	
         self.processSensorLineDetectedColorData(sensado)		
-        #los colores deben ser diferentes que los de avanzar     
+        #los colores deben ser diferentes que los de localizar     
         #es bastante cyancyo esto tuardar 3 valores y solo usar uno se 
         #deberian separar los sensores eso es lo mas correcto
         if sensado[1]==self.parametros[Const.SENSOR_COLOR_DETECT_LINE_ID][1] :
@@ -89,6 +81,11 @@ class avanzar(comportamiento):
         return activate
 
 
+    ##
+    # Retorna String con el formato ID_SENSORES#DATO_SENSOR_IZQUIERDO#DATO_SENSOR_MEDIO#DATO_SENSOR_DERECHO
+    # @param data Datos sensados.
+    # @return Retorna String con el formato indicado.
+    #
     def getParAprendidos(self,data):
         s=data[Const.SENSOR_COLOR_DETECT_LINE_ID]
         return str(Const.SENSOR_COLOR_DETECT_LINE_ID)+ "#" + str(s[0]) + "#" +str(s[1]) + "#" +str(s[2])  
@@ -133,7 +130,7 @@ if __name__ == '__main__':
   
         '''
         rospy.spin()
-        a.endTopic() 
+        #a.endTopic() 
 
 
 
