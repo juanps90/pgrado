@@ -180,19 +180,55 @@ def backtrack(C , X , Y, i, j,sentido):
  
 
 
-
+def colorear(nodeId, params, color_nodes):
+    if nodeId in color_nodes:
+        return 0
+    for sns in params:
+        if sns == Const.SENSOR_COLOR_DETECT_LINE_ID:
+            print "Tengo detect line, en nodoId:", nodeId, " con params: ", params
+            color_nodes[nodeId] = params[sns][1]
+            return 1
+        elif sns == Const.SENSOR_VISION_HEAD_ID:
+            print "Tengo head vision, en nodoId:", nodeId, " con params: ", params
+            color_nodes[nodeId] = params[sns][1]
+            return 1
+    return 0
 
 def graficarTopologia(topologia,idArchivo):
-    file = open (idArchivo+".dot","w")
+    file = open ("/tmp/" + idArchivo+".dot","w")
 
     file.write("digraph pcspec{\n\n")  
-
+    
+    color_nodes = {}
+    
     for t in topologia:
         label=str(diccionario[t[0]])+ "-"+str(diccionario[t[1]])
-        file.write(str(t[0])+ "->"+str(t[1])+' [ label="' + label + '" ]; \n') 
+        file.write(str(t[0])+ "->"+str(t[1])+' [ label="' + label + '" ]; \n')
+        colorear(t[0], parComp[t[0]], color_nodes)
+        colorear(t[1], parComp[t[1]], color_nodes)
+    
+    for t in color_nodes:
+        color = color_nodes[t]
+        if   color == Const.SENSOR_COLOR_DETECT_BLACK:
+            col = "black"
+        elif color == Const.SENSOR_COLOR_DETECT_WHITE:
+            col = "white"
+        elif color == Const.SENSOR_COLOR_DETECT_GREEN:
+            col = "green"
+        elif color == Const.SENSOR_COLOR_DETECT_RED:
+            col = "red"
+        elif color == Const.SENSOR_COLOR_DETECT_YELLOW:
+            col = "yellow"
+        elif color == Const.SENSOR_COLOR_DETECT_BLUE:
+            col = "blue"
+        elif color == Const.SENSOR_COLOR_DETECT_ORANGE:
+            col = "orange"
+
+        file.write(str(t) + "  [style=filled, fillcolor="+col+"]; \n")      
+        
     file.write("}")
     file.close()
-    os.system("dot "+idArchivo+".dot -T jpg > "+idArchivo+".jpg && eog "+idArchivo+".jpg ")
+    os.system("dot /tmp/"+idArchivo+".dot -T jpg > /tmp/"+idArchivo+".jpg && eog /tmp/"+idArchivo+".jpg ")
 
 
 
