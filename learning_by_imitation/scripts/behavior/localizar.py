@@ -78,7 +78,7 @@ class localizar(comportamiento):
         if self.action == self.ACTION_BACK:
             # voy hacia atras
             #azar=randint(0,2)
-            self.publish(-self.speed, -self.speed + 2)
+            self.publish(-self.speed, -self.speed + 1)
         elif self.action == self.ACTION_FORWARD:
             # sigo hacia adelante
             self.publish(self.speed, self.speed)

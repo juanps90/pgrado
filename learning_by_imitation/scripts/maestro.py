@@ -1029,10 +1029,16 @@ def atenderComandos(data):
     elif aux[0] == str(Const.COMMAND_PLAY):
         comando="ejecutar" 
         idTarea = aux[1]
-    elif aux[0] == str(Const.COMMAND_STOP):
-        comando="salir"
+    #elif aux[0] == str(Const.COMMAND_STOP):
+    #    comando="salir"
     elif aux[0] == str(Const.COMMAND_BAD):
         comando="bad"            
+    elif aux[0] == str(Const.COMMAND_GO):
+        comando="go"    
+    elif aux[0] == str(Const.COMMAND_COME):
+        comando="come"            
+    elif aux[0] == str(Const.COMMAND_EXIT):
+        comando="salir"            
 
 if __name__ == '__main__':    
 

@@ -235,6 +235,12 @@ def processCommand(data):
         msg.data = str(Const.COMMAND_STOP)
     elif comando[0] == "BAD":
         msg.data = str(Const.COMMAND_BAD)
+    elif comando[0] == "GO":
+        msg.data = str(Const.COMMAND_GO)
+    elif comando[0] == "COME":
+        msg.data = str(Const.COMMAND_COME)
+    elif comando[0] == "EXIT":
+        msg.data = str(Const.COMMAND_EXIT)
         
     #solo se podria calibrar si no se esta ahciendo nada
     if estado ==0:    
