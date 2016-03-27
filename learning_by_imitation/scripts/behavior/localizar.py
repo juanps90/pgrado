@@ -55,10 +55,10 @@ class localizar(comportamiento):
                 self.action = self.ACTION_BACK
             elif self.dataSensorColor[0] == color:
                 self.action = self.ACTION_TURN_LEFT
-                print "IZQUIERDA"
-            elif self.dataSensorColor[1] == color:
+                print "DERECHA"
+            elif self.dataSensorColor[2] == color:
                 self.action = self.ACTION_TURN_RIGHT
-                print "DERECHA"  
+                print "IZQUIERDA"  
             elif self.recienEstuveEnColor:
                 self.action = self.ACTION_BACK       
         if self.dataSensorColor[0] == color or self.dataSensorColor[1] == color or self.dataSensorColor[2] == color  :
@@ -78,7 +78,7 @@ class localizar(comportamiento):
         if self.action == self.ACTION_BACK:
             # voy hacia atras
             #azar=randint(0,2)
-            self.publish(-self.speed, -self.speed + 1)
+            self.publish(-self.speed, -self.speed + 2)
         elif self.action == self.ACTION_FORWARD:
             # sigo hacia adelante
             self.publish(self.speed, self.speed)
