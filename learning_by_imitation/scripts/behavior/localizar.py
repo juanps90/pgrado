@@ -109,7 +109,7 @@ class localizar(comportamiento):
     def actuar(self):
         if self.cumplePrecondiciones () and self.nivelActivacion>0 and self.motorLibre:
             # SE DEBE RECIBIR EL PARAMETRO DEL COLOR DE LA LINEA. POR AHORA ES SOLO NEGRO.
-            self.wander(Const.SENSOR_COLOR_DETECT_BLACK)
+            self.wander(self.parametros[Const.SENSOR_COLOR_DETECT_LINE_ID][1])
             #rospy.loginfo(">>>ON localizar id:"+str(self.identify))
             ##rospy.loginfo( nivelActivacion)
             self.ejecutando=True

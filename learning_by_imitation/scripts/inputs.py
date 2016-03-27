@@ -47,8 +47,12 @@ def processSensorLineDetectColorData(data):
              sensorsData.append(Const.SENSOR_COLOR_DETECT_BLUE) 
         elif it > 0.3 and it < 0.35:
              sensorsData.append(Const.SENSOR_COLOR_DETECT_RED)
-        elif it > 0.35 and it < 0.4:
+        elif it > 0.35 and it < 0.38:
+             sensorsData.append(Const.SENSOR_COLOR_DETECT_ORANGE) 
+        elif it > 0.38 and it < 0.4:
              sensorsData.append(Const.SENSOR_COLOR_DETECT_GREEN) 
+        elif it > 0.4 and it < 0.5:
+             sensorsData.append(Const.SENSOR_COLOR_DETECT_YELLOW) 
         elif it > 0.5 and it < 0.7:
              sensorsData.append(Const.SENSOR_COLOR_DETECT_WHITE) 
         else:
