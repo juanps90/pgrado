@@ -25,8 +25,9 @@ class avanzar(comportamiento):
     def actuar(self):
         msgMotores = Float64MultiArray()
         if self.cumplePrecondiciones () and self.nivelActivacion>0 and self.motorLibre:
-            azar=randint(0,2)
-            msgMotores.data = [self.identify, self.speed, azar]
+            #azar=randint(0,2)
+            #msgMotores.data = [self.identify, self.speed, azar]
+            msgMotores.data = [self.identify, self.speed, self.speed]
             self.motores.publish(msgMotores)
     
             #rospy.loginfo(">>>ON avanzar id:"+str(self.identify))
