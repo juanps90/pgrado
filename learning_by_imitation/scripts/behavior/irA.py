@@ -5,7 +5,7 @@ from std_msgs.msg import Int32MultiArray, Float64MultiArray, Int32
 from random import randint
 import Const
 from comportamiento import comportamiento
-
+import os
 
 from atributos import Sensores
 
@@ -31,9 +31,7 @@ class irA(comportamiento):
     delay = 0
     changeTime = None
     
-    colorValido=[Const.SENSOR_COLOR_DETECT_RED,Const.SENSOR_COLOR_DETECT_RED,
-    Const.SENSOR_COLOR_DETECT_GREEN,Const.SENSOR_COLOR_DETECT_BLUE,
-    Const.SENSOR_COLOR_DETECT_YELLOW,Const.SENSOR_COLOR_DETECT_ORANGE]
+    colorValido=[Const.SENSOR_COLOR_DETECT_RED, Const.SENSOR_COLOR_DETECT_GREEN,Const.SENSOR_COLOR_DETECT_BLUE, Const.SENSOR_COLOR_DETECT_YELLOW,Const.SENSOR_COLOR_DETECT_ORANGE]
     
     #son las distancias minimas en aprender, angulo para esa distancia
     minDist=200
@@ -46,7 +44,6 @@ class irA(comportamiento):
         self.changeTime = rospy.Time.now() + rospy.Duration(self.delay)
         self.rate = rospy.Rate(10)
         self.light = rospy.Publisher('actuatorLed1Topic', Int32, queue_size = 1)
-
 
     ##
     # Busca en los elementos impares de la lista de datos del sensor de vision
@@ -223,6 +220,7 @@ class irA(comportamiento):
        # La distancia este en el intervalo [PARAM_DISTANCE - DELTA_DISTANCE, PARAM_DISTANCE + self.DELTA_DISTANCE]
        # El angulo este en el intervalo [PARAM_ANGLE - DELTA_ANGLE, PARAM_ANGLE + self.DELTA_ANGLE]
         
+       rospy.loginfo("EL COLOR EN IR_A ES " + str(headSensor[1]))
        
        cond0=  headSensor[1] in self.colorValido 
        cond1=self.PARAM_DISTANCE - self.DELTA_DISTANCE <= noseSensor 

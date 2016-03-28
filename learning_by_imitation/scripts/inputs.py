@@ -66,8 +66,6 @@ def processSensorLineDetectColorData(data):
 
 
 
-
-
 # Se publica en sensores un array de Float64 donde los valores son
 # En la posicion 0 el id del sensor
 # En la posicion 1 un valor entre 0 y 1. 0 indica que el objeto esta lo mas a la izquierda

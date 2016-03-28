@@ -188,6 +188,6 @@ if __name__ == '__main__':
     rospy.loginfo("datos localizar "+str(datos)) 
     l = localizar(datos) 
     rospy.spin()
-    #l.endTopic() 
+    l.endTopic() 
 
 

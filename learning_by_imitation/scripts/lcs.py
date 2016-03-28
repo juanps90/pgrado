@@ -204,8 +204,11 @@ def graficarTopologia(topologia,idArchivo):
     for t in topologia:
         label=str(diccionario[t[0]])+ "-"+str(diccionario[t[1]])
         file.write(str(t[0])+ "->"+str(t[1])+' [ label="' + label + '" ]; \n')
-        colorear(t[0], parComp[t[0]], color_nodes)
-        colorear(t[1], parComp[t[1]], color_nodes)
+        try:
+            colorear(t[0], parComp[t[0]], color_nodes)
+            colorear(t[1], parComp[t[1]], color_nodes)
+        except:
+            continue
     
     for t in color_nodes:
         color = color_nodes[t]
