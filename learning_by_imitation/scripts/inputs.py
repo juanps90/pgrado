@@ -1,9 +1,13 @@
 #!/usr/bin/env python
+import os
 import sys
 import rospy
 from std_msgs.msg import String, Float64, Float64MultiArray,Int32MultiArray
-import Const
 import time
+#
+import Const
+import salvarXML
+import cargarXML
 
 delay=1.2
 contador=0
@@ -105,7 +109,7 @@ def processHeadVisionSensor(data):
                 print "dicCol ",dicColores
             else:                
                 #se compara con los datos ya calibrados si los hay sino se harcodea
-                if len(dicColores) ==0:     
+                if len(dicColores) == 0:     
 #                    dicColores[2]= [[0.0, 0.65882354974747, 0.074509806931019], [0.16078431904316, 0.83137255907059, 0.22352941334248]]
 #                    dicColores[3]= [[0.61960786581039, 0.0, 0.019607843831182], [0.71764707565308, 0.066666670143604, 0.078431375324726]]
 #                    dicColores[4]= [[0.69019609689713, 0.69019609689713, 0.054901961237192], [0.99607843160629, 0.99607843160629, 0.28627452254295]]
@@ -293,10 +297,29 @@ def setEstado(data):
        detener = estado == 0            
        print "Llego estado detener> " , detener 
 
-
+def inicializarParametros():
+    global dicColores 
+    salida = cargarXML.obtenerConfiguracion(Const.CONFIG_XML_NAME)
+    if salida[0] == 0:
+        # Encontro el archivo y esta bien
+        print 'Cargando configuracion existente de "{0}/{1}/{2}.xml"'.format(Const.PGRADO_HOME, Const.CONFIG_FOLDER_NAME, Const.CONFIG_XML_NAME)
+        dicColores = salida[1]
+    else:
+        # No encontro archivo => Cargo default
+        print 'No existe configuracion... usando default'
+        # dicColores[Const.SENSOR_COLOR_DETECT_BLACK]= [[0.0, 0.65, 0.0], [0.17, 1.0, 0.23]]
+        # dicColores[Const.SENSOR_COLOR_DETECT_WHITE]= [[0.60, 0.0, 0.0], [1.0, 0.12, 0.12]]
+        dicColores[Const.SENSOR_COLOR_DETECT_GREEN]= [[0.0, 0.65, 0.0], [0.17, 1.0, 0.23]]
+        dicColores[Const.SENSOR_COLOR_DETECT_RED]= [[0.60, 0.0, 0.0], [1.0, 0.12, 0.12]]
+        dicColores[Const.SENSOR_COLOR_DETECT_YELLOW]= [[0.69, 0.69, 0.0], [1.0, 1.0, 0.20]]
+        dicColores[Const.SENSOR_COLOR_DETECT_BLUE]= [[0.0, 0.0, 0.55], [0.25, 0.25, 1.0]] 
+        dicColores[Const.SENSOR_COLOR_DETECT_ORANGE]= [[0.65, 0.50, 0.20], [1.0, 1.0, 0.46]]
+        salvarXML.persistirConfiguracion(Const.CONFIG_XML_NAME, dicColores)
 
 if __name__ == '__main__':
     print "sensado"
+    # Antes de iniciar cualquier cosa, configuro o cargo la configuracion existente.
+    inicializarParametros()
     rospy.init_node('inputs', anonymous=True)
     
     proximitySensorData = rospy.Publisher('proximitySensorData', Float64, queue_size=50)

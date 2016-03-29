@@ -17,19 +17,22 @@ import fnmatch
 #		topologico = [(int,int),...] = [(idNodoIni,idNodoFin),...]
 #		networkCmp = [(int,int,int),...] = [(idNodoIni,idNodoFin,idTipoLink),...]
 #
-def obtenerGrafo(proceso):
+def obtenerGrafo(proceso):    
+    os.environ["pgrado_HOME"] = Const.PGRADO_HOME   
+    #
     errores = 0
     nodos = {}
     parametros = {}
     topologia = []
     networkDef = []    
-    nombre = r'{0}_0.xml'.format(proceso)
-    if len(fnmatch.filter(os.listdir('.'), '{0}_0.xml'.format(proceso))) == 0:
+    if len(fnmatch.filter(os.listdir('{0}/{1}'.format(os.getenv('pgrado_HOME', '#N/A'), Const.PERSIT_FOLDER_NAME)), '{0}_0.xml'.format(proceso))) == 0:
         print 'No se encuentra una generalizacion para la tarea "{0}".'.format(proceso)
         errores += 1
-    else:        
+    else:                
+        nombre = '{0}/{1}/{2}_0.xml'.format(os.getenv('pgrado_HOME', '#N/A'), Const.PERSIT_FOLDER_NAME, proceso)
         with open(nombre) as f:
             xml = f.read()
+            f.close()
         root = objectify.fromstring(xml)
         for definicion in root.getchildren():
             if definicion.get("seccion") == Const.SECCION_NODOS:
@@ -64,16 +67,18 @@ def obtenerGrafo(proceso):
 
 #   obtener_definicion
 #
-def obtenerConfiguracion(nombreConfiguracion):
+def obtenerConfiguracion(nombreConfiguracion):    
+    os.environ["pgrado_HOME"] = Const.PGRADO_HOME   
     errores = 0
     colores = {}    
-    nombre = r'{0}.xml'.format(nombreConfiguracion)
-    if len(fnmatch.filter(os.listdir('.'), '{0}.xml'.format(nombreConfiguracion))) == 0:
+    if len(fnmatch.filter(os.listdir('{0}/{1}'.format(os.getenv('pgrado_HOME', '#N/A'), Const.CONFIG_FOLDER_NAME)), '{0}.xml'.format(nombreConfiguracion))) == 0:
         print 'No se encuentra la calibracion solicitada ("{0}").'.format(nombreConfiguracion)
         errores += 1
-    else:        
+    else:      
+        nombre = '{0}/{1}/{2}.xml'.format(os.getenv('pgrado_HOME', '#N/A'), Const.CONFIG_FOLDER_NAME, nombreConfiguracion)
         with open(nombre) as f:
             xml = f.read()
+            f.close()
         root = objectify.fromstring(xml)
         for seccion in root.getchildren():
             if seccion.get("seccion") == Const.SECCION_COLORES:

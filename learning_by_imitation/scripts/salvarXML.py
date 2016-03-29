@@ -22,7 +22,8 @@ import lxml
 #		topologico = [(int,int),...] = [(idNodoIni,idNodoFin),...]
 #		networkCmp = [(int,int,int),...] = [(idNodoIni,idNodoFin,idTipoLink),...]
 #
-def persistirGrafo(proceso, tipo, generalizado, DicNodos, DicParametros, ListTopologia, ListNetworkDef):
+def persistirGrafo(proceso, tipo, generalizado, DicNodos, DicParametros, ListTopologia, ListNetworkDef):    
+    os.environ["pgrado_HOME"] = Const.PGRADO_HOME   
     # Para debug lo imprimo
     #print 'proceso: {0}\ngeneralizado: {1}\nnodos: {2}\nparametros: {3}\ntopologia: {4}\nnetwork: {5}\n'.format(proceso, generalizado, DicNodos, DicParametros, ListTopologia, ListNetworkDef)
     #
@@ -32,7 +33,7 @@ def persistirGrafo(proceso, tipo, generalizado, DicNodos, DicParametros, ListTop
         tipo = 'Generalizado'
     else:
         # Este va a ser un serial (contando la cantidad de archivos con principio de nombre "proceso"
-        idGrafo = len(fnmatch.filter(os.listdir('.'), proceso + '_*.xml'))
+        idGrafo = len(fnmatch.filter(os.listdir('{0}/{1}'.format(os.getenv('pgrado_HOME', '#N/A'), Const.PERSIT_FOLDER_NAME)), proceso + '_*.xml'))
         if idGrafo == 0:
             idGrafo += 1
     #
@@ -84,12 +85,14 @@ def persistirGrafo(proceso, tipo, generalizado, DicNodos, DicParametros, ListTop
     #print lxml.etree.tostring(DocumentoTMP, pretty_print=True, xml_declaration=True, encoding='utf-8')
     # Ahora Salvamos (sobreescribe por defecto)
     DocumentoXML = etree.tostring(DocumentoTMP, pretty_print=True, xml_declaration=True, encoding='utf-8')
-    with open('{0}_{1}.xml'.format(proceso, idGrafo), "w") as f:
-        f.write(DocumentoXML)
+    f = open('{0}/{1}/{2}_{3}.xml'.format(os.getenv('pgrado_HOME', '#N/A'), Const.PERSIT_FOLDER_NAME, proceso, idGrafo), "w")    
+    f.write(DocumentoXML)
+    f.close()
         
 #	persistirConfiguracion
 #
-def persistirConfiguracion(nombreConfiguracion, DiccionarioColores):
+def persistirConfiguracion(nombreConfiguracion, DiccionarioColores):    
+    os.environ["pgrado_HOME"] = Const.PGRADO_HOME   
     # Para debug lo imprimo
     #print 'nombreConfiguracion: {0}\nDiccionarioColores: {1}'.format(nombreConfiguracion, DiccionarioColores)
     #
@@ -132,11 +135,13 @@ def persistirConfiguracion(nombreConfiguracion, DiccionarioColores):
     #print lxml.etree.tostring(DocumentoTMP, pretty_print=True, xml_declaration=True, encoding='utf-8')
     # Ahora Salvamos (sobreescribe por defecto)
     DocumentoXML = etree.tostring(DocumentoTMP, pretty_print=True, xml_declaration=True, encoding='utf-8')
-    with open('{0}.xml'.format(nombreConfiguracion), "w") as f:
-        f.write(DocumentoXML)
+    f = open('{0}/{1}/{2}.xml'.format(os.getenv('pgrado_HOME', '#N/A'), Const.CONFIG_FOLDER_NAME, nombreConfiguracion), "w")
+    f.write(DocumentoXML)
+    f.close()
 
 if __name__ == "__main__":
     #
+    print 'main de salvar XML'
     n1 = {1:"A", 2:"B", 3:"C"} #nodos
     p1 = {1:{1:[0.167], 2:[0.5, 3.0]}, 2:{1:[0.099], 2:[4.66, 5.3]}, 3:{1:[0.169], 2:[0.75, 6.5]}} #parametros
     t1 = [(1, 2), (2, 3)] #topologia
@@ -152,5 +157,5 @@ if __name__ == "__main__":
          5:[[0.015686275437474, 0.0, 0.67058825492859], [0.2392156869173, 0.2392156869173, 0.87058824300766]], 
          6:[[0.65882354974747, 0.50588238239288, 0.062745101749897], [0.95294117927551, 0.80392158031464, 0.45490196347237]]
          }   
-    persistirConfiguracion(sys.argv[1], c1)
+    #persistirConfiguracion(sys.argv[1], c1)
     

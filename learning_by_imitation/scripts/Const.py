@@ -5,6 +5,12 @@ Created on Tue Feb  2 21:29:39 2016
 @author: viki
 """
 #
+# 
+PGRADO_HOME = '/home/viki/pgrado'
+PERSIT_FOLDER_NAME = 'persist'
+CONFIG_FOLDER_NAME = 'config'
+CONFIG_XML_NAME = 'parametros'
+#
 # Codificacion de colores para los sensores
 SENSOR_COLOR_DETECT_NONE = -1
 SENSOR_COLOR_DETECT_BLACK = 0
@@ -36,9 +42,6 @@ COMMAND_COME = 13
 COMMAND_GO = 14
 COMMAND_EXIT = 15
 COMMAND_HERE = 16
-
-
-
 #
 # Constantes para los tipos de links
 LINK_ORD=0
@@ -51,9 +54,8 @@ SECCION_PARAMETROS = 'parametros'
 SECCION_TOPOLOGIA = 'topologia'
 SECCION_NETWORK = 'network'
 SECCION_COLORES = 'colores'
-
+#
 # Tipos de atributos
-
 ATR_COLOR = 1
 ATR_DIST  = 2
 ATR_ANGLE = 3
