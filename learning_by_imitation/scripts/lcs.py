@@ -183,15 +183,31 @@ def backtrack(C , X , Y, i, j,sentido):
 def colorear(nodeId, params, color_nodes):
     if nodeId in color_nodes:
         return 0
+    print params
+    
     for sns in params:
+        print "toy loopeando", params[sns]
         if sns == Const.SENSOR_COLOR_DETECT_LINE_ID:
             print "Tengo detect line, en nodoId:", nodeId, " con params: ", params
-            color_nodes[nodeId] = params[sns][1]
-            return 1
+            color_nodes[nodeId] = {"color":params[sns][1],"label":str(nodeId)}
+        
         elif sns == Const.SENSOR_VISION_HEAD_ID:
             print "Tengo head vision, en nodoId:", nodeId, " con params: ", params
-            color_nodes[nodeId] = params[sns][1]
-            return 1
+            if not nodeId in color_nodes:
+                color_nodes[nodeId] = {"label":str(nodeId)}
+            
+            color_nodes[nodeId]["color"] = params[sns][1]
+            color_nodes[nodeId]["label"]+= " A"+str(round(params[sns][0],2))
+            print "el label queda " + color_nodes[nodeId]["label"]
+            
+        elif sns == Const.SENSOR_NOSE_ULTRASONIC_ID:
+            print "detecto ultrasonic"
+            if not nodeId in color_nodes:
+                color_nodes[nodeId] = {"label":str(nodeId), "color":""}
+            
+            color_nodes[nodeId]["label"]+= " D" + str(round(params[sns][0],2))
+            print "el label queda " + color_nodes[nodeId]["label"]
+    print "fin colorear"
     return 0
 
 def graficarTopologia(topologia,idArchivo):
@@ -209,9 +225,12 @@ def graficarTopologia(topologia,idArchivo):
             colorear(t[1], parComp[t[1]], color_nodes)
         except:
             continue
+        
     
     for t in color_nodes:
-        color = color_nodes[t]
+        values = color_nodes[t]
+        col = "white"
+        color = values["color"]
         if   color == Const.SENSOR_COLOR_DETECT_BLACK:
             col = "black"
         elif color == Const.SENSOR_COLOR_DETECT_WHITE:
@@ -226,12 +245,15 @@ def graficarTopologia(topologia,idArchivo):
             col = "blue"
         elif color == Const.SENSOR_COLOR_DETECT_ORANGE:
             col = "orange"
-
-        file.write(str(t) + "  [style=filled, fillcolor="+col+"]; \n")      
+            
+        
+            
+        label = ", label=\"" + values["label"] + "\""
+        file.write(str(t) + "  [style=filled, fillcolor="+col+ label+"]; \n")      
         
     file.write("}")
     file.close()
-    os.system("dot /tmp/"+idArchivo+".dot -T jpg > /tmp/"+idArchivo+".jpg && eog /tmp/"+idArchivo+".jpg ")
+    os.system("dot /tmp/"+idArchivo+".dot -T jpg > /tmp/"+idArchivo+".jpg && eog /tmp/"+idArchivo+".jpg &")
 
 
 
@@ -256,7 +278,7 @@ def graficarNetwork(network,idArchivo):
  
     file.write("}")
     file.close()
-    os.system("dot "+idArchivo+".dot -T jpg > "+idArchivo+".jpg && eog "+idArchivo+".jpg ")
+    os.system("dot "+idArchivo+".dot -T jpg > "+idArchivo+".jpg && eog "+idArchivo+".jpg &")
 
 
 def graficar(idArchivo):
