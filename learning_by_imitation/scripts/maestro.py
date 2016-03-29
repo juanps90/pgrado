@@ -1005,6 +1005,8 @@ def atenderComandos(data):
         comando="go"    
     elif aux[0] == str(Const.COMMAND_COME):
         comando="come"            
+    elif aux[0] == str(Const.COMMAND_HERE):
+        comando="here"            
     elif aux[0] == str(Const.COMMAND_EXIT):
         comando="salir"            
 

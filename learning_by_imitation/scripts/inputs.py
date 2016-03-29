@@ -237,6 +237,8 @@ def processCommand(data):
         msg.data = str(Const.COMMAND_GO)
     elif comando[0] == "COME":
         msg.data = str(Const.COMMAND_COME)
+    elif comando[0] == "HERE":
+        msg.data = str(Const.COMMAND_HERE)
     elif comando[0] == "EXIT":
         msg.data = str(Const.COMMAND_EXIT)
         
