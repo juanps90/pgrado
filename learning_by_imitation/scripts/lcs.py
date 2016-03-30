@@ -183,42 +183,42 @@ def backtrack(C , X , Y, i, j,sentido):
 def colorear(nodeId, params, color_nodes):
     if nodeId in color_nodes:
         return 0
-    print params
+    #print params
     
     for sns in params:
-        print "toy loopeando", params[sns]
+        #print "toy loopeando", params[sns]
         if sns == Const.SENSOR_COLOR_DETECT_LINE_ID:
-            print "Tengo detect line, en nodoId:", nodeId, " con params: ", params
+            #print "Tengo detect line, en nodoId:", nodeId, " con params: ", params
             color_nodes[nodeId] = {"color":params[sns][1],"label":str(nodeId)}
         
         elif sns == Const.SENSOR_VISION_HEAD_ID:
-            print "Tengo head vision, en nodoId:", nodeId, " con params: ", params
+            #print "Tengo head vision, en nodoId:", nodeId, " con params: ", params
             if not nodeId in color_nodes:
                 color_nodes[nodeId] = {"label":str(nodeId)}
             
             color_nodes[nodeId]["color"] = params[sns][1]
             color_nodes[nodeId]["label"]+= " A"+str(round(params[sns][0],2))
-            print "el label queda " + color_nodes[nodeId]["label"]
+            #print "el label queda " + color_nodes[nodeId]["label"]
             
         elif sns == Const.SENSOR_NOSE_ULTRASONIC_ID:
-            print "detecto ultrasonic"
+            #print "detecto ultrasonic"
             if not nodeId in color_nodes:
                 color_nodes[nodeId] = {"label":str(nodeId), "color":""}
             
             color_nodes[nodeId]["label"]+= " D" + str(round(params[sns][0],2))
-            print "el label queda " + color_nodes[nodeId]["label"]
-    print "fin colorear"
+            #print "el label queda " + color_nodes[nodeId]["label"]
+    #print "fin colorear"
     return 0
 
 def graficarTopologia(topologia,idArchivo):
     file = open ("/tmp/" + idArchivo+".dot","w")
-
+    #file = open ( idArchivo+".dot","w")
     file.write("digraph pcspec{\n\n")  
     
     color_nodes = {}
     print "diccionario ",diccionario
     for t in topologia:
-        print "valor de t",t
+        #print "valor de t",t
         label=str(diccionario[t[0]])+ "-"+str(diccionario[t[1]])
         file.write(str(t[0])+ "->"+str(t[1])+' [ label="' + label + '" ]; \n')
         try:
@@ -255,6 +255,7 @@ def graficarTopologia(topologia,idArchivo):
     file.write("}")
     file.close()
     os.system("dot /tmp/"+idArchivo+".dot -T jpg > /tmp/"+idArchivo+".jpg && eog /tmp/"+idArchivo+".jpg &")
+    #os.system("dot "+idArchivo+".dot -T jpg > "+idArchivo+".jpg && eog "+idArchivo+".jpg &")
 
 
 
@@ -280,13 +281,15 @@ def graficarNetwork(network,idArchivo):
     file.write("}")
     file.close()
     os.system("dot "+idArchivo+".dot -T jpg > "+idArchivo+".jpg && eog "+idArchivo+".jpg &")
+    #os.system("dot /tmp/"+idArchivo+".dot -T jpg > /tmp/"+idArchivo+".jpg && eog /tmp/"+idArchivo+".jpg &")
 
 
 def graficar(idArchivo):
     global topologiaGeneral
-    global networkGeneral
+    global networkGeneral 
+    graficarTopologia(topologiaGeneral,idArchivo) 
     graficarNetwork(networkGeneral,idArchivo)
-    graficarTopologia(topologiaGeneral,idArchivo)
+
 
 
 
@@ -493,15 +496,17 @@ def getTopologiaGeneral():
 def getDicParametros():
     global parComp
     return parComp
+    
+def getCompDeNodo(idNodo):
+    global diccionario
+    return diccionario[idNodo] 
 
 def getDicComportamientos():
+    '''
     #esto solo para probar ejecutar sin demostrar
     global topologiaGeneral
-    global diccionario
     global networkGeneral
     global parComp
-
-    '''
         #diccionario={0:1,1:2,2:0}
         parComp={0:{0:[0,0,0]},1:{0:[2,2,2]}}
         diccionario={0:"localizar",1:"avanzar",2:"init"}
@@ -509,6 +514,7 @@ def getDicComportamientos():
         topologiaGeneral=[(0,1),(1,2)]
     
     '''
+    global diccionario
     return diccionario
 
 
@@ -524,11 +530,19 @@ def setTopologiaGeneral(topologia):
 #ARREGLAR ACA ES APPEND
 def setDicParametros(param):
     global parComp
-    parComp.update(param)
+    for p in param:
+        parComp[p]=param[p]
+    
+    #parComp.update(param)
 
 def appendDicCom(comp):
     global diccionario
-    diccionario.update(comp)
+    print "comp antes",comp
+    print "dicAntes",diccionario
+    for c in comp:
+        diccionario[c]=comp[c]
+    print"dicdespues",diccionario
+    #diccionario.update(comp)
 
 
 def getNewId():

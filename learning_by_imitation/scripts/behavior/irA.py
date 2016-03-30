@@ -99,10 +99,12 @@ class irA(comportamiento):
                 # estoy muy cerca entonces retrocedo
                 if self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] < 0.1 :  
                     self.action = self.ACTION_BACK
-                elif randint(0, 1) == 0:
+                else:
                     self.action = self.ACTION_TURN_LEFT
-        else:
-            self.action = self.ACTION_FORWARD
+            else: 
+                self.action = self.ACTION_TURN_LEFT   
+        #else:
+            #self.action = self.ACTION_FORWARD
             
         return see
 
@@ -190,19 +192,23 @@ class irA(comportamiento):
        headSensor = data[Const.SENSOR_VISION_HEAD_ID]
        noseSensor = data[Const.SENSOR_NOSE_ULTRASONIC_ID]
        
-       # La condicion es que color sea igual al color dado.
-       # La distancia este en el intervalo [PARAM_DISTANCE - DELTA_DISTANCE, PARAM_DISTANCE + self.DELTA_DISTANCE]
-       # El angulo este en el intervalo [PARAM_ANGLE - DELTA_ANGLE, PARAM_ANGLE + self.DELTA_ANGLE]
-        
+
        rospy.loginfo("EL COLOR EN IR_A ES " + str(headSensor[1]))
        
+       #esta entre los colores es la unica condicion a verificar
+       #ya que se verifico que hay lectura de distancua mas arriba
        cond0=  headSensor[1] in self.colorValido 
+       
+       
+       '''
        cond1=self.PARAM_DISTANCE - self.DELTA_DISTANCE <= noseSensor 
        cond2=noseSensor[0] <= self.PARAM_DISTANCE + self.DELTA_DISTANCE  
        cond3=self.PARAM_ANGLE - self.DELTA_ANGLE <= headSensor[0] 
-       cond4=headSensor[0] <= self.PARAM_ANGLE + self.DELTA_ANGLE
-       
+       cond4=headSensor[0] <= self.PARAM_ANGLE + self.DELTA_ANGLE       
        if cond0 and cond1 and cond2 and cond3 and cond4:       
+       '''
+       
+       if cond0:           
            rospy.loginfo("SE CUMPLE POSTCONDICION IR A")
            activate=True
            

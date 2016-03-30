@@ -69,7 +69,7 @@ current_milli_time = lambda: int(round(time.time() * 1000))
 #solo se atiende si estamos en fase de aprendizaje
 def atenderAprender(data):
     global fase  
-    if fase == "aprender":
+    if fase == "aprender" or fase=="here":
         callback(data)
   
 def separarBloques(data):
@@ -229,7 +229,11 @@ def offLine ():
     global auxDicNodoParam
     
     
-    auxNodos = {}
+    auxNodos = {}     
+    auxDicNodoComp = {}
+    auxDicNodoParam = {}    
+    
+     
     
     idNodeAdd = lcs.getNewId()
     print "id nodo inicial ",idNodeAdd
@@ -292,7 +296,8 @@ def offLine ():
     for it in links:       
         print "links ",it[0]," ",it[1]," ",it[2]
         
-#se desacopla de offline para poder usar el metodo anterior en el metodo go, ya que ahi no se necesita este nodo init
+#se desacopla de offline para poder usar el metodo anterior en el metodo go, ya 
+#que ahi no se necesita este nodo init 
 #tal vez si se necesite ya que de habeer un solo nodo no hay links que agregar
 def agregarNodoInit(idInit):
     global links
@@ -304,7 +309,6 @@ def agregarNodoInit(idInit):
 
     if not  auxDicNodoComp.has_key(idInit):
         auxDicNodoComp[idInit] = "init"
-
     if not  auxDicNodoParam.has_key(idInit):
         auxDicNodoParam[idInit] = {}
     
@@ -480,6 +484,13 @@ def ejecutarBad():
     global nodoEjecutando 
     global tiempoBad
     global ordenes
+    global fase
+    
+    if fase!="ejecutar":
+        print "ATENCION solo se puede hacer BAD cuando se este ejecutando"    
+        return
+    fase="bad"
+    
     tiempoActual = current_milli_time()
     # si el nodo actual inicio hace menos de tiempoBad se borra el nodo anterior    
     tiempoDif = tiempoActual - nodoEjecutando[1][1]
@@ -487,8 +498,11 @@ def ejecutarBad():
     existeNodoAnterior = nodoEjecutando[0][0] != -1
     
     # se elimina el nodo que esta en ejecucion,si se termino el ciclo
-    #init envia un valor de -1 entonces se borra siempre el anterior a init
+    #init envia un su id se verifica si es el init entonces se borra siempre el anterior a init
     nodoABorrar = nodoEjecutando[1][0]
+    if lcs.getCompDeNodo(nodoABorrar)=="init":
+        nodoABorrar=-1
+    
     #si esta en init o existe el anterior y estoy en el tiempo se borra el anterior        
     if ( nodoABorrar==-1) or ( existeNodoAnterior and dentroDelTiempo):
         nodoABorrar = nodoEjecutando[0][0]   
@@ -508,7 +522,7 @@ def ejecutarBad():
         ordenes.publish(msg)
 
 
-
+    fase="ejecutar"
 
         
 
@@ -537,7 +551,15 @@ def ejecutarCome ():
     global nodos
     global fase
     global idNA
+
+    if fase!="ejecutar":
+        print "ATENCION solo se puede hacer come cuando se este ejecutando"    
+        return
     idCome=nodoEjecutando[1][0]
+    if idCome==-1: 
+        print "ATENCION no se puede agregar nodos"  
+        return    
+
     msg = Int32MultiArray()
     msg.data = [3,3] #estado para agregar comportamientos
     estado.publish(msg)
@@ -553,12 +575,16 @@ def ejecutarHere():
     global estado
     global fase
     global nodosParaAprender
+    
+    if fase!="come":
+        print "ATENCION solo se puede hacer here luego de Come"
+        return
 
     nodosParaAprender = {}
     for n in dicComp:
         if n!="init":#lanza nodos sin ser el init
             nodosParaAprender[n]= lanzarNodo(-1,n) 
-    fase="aprender"	   
+    fase="here"	   
 
     msg.data = [1,1]#podria ser el segundo valor el id del comportamiento
     estado.publish(msg)
@@ -569,18 +595,24 @@ def ejecutarHere():
 def ejecutarGo():  
     
     print "entro en go"    
-    
+    global fase
     global estado
     global idCome
     global nodosParaAprender
     global auxDicNodoParam
     global auxDicNodoComp    
     
+    if fase=="come":
+        print "ATENCION no hay nada nuevo aprendido"
+        return
+    
+    if fase!="here":
+        print "ATENCION solo se puede hacer Go luego de Here" 
+        return
     #se obtiene el grafo generado en la mini demostracion
     global links
     #se corta el grafo general 
-    global fase
-    fase="nada"
+
     msg.data = [0,1]#debe avisar antes de hacer offline que se cierra asi no quedan mensajes colgados 
     estado.publish(msg)
     for it in nodosParaAprender.values():
@@ -590,18 +622,18 @@ def ejecutarGo():
     
     #cortarGo(links,grafoGeneral,idCome)     
     #se vuelve al estado ejecucion
-    fase="ejecutar"
+
     msg.data = [2,2] 
     estado.publish(msg)  
     
   
     # agregarNodoInit()#agrega el nodo init al final de link y agrega enlaces de orden
     # aca se podria agregar el comportamiento del capitulo 5
-    if len (links) > 0:
+    if len (links) > 0:        
+        print "nodos nuevos en go",nodos
         grafoNuevo= crearTopologia(links)
         lcs.setDicParametros(auxDicNodoParam)
         lcs.appendDicCom(auxDicNodoComp)
-        
         lcs.graficarTopologia(grafoNuevo,"NuevaDemo")
         lcs.cortarGoCaminos(grafoNuevo,links,idCome,nodoEjecutando[0][0])
         lcs.graficar("ComeGo")         
@@ -609,7 +641,7 @@ def ejecutarGo():
         print "ATENCION: La demostracion no genero nodos"    
     
     
-     
+    fase="ejecutar"
     
     
   
@@ -753,9 +785,11 @@ def finDemo():
     # agregarNodoInit()#agrega el nodo init al final de link y agrega enlaces de orden
     # aca se podria agregar el comportamiento del capitulo 5
     if len (links) > 0:
+        topologia=crearTopologia(links)
         lcs.setDicParametros(auxDicNodoParam)
         lcs.appendDicCom(auxDicNodoComp)
-        lcs.nuevaDemostracion( crearTopologia(links), links, idTarea) 
+        lcs.nuevaDemostracion(topologia , links, idTarea) 
+        print "",
     else:
         print "ATENCION: La demostracion no genero nodos"    
           
@@ -822,6 +856,7 @@ def ejecutar():
     lcs.cargarEstructuras(idTarea) #se le deberia pasar id de la tarea a cargar
     dicNodoComp = lcs.getDicComportamientos()
     dicNodoParam = lcs.getDicParametros()
+    lcs.graficar("Ejecutar")
     print "dicc nodo param ", dicNodoParam
     if len (dicNodoParam) == 0:
         print "No hay nada para ejecutar", dicNodoComp

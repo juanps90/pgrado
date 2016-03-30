@@ -201,7 +201,7 @@ def arranqueNivel():
             msg = Int32MultiArray()
             rospy.loginfo("termino el ciclo") 
 
-            msg.data = [-1,-1] #por si necesito otro parametro        
+            msg.data = [identify,identify] #por si necesito otro parametro        
             nodoEjecutando.publish(msg) 
             msg.data = [0,1]
             pubEstado.publish(msg)            
