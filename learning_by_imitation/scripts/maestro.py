@@ -603,6 +603,9 @@ def ejecutarGo():
     global auxDicNodoComp    
     
     if fase=="come":
+        msg.data = [2,2] 
+        estado.publish(msg)  
+        fase="ejecutar"
         print "ATENCION no hay nada nuevo aprendido"
         return
     
