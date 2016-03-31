@@ -29,9 +29,10 @@ class localizar(comportamiento):
 
     speed = 2
     action = ACTION_BACK
+    #seteado para iniciar
     dataSensorColor = [Const.SENSOR_COLOR_DETECT_WHITE, Const.SENSOR_COLOR_DETECT_WHITE,Const.SENSOR_COLOR_DETECT_WHITE]
-
-    colorValido=[Const.SENSOR_COLOR_DETECT_BLACK,Const.SENSOR_COLOR_DETECT_YELLOW,Const.SENSOR_COLOR_DETECT_ORANGE, Const.SENSOR_COLOR_DETECT_GREEN]
+    #colores que el comportamiento acepta para localizar lineas de piso
+    colorValido=[Const.SENSOR_COLOR_DETECT_BLACK,Const.SENSOR_COLOR_DETECT_YELLOW,Const.SENSOR_COLOR_DETECT_ORANGE,Const.SENSOR_COLOR_DETECT_GREEN]
 
 
     recienEstuveEnColor=False
@@ -48,20 +49,19 @@ class localizar(comportamiento):
         self.rate = rospy.Rate(10)   
    
 
-    def getAction(self,color): 
-         
+    def getAction(self,color):          
         if self.dataSensorColor[1] != color:
             if self.dataSensorColor[0] == color and self.dataSensorColor[2] == color:
                 self.action = self.ACTION_BACK
             elif self.dataSensorColor[0] == color:
                 self.action = self.ACTION_TURN_LEFT
-                print "DERECHA"
+                print "IZQUIERDA"  
             elif self.dataSensorColor[2] == color:
                 self.action = self.ACTION_TURN_RIGHT
-                print "IZQUIERDA"  
+                print "DERECHA"
             elif self.recienEstuveEnColor:
                 self.action = self.ACTION_BACK       
-        if self.dataSensorColor[0] == color or self.dataSensorColor[1] == color or self.dataSensorColor[2] == color  :
+        elif self.dataSensorColor[0] == color or self.dataSensorColor[1] == color or self.dataSensorColor[2] == color  :
             self.recienEstuveEnColor=True
         else:    
             self.recienEstuveEnColor=False
@@ -122,22 +122,7 @@ class localizar(comportamiento):
 		 
 
 
-    '''
-    def verificarPoscondicionesSensores(self,data):
-        activate=False
-        #se puede evaluar aca o bien suscribirse a varios topicos y solo llamar a atendersensores (VER CAUL ES MEJOR ESTRATEGIA)
-        if data.data[0]==0:
-	    self.processSensorLineDetectedColorData(data)
 
-	if data.data[0]==1:
-	    self.processProximitySensorData(data)		
-	#esto es para probar con un comportamiento loc con otro color se haria con un topico de parametros     
-	if data.data[0] == 0 and (data.data[2] == 0 or data.data[2] == 2):#para que sea de permanencia, hay que revisar
-	    print "se cumple postcondicion localizar"
-	    activate=True
-	print "Active localizar",activate
-        return activate
-    '''
 
     def veriPosSenAprender(self, data):
         activate=False
@@ -190,4 +175,19 @@ if __name__ == '__main__':
     rospy.spin()
     l.endTopic() 
 
+    '''
+    def verificarPoscondicionesSensores(self,data):
+        activate=False
+        #se puede evaluar aca o bien suscribirse a varios topicos y solo llamar a atendersensores (VER CAUL ES MEJOR ESTRATEGIA)
+        if data.data[0]==0:
+	    self.processSensorLineDetectedColorData(data)
 
+	if data.data[0]==1:
+	    self.processProximitySensorData(data)		
+	#esto es para probar con un comportamiento loc con otro color se haria con un topico de parametros     
+	if data.data[0] == 0 and (data.data[2] == 0 or data.data[2] == 2):#para que sea de permanencia, hay que revisar
+	    print "se cumple postcondicion localizar"
+	    activate=True
+	print "Active localizar",activate
+        return activate
+    '''

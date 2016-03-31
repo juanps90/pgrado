@@ -375,9 +375,7 @@ def crearTopologia (enlaces):
     return salida
 
 
-def merggearNuevaDemo(idTarea):
-    global links
-    lcs.nuevaDemostracion( crearTopologia(links),links,idTarea )
+
                 
 ############################ 
 #Lanzar un nodo para
@@ -485,7 +483,7 @@ def ejecutarBad():
     global tiempoBad
     global ordenes
     global fase
-    
+    global idTarea
     if fase!="ejecutar":
         print "ATENCION solo se puede hacer BAD cuando se este ejecutando"    
         return
@@ -509,8 +507,13 @@ def ejecutarBad():
 
     if nodoABorrar==-1:
         return
-         
-    borrar=lcs.borrarNodoBad(nodoABorrar)        
+    print "nodoEjecutando ",nodoEjecutando  
+        
+    #el lcs verifica si se puede borrar el nodo     
+    #no se borra si solo queda un nodo y el init ni si el nodo ya fue borrado
+    #tener en cuenta que el ejecutando anterior al init es uno y si ya se borro
+    #no se puede volver a borrar
+    borrar=lcs.borrarNodoBad(idTarea,nodoABorrar)        
     lcs.graficar("bad")   
     
 
@@ -555,6 +558,7 @@ def ejecutarCome ():
     if fase!="ejecutar":
         print "ATENCION solo se puede hacer come cuando se este ejecutando"    
         return
+    print "nodoEjecutando ",nodoEjecutando
     idCome=nodoEjecutando[1][0]
     if idCome==-1: 
         print "ATENCION no se puede agregar nodos"  
@@ -600,7 +604,8 @@ def ejecutarGo():
     global idCome
     global nodosParaAprender
     global auxDicNodoParam
-    global auxDicNodoComp    
+    global auxDicNodoComp 
+    global idTarea
     
     if fase=="come":
         msg.data = [2,2] 
@@ -638,12 +643,13 @@ def ejecutarGo():
         lcs.setDicParametros(auxDicNodoParam)
         lcs.appendDicCom(auxDicNodoComp)
         lcs.graficarTopologia(grafoNuevo,"NuevaDemo")
-        lcs.cortarGoCaminos(grafoNuevo,links,idCome,nodoEjecutando[0][0])
+        lcs.cortarGoCaminos(idTarea,grafoNuevo,links,idCome,nodoEjecutando[0][0])
         lcs.graficar("ComeGo")         
     else:
         print "ATENCION: La demostracion no genero nodos"    
     
-    
+    print "nodoEjecutando ",nodoEjecutando," idCome ",idCome
+
     fase="ejecutar"
     
     
@@ -841,6 +847,11 @@ def ejecutar():
     global dicNodoComp
     global dicNodoParam
     global idTarea
+    global nodoEjecutando
+
+
+    
+    nodoEjecutando = ( (-1,-1) , (-1,-1) )
     
     #mata los nodos que hubiera activos
     for it in nodosParaAprender.values():
@@ -1322,4 +1333,10 @@ def separarCaminos(caminos):
     
     return salida
  
+'''
+
+'''
+def merggearNuevaDemo(idTarea):
+    global links
+    lcs.nuevaDemostracion( crearTopologia(links),links,idTarea )
 '''

@@ -211,8 +211,8 @@ def colorear(nodeId, params, color_nodes):
     return 0
 
 def graficarTopologia(topologia,idArchivo):
-    file = open ("/tmp/" + idArchivo+".dot","w")
-    #file = open ( idArchivo+".dot","w")
+    #file = open ("/tmp/" + idArchivo+".dot","w")
+    file = open ( idArchivo+".dot","w")
     file.write("digraph pcspec{\n\n")  
     
     color_nodes = {}
@@ -254,8 +254,8 @@ def graficarTopologia(topologia,idArchivo):
         
     file.write("}")
     file.close()
-    os.system("dot /tmp/"+idArchivo+".dot -T jpg > /tmp/"+idArchivo+".jpg && eog /tmp/"+idArchivo+".jpg &")
-    #os.system("dot "+idArchivo+".dot -T jpg > "+idArchivo+".jpg && eog "+idArchivo+".jpg &")
+    #os.system("dot /tmp/"+idArchivo+".dot -T jpg > /tmp/"+idArchivo+".jpg && eog /tmp/"+idArchivo+".jpg &")
+    os.system("dot "+idArchivo+".dot -T jpg > "+idArchivo+".jpg && eog "+idArchivo+".jpg &")
 
 
 
@@ -642,33 +642,51 @@ def borrarNodoBadCaminos(idBad, idPrevio):
         borrarNodoBad(idBad)
 
 #Nota los links no tienen un orden en la lista, el nodo init no se debe borrar (controlar en el q llama a este metodo)
-def borrarNodoBad(idBad):
+def borrarNodoBad(idTarea,idBad):
     global topologiaGeneral
     global networkGeneral
+    global diccionario
+    global parComp
     
+    encontroIdBad=False
+    print "nodo a Borar: ",idBad
     #se evita que se borren todos los nodos al menos un enlace debe quedar hacia el init
-    if len(topologiaGeneral)==1 and (topologiaGeneral[0][0]==idBad or topologiaGeneral[0][1]==idBad):    
+    if len(topologiaGeneral)==1 and (topologiaGeneral[0][0]==idBad or topologiaGeneral[0][1]==idBad):   
+        print "ATENCION no se puede borrar es el unico nodo"
         return False
     
-    #primero borra de la topologia
+    if diccionario[idBad]=="init":
+        print "ATENCION no se puede borrar el nodo init"
+        return False
+    
+    ##primero borra de la topologia##
     
     #creo la lista de destinos del nodo a borrar
     listaDestino=[]
     print "topo bad ",topologiaGeneral
     for d in range(len(topologiaGeneral)):
         if (topologiaGeneral[d][0]==idBad):
+            encontroIdBad=True
             #se agregan los id y comportamiento a listaDestino 
             listaDestino.append( topologiaGeneral[d][1])    
-                    
+        #para asegurarse que el idBad esta
+        elif (topologiaGeneral[d][1]==idBad):
+            encontroIdBad=True
+
+          
     print "destinos del nodo borrado",listaDestino
+    
+    #es porque no se encontro el nodo 
+    if not encontroIdBad:
+        print "No Existe el idBad"
+        return False
             
     #de los que son origen del nodo a borrar agrega los destinos del nodo a borrar
     for l in range(len(topologiaGeneral)):
         if (topologiaGeneral[l][1]==idBad):#idborrar es destino del links
             for d in range(len(listaDestino)):    
                 #se agregan links de orden entre los origens de los nodos y los destinos del nodo borrado 
-                topologiaGeneral.append( (topologiaGeneral[l][0],listaDestino[d]) )
-    
+                topologiaGeneral.append( (topologiaGeneral[l][0],listaDestino[d]) )    
     print "topo 2 bad",topologiaGeneral
     
     #se eliminana todos los links que tengan a idborrar como origen o destino
@@ -678,12 +696,14 @@ def borrarNodoBad(idBad):
     #para eliminar posibles repetidos en el caso del paper seria borrar el nodo C de arriba
     topologiaGeneral = list(set(topologiaGeneral))
 
-    #segundo borra de la network
+    ##segundo borra de la network##
     
     #se eliminana todos los links que tengan a idborrar como origen o destino
     for b in range(len(networkGeneral)-1,-1,-1):
         if (networkGeneral[b][0]==idBad or networkGeneral[b][1]==idBad):
             del networkGeneral[b] 
+            
+    salvarXML.persistirGrafo(idTarea, 'fullDemo', True, diccionario, parComp, topologiaGeneral, networkGeneral)            
     return True
 
 
@@ -697,10 +717,12 @@ def getMaxIdNodo():
 
 #no importa si la demo trae o no el nodo init se contemplan ambos casos
 #se supone que no hay id repetidos de la nueva demo 
-def cortarGoCaminos(nuevaTopologia,nuevaNetwork,idCome,idPrevio):
-    global topologiaGeneral
-    global networkGeneral
+def cortarGoCaminos(idTarea,nuevaTopologia,nuevaNetwork,idCome,idPrevio):
+    global topologiaGeneral 
     global diccionario
+    global parComp 
+    global networkGeneral    
+    
     
     if len(nuevaTopologia) == 0 or len(nuevaNetwork) == 0  :
         print "links de tamano cero en cortar"
@@ -827,6 +849,11 @@ def cortarGoCaminos(nuevaTopologia,nuevaNetwork,idCome,idPrevio):
         for s in sucesores:
             networkGeneral.append((n,s,Const.LINK_ORD)) 
     networkGeneral=list(set(networkGeneral+nuevaNetwork))
+    
+    salvarXML.persistirGrafo(idTarea, 'fullDemo', True, diccionario, parComp, topologiaGeneral, networkGeneral)
+    
+    
+    
     
 #no importa si la demo trae o no el nodo init se contemplan ambos casos
 #se supone que no hay id repetidos de la nueva demo
