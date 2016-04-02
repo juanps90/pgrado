@@ -66,10 +66,7 @@ def processSensorLineDetectColorData(data):
     salida = [Const.SENSOR_COLOR_DETECT_LINE_ID,  sensorsData[0], sensorsData[1], sensorsData[2]]
     #print "color: ",sensorsData[1]
     return salida
-       
-
-
-
+    
 # Se publica en sensores un array de Float64 donde los valores son
 # En la posicion 0 el id del sensor
 # En la posicion 1 un valor entre 0 y 1. 0 indica que el objeto esta lo mas a la izquierda
@@ -78,10 +75,11 @@ def processSensorLineDetectColorData(data):
 def processHeadVisionSensor(data):
     global calibrarColor
     global dicColores 
-    #print "data vision:",data
+
     if data==None:
         #print "********************   NONE   ****************************"
         return []
+    print "data vision:",data.data
     salida=[]
  
     # print "callback: ",data
@@ -135,13 +133,11 @@ def processHeadVisionSensor(data):
                             colorCode=c
                     if match:
                         break
-                
-                  
-            
+                    
                 #msgVisionSensorData.data = [Const.SENSOR_VISION_HEAD_ID,2, dataSensor[0], codeColor]
                 if len (salida)==0:
                     salida=[Const.SENSOR_VISION_HEAD_ID]
-                salida =salida+ [ datos[3], colorCode]
+                salida =salida+ [ datos[3], colorCode,datos[4],datos[5]]
    #print "cabeza ",salida
     return salida
 
@@ -208,7 +204,7 @@ def envioSensados():
     
         if not detener and len(mensaje)>0:
             sensores.publish(msg) 
-            print "envio sensores",msg.data
+            #print "envio sensores",msg.data
             
         dataLineDetectColor=None
         dataHeadVisionSensor=None
@@ -302,7 +298,7 @@ if __name__ == '__main__':
     rospy.init_node('inputs', anonymous=True)
     
     proximitySensorData = rospy.Publisher('proximitySensorData', Float64, queue_size=50)
-    sensores = rospy.Publisher('topicoSensores', String, queue_size=20)
+    sensores = rospy.Publisher('topicoSensores', String, queue_size=1)
     sensorLineDetectColorData = rospy.Publisher('sensorLineDetectedColorData', Float64MultiArray, queue_size=10)    
     command = rospy.Publisher('command', String, queue_size=10)    
     #processHeadVisionSensor = rospy.Publisher('processHeadVisionSensor', Float64MultiArray, queue_size=10)   

@@ -262,7 +262,7 @@ def graficarTopologia(topologia,idArchivo):
 
 def graficarNetwork(network,idArchivo):
     print "network ",network
-    file = open (idArchivo+".dot","w")
+    file = open ("net"+idArchivo+".dot","w")
 
     file.write("digraph pcspec{\n\n")  
 
@@ -280,7 +280,7 @@ def graficarNetwork(network,idArchivo):
  
     file.write("}")
     file.close()
-    os.system("dot "+idArchivo+".dot -T jpg > "+idArchivo+".jpg && eog "+idArchivo+".jpg &")
+    os.system("dot "+"net"+idArchivo+".dot -T jpg > "+"net"+idArchivo+".jpg && eog "+"net"+idArchivo+".jpg &")
     #os.system("dot /tmp/"+idArchivo+".dot -T jpg > /tmp/"+idArchivo+".jpg && eog /tmp/"+idArchivo+".jpg &")
 
 

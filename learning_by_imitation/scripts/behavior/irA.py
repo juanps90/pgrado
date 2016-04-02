@@ -50,11 +50,24 @@ class irA(comportamiento):
     # el color deseado, retornando  True si lo encuentra y false en otro caso.
     # @param ls lista de datos del sensor de vision.
     # @param c Color buscado.
-    # @return Retorna True si encuentra el color. False en otro caso.
+    # @return Retorna elindice donde esta el color si encuentra el color. False en otro caso.
     #
-    def hasColor(self, ls, c):
-        return c in ls[1::2]
-
+    def getIndObjetoColor(self, ls, c):
+        if c in ls[1::2]:
+            return ls.index(c)
+        return -1
+        
+    #recibe los datos de los sensores y verifica cual es el objeto mas cercano por el tama;o
+    def getIndObjetoMasCerca(self,data):    
+        highMax=-1
+        ind=-1
+        for d in range( len(data)-1):
+            aux= data[6*d+3]
+            if aux>highMax:
+                ind=d
+                highMax=aux
+        return ind  
+                
     ##
     # Retorna un True si veo algun objeto. En caso de ser visto setea en action la correspondiente 
     # accion a ejecutar. Esta accion puede ser girar a la derecha, girar a la izquierda, avanzar o retroceder.
@@ -75,9 +88,11 @@ class irA(comportamiento):
             #hay un objeto en frente qu eno es nuestro color            
             rospy.loginfo("DATA IN HEAD SENSOR " + str(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]))
 
-            
-            if self.hasColor(self.dataSensor[Const.SENSOR_VISION_HEAD_ID], color):
-                if self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):                
+            auxIndColor=self.getIndObjetoColor(self.dataSensor[Const.SENSOR_VISION_HEAD_ID], color)
+            if auxIndColor!=-1:
+                #se pregunta si el sensor de distancia esta activo pero ademas se debe verificar que la 
+                #distancia medida sea la del objeto y no de otro para eso se usa la altura
+                if self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID) and self.getIndObjetoMasCerca(self.dataSensor[Const.SENSOR_VISION_HEAD_ID])==auxIndColor:                
                     if self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] > distance + self.DELTA_DISTANCE:
                         self.action = self.ACTION_FORWARD
                     elif self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] < distance - self.DELTA_DISTANCE:
@@ -197,8 +212,7 @@ class irA(comportamiento):
        
        #esta entre los colores es la unica condicion a verificar
        #ya que se verifico que hay lectura de distancua mas arriba
-       cond0=  headSensor[1] in self.colorValido 
-       
+       cond0=  headSensor[1] in self.colorValido  
        
        '''
        cond1=self.PARAM_DISTANCE - self.DELTA_DISTANCE <= noseSensor 

@@ -195,7 +195,13 @@ class comportamiento(object):
             nodoEjecutable = cumplePrecondiciones and self.nivelActivacion > 0
             #rospy.loginfo("nodo ejecutable id:"+str(self.identify)+" "+str(nodoEjecutable))
             #rospy.loginfo("post detec id:"+str(self.identify)+" "+str(valorEncendido and nodoEjecutable))
-            msg.data = [self.identify,valorEncendido]   #cuando se ejecuta se envia el id del nodo
+            
+            #se deben cumplir postcondiciones pero ademas precondiciones para enviar un dato true
+            #esto para evitar que un nodo envie de orden cuando aun no deberia
+            preCD=0
+            if valorEncendido and cumplePrecondiciones:
+                preCD=1
+            msg.data = [self.identify,preCD]   #cuando se ejecuta se envia el id del nodo
             self.preCondDet.publish(msg)	
             msg.data = [self.identify,nodoEjecutable,-1]  
             self.solicitarOLiberarMotores.publish(msg)	

@@ -61,6 +61,9 @@ nodosParaAprender = {}
 # nodos lanzados an el proceso de ejecucion
 nodosParaEjecutar = {}
 current_milli_time = lambda: int(round(time.time() * 1000))  
+debug=False
+diccSenAprender={}
+
 
 ################################
 #APRENDER
@@ -104,6 +107,12 @@ def compararParametros(data1,data2):
     print "SON IGUALES"
     return True
 
+
+
+
+
+
+
 # se pueden pasar parametros como un array donde el primer elemento indica el tipo 
 # de parametro y el segundo cantidad de valores los demas serian los daots, con un for se recorre etc
 def callback(data):    
@@ -123,6 +132,7 @@ def callback(data):
 
     global nodos
     global idNA
+    global debug
 
     if postcondicion == 1:
         #nodo nuevo comportamiento recien activado
@@ -135,14 +145,16 @@ def callback(data):
             #print "nodo comportamiento sigue activo"
             #actualizar datos del nodoactivo en ambas estructuras nodos y dicc
             updateParam(nodos[idActivo], param)  
-            print "update nodos: ",nodos
+            if debug:
+                print "update nodos: ",nodos
         #no hay nodo activo se agrega uno nuevo
         else:
            
             #agregar nodo            
             nuevoNodo=(idNA, current_milli_time(), -1, comportamiento, param)
-            print "idNA en call ",idNA," largo ",len (nodos) ," ",nuevoNodo
-            print comportamiento,"nodo comportamiento nuevo ",nodos
+            if debug:
+                print "idNA en call ",idNA," largo ",len (nodos) ," ",nuevoNodo
+                print comportamiento,"nodo comportamiento nuevo ",nodos
             nodos[idNA]= nuevoNodo
             #nodos.append(nuevoNodo)
             Diccionario[comportamiento].append(nuevoNodo)       
@@ -151,12 +163,14 @@ def callback(data):
 
     #comportamiento que estaba activo y se apaga
     elif nodoActivo(comportamiento) != -1:
-        print "finalizar nodo comportamiento",comportamiento
+        if debug:        
+            print "finalizar nodo comportamiento",comportamiento
         #verificar que el inicio del nodo actual esta a menos de 
         #errorRuidNAo del fin de otro nodo del mismo comportamiento 
         #en tal caso hacer un merge
         tiempoFinal=current_milli_time()
-        print "tiempo final: ",tiempoFinal," ",comportamiento
+        if debug:        
+            print "tiempo final: ",tiempoFinal," ",comportamiento
         lista=Diccionario[comportamiento]
         tamanio=len(lista)
         hayQueMerger=False        
@@ -168,9 +182,11 @@ def callback(data):
             anterior=list(lista[tamanio-2])
             #se verifica inicio del ultimo y fin del anterior y se saca el ultimo de diccionario y se
             #le asigna final al anterior, de los nodos se saca el de id ultimo
-            print ultimo[1]-anterior[2]
+            if debug:            
+                print ultimo[1]-anterior[2]
             if (ultimo[1]-anterior[2])<errorRuido and compararParametros(ultimo[4],anterior[4]):
-                print "hay que merger ",comportamiento
+                if debug: 
+                    print "hay que merger ",comportamiento
                 # FALTA hacer el merge teniento en cuenta los parametros 
                 hayQueMerger=True                
                 del lista[tamanio-1]
@@ -197,7 +213,8 @@ def callback(data):
             Diccionario[comportamiento]=lista
             nodos[ultimo[0]]=finalizado
             #cerrarNodo(ultimo[0],finalizado)
-            print comportamiento, " cerrar directamente ", finalizado
+            if debug: 
+                print comportamiento, " cerrar directamente ", finalizado
 
         #print nodos  
 
@@ -352,6 +369,14 @@ def mergeNodos(idEliminar,idModificar,nodoMergueado):
                 return
 '''
 
+
+
+
+
+
+
+
+
 #solo se usa para crear la topologia a partir de una sola demostracion
 def crearTopologia (enlaces):
     salida =[]
@@ -361,18 +386,31 @@ def crearTopologia (enlaces):
         # se agregan al diccionario todos los nodos
         if not aux.has_key(l[0]):
             aux[l[0]]=0
-        # se agrega el nodo destino porque eventualmente podria ser el nodo final y no aparece como inicio de links
+        # se agrega el nodo destino porque eventualmente podria ser el
+        #nodo final y no aparece como inicio de links
         if not aux.has_key(l[1]):
             aux[l[1]]=0
         aux[l[0]]=aux[l[0]]+1
-    lista=aux.items()
+#lista=aux.items()
 
-    # ordena por largo del camino
-    ordenado=sorted(lista,key=lambda tup:tup[1])  
-    for i in range(len(ordenado)-1):
-        salida.append((ordenado[i+1][0],ordenado[i][0]))
-    print "links cretto",enlaces," salida ",salida
+    ordenado={}
+    for n in aux:
+        numSuc=aux[n]
+        if not ordenado.has_key(numSuc):
+            ordenado[numSuc]=[]
+        ordenado[numSuc].append(n)
+
+    for o in range (len(ordenado)-1,0,-1):
+        print o,ordenado
+        for p in ordenado[o]:
+            for s in ordenado[o-1]:
+                salida.append( (p,s) )
+
     return salida
+
+
+
+
 
 
 
@@ -554,6 +592,7 @@ def ejecutarCome ():
     global nodos
     global fase
     global idNA
+    global diccSenAprende
 
     if fase!="ejecutar":
         print "ATENCION solo se puede hacer come cuando se este ejecutando"    
@@ -569,6 +608,7 @@ def ejecutarCome ():
     estado.publish(msg)
 
     Diccionario={}
+    diccSenAprender={}
     nodos = {}
     idNA=0
     fase="come"
@@ -811,6 +851,7 @@ def aprender():
     global nodos
     global Diccionario
     global idNA
+    global diccSenAprender
     
     #if  fase=="aprender":
     #   return    
@@ -828,7 +869,8 @@ def aprender():
         if n!="init":#lanza nodos sin ser el init
             nodosParaAprender[n] = lanzarNodo(-1,n) 
 
-    fase="aprender"	    
+    fase="aprender"	
+    diccSenAprender={}    
     Diccionario = {}
     nodos = {}
     idNA = 0
@@ -1339,4 +1381,32 @@ def separarCaminos(caminos):
 def merggearNuevaDemo(idTarea):
     global links
     lcs.nuevaDemostracion( crearTopologia(links),links,idTarea )
+    
+
+
+
+
+
+def crearTopologia (enlaces):
+    salida =[]
+    aux={}#diccionario tendra todos los nodos y la cantidad de enlaces que tiene
+    print "links cretto",enlaces
+    for l in enlaces:
+        # se agregan al diccionario todos los nodos
+        if not aux.has_key(l[0]):
+            aux[l[0]]=0
+        # se agrega el nodo destino porque eventualmente podria ser el nodo final y no aparece como inicio de links
+        if not aux.has_key(l[1]):
+            aux[l[1]]=0
+        aux[l[0]]=aux[l[0]]+1
+    lista=aux.items()
+
+    # ordena por largo del camino
+    ordenado=sorted(lista,key=lambda tup:tup[1])  
+    for i in range(len(ordenado)-1):
+        salida.append((ordenado[i+1][0],ordenado[i][0]))
+    print "links cretto",enlaces," salida ",salida
+    return salida
+   
+    
 '''
