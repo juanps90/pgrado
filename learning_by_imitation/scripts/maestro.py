@@ -540,8 +540,14 @@ def ejecutarBad():
         nodoABorrar=-1
     
     #si esta en init o existe el anterior y estoy en el tiempo se borra el anterior        
-    if ( nodoABorrar==-1) or ( existeNodoAnterior and dentroDelTiempo):
-        nodoABorrar = nodoEjecutando[0][0]   
+    if ( nodoABorrar==-1)  or ( existeNodoAnterior and dentroDelTiempo):
+        nodoABorrar = nodoEjecutando[0][0]
+        nodoEjecutando = (-1, nodoEjecutando[1])
+    
+    elif nodoABorrar == nodoEjecutando[1][0] and nodoABorrar <> -1:
+        
+        nodoEjecutando = nodoEjecutando = (nodoEjecutando[0], -1)         
+        #odoEjecutando[0] = nodoEjecutando[1]
 
     if nodoABorrar==-1:
         return
@@ -574,6 +580,13 @@ def atenderNodoEjecutando(data):
     if  data.data[0] != nodoEjecutando[1][0]: 
         # acomodo los datos del que era ultimo pasa a ser el anterior        
         anterior=nodoEjecutando[1]
+        
+        # Para el caso de un BAD que haya eliminado el nodo en ejecucion nos deja
+        # el par (comportamientoAnterior, comportamientoActual= ( _ , -1)
+        # La idea es no perder ese comportamientoAnterior, evitando reemplazarlo por -1
+        if anterior == -1:
+            anterior = nodoEjecutando[0]
+            
         # agrero el nuevo nodo ejecutando con su tiempo de inicio
         a=data.data[0]
         b=current_milli_time()
@@ -683,7 +696,11 @@ def ejecutarGo():
         lcs.setDicParametros(auxDicNodoParam)
         lcs.appendDicCom(auxDicNodoComp)
         lcs.graficarTopologia(grafoNuevo,"NuevaDemo")
-        lcs.cortarGoCaminos(idTarea,grafoNuevo,links,idCome,nodoEjecutando[0][0])
+        nodoIdEjec = -1
+        if nodoEjecutando[0] <> -1:
+            nodoIdEjec = nodoEjecutando[0][0]
+            
+        lcs.cortarGoCaminos(idTarea,grafoNuevo,links,idCome,nodoIdEjec)
         lcs.graficar("ComeGo")         
     else:
         print "ATENCION: La demostracion no genero nodos"    
