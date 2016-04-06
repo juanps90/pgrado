@@ -61,7 +61,7 @@ nodosParaAprender = {}
 # nodos lanzados an el proceso de ejecucion
 nodosParaEjecutar = {}
 current_milli_time = lambda: int(round(time.time() * 1000))  
-debug=False
+debug=True
 diccSenAprender={}
 
 
