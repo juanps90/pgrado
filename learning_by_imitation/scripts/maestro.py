@@ -995,17 +995,20 @@ def atenderComandos(data):
     elif aux[0] == str(Const.COMMAND_EXIT):
         comando="salir"            
 
-def endNode():
-    print "Bye!"
-
 def finalize():
     finalizeTopic.publish("END")
-    rospy.on_shutdown(endNode)
+    rospy.signal_shutdown("Bye!")
+
+def shutdown():
+    print "Bye!"
 
 if __name__ == '__main__':    
 
     print "iniciando maestro"
-    rospy.init_node('maestro', anonymous=True) 
+
+    rospy.init_node('maestro', anonymous=True)
+    rospy.on_shutdown(shutdown)
+    
     id = 0
     dicComp = loadBehavior.load_abstract_behavior()
     #dicComp.remove("irA")
@@ -1100,10 +1103,10 @@ if __name__ == '__main__':
 	else:
          msg.data = [0,1]
          estado.publish(msg)
-        #entrada=raw_input("> ")        
-    #rospy.spin()
-
+        #entrada=raw_input("> ")
     finalize()
+    rospy.spin()
+
 
 '''
 

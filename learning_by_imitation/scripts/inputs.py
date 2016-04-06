@@ -170,8 +170,7 @@ def atenderHeadVisionSensor(data):
 
 
 def envioSensados(): 
-    #while rospy.ok():    
-    while True:    
+    while (not rospy.is_shutdown()):
         global dataLineDetectColor 
         global dataHeadVisionSensor 
         global dataProximitySensor 
@@ -292,17 +291,19 @@ def inicializarParametros():
         dicColores[Const.SENSOR_COLOR_DETECT_ORANGE]= [[0.65, 0.50, 0.20], [1.0, 1.0, 0.46]]
         salvarXML.persistirConfiguracion(Const.CONFIG_XML_NAME, dicColores)
 
-def endNode():
+def shutdown():
     print "Bye!"
 
 def finalize(data):
-    rospy.on_shutdown(endNode)
+    rospy.signal_shutdown("Bye!")
 
 if __name__ == '__main__':
     print "sensado"
     # Antes de iniciar cualquier cosa, configuro o cargo la configuracion existente.
     inicializarParametros()
     rospy.init_node('inputs', anonymous=True)
+    
+    rospy.on_shutdown(shutdown)
     
     proximitySensorData = rospy.Publisher('proximitySensorData', Float64, queue_size=50)
     sensores = rospy.Publisher('topicoSensores', String, queue_size=1)

@@ -75,6 +75,7 @@ class comportamiento(object):
         del bloques[0]
         self.parametros=self.separarSensados(bloques)
         self.initTopicos()
+        rospy.on_shutdown(self.endTopic)
 
 
     #se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores
@@ -435,6 +436,6 @@ class comportamiento(object):
 
 
     def finalize(self, data):
-        rospy.on_shutdown(self.endTopic)
+        rospy.signal_shutdown("Bye!")
 
     

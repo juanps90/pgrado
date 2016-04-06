@@ -82,12 +82,11 @@ def setEstado(data):
     print "motores nodo activo: ", str(NodoActivo),str(data.data)         
 
 
-def endNode():
+def shutdown():
     print "Bye!"
 
 def finalize(data):
-    print "me llegooooooooooooooooo"
-    rospy.on_shutdown(endNode)
+    rospy.signal_shutdown("Bye!")
 
 
 
@@ -95,6 +94,9 @@ if __name__ == '__main__':
     print "motores inicializados"  
 
     rospy.init_node('motores', anonymous=True)
+    
+    rospy.on_shutdown(shutdown)
+    
     motoresLockeado = rospy.Publisher('topicoMotorLockeado', Int32MultiArray, queue_size=1)
     rospy.Subscriber("topicoActuarMotores", Float64MultiArray, actuarMotoresVREP)
     leftVelocity=rospy.Publisher('/vrep/leftMotorVelocity', Float64, queue_size = 1)
