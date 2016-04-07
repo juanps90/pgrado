@@ -995,10 +995,20 @@ def atenderComandos(data):
     elif aux[0] == str(Const.COMMAND_EXIT):
         comando="salir"            
 
+def finalize():
+    finalizeTopic.publish("END")
+    rospy.signal_shutdown("Bye!")
+
+def shutdown():
+    print "Bye!"
+
 if __name__ == '__main__':    
 
     print "iniciando maestro"
-    rospy.init_node('maestro', anonymous=True) 
+
+    rospy.init_node('maestro', anonymous=True)
+    rospy.on_shutdown(shutdown)
+    
     id = 0
     dicComp = loadBehavior.load_abstract_behavior()
     #dicComp.remove("irA")
@@ -1014,6 +1024,7 @@ if __name__ == '__main__':
     rospy.Subscriber("topicoPostCondDet", String, atenderAprender)    
     motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
     pubCaminos = rospy.Publisher('topicoCaminos', Int32MultiArray, queue_size=100)
+    finalizeTopic = rospy.Publisher('finalize', String, queue_size=10)
     #rospy.Ssignal.signal(signal.SIGINT, handler)ubscriber("topicoCaminos", Int32MultiArray, atenderCaminos)   
     rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, atenderNodoEjecutando)    
     #rospy.Subscriber("preConditionsSetting", Int32MultiArray, setting)	 
@@ -1092,8 +1103,10 @@ if __name__ == '__main__':
 	else:
          msg.data = [0,1]
          estado.publish(msg)
-        #entrada=raw_input("> ")        
-    #rospy.spin()
+        #entrada=raw_input("> ")
+    finalize()
+    rospy.spin()
+
 
 '''
 

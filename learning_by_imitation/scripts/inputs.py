@@ -170,7 +170,7 @@ def atenderHeadVisionSensor(data):
 
 
 def envioSensados(): 
-    while True:
+    while (not rospy.is_shutdown()):
         global dataLineDetectColor 
         global dataHeadVisionSensor 
         global dataProximitySensor 
@@ -291,11 +291,19 @@ def inicializarParametros():
         dicColores[Const.SENSOR_COLOR_DETECT_ORANGE]= [[0.65, 0.50, 0.20], [1.0, 1.0, 0.46]]
         salvarXML.persistirConfiguracion(Const.CONFIG_XML_NAME, dicColores)
 
+def shutdown():
+    print "Bye!"
+
+def finalize(data):
+    rospy.signal_shutdown("Bye!")
+
 if __name__ == '__main__':
     print "sensado"
     # Antes de iniciar cualquier cosa, configuro o cargo la configuracion existente.
     inicializarParametros()
     rospy.init_node('inputs', anonymous=True)
+    
+    rospy.on_shutdown(shutdown)
     
     proximitySensorData = rospy.Publisher('proximitySensorData', Float64, queue_size=50)
     sensores = rospy.Publisher('topicoSensores', String, queue_size=1)
@@ -308,34 +316,11 @@ if __name__ == '__main__':
     rospy.Subscriber("/vrep/sensorLineDetectColorData", String, atenderSensorLineDetectColor) # Color en el piso (sensores de piso)
     rospy.Subscriber("/vrep/headSensor", String,atenderHeadVisionSensor) # vision color y angulo ("casquito")
     rospy.Subscriber("/vrep/proximitySensorData", String, atenderProximitySensor ) # distancia
+    rospy.Subscriber("finalize", String, finalize)
+    
     envioSensados()	
     rospy.spin()
-    
 
-
-'''
-def inputsManual():
-    print "Comienzo de la demostracion"
-    ingreso=raw_input()
-    while ingreso!= "salir":
-        # Aca se debe leer sensores     
-	
-        msg = Float64MultiArray()
-        if ingreso == "negro":
-            msg.data = [0,0,0,0]
-            sensores.publish(msg)
-        elif ingreso == "blanco":
-            msg.data = [0,1,1,1]
-            sensores.publish(msg)
-        elif ingreso == "verde":
-            msg.data = [0,2,2,2]
-            sensores.publish(msg)            
-        elif ingreso == "rojo":
-            msg.data = [0,3,3,3]
-            sensores.publish(msg)
-        ingreso=raw_input()
-    print "Fin del ingreso de datos"
-'''  
     
        
  

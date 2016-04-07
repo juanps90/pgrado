@@ -75,6 +75,7 @@ class comportamiento(object):
         del bloques[0]
         self.parametros=self.separarSensados(bloques)
         self.initTopicos()
+        rospy.on_shutdown(self.endTopic)
 
 
     #se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores
@@ -431,6 +432,10 @@ class comportamiento(object):
         self.topicoCam=rospy.Subscriber("topicoCaminos", Int32MultiArray, self.atenderCaminos)
         self.topicoEje=rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, self.atenderNodoEjecutando)
         self.topicoAct=rospy.Subscriber("topicoMotorLockeado", Int32MultiArray, self.atenderMotorLockeado)
+        rospy.Subscriber("finalize", String, self.finalize)
 
+
+    def finalize(self, data):
+        rospy.signal_shutdown("Bye!")
 
     

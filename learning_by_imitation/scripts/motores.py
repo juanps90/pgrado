@@ -3,7 +3,7 @@
 
 
 import rospy
-from std_msgs.msg import Int32MultiArray, Float64, Float64MultiArray, Int32
+from std_msgs.msg import Int32MultiArray, Float64, Float64MultiArray, Int32, String
 
 #postConditionDetect = None
 identify=0
@@ -81,10 +81,22 @@ def setEstado(data):
 
     print "motores nodo activo: ", str(NodoActivo),str(data.data)         
 
+
+def shutdown():
+    print "Bye!"
+
+def finalize(data):
+    rospy.signal_shutdown("Bye!")
+
+
+
 if __name__ == '__main__':
     print "motores inicializados"  
 
     rospy.init_node('motores', anonymous=True)
+    
+    rospy.on_shutdown(shutdown)
+    
     motoresLockeado = rospy.Publisher('topicoMotorLockeado', Int32MultiArray, queue_size=1)
     rospy.Subscriber("topicoActuarMotores", Float64MultiArray, actuarMotoresVREP)
     leftVelocity=rospy.Publisher('/vrep/leftMotorVelocity', Float64, queue_size = 1)
@@ -98,6 +110,7 @@ if __name__ == '__main__':
     
     rospy.Subscriber("topicosolicitarOLiberarMotores", Int32MultiArray, atendersolicitarOLiberarMotores)
     rospy.Subscriber("topicoEstado", Int32MultiArray, setEstado)  
+    rospy.Subscriber("finalize", String, finalize)
    
    
     rospy.spin()
