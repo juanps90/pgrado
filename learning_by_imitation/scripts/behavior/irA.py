@@ -183,6 +183,12 @@ class irA(comportamiento):
                         mlog("Recupero izquierda")
                         self.action = self.ACTION_TURN_LEFT
                         # sdas
+                    elif (curAngle > 0.5 and angle < curAngle):
+                        mlog("Acomodo derecha")
+                        self.action = self.ACTION_TURN_RIGHT
+                    elif (curAngle < 0.5 and angle > curAngle):
+                        mlog("Acomodo izquierda")
+                        self.action = self.ACTION_TURN_LEFT
                     
                     '''if  < angle - self.DELTA_ANGLE:
                         mlog("Recupero para un lado")
