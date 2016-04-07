@@ -9,6 +9,10 @@ import os
 
 from atributos import Sensores
 
+def mlog(msg):
+    with open("/tmp/log.txt", "a") as myfile:
+        myfile.write(msg + "\n")
+
 class irA(comportamiento):
     rate=None
  
@@ -36,6 +40,8 @@ class irA(comportamiento):
     #son las distancias minimas en aprender, angulo para esa distancia
     minDist=200
     angMinDist=1
+    avgA = 0
+    lastSeenRight = False
 
     def __init__(self,datos): 
         super(irA,self).__init__(datos) 
@@ -100,46 +106,115 @@ class irA(comportamiento):
     # @return Retorna un True si veo algun objeto. False en otro caso.
     #
     def getAction(self, color, distance, angle):
+        #mlog( "------------------------ GET ACTION")
         see = False
         sensoVision = self.dataSensor.has_key(Const.SENSOR_VISION_HEAD_ID) 
+        #mlog("VEO EL COSITO?")
+        #mlog("Busco Color: " + str(color) + ", array: " + str(self.dataSensor))
+        try:
+            mlog( "Angulo=" + str(self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0]) + "; tgt=" + str(angle))
+            
+        except:
+            pass
+        try:
+            mlog("dist=" + str(self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0]))
+        except:
+            pass
+        
+        
         if sensoVision :  
-            rospy.loginfo("VISTO")   
+            #mlog("VISTO")   
             see = True  
             
             #Aca se deberia recibir todos los pares anguo color y ver si entr los vistos
             #esta el color buscado, hay que tener cuidado de no avanzar si 
             #hay un objeto en frente qu eno es nuestro color            
-            rospy.loginfo("DATA IN HEAD SENSOR " + str(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]))
-
+            #rospy.loginfo("DATA IN HEAD SENSOR " + str(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]))
+                
+            
+            
             auxIndColor=self.getIndObjetoColor(self.dataSensor[Const.SENSOR_VISION_HEAD_ID], color)
             if auxIndColor!=-1:
+                
+                
+                curAngle = self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0]
+                if self.avgA == 0:
+                    self.avgA = curAngle
+                else:
+                    self.avgA = (self.avgA * 2 + curAngle)/3
+                    
+                curAngle = self.avgA
+                #mlog(  "color en vista")
                 #se pregunta si el sensor de distancia esta activo pero ademas se debe verificar que la 
                 #distancia medida sea la del objeto y no de otro para eso se usa la altura
                 if self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID) and self.getIndObjMoreNear(self.dataSensor[Const.SENSOR_VISION_HEAD_ID])==auxIndColor:                
+                    #mlog( "irA if1")
                     if self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] > distance + self.DELTA_DISTANCE:
                         self.action = self.ACTION_FORWARD
                     elif self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] < distance - self.DELTA_DISTANCE:
                         self.action = self.ACTION_BACK
                     elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] < angle - self.DELTA_ANGLE:
                         self.action = self.ACTION_TURN_LEFT
+                        self.lastSeenRight = False
                     elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] > angle + self.DELTA_ANGLE:
                         self.action = self.ACTION_TURN_RIGHT
-                else:   
+                        self.lastSeenRight = True
+                else:
+                    #mlog( "irA if2 con angle=" + str(angle) + "; " + str(self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0]) )
                     #ve el color pero no esta a una distancia adecuada centra y luego avanza
-                    if self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] < angle - self.DELTA_ANGLE:
-                        self.action = self.ACTION_TURN_LEFT
-                    elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] > angle + self.DELTA_ANGLE:
-                        self.action = self.ACTION_TURN_RIGHT
-                    else:
+                    
+                    
+                    
+                    
+                    if abs(curAngle - angle) < self.DELTA_ANGLE:
+                        # Muy proximos al angulo buscado
+                        mlog("En el angulo")
                         self.action = self.ACTION_FORWARD
+                    elif (curAngle > 0.5 and angle > curAngle):
+                        mlog("Avance por derecha")
+                        self.action = self.ACTION_FORWARD
+                    elif (curAngle < 0.5 and angle < curAngle):
+                        mlog("Avance por izquierda")
+                        self.action = self.ACTION_FORWARD
+                    elif (1-curAngle) < self.DELTA_ANGLE * 1.5:
+                        mlog("Recupero derecha")
+                        self.action = self.ACTION_TURN_RIGHT
+                    elif curAngle < self.DELTA_ANGLE * 1.5:
+                        mlog("Recupero izquierda")
+                        self.action = self.ACTION_TURN_LEFT
+                        # sdas
+                    
+                    '''if  < angle - self.DELTA_ANGLE:
+                        mlog("Recupero para un lado")
+                        self.action = self.ACTION_TURN_LEFT
+                        self.lastSeenRight = False
+                    elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] > angle + self.DELTA_ANGLE:
+                        mlog("Recupero para el otro lado")
+                        self.action = self.ACTION_TURN_RIGHT
+                        self.lastSeenRight = True
+                    elif (1-self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0]) < self.DELTA_ANGLE * 1.5:
+                        mlog("Engancho para la izquierda")
+                        self.action = self.ACTION_TURN_RIGHT
+                    elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] < self.DELTA_ANGLE * 1.5:
+                        mlog("Engancho para la derecha")
+                        self.action = self.ACTION_TURN_LEFT
+                    else:
+                        self.action = self.ACTION_FORWARD'''
             #no es el color buscado 
             elif self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):
+                #mlog( "irA if3")
                 # estoy muy cerca entonces retrocedo
                 if self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] < 0.1 :  
                     self.action = self.ACTION_BACK
                 else:
-                    self.action = self.ACTION_TURN_LEFT
+                    if self.lastSeenRight:
+                        self.action = self.ACTION_TURN_LEFT
+                        self.lastSeenRight = False
+                    else:
+                        self.action = self.ACTION_TURN_RIGHT
+                        self.lastSeenRight = True
             else: 
+                #mlog( "irA if4")
                 self.action = self.ACTION_TURN_LEFT   
         #else:
             #self.action = self.ACTION_FORWARD
@@ -193,7 +268,7 @@ class irA(comportamiento):
             self.publish(self.speed/2, -self.speed/2)   
          
          
-        rospy.loginfo("action " + str( self.action )+ " color "+str(color)+str(wander)) 
+        #rospy.loginfo("action " + str( self.action )+ " color "+str(color)+str(wander)) 
 
   
  
@@ -211,14 +286,14 @@ class irA(comportamiento):
             if self.parametros.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):    
                 dist=self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID]
             self.findObject(head[1], dist[0], head[0])
-#            rospy.loginfo(">>>ON irA id:"+str(self.identify))
-            #rospy.loginfo( nivelActivacion)
+#            #rospy.loginfo(">>>ON irA id:"+str(self.identify))
+            ##rospy.loginfo( nivelActivacion)
             self.ejecutando=True
             msg2 = Int32MultiArray()  
             msg2.data = [self.identify,self.identify] #por si necesito otro parametro        
             self.nodoEjecutando.publish(msg2) 
         else: 
-#           rospy.loginfo(">>>OFF irA id:"+str(self.identify))
+#           #rospy.loginfo(">>>OFF irA id:"+str(self.identify))
             self.ejecutando=False
 
    
@@ -231,13 +306,13 @@ class irA(comportamiento):
        noseSensor = data[Const.SENSOR_NOSE_ULTRASONIC_ID]
        
 
-       #rospy.loginfo("EL COLOR EN IR_A ES " + str(headSensor[1]))
+       ##rospy.loginfo("EL COLOR EN IR_A ES " + str(headSensor[1]))
        
        #esta entre los colores es la unica condicion a verificar
        #ya que se verifico que hay lectura de distancua mas arriba
        aux=self.getIndObjMoreNear(headSensor)
        cond0=  headSensor[aux*4+1] in self.colorValido  
-       rospy.loginfo("color a aprender "+str(headSensor[aux*4+1])+str(cond0))
+       #rospy.loginfo("color a aprender "+str(headSensor[aux*4+1])+str(cond0))
        '''
        cond1=self.PARAM_DISTANCE - self.DELTA_DISTANCE <= noseSensor 
        cond2=noseSensor[0] <= self.PARAM_DISTANCE + self.DELTA_DISTANCE  
@@ -247,11 +322,11 @@ class irA(comportamiento):
        '''
        
        if cond0:           
-           rospy.loginfo("SE CUMPLE POSTCONDICION IR A")
+           #rospy.loginfo("SE CUMPLE POSTCONDICION IR A")
            activate=True
            
-       rospy.loginfo("Active irA" + str(activate))
-       rospy.loginfo("color = " + str(headSensor[aux*4+1]) + " distancia  = " + str(noseSensor) + " angulo = " + str(headSensor[aux*4]))
+       #rospy.loginfo("Active irA" + str(activate))
+       #rospy.loginfo("color = " + str(headSensor[aux*4+1]) + " distancia  = " + str(noseSensor) + " angulo = " + str(headSensor[aux*4]))
        return activate
 
 
@@ -266,7 +341,7 @@ class irA(comportamiento):
             aux = aux or headSens.similar([l[i - 1], l[i]])
             i = i + 4
 
-        rospy.loginfo("EN SIMILAR HEAD SENSOR LOS DATOS SON " + str(l) + " Y LA SALIDA ES " + str(aux))
+        #rospy.loginfo("EN SIMILAR HEAD SENSOR LOS DATOS SON " + str(l) + " Y LA SALIDA ES " + str(aux))
         if aux:
             return indObj
         return -1
@@ -276,7 +351,7 @@ class irA(comportamiento):
        if (not data.has_key(Const.SENSOR_VISION_HEAD_ID)) or (not data.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID)):
            return False
       
-       rospy.loginfo("Estoy en veriPosSenEjecutar")
+       #rospy.loginfo("Estoy en veriPosSenEjecutar")
        headSens = Sensores.get(Const.SENSOR_VISION_HEAD_ID,     self.parametros[Const.SENSOR_VISION_HEAD_ID])
        ultrSens = Sensores.get(Const.SENSOR_NOSE_ULTRASONIC_ID, self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID])
        #msgLight = Int32()
@@ -291,13 +366,13 @@ class irA(comportamiento):
            rospy.loginfo("NO CUMPLE POSTCONDICION IR_A PARA " + str(self.identify))
            #msgLight.data = [self.identify,0]
            #self.light.publish(msgLight)
-       rospy.loginfo("Active irA" + str(activate))
+       #rospy.loginfo("Active irA" + str(activate))
        
        return activate
 
 
     def getParAprendidos(self,data):
-        rospy.loginfo("getparaprendidos ir a "+str(data))
+        #rospy.loginfo("getparaprendidos ir a "+str(data))
         proxim=[]
         head=[]
         outHead=""
@@ -337,7 +412,7 @@ if __name__ == '__main__':
     rospy.init_node('irA', anonymous=True) 
     #aca se recibe string se desenvuelve y se obtiene id y parametros       
     datos=str(rospy.myargv(argv=sys.argv)[1])
-    rospy.loginfo("datos irA "+str(datos)) 
+    #rospy.loginfo("datos irA "+str(datos)) 
     i = irA(datos)
     rospy.spin()
     i.endTopic()
@@ -351,7 +426,7 @@ if __name__ == '__main__':
 #        see = False        
 #        sensoVision = self.dataSensor.has_key(Const.SENSOR_VISION_HEAD_ID) 
 #        if sensoVision :  
-#            rospy.loginfo("VISTO")   
+#            #rospy.loginfo("VISTO")   
 #            see = True  
 #            if self.dataSensor[Const.SENSOR_VISION_HEAD_ID][1] == color: 
 #                if self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):                
