@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['wander',['wander',['../namespacelocalizar.html#a4d6a83826f3226a706c8fe7de79f5630',1,'localizar.wander()'],['../namespacetest_color_sensor.html#a4f3957da017ff921d4cfb3668c065dcc',1,'testColorSensor.wander()']]]
+  ['todosloscaminos',['todosLosCaminos',['../namespacelcs.html#a2d1f08bba9b3143e457fbb38afc6c318',1,'lcs']]],
+  ['todoslossucesores',['todosLosSucesores',['../namespacelcs.html#a91900f42f409b53ad796f25682e9b849',1,'lcs']]],
+  ['trancomcamatopologia',['tranComCamATopologia',['../namespacelcs.html#aa463565e286d5f42940183383399875e',1,'lcs']]],
+  ['trantopoacamino',['tranTopoACamino',['../namespacelcs.html#ad0e65b88a6eb55981441c2740bf86e58',1,'lcs']]]
 ];

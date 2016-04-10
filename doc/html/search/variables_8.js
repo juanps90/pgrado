@@ -1,8 +1,11 @@
 var searchData=
 [
-  ['mejorcamino',['MejorCamino',['../namespacelcs.html#a15b05538a8c6635fed6b0f96084e2389',1,'lcs']]],
-  ['motores',['motores',['../namespaceavanzar.html#ad846210a6f6c66545c6ca9b791bc53f0',1,'avanzar.motores()'],['../namespacego.html#a2751b815dc4f8ee3ad083d33044cdc61',1,'go.motores()'],['../namespaceinit.html#abe9606d51737c348ff657b7c04c82f2b',1,'init.motores()'],['../namespacelocalizar.html#a1fa9da2621708f6b095d5119195938f9',1,'localizar.motores()'],['../namespacemaestro.html#aaed86f6bf102087dd7a8865918a89ea5',1,'maestro.motores()'],['../namespacetest_color_sensor.html#adffa36895c090937871eb1adead91d37',1,'testColorSensor.motores()']]],
-  ['motoreslockeado',['motoresLockeado',['../namespacemotores.html#a94436ed9e8b9c45d112bffce34f74371',1,'motores']]],
-  ['motorlibre',['motorLibre',['../namespaceavanzar.html#a318d313e101bad314b1e0819197ace47',1,'avanzar.motorLibre()'],['../namespacego.html#a685ec44a1129b10f3ba4d1043d571054',1,'go.motorLibre()'],['../namespacelocalizar.html#a80ccb7338e18eeb03eb558e81c937fec',1,'localizar.motorLibre()']]],
-  ['msg',['msg',['../namespacemaestro.html#afec26c7ec5375a42be9b49ec03153d78',1,'maestro']]]
+  ['i',['i',['../namespaceir_a.html#aadb1c15b49236c58a73c733c64b7e36c',1,'irA']]],
+  ['id',['id',['../namespacemaestro.html#a2c271d05ec9462de9fc0d55919a03b43',1,'maestro']]],
+  ['idcome',['idCome',['../namespacemaestro.html#adab7a0fb460cac2303d55cfd33d2965a',1,'maestro']]],
+  ['idcomportamiento',['idComportamiento',['../classavanzar_1_1avanzar.html#a92d9303d595795cbb1cd94584874d73c',1,'avanzar.avanzar.idComportamiento()'],['../classir_a_1_1ir_a.html#aa8adf792723aab0e62af2ffecefc3658',1,'irA.irA.idComportamiento()'],['../classlocalizar_1_1localizar.html#ad31e6ac1aae922c86264243c2cc0f41a',1,'localizar.localizar.idComportamiento()'],['../classcomportamiento_1_1comportamiento.html#abdeb0aede1056edc21374abea27fc44d',1,'comportamiento.comportamiento.idComportamiento()'],['../classcomportamiento_1_1comportamiento.html#a0bde753bd682caa11d1f117f64c9111a',1,'comportamiento.comportamiento.idComportamiento()'],['../namespaceinit.html#afea31335eea88aeca7e19c6d8a5aa179',1,'init.idComportamiento()']]],
+  ['identify',['identify',['../classcomportamiento_1_1comportamiento.html#a60d7bd1cc2fa1f16d1e4378eb1b339c6',1,'comportamiento.comportamiento.identify()'],['../classcomportamiento_1_1comportamiento.html#a2f4360d799c8d4e1b5179f6376323d44',1,'comportamiento.comportamiento.identify()'],['../namespaceinit.html#aaf1877723c332368d5a592a6c783b62e',1,'init.identify()'],['../namespacemaestro.html#a0bac38514dc52396f8070b59d1f592f1',1,'maestro.identify()'],['../namespacemotores.html#ac4af9fec306792df7480e1732d90eee6',1,'motores.identify()']]],
+  ['idna',['idNA',['../namespacemaestro.html#a413c339c6998374d0ef7482b89ad4586',1,'maestro']]],
+  ['idtarea',['idTarea',['../namespacemaestro.html#a174a4778f2fece18c755137c313c2410',1,'maestro']]],
+  ['iscenter',['isCenter',['../classir_a_1_1ir_a.html#a949b6543123ebf218c04ef9fd6fe8dea',1,'irA::irA']]]
 ];

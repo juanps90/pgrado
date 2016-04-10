@@ -1,4 +1,21 @@
 var searchData=
 [
-  ['fase',['fase',['../namespacemaestro.html#a3935e5dccf9e8a400d445b649e4b6833',1,'maestro']]]
+  ['dataheadvisionsensor',['dataHeadVisionSensor',['../namespaceinputs.html#a1b9999984f89af405b3ab0271c510130',1,'inputs']]],
+  ['datalinedetectcolor',['dataLineDetectColor',['../namespaceinputs.html#a38e6d548ba87d691f98e6628598e4cc8',1,'inputs']]],
+  ['dataproximitysensor',['dataProximitySensor',['../namespaceinputs.html#a080da007b358a5eb17cccba03c7b19ea',1,'inputs']]],
+  ['datasensor',['dataSensor',['../classcomportamiento_1_1comportamiento.html#a17dd50dde55670a4aca38b9f391ae867',1,'comportamiento.comportamiento.dataSensor()'],['../classcomportamiento_1_1comportamiento.html#a4cb96aa92437dd5721dcb576ec4c7f5f',1,'comportamiento.comportamiento.dataSensor()']]],
+  ['datasensorcolor',['dataSensorColor',['../classlocalizar_1_1localizar.html#a0d617b354c3fbf726479b28951acb39c',1,'localizar.localizar.dataSensorColor()'],['../classcomportamiento_1_1comportamiento.html#ab41045a4d9bb62eda0c854a5a07920c7',1,'comportamiento.comportamiento.dataSensorColor()']]],
+  ['datos',['datos',['../namespaceavanzar.html#a05f8d61adc2e22ca8c1fb1932c7515af',1,'avanzar.datos()'],['../namespaceir_a.html#a315a5103ef412aab9ca6772aefc45196',1,'irA.datos()'],['../namespacelocalizar.html#a0e89c2fb243b1a1c27b34f3eaf43367e',1,'localizar.datos()']]],
+  ['debug',['debug',['../namespacemaestro.html#a0ca4b064538fbf8ab960b64ab7c8ccda',1,'maestro']]],
+  ['delay',['delay',['../classir_a_1_1ir_a.html#aa1fada7b35fe0baef57b3b561b843389',1,'irA.irA.delay()'],['../classir_a_1_1ir_a.html#adc60d6917531c41d95a1cdc873bdced4',1,'irA.irA.delay()'],['../classlocalizar_1_1localizar.html#ad43e090dfec82a360ff181077f7c750f',1,'localizar.localizar.delay()'],['../classlocalizar_1_1localizar.html#a35ed0d136e46e058881347d26ec16b8e',1,'localizar.localizar.delay()'],['../namespaceinputs.html#adc940f22eb4a044bfc7da77b545dc543',1,'inputs.delay()']]],
+  ['delta_5fangle',['DELTA_ANGLE',['../classir_a_1_1ir_a.html#a8e69baf84411a74acf28b8734b7e025d',1,'irA::irA']]],
+  ['delta_5fdistance',['DELTA_DISTANCE',['../classir_a_1_1ir_a.html#a7fdaad91c93bdd6216ffd8b658e21d76',1,'irA::irA']]],
+  ['detener',['detener',['../namespaceinputs.html#a73e26604db11903c4a0d3c892a30e1c1',1,'inputs']]],
+  ['diccionario',['diccionario',['../namespacelcs.html#a573c3358f228214c0c8aa18840894746',1,'lcs.diccionario()'],['../namespacemaestro.html#ae6ed8b9a2e2d2dc7e42f2a57af5b7252',1,'maestro.Diccionario()']]],
+  ['diccolores',['dicColores',['../namespaceinputs.html#a5a04077c8f5765e778a1d526540f8a6c',1,'inputs']]],
+  ['diccomp',['dicComp',['../namespacemaestro.html#af51a7868d7ab503278b0dc5d17b983b7',1,'maestro']]],
+  ['diccsenaprender',['diccSenAprender',['../namespacemaestro.html#aa1b10639a63abf70fb6ac0db7c52d8b9',1,'maestro']]],
+  ['dicnodocomp',['dicNodoComp',['../namespacemaestro.html#a522ef42ccb54b0159ecc6f889f0959fd',1,'maestro']]],
+  ['dicnodoparam',['dicNodoParam',['../namespacemaestro.html#aaa1a2e7baa0c9c67719388c5aaf2c941',1,'maestro']]],
+  ['dicpostcondicion',['dicPostCondicion',['../namespaceinit.html#a9d924ca0079e24d1fe82cdde4bcfbd55',1,'init']]]
 ];

@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
     <ul class="tablist">
       <li><a href="index.html"><span>Página&#160;principal</span></a></li>
       <li class="current"><a href="namespaces.html"><span>Namespaces</span></a></li>
+      <li><a href="annotated.html"><span>Clases</span></a></li>
       <li><a href="files.html"><span>Archivos</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -91,7 +92,7 @@ $(document).ready(function(){initNavTree('namespaceavanzar.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Archivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funciones</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Clases</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Archivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Funciones</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -102,563 +103,51 @@ $(document).ready(function(){initNavTree('namespaceavanzar.html','');});
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Funciones</a> &#124;
+<a href="#nested-classes">Clases</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">Referencia del Namespace avanzar</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Funciones</h2></td></tr>
-<tr class="memitem:a6dbaa278d27d399fd83a4301f6d232b1"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#a6dbaa278d27d399fd83a4301f6d232b1">actuar</a></td></tr>
-<tr class="separator:a6dbaa278d27d399fd83a4301f6d232b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae63e92b96ad7ec9e9d34ffdfe5cae38b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#ae63e92b96ad7ec9e9d34ffdfe5cae38b">atenderMotorLockeado</a></td></tr>
-<tr class="separator:ae63e92b96ad7ec9e9d34ffdfe5cae38b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a699b34a5332dadcc3f42ab3ad3edfbd4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#a699b34a5332dadcc3f42ab3ad3edfbd4">verificarPoscondicionesSensores</a></td></tr>
-<tr class="separator:a699b34a5332dadcc3f42ab3ad3edfbd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4dd9693923353bd4a0b7baba021325a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#aa4dd9693923353bd4a0b7baba021325a">atenderSensores</a></td></tr>
-<tr class="separator:aa4dd9693923353bd4a0b7baba021325a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecebf0a3ec6da082c587bcb17e175899"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#aecebf0a3ec6da082c587bcb17e175899">setEstado</a></td></tr>
-<tr class="separator:aecebf0a3ec6da082c587bcb17e175899"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad139fe6b062c28f64111737782e97b66"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#ad139fe6b062c28f64111737782e97b66">atenderNodoEjecutando</a></td></tr>
-<tr class="separator:ad139fe6b062c28f64111737782e97b66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4eeab03a7641093dcf2041bace1ce4c6"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#a4eeab03a7641093dcf2041bace1ce4c6">cumplePrecondiciones</a></td></tr>
-<tr class="separator:a4eeab03a7641093dcf2041bace1ce4c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1827b28937f48ed5c06a3f08c0d1f90d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#a1827b28937f48ed5c06a3f08c0d1f90d">evaluarPrecondicionesPorCaminos</a></td></tr>
-<tr class="separator:a1827b28937f48ed5c06a3f08c0d1f90d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0eee5dd4f300dfddacbb802360ebbfe4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#a0eee5dd4f300dfddacbb802360ebbfe4">setting</a></td></tr>
-<tr class="separator:a0eee5dd4f300dfddacbb802360ebbfe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56d6966cbf75384a9cf34462edba6985"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#a56d6966cbf75384a9cf34462edba6985">atenderCaminos</a></td></tr>
-<tr class="separator:a56d6966cbf75384a9cf34462edba6985"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f8e18eaf3a700398e76bdfb29708b93"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#a9f8e18eaf3a700398e76bdfb29708b93">separarCaminos</a></td></tr>
-<tr class="separator:a9f8e18eaf3a700398e76bdfb29708b93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb143f368f515b627a446869300dc571"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#aeb143f368f515b627a446869300dc571">atenderNivel</a></td></tr>
-<tr class="separator:aeb143f368f515b627a446869300dc571"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac42ce2831cbe31957280a89b985e9d5f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#ac42ce2831cbe31957280a89b985e9d5f">evaluarPrecondicion</a></td></tr>
-<tr class="separator:ac42ce2831cbe31957280a89b985e9d5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Clases</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classavanzar_1_1avanzar.html">avanzar</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ae0c5ca5f8f04668e8b6a8fee4e1e883b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#ae0c5ca5f8f04668e8b6a8fee4e1e883b">postConditionDetect</a> = None</td></tr>
-<tr class="separator:ae0c5ca5f8f04668e8b6a8fee4e1e883b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1de9553b06cf34002a2991a8504c9a18"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#a1de9553b06cf34002a2991a8504c9a18">identify</a> = -1</td></tr>
-<tr class="separator:a1de9553b06cf34002a2991a8504c9a18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d738afd0835301f35b1606b9f70affe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#a2d738afd0835301f35b1606b9f70affe">idComportamiento</a> = 2</td></tr>
-<tr class="separator:a2d738afd0835301f35b1606b9f70affe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acdda162b852d946eaac5a78768c5bae3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#acdda162b852d946eaac5a78768c5bae3">reejecutar</a> = True</td></tr>
-<tr class="separator:acdda162b852d946eaac5a78768c5bae3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adecdfabe45c5a3db33ffedcbdc885d79"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#adecdfabe45c5a3db33ffedcbdc885d79">ejecutando</a> = False</td></tr>
-<tr class="separator:adecdfabe45c5a3db33ffedcbdc885d79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba907db7227a49bee282dce92b8d195c"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#aba907db7227a49bee282dce92b8d195c">permanent</a> = {}</td></tr>
-<tr class="separator:aba907db7227a49bee282dce92b8d195c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b5f57e78f1188e0374905fb1f533406"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#a0b5f57e78f1188e0374905fb1f533406">enablig</a> = {}</td></tr>
-<tr class="separator:a0b5f57e78f1188e0374905fb1f533406"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08f2e37476e2f2749b81cc3075acf7c8"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#a08f2e37476e2f2749b81cc3075acf7c8">ordering</a> = {}</td></tr>
-<tr class="separator:a08f2e37476e2f2749b81cc3075acf7c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a332ca5f26cb2cc9839561115ae12a78c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#a332ca5f26cb2cc9839561115ae12a78c">nivelActivacion</a> = 0</td></tr>
-<tr class="separator:a332ca5f26cb2cc9839561115ae12a78c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18796f546c780967502fc461a8d6f346"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#a18796f546c780967502fc461a8d6f346">estado</a> = 1</td></tr>
-<tr class="separator:a18796f546c780967502fc461a8d6f346"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a318d313e101bad314b1e0819197ace47"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#a318d313e101bad314b1e0819197ace47">motorLibre</a> = False</td></tr>
-<tr class="separator:a318d313e101bad314b1e0819197ace47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33f1cf49229bccfbe2be24b582918aa3"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#a33f1cf49229bccfbe2be24b582918aa3">caminos</a> = []</td></tr>
-<tr class="separator:a33f1cf49229bccfbe2be24b582918aa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d61a6699a393a55fee41ca0b593bdd5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#a0d61a6699a393a55fee41ca0b593bdd5">speed</a> = 1</td></tr>
-<tr class="separator:a0d61a6699a393a55fee41ca0b593bdd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad846210a6f6c66545c6ca9b791bc53f0"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#ad846210a6f6c66545c6ca9b791bc53f0">motores</a> = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)</td></tr>
-<tr class="separator:ad846210a6f6c66545c6ca9b791bc53f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadb1049e61fe4072624c247648164823"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#aadb1049e61fe4072624c247648164823">preConditionDetect</a> = rospy.Publisher('preConditionDetect', Int32MultiArray, queue_size=10)</td></tr>
-<tr class="separator:aadb1049e61fe4072624c247648164823"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40a6937c22d4af477e13b054b658b8d2"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#a40a6937c22d4af477e13b054b658b8d2">nivel</a> = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10)</td></tr>
-<tr class="separator:a40a6937c22d4af477e13b054b658b8d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2897df57f739fa4f977ffc280b65b04"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#ae2897df57f739fa4f977ffc280b65b04">nodoEjecutando</a> = rospy.Publisher('topicoNodoEjecutando', Int32MultiArray, queue_size=10)</td></tr>
-<tr class="separator:ae2897df57f739fa4f977ffc280b65b04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b86631f06e609aba2605db4bcf05658"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#a8b86631f06e609aba2605db4bcf05658">solicitarOLiberarMotores</a> = rospy.Publisher('topicosolicitarOLiberarMotores', Int32MultiArray, queue_size=10)</td></tr>
-<tr class="separator:a8b86631f06e609aba2605db4bcf05658"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05f8d61adc2e22ca8c1fb1932c7515af"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#a05f8d61adc2e22ca8c1fb1932c7515af">datos</a> = str(rospy.myargv(argv=sys.argv)[1])</td></tr>
+<tr class="separator:a05f8d61adc2e22ca8c1fb1932c7515af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4aa963c63215b2dd60a3a777a27c3bc5"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceavanzar.html#a4aa963c63215b2dd60a3a777a27c3bc5">a</a> = <a class="el" href="classavanzar_1_1avanzar.html">avanzar</a>(<a class="el" href="namespaceavanzar.html#a05f8d61adc2e22ca8c1fb1932c7515af">datos</a>)</td></tr>
+<tr class="separator:a4aa963c63215b2dd60a3a777a27c3bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Documentación de las funciones</h2>
-<a class="anchor" id="a6dbaa278d27d399fd83a4301f6d232b1"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def avanzar.actuar </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00039">39</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a56d6966cbf75384a9cf34462edba6985"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def avanzar.atenderCaminos </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00249">249</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae63e92b96ad7ec9e9d34ffdfe5cae38b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def avanzar.atenderMotorLockeado </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00080">80</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aeb143f368f515b627a446869300dc571"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def avanzar.atenderNivel </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00328">328</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad139fe6b062c28f64111737782e97b66"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def avanzar.atenderNodoEjecutando </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00162">162</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa4dd9693923353bd4a0b7baba021325a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def avanzar.atenderSensores </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00106">106</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4eeab03a7641093dcf2041bace1ce4c6"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def avanzar.cumplePrecondiciones </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00170">170</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac42ce2831cbe31957280a89b985e9d5f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def avanzar.evaluarPrecondicion </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00354">354</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1827b28937f48ed5c06a3f08c0d1f90d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def avanzar.evaluarPrecondicionesPorCaminos </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00180">180</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9f8e18eaf3a700398e76bdfb29708b93"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def avanzar.separarCaminos </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>caminos</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00261">261</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aecebf0a3ec6da082c587bcb17e175899"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def avanzar.setEstado </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00147">147</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a0eee5dd4f300dfddacbb802360ebbfe4"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def avanzar.setting </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00210">210</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a699b34a5332dadcc3f42ab3ad3edfbd4"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def avanzar.verificarPoscondicionesSensores </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00091">91</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
 <h2 class="groupheader">Documentación de las variables</h2>
-<a class="anchor" id="a33f1cf49229bccfbe2be24b582918aa3"></a>
+<a class="anchor" id="a4aa963c63215b2dd60a3a777a27c3bc5"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">list avanzar.caminos = []</td>
+          <td class="memname">tuple avanzar.a = <a class="el" href="classavanzar_1_1avanzar.html">avanzar</a>(<a class="el" href="namespaceavanzar.html#a05f8d61adc2e22ca8c1fb1932c7515af">datos</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00034">34</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
+<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00104">104</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="adecdfabe45c5a3db33ffedcbdc885d79"></a>
+<a class="anchor" id="a05f8d61adc2e22ca8c1fb1932c7515af"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">avanzar.ejecutando = False</td>
+          <td class="memname">tuple avanzar.datos = str(rospy.myargv(argv=sys.argv)[1])</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00027">27</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a0b5f57e78f1188e0374905fb1f533406"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">dictionary avanzar.enablig = {}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00029">29</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a18796f546c780967502fc461a8d6f346"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int avanzar.estado = 1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00032">32</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2d738afd0835301f35b1606b9f70affe"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int avanzar.idComportamiento = 2</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00025">25</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1de9553b06cf34002a2991a8504c9a18"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tuple avanzar.identify = -1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00024">24</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad846210a6f6c66545c6ca9b791bc53f0"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tuple avanzar.motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00398">398</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a318d313e101bad314b1e0819197ace47"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">avanzar.motorLibre = False</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00033">33</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a40a6937c22d4af477e13b054b658b8d2"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tuple avanzar.nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00407">407</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a332ca5f26cb2cc9839561115ae12a78c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int avanzar.nivelActivacion = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00031">31</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae2897df57f739fa4f977ffc280b65b04"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tuple avanzar.nodoEjecutando = rospy.Publisher('topicoNodoEjecutando', Int32MultiArray, queue_size=10)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00408">408</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a08f2e37476e2f2749b81cc3075acf7c8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">dictionary avanzar.ordering = {}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00030">30</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aba907db7227a49bee282dce92b8d195c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">dictionary avanzar.permanent = {}</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00028">28</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae0c5ca5f8f04668e8b6a8fee4e1e883b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tuple avanzar.postConditionDetect = None</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00022">22</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aadb1049e61fe4072624c247648164823"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tuple avanzar.preConditionDetect = rospy.Publisher('preConditionDetect', Int32MultiArray, queue_size=10)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00400">400</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="acdda162b852d946eaac5a78768c5bae3"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">avanzar.reejecutar = True</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00026">26</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a8b86631f06e609aba2605db4bcf05658"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tuple avanzar.solicitarOLiberarMotores = rospy.Publisher('topicosolicitarOLiberarMotores', Int32MultiArray, queue_size=10)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00411">411</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a0d61a6699a393a55fee41ca0b593bdd5"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int avanzar.speed = 1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00035">35</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
+<p>Definición en la línea <a class="el" href="avanzar_8py_source.html#l00102">102</a> del archivo <a class="el" href="avanzar_8py_source.html">avanzar.py</a>.</p>
 
 </div>
 </div>
@@ -668,7 +157,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceavanzar.html">avanzar</a></li>
-    <li class="footer">Generado el Miércoles, 2 de Marzo de 2016 02:36:10 para pgrado por
+    <li class="footer">Generado el Domingo, 10 de Abril de 2016 00:27:49 para pgrado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

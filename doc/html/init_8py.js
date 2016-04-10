@@ -3,10 +3,12 @@ var init_8py =
     [ "arranqueNivel", "init_8py.html#a7d3acf08d708211b8800b37f67fc094c", null ],
     [ "atenderCaminos", "init_8py.html#a84653bcfd451b5f3889f31ffd85f07d5", null ],
     [ "atenderNodoEjecutando", "init_8py.html#a713705473168496ced49e2f3bcd5df8f", null ],
+    [ "atenderOrdenes", "init_8py.html#a5486e31be926f33b60a7ba4a2b1e0a96", null ],
     [ "cumplePrecondiciones", "init_8py.html#a08091698d754016f921c59e022afa0ed", null ],
     [ "evaluarPrecondicion", "init_8py.html#a7adf4128fa8602e07f54425641b1a352", null ],
     [ "evaluarPrecondicionesPorCaminos", "init_8py.html#a0fa2ff77d04f2ceb53e01768b716f784", null ],
     [ "evaluation", "init_8py.html#ad090f8cd8766f8b8596a9322cb3d45a7", null ],
+    [ "realizarBad", "init_8py.html#ac0f5abad00849714fbaababa8e538b6f", null ],
     [ "separarCaminos", "init_8py.html#a573233ca7c03c64db9bd21e81929798b", null ],
     [ "setEstado", "init_8py.html#afa887896b6b241210f36f4498110e8c5", null ],
     [ "setting", "init_8py.html#a98bf4240784f7bb0914204bc9ce4bf19", null ],
@@ -27,5 +29,6 @@ var init_8py =
     [ "permanent", "init_8py.html#a63a9086971109f1fd123f3c95689fb42", null ],
     [ "postConditionDetect", "init_8py.html#ad9b7fd3bc2742db5c3847684d9353506", null ],
     [ "preConditionDetect", "init_8py.html#a2b108660b97fbbf6b40a12bc4ab5e542", null ],
+    [ "pubEstado", "init_8py.html#a60a796681c16d5738b31dcd9b5db2a7b", null ],
     [ "reejecutar", "init_8py.html#ac41f6c97c867b47727fdef19680b7d42", null ]
 ];

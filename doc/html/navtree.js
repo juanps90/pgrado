@@ -9,6 +9,16 @@ var NAVTREE =
         [ "Variables", "namespacemembers_vars.html", null ]
       ] ]
     ] ],
+    [ "Clases", null, [
+      [ "Lista de clases", "annotated.html", "annotated" ],
+      [ "Índice de clases", "classes.html", null ],
+      [ "Jerarquía de la clase", "hierarchy.html", "hierarchy" ],
+      [ "Miembros de las clases", "functions.html", [
+        [ "Todo", "functions.html", null ],
+        [ "Funciones", "functions_func.html", null ],
+        [ "Variables", "functions_vars.html", null ]
+      ] ]
+    ] ],
     [ "Archivos", null, [
       [ "Lista de archivos", "files.html", "files" ]
     ] ]
@@ -17,8 +27,9 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_const_8py.html",
-"maestro_8py.html#a00e69ce870ed10b6768011ec07e71000"
+"____init_____8py.html",
+"inputs_8py.html#abb064e4697354eccb350587361ca72a1",
+"namespaceroslunch_demo.html"
 ];
 
 var SYNCONMSG = 'click en deshabilitar sincronización';

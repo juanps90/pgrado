@@ -1,10 +1,24 @@
 var searchData=
 [
-  ['ejecutando',['ejecutando',['../namespaceavanzar.html#adecdfabe45c5a3db33ffedcbdc885d79',1,'avanzar.ejecutando()'],['../namespacego.html#abe032f0fb57458e7393b29ac71782823',1,'go.ejecutando()'],['../namespaceinit.html#a4be33afa1d2aad296ba3e68c2cd9aefd',1,'init.ejecutando()'],['../namespacelocalizar.html#a4741d0b685a60cf563cde9a92dcf057b',1,'localizar.ejecutando()']]],
-  ['enablig',['enablig',['../namespaceavanzar.html#a0b5f57e78f1188e0374905fb1f533406',1,'avanzar.enablig()'],['../namespacego.html#a5612c9b79f2854e055a52b5aff883ed9',1,'go.enablig()'],['../namespaceinit.html#a5ab18a7d17380bfef7d159a6f36cde98',1,'init.enablig()'],['../namespacelocalizar.html#a49c4935119ea0559fa9e7e825e243a0e',1,'localizar.enablig()'],['../namespacemaestro.html#a00e69ce870ed10b6768011ec07e71000',1,'maestro.enablig()']]],
-  ['epsilon',['epsilon',['../namespacemaestro.html#a9618ed1d498340796759aa9cb5d13ff9',1,'maestro']]],
-  ['errorruido',['errorRuido',['../namespacemaestro.html#afaa29b55e18b0ae747bd4d4d54f764e2',1,'maestro']]],
-  ['estado',['estado',['../namespaceavanzar.html#a18796f546c780967502fc461a8d6f346',1,'avanzar.estado()'],['../namespacego.html#ad38fb55b8fae72ffc279b50dab1c3fe0',1,'go.estado()'],['../namespaceinit.html#ad9033d958ed35d8ebee3aed3873c52f3',1,'init.estado()'],['../namespacelocalizar.html#a68511ff452f172895e7e3f13225b22a6',1,'localizar.estado()'],['../namespacemaestro.html#a2be0e4ab473a569ec3d95c9e78e11a23',1,'maestro.estado()']]],
-  ['event',['event',['../namespacemaestro.html#aad72dc93b9a2ce1f73d83752c70f4d50',1,'maestro']]],
-  ['exe',['exe',['../namespaceroslunch_demo.html#a821bbd6c0a3932d12612bd2691fc9ced',1,'roslunchDemo']]]
+  ['c1',['c1',['../namespacesalvar_x_m_l.html#ab4bef4b28cfc1f304733b9dd3316924a',1,'salvarXML']]],
+  ['calibrarcolor',['calibrarColor',['../namespaceinputs.html#ae1f45a4a522521a36019871caf5a6533',1,'inputs']]],
+  ['caminitos',['caminitos',['../namespacemaestro.html#ae76f56d8008dc119fae665b5bfa54665',1,'maestro']]],
+  ['caminos',['caminos',['../classlocalizar_1_1localizar.html#a5c08f1dad613cacf5a42455eea54cf9f',1,'localizar.localizar.caminos()'],['../classcomportamiento_1_1comportamiento.html#a23ef80616f8d9c73a40a086ff9cd3b7d',1,'comportamiento.comportamiento.caminos()'],['../classcomportamiento_1_1comportamiento.html#a0b33dbc81d3a6e50e8b8d358b30b47bb',1,'comportamiento.comportamiento.caminos()'],['../namespaceinit.html#a6c488557c04273c187e8a006f43fbfbf',1,'init.caminos()']]],
+  ['changetime',['changeTime',['../classir_a_1_1ir_a.html#ab156349ea60b3ae9ad20b10af6792255',1,'irA.irA.changeTime()'],['../classlocalizar_1_1localizar.html#a7609af1263cb77349a4cec5f123897ad',1,'localizar.localizar.changeTime()']]],
+  ['colorvalido',['colorValido',['../classavanzar_1_1avanzar.html#a619e3bd2baa11ee4382ac88e8c319cfe',1,'avanzar.avanzar.colorValido()'],['../classir_a_1_1ir_a.html#a41328e1b2361fe4d62650a07a86082c2',1,'irA.irA.colorValido()'],['../classlocalizar_1_1localizar.html#a1bee0fc0b90c9001d73e66819e3ade76',1,'localizar.localizar.colorValido()']]],
+  ['comando',['comando',['../namespacemaestro.html#a43bb56c93eb0edc9e0a44866e906a4eb',1,'maestro.comando()'],['../namespacetest_light.html#a1d562ea0ee2f9e8e843cc5c8efb166e8',1,'testLight.comando()']]],
+  ['command',['command',['../namespaceinputs.html#ae249ec02168ec10700623bc9a6e304f2',1,'inputs.command()'],['../namespacetest_buttons.html#a66c8ce2ee998f6b92b2d7952e5c48518',1,'testButtons.command()']]],
+  ['command_5fbad',['COMMAND_BAD',['../namespace_const.html#a2edc39a7a825242ca4bbdf0519dfd656',1,'Const']]],
+  ['command_5fcome',['COMMAND_COME',['../namespace_const.html#acff04544779e3b5ba88dfc40b78d223d',1,'Const']]],
+  ['command_5fend_5flearning',['COMMAND_END_LEARNING',['../namespace_const.html#a66d9bb1612cbdcdcf533cde6ffe4f90a',1,'Const']]],
+  ['command_5fexit',['COMMAND_EXIT',['../namespace_const.html#a2debc5a6608dc2f19dd909bc111e6ed7',1,'Const']]],
+  ['command_5fgo',['COMMAND_GO',['../namespace_const.html#ad43c344dbcd908afe1c1a6d4427512bb',1,'Const']]],
+  ['command_5fhere',['COMMAND_HERE',['../namespace_const.html#acba7392a72d93b74e82660764a36b0c0',1,'Const']]],
+  ['command_5finit_5flearning',['COMMAND_INIT_LEARNING',['../namespace_const.html#a4a75715a46f7e5555b4ddde6587b377d',1,'Const']]],
+  ['command_5fplay',['COMMAND_PLAY',['../namespace_const.html#a9fa56d3429f1c81ccfa71e596ca5db40',1,'Const']]],
+  ['command_5fstop',['COMMAND_STOP',['../namespace_const.html#a580f3f8a5affac0e679908c3997efb08',1,'Const']]],
+  ['config_5ffolder_5fname',['CONFIG_FOLDER_NAME',['../namespace_const.html#af3b9983e91cc2bf2d4f87c39ab64ed93',1,'Const']]],
+  ['config_5fxml_5fname',['CONFIG_XML_NAME',['../namespace_const.html#a24ecff17a6e566c93e0d445b3ce929ff',1,'Const']]],
+  ['contador',['contador',['../namespaceinputs.html#a57662b51971e0724b8b5f25dc29f51c1',1,'inputs']]],
+  ['current_5fmilli_5ftime',['current_milli_time',['../namespacemaestro.html#a729b92cd7808fbf7eb0712428f367c8c',1,'maestro']]]
 ];

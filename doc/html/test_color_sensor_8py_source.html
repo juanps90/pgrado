@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
     <ul class="tablist">
       <li><a href="index.html"><span>Página&#160;principal</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
+      <li><a href="annotated.html"><span>Clases</span></a></li>
       <li class="current"><a href="files.html"><span>Archivos</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -90,7 +91,7 @@ $(document).ready(function(){initNavTree('test_color_sensor_8py_source.html','')
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Archivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funciones</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Clases</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Archivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Funciones</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -107,123 +108,27 @@ $(document).ready(function(){initNavTree('test_color_sensor_8py_source.html','')
 <a href="test_color_sensor_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespacetest_color_sensor.html">    1</a></span>&#160;<span class="comment">#!/usr/bin/env python</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">import</span> rospy</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">from</span> std_msgs.msg <span class="keyword">import</span> Float64MultiArray, Float64</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">from</span> random <span class="keyword">import</span> randint</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">import</span> Const</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="namespacetest_color_sensor.html#ae87df835770e2189140714c71bc676d2">    8</a></span>&#160;ACTION_FORWARD = 1</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="namespacetest_color_sensor.html#a9f6b745335fdd0b61a161d3f1b206d0d">    9</a></span>&#160;ACTION_TURN_LEFT = 2</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="namespacetest_color_sensor.html#ae1f64417bb220c2a8fda75dd4abd6411">   10</a></span>&#160;ACTION_TURN_RIGHT = 3</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="namespacetest_color_sensor.html#a958d2789ae30740499137ab7322a8ee6">   11</a></span>&#160;ACTION_BACK = 4</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="namespacetest_color_sensor.html#a2a857edd298c2f75d8cf79bc6c05d262">   13</a></span>&#160;identify = -1</div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="namespacetest_color_sensor.html#a4016449b06952591656bc0bfe148507a">   14</a></span>&#160;speed = 8</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="namespacetest_color_sensor.html#ae4e4037655612f3defd50f5638668c8a">   15</a></span>&#160;action = ACTION_BACK</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="namespacetest_color_sensor.html#aa6a8a60c2aa44053fff0cf8c0f9488cf">   16</a></span>&#160;dataSensorColor = [Const.SENSOR_COLOR_DETECT_WHITE, Const.SENSOR_COLOR_DETECT_WHITE, Const.SENSOR_COLOR_DETECT_WHITE]</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="namespacetest_color_sensor.html#aa88503ff7d6ca394b44d2656a1f86425">   18</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacetest_color_sensor.html#aa88503ff7d6ca394b44d2656a1f86425">getAction</a>(color):</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">global</span> action</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">if</span> dataSensorColor[0] == color <span class="keywordflow">and</span> dataSensorColor[1] == Const.SENSOR_COLOR_DETECT_WHITE <span class="keywordflow">and</span> dataSensorColor[2] == Const.SENSOR_COLOR_DETECT_WHITE:</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        action = ACTION_TURN_LEFT</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordflow">print</span> <span class="stringliteral">&quot;IZQUIERDA&quot;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">elif</span> dataSensorColor[0] == Const.SENSOR_COLOR_DETECT_WHITE <span class="keywordflow">and</span> dataSensorColor[1] == Const.SENSOR_COLOR_DETECT_WHITE <span class="keywordflow">and</span> dataSensorColor[2] == color:</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;       action = ACTION_TURN_RIGHT</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;       <span class="keywordflow">print</span> <span class="stringliteral">&quot;DERECHA&quot;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">elif</span> dataSensorColor[0] == Const.SENSOR_COLOR_DETECT_WHITE <span class="keywordflow">and</span> dataSensorColor[1] == color <span class="keywordflow">and</span> dataSensorColor[2] == Const.SENSOR_COLOR_DETECT_WHITE:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;       action = ACTION_FORWARD</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;       <span class="keywordflow">print</span> <span class="stringliteral">&quot;ADELANTE&quot;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">elif</span> dataSensorColor[0] == color <span class="keywordflow">and</span> dataSensorColor[1] == color <span class="keywordflow">and</span> dataSensorColor[2] == Const.SENSOR_COLOR_DETECT_WHITE:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;       action = ACTION_TURN_LEFT</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;       <span class="keywordflow">print</span> <span class="stringliteral">&quot;IZQUIERDA&quot;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">elif</span> dataSensorColor[0] == Const.SENSOR_COLOR_DETECT_WHITE <span class="keywordflow">and</span> dataSensorColor[1] == color <span class="keywordflow">and</span> dataSensorColor[2] == color:</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;       action = ACTION_TURN_RIGHT</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;       <span class="keywordflow">print</span> <span class="stringliteral">&quot;DERECHA&quot;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">elif</span> dataSensorColor[0] == color <span class="keywordflow">and</span> dataSensorColor[1] == color <span class="keywordflow">and</span> dataSensorColor[2] == color:</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;       action = ACTION_TURN_RIGHT</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;       <span class="keywordflow">print</span> <span class="stringliteral">&quot;DERECHA&quot;</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;       </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="namespacetest_color_sensor.html#a7120bde160c8038227f99e4f837f1928">   39</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacetest_color_sensor.html#a7120bde160c8038227f99e4f837f1928">publish</a>(speedRight, speedLeft):</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">global</span> identify</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">global</span> motores</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    msg = Float64MultiArray()</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    msg.data = [identify, speedRight, speedLeft]</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    motores.publish(msg)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="namespacetest_color_sensor.html#a4f3957da017ff921d4cfb3668c065dcc">   46</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacetest_color_sensor.html#a4f3957da017ff921d4cfb3668c065dcc">wander</a>(color):</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">global</span> speed</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">global</span> action</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    delay = 0</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    changeTime = rospy.Time.now() + rospy.Duration(delay)</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    rate = rospy.Rate(100)</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">while</span> <span class="keywordflow">not</span> rospy.is_shutdown():</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <a class="code" href="namespacetest_color_sensor.html#aa88503ff7d6ca394b44d2656a1f86425">getAction</a>(color)        </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">if</span> action == ACTION_BACK:</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="comment"># voy hacia atras</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <a class="code" href="namespacetest_color_sensor.html#a7120bde160c8038227f99e4f837f1928">publish</a>(-speed, -speed)</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">elif</span> action == ACTION_FORWARD:</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="comment"># sigo hacia adelante</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <a class="code" href="namespacetest_color_sensor.html#a7120bde160c8038227f99e4f837f1928">publish</a>(speed, speed)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">elif</span> action == ACTION_TURN_LEFT:</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            <span class="comment"># girar a la izquierda</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            <a class="code" href="namespacetest_color_sensor.html#a7120bde160c8038227f99e4f837f1928">publish</a>(speed/8, speed/2)</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <span class="comment"># girar a la derecha</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <a class="code" href="namespacetest_color_sensor.html#a7120bde160c8038227f99e4f837f1928">publish</a>(speed/2, speed/8)</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">if</span> changeTime &lt; rospy.Time.now():</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordflow">if</span> dataSensorColor[0] == Const.SENSOR_COLOR_DETECT_WHITE <span class="keywordflow">and</span> dataSensorColor[1] == Const.SENSOR_COLOR_DETECT_WHITE <span class="keywordflow">and</span> dataSensorColor[2] == Const.SENSOR_COLOR_DETECT_WHITE:</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                <span class="keywordflow">if</span> action == ACTION_FORWARD <span class="keywordflow">or</span> action == ACTION_BACK:</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                    <span class="keywordflow">if</span> randint(0, 1) == 0:</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                        action = ACTION_TURN_LEFT</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                        <span class="keywordflow">print</span> <span class="stringliteral">&quot;IZQUIERDA&quot;</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                    <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                        action = ACTION_TURN_RIGHT</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                        <span class="keywordflow">print</span> <span class="stringliteral">&quot;DERECHA&quot;</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                     action = ACTION_FORWARD</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                     <span class="keywordflow">print</span> <span class="stringliteral">&quot;ADELANTE&quot;</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            delay = randint(2, 9)</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            changeTime = rospy.Time.now() + rospy.Duration(delay)</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        rate.sleep()</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="namespacetest_color_sensor.html#a3504317f0ec1c7cc4609fcfc1d240e49">   85</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacetest_color_sensor.html#a3504317f0ec1c7cc4609fcfc1d240e49">processSensorLineDetectedColorData</a>(data):</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">global</span> dataSensorColor</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    dataSensorColor = [data.data[1], data.data[2], data.data[3]]</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
-<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="namespacetest_color_sensor.html#af23afefa2cc5c50e8e516db26b38138f">   90</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacetest_color_sensor.html#af23afefa2cc5c50e8e516db26b38138f">processProximitySensorData</a>(data):</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">global</span> action</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordflow">if</span> data.data &lt; 0.25:</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        action = ACTION_BACK</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordflow">print</span> <span class="stringliteral">&quot;ATRAS&quot;</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="comment">#print data.data</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>:</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;iniciando test de sensor de colores&quot;</span>  </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    rospy.init_node(<span class="stringliteral">&#39;wander&#39;</span>, anonymous=<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="namespacetest_color_sensor.html#adffa36895c090937871eb1adead91d37">  101</a></span>&#160;    motores = rospy.Publisher(<span class="stringliteral">&#39;topicoActuarMotores&#39;</span>, Float64MultiArray, queue_size=1)</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;sensorLineDetectedColorData&quot;</span>, Float64MultiArray, processSensorLineDetectedColorData)</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;proximitySensorData&quot;</span>, Float64, processProximitySensorData)</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <a class="code" href="namespacetest_color_sensor.html#a4f3957da017ff921d4cfb3668c065dcc">wander</a>(Const.SENSOR_COLOR_DETECT_BLACK)   </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    rospy.spin()</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
-<div class="ttc" id="namespacetest_color_sensor_html_a3504317f0ec1c7cc4609fcfc1d240e49"><div class="ttname"><a href="namespacetest_color_sensor.html#a3504317f0ec1c7cc4609fcfc1d240e49">testColorSensor.processSensorLineDetectedColorData</a></div><div class="ttdeci">def processSensorLineDetectedColorData</div><div class="ttdef"><b>Definition:</b> <a href="test_color_sensor_8py_source.html#l00085">testColorSensor.py:85</a></div></div>
-<div class="ttc" id="namespacetest_color_sensor_html_a4f3957da017ff921d4cfb3668c065dcc"><div class="ttname"><a href="namespacetest_color_sensor.html#a4f3957da017ff921d4cfb3668c065dcc">testColorSensor.wander</a></div><div class="ttdeci">def wander</div><div class="ttdef"><b>Definition:</b> <a href="test_color_sensor_8py_source.html#l00046">testColorSensor.py:46</a></div></div>
-<div class="ttc" id="namespacetest_color_sensor_html_a7120bde160c8038227f99e4f837f1928"><div class="ttname"><a href="namespacetest_color_sensor.html#a7120bde160c8038227f99e4f837f1928">testColorSensor.publish</a></div><div class="ttdeci">def publish</div><div class="ttdef"><b>Definition:</b> <a href="test_color_sensor_8py_source.html#l00039">testColorSensor.py:39</a></div></div>
-<div class="ttc" id="namespacetest_color_sensor_html_af23afefa2cc5c50e8e516db26b38138f"><div class="ttname"><a href="namespacetest_color_sensor.html#af23afefa2cc5c50e8e516db26b38138f">testColorSensor.processProximitySensorData</a></div><div class="ttdeci">def processProximitySensorData</div><div class="ttdef"><b>Definition:</b> <a href="test_color_sensor_8py_source.html#l00090">testColorSensor.py:90</a></div></div>
-<div class="ttc" id="namespacetest_color_sensor_html_aa88503ff7d6ca394b44d2656a1f86425"><div class="ttname"><a href="namespacetest_color_sensor.html#aa88503ff7d6ca394b44d2656a1f86425">testColorSensor.getAction</a></div><div class="ttdeci">def getAction</div><div class="ttdef"><b>Definition:</b> <a href="test_color_sensor_8py_source.html#l00018">testColorSensor.py:18</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">from</span> std_msgs.msg <span class="keyword">import</span> String</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
+<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="namespacetest_color_sensor.html#a7faae5024d8ed69b2fd52ace0df9409e">    6</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacetest_color_sensor.html#a7faae5024d8ed69b2fd52ace0df9409e">atenderSensores</a>(data):</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <span class="keywordflow">print</span> data.data</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>:</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;iniciando test de sensores&quot;</span>  </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    rospy.init_node(<span class="stringliteral">&#39;testColor&#39;</span>, anonymous=<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;topicoSensores&quot;</span>, String, atenderSensores)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    rospy.spin()</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
+<div class="ttc" id="namespacetest_color_sensor_html_a7faae5024d8ed69b2fd52ace0df9409e"><div class="ttname"><a href="namespacetest_color_sensor.html#a7faae5024d8ed69b2fd52ace0df9409e">testColorSensor.atenderSensores</a></div><div class="ttdeci">def atenderSensores</div><div class="ttdef"><b>Definition:</b> <a href="test_color_sensor_8py_source.html#l00006">testColorSensor.py:6</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_4bb82443d1793e697862979bf01cf6dc.html">learning_by_imitation</a></li><li class="navelem"><a class="el" href="dir_5bb51635b34e9319512b0b556e770d1d.html">scripts</a></li><li class="navelem"><a class="el" href="test_color_sensor_8py.html">testColorSensor.py</a></li>
-    <li class="footer">Generado el Miércoles, 2 de Marzo de 2016 02:36:10 para pgrado por
+    <li class="navelem"><a class="el" href="dir_1eeb56e1270a72a2bb3256479a9fd717.html">learning_by_imitation</a></li><li class="navelem"><a class="el" href="dir_1fa9b325c3ee0c04934a471c7f078f26.html">scripts</a></li><li class="navelem"><a class="el" href="test_color_sensor_8py.html">testColorSensor.py</a></li>
+    <li class="footer">Generado el Domingo, 10 de Abril de 2016 00:27:48 para pgrado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

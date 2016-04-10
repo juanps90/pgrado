@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
     <ul class="tablist">
       <li><a href="index.html"><span>Página&#160;principal</span></a></li>
       <li class="current"><a href="namespaces.html"><span>Namespaces</span></a></li>
+      <li><a href="annotated.html"><span>Clases</span></a></li>
       <li><a href="files.html"><span>Archivos</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -88,6 +89,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
       <li><a href="#index_g"><span>g</span></a></li>
       <li><a href="#index_h"><span>h</span></a></li>
       <li><a href="#index_i"><span>i</span></a></li>
+      <li><a href="#index_j"><span>j</span></a></li>
       <li><a href="#index_l"><span>l</span></a></li>
       <li><a href="#index_m"><span>m</span></a></li>
       <li><a href="#index_n"><span>n</span></a></li>
@@ -96,8 +98,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
       <li><a href="#index_r"><span>r</span></a></li>
       <li><a href="#index_s"><span>s</span></a></li>
       <li><a href="#index_t"><span>t</span></a></li>
-      <li><a href="#index_v"><span>v</span></a></li>
-      <li class="current"><a href="#index_w"><span>w</span></a></li>
+      <li class="current"><a href="#index_u"><span>u</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -120,7 +121,7 @@ $(document).ready(function(){initNavTree('namespacemembers_func.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Archivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funciones</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Clases</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Archivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Funciones</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -133,13 +134,11 @@ $(document).ready(function(){initNavTree('namespacemembers_func.html','');});
 &#160;
 
 <h3><a class="anchor" id="index_a"></a>- a -</h3><ul>
-<li>actuar()
-: <a class="el" href="namespaceavanzar.html#a6dbaa278d27d399fd83a4301f6d232b1">avanzar</a>
-, <a class="el" href="namespacego.html#a5dd9991b614c69105e1333264531d8fc">go</a>
-, <a class="el" href="namespacelocalizar.html#aebbb4ece9fa4aee59443338480b64d67">localizar</a>
-</li>
 <li>actuarMotoresVREP()
 : <a class="el" href="namespacemotores.html#ac9428a32167ca5d73e736e4d8c6b2709">motores</a>
+</li>
+<li>actuatorLed1TopicProccessing()
+: <a class="el" href="namespacemotores.html#a55261536bb9ec0c3293b04e90e71b288">motores</a>
 </li>
 <li>agregarNodoInit()
 : <a class="el" href="namespacemaestro.html#a67c34fd5b40c5d93598c22be12c9b807">maestro</a>
@@ -149,6 +148,9 @@ $(document).ready(function(){initNavTree('namespacemembers_func.html','');});
 </li>
 <li>anexarNuevoNetwork()
 : <a class="el" href="namespacelcs.html#a454c431a8d6886b852b9d481c23454f6">lcs</a>
+</li>
+<li>appendDicCom()
+: <a class="el" href="namespacelcs.html#a2a5f2907a2a74e5bc02f46f271050d09">lcs</a>
 </li>
 <li>aprender()
 : <a class="el" href="namespacemaestro.html#a4727c512a627a0092da2839cf6908c29">maestro</a>
@@ -160,35 +162,29 @@ $(document).ready(function(){initNavTree('namespacemembers_func.html','');});
 : <a class="el" href="namespacemaestro.html#a45f94cb32c7c3a001ccfc1a066868911">maestro</a>
 </li>
 <li>atenderCaminos()
-: <a class="el" href="namespaceavanzar.html#a56d6966cbf75384a9cf34462edba6985">avanzar</a>
-, <a class="el" href="namespacego.html#ac6e2554c698f8595493b525f152812da">go</a>
-, <a class="el" href="namespaceinit.html#a84653bcfd451b5f3889f31ffd85f07d5">init</a>
-, <a class="el" href="namespacelocalizar.html#a7a0983be1630fc02cc4def6ad5bfab70">localizar</a>
+: <a class="el" href="namespaceinit.html#a84653bcfd451b5f3889f31ffd85f07d5">init</a>
 </li>
 <li>atenderComandos()
 : <a class="el" href="namespacemaestro.html#a0fde156263e8475b6dcd955ccb88d5c7">maestro</a>
 </li>
-<li>atenderMotorLockeado()
-: <a class="el" href="namespaceavanzar.html#ae63e92b96ad7ec9e9d34ffdfe5cae38b">avanzar</a>
-, <a class="el" href="namespacego.html#aeba36dee0fa6ef7a1e1ef03a22f5d6a2">go</a>
-, <a class="el" href="namespacelocalizar.html#acc7244b3565aeaa885de231cece26b05">localizar</a>
-</li>
-<li>atenderNivel()
-: <a class="el" href="namespaceavanzar.html#aeb143f368f515b627a446869300dc571">avanzar</a>
-, <a class="el" href="namespacego.html#a9fd5f1c9c134536db0b6fb2ab68ad81a">go</a>
-, <a class="el" href="namespacelocalizar.html#acf94f47973d376c1504ffeeffc4826b4">localizar</a>
+<li>atenderHeadVisionSensor()
+: <a class="el" href="namespaceinputs.html#ac72544ee321fdbfa4ee94bc3ef58b793">inputs</a>
 </li>
 <li>atenderNodoEjecutando()
-: <a class="el" href="namespaceavanzar.html#ad139fe6b062c28f64111737782e97b66">avanzar</a>
-, <a class="el" href="namespacego.html#a3dbd0956cdf1360c600e5be306eceeb0">go</a>
-, <a class="el" href="namespaceinit.html#a713705473168496ced49e2f3bcd5df8f">init</a>
-, <a class="el" href="namespacelocalizar.html#a10d2700183acbdf02cd70feb1b30384e">localizar</a>
+: <a class="el" href="namespaceinit.html#a713705473168496ced49e2f3bcd5df8f">init</a>
 , <a class="el" href="namespacemaestro.html#ac09ff392842d0cf3cffef6f6add35ca4">maestro</a>
 </li>
+<li>atenderOrdenes()
+: <a class="el" href="namespaceinit.html#a5486e31be926f33b60a7ba4a2b1e0a96">init</a>
+</li>
+<li>atenderProximitySensor()
+: <a class="el" href="namespaceinputs.html#a4469de80b4abc4c6658a495576ede3d2">inputs</a>
+</li>
 <li>atenderSensores()
-: <a class="el" href="namespaceavanzar.html#aa4dd9693923353bd4a0b7baba021325a">avanzar</a>
-, <a class="el" href="namespacego.html#aa9bbd0acdf36399177febc8e7c8c1d5b">go</a>
-, <a class="el" href="namespacelocalizar.html#abd357d50541f5355e2df9cb933a283d3">localizar</a>
+: <a class="el" href="namespacetest_color_sensor.html#a7faae5024d8ed69b2fd52ace0df9409e">testColorSensor</a>
+</li>
+<li>atenderSensorLineDetectColor()
+: <a class="el" href="namespaceinputs.html#a3aa3537502495dc1d39d45209081b6ef">inputs</a>
 </li>
 <li>atendersolicitarOLiberarMotores()
 : <a class="el" href="namespacemotores.html#aa1743b974eaa83cba7e4b93c0b6168bd">motores</a>
@@ -197,15 +193,11 @@ $(document).ready(function(){initNavTree('namespacemembers_func.html','');});
 
 
 <h3><a class="anchor" id="index_b"></a>- b -</h3><ul>
-<li>BACKejecutarBad()
-: <a class="el" href="namespacemaestro.html#ac123af2bf94bb5b06ce36ac9e15f9e3c">maestro</a>
-</li>
 <li>backtrack()
 : <a class="el" href="namespacelcs.html#a0e4be20afe3fb85c570cacbb0c8278c0">lcs</a>
 </li>
 <li>borrarNodoBad()
 : <a class="el" href="namespacelcs.html#a3cd0b74c6bb79fc1941f9eff0c56735b">lcs</a>
-, <a class="el" href="namespacemaestro.html#abe3997ffe041afc3c02afece792d1a3e">maestro</a>
 </li>
 <li>borrarNodoBadCaminos()
 : <a class="el" href="namespacelcs.html#ab910b075b1df8095ced86c46700e50cf">lcs</a>
@@ -223,18 +215,23 @@ $(document).ready(function(){initNavTree('namespacemembers_func.html','');});
 <li>cargarDatos()
 : <a class="el" href="namespacemaestro.html#abdfad40ad646abc3ea1ba6bf7a55ccd3">maestro</a>
 </li>
-<li>cerrarNodo()
-: <a class="el" href="namespacemaestro.html#a011b552a8dc2d27e3b9ed07b549ce302">maestro</a>
+<li>cargarEstructuras()
+: <a class="el" href="namespacelcs.html#a56da6d82da78a582544b4a793ad15b8f">lcs</a>
+</li>
+<li>colorear()
+: <a class="el" href="namespacelcs.html#a4aec28dd43a2ecb09edb30afd9db45a7">lcs</a>
 </li>
 <li>compararParamComportamiento()
 : <a class="el" href="namespacelcs.html#ace6521413e58e7d0da8ff37844a3dbe6">lcs</a>
+</li>
+<li>compararParametros()
+: <a class="el" href="namespacemaestro.html#aebb814ecf06fb265c527fc0e5f1b2ce1">maestro</a>
 </li>
 <li>compararPath()
 : <a class="el" href="namespacemaestro.html#a1e798d08292757586d4ef95cf6132b9a">maestro</a>
 </li>
 <li>cortarGo()
 : <a class="el" href="namespacelcs.html#af496de68b04b09cda309293106aa543e">lcs</a>
-, <a class="el" href="namespacemaestro.html#a09b804989e1c97750ca3b96de9b3b13e">maestro</a>
 </li>
 <li>cortarGoCaminos()
 : <a class="el" href="namespacelcs.html#a366e63b483f7b7a5cc6c0057658eb8cb">lcs</a>
@@ -246,10 +243,7 @@ $(document).ready(function(){initNavTree('namespacemembers_func.html','');});
 : <a class="el" href="namespacemaestro.html#ab650c10c64203e005b4fb039f37213f6">maestro</a>
 </li>
 <li>cumplePrecondiciones()
-: <a class="el" href="namespaceavanzar.html#a4eeab03a7641093dcf2041bace1ce4c6">avanzar</a>
-, <a class="el" href="namespacego.html#a129ff2b51f8603ae88dbfad64729cb80">go</a>
-, <a class="el" href="namespaceinit.html#a08091698d754016f921c59e022afa0ed">init</a>
-, <a class="el" href="namespacelocalizar.html#a8bea4b81e958392b05526369e3e5b2b9">localizar</a>
+: <a class="el" href="namespaceinit.html#a08091698d754016f921c59e022afa0ed">init</a>
 </li>
 </ul>
 
@@ -273,17 +267,14 @@ $(document).ready(function(){initNavTree('namespacemembers_func.html','');});
 <li>enviarCaminos()
 : <a class="el" href="namespacemaestro.html#a2fbe4dd2add44582633026cb7c601c1b">maestro</a>
 </li>
+<li>envioSensados()
+: <a class="el" href="namespaceinputs.html#a7fa8f0e167d968975e4ab6e181ced444">inputs</a>
+</li>
 <li>evaluarPrecondicion()
-: <a class="el" href="namespaceavanzar.html#ac42ce2831cbe31957280a89b985e9d5f">avanzar</a>
-, <a class="el" href="namespacego.html#af32839d17b72adea88f7b38244e9f7f7">go</a>
-, <a class="el" href="namespaceinit.html#a7adf4128fa8602e07f54425641b1a352">init</a>
-, <a class="el" href="namespacelocalizar.html#a505bff31f9854cb545e43cbf16d82b9e">localizar</a>
+: <a class="el" href="namespaceinit.html#a7adf4128fa8602e07f54425641b1a352">init</a>
 </li>
 <li>evaluarPrecondicionesPorCaminos()
-: <a class="el" href="namespaceavanzar.html#a1827b28937f48ed5c06a3f08c0d1f90d">avanzar</a>
-, <a class="el" href="namespacego.html#ae8c9df370b24893ed3b126cdbdb7f70b">go</a>
-, <a class="el" href="namespaceinit.html#a0fa2ff77d04f2ceb53e01768b716f784">init</a>
-, <a class="el" href="namespacelocalizar.html#a720c27cb7463431cb647a2250b7445f8">localizar</a>
+: <a class="el" href="namespaceinit.html#a0fa2ff77d04f2ceb53e01768b716f784">init</a>
 </li>
 <li>evaluation()
 : <a class="el" href="namespaceinit.html#ad090f8cd8766f8b8596a9322cb3d45a7">init</a>
@@ -292,20 +283,27 @@ $(document).ready(function(){initNavTree('namespacemembers_func.html','');});
 
 
 <h3><a class="anchor" id="index_f"></a>- f -</h3><ul>
+<li>finalize()
+: <a class="el" href="namespaceinputs.html#a3b837c803e09516464356a2c32376a55">inputs</a>
+, <a class="el" href="namespacemaestro.html#a9466251749c9dae386716341cea75ec0">maestro</a>
+, <a class="el" href="namespacemotores.html#adf0b3ecf82fb85c94f8673f8fe8c47b4">motores</a>
+</li>
 <li>finDemo()
 : <a class="el" href="namespacemaestro.html#a911f93abf718d021544315a2e5b36e41">maestro</a>
 </li>
-<li>findObject()
-: <a class="el" href="namespacego.html#a2ac397016987e4237703ce2b524e8a49">go</a>
+<li>finEjecutar()
+: <a class="el" href="namespacemaestro.html#ac0db1206147bd5c0225f7b6306bec89b">maestro</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_g"></a>- g -</h3><ul>
-<li>getAction()
-: <a class="el" href="namespacego.html#ac9acabe0eed65328422d5d5d3f234db1">go</a>
-, <a class="el" href="namespacelocalizar.html#a9860a67690d430bdf01cb1cb10170413">localizar</a>
-, <a class="el" href="namespacetest_color_sensor.html#aa88503ff7d6ca394b44d2656a1f86425">testColorSensor</a>
+<li>get()
+: <a class="el" href="namespaceatributos_1_1_atributos.html#a3e5c6c473f30cd8e5c112f93b4817b61">atributos::Atributos</a>
+, <a class="el" href="namespaceatributos_1_1_sensores.html#af9c461eff779675003943180009a6452">atributos::Sensores</a>
+</li>
+<li>getCompDeNodo()
+: <a class="el" href="namespacelcs.html#ad67487d1c1024f82ecb23875653ed17d">lcs</a>
 </li>
 <li>getDicComportamientos()
 : <a class="el" href="namespacelcs.html#a7b6bc89060bb2820c3fe53c37f5bd1ce">lcs</a>
@@ -318,6 +316,9 @@ $(document).ready(function(){initNavTree('namespacemembers_func.html','');});
 </li>
 <li>getNetworkGeneral()
 : <a class="el" href="namespacelcs.html#a0d3fa3cb984a8bd4e8baaf08760db036">lcs</a>
+</li>
+<li>getNewId()
+: <a class="el" href="namespacelcs.html#ae7fa639fa3f2ce3500ee53a6d21d350e">lcs</a>
 </li>
 <li>getTopologiaGeneral()
 : <a class="el" href="namespacelcs.html#a1321e7cf43487cf9b60a039c6c06a266">lcs</a>
@@ -335,8 +336,8 @@ $(document).ready(function(){initNavTree('namespacemembers_func.html','');});
 
 
 <h3><a class="anchor" id="index_h"></a>- h -</h3><ul>
-<li>handler()
-: <a class="el" href="namespacemaestro.html#a248f58339b5d74709f5b225078f5c886">maestro</a>
+<li>hasValue()
+: <a class="el" href="namespacefind_list.html#a46e34b318faf2fcfc3945075726d41d2">findList</a>
 </li>
 </ul>
 
@@ -344,6 +345,16 @@ $(document).ready(function(){initNavTree('namespacemembers_func.html','');});
 <h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
 <li>igualar()
 : <a class="el" href="namespacelcs.html#a4d1d4968a75af152090e5b22a265b2e8">lcs</a>
+</li>
+<li>inicializarParametros()
+: <a class="el" href="namespaceinputs.html#a7ed1655bbb1b281e95a72a15d9822647">inputs</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_j"></a>- j -</h3><ul>
+<li>joinData()
+: <a class="el" href="namespaceinputs.html#acbc16774debcfbca01b3118fe808a240">inputs</a>
 </li>
 </ul>
 
@@ -356,24 +367,18 @@ $(document).ready(function(){initNavTree('namespacemembers_func.html','');});
 <li>LCSLength()
 : <a class="el" href="namespacelcs.html#a50bd0dcad5a219e078b414fdf0d4d1d8">lcs</a>
 </li>
-<li>listenHeadVisionSensor()
-: <a class="el" href="namespaceinputs.html#ad51bedea20a287abc91ce4ba6fab2050">inputs</a>
+<li>load_abstract_behavior()
+: <a class="el" href="namespaceload_behavior.html#ad88b368b80a97d1e729c4c01e560c84e">loadBehavior</a>
 </li>
-<li>listenProximitySensor()
-: <a class="el" href="namespaceinputs.html#af95ed19427f761ef376245999191f751">inputs</a>
-</li>
-<li>listenSensorLineDetectColor()
-: <a class="el" href="namespaceinputs.html#a6abd5742bd2623fa3a0d8b6e535b900c">inputs</a>
+<li>load_class()
+: <a class="el" href="namespaceload_behavior.html#ae1c5d62818ace9ba0190557624ef20f8">loadBehavior</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_m"></a>- m -</h3><ul>
-<li>mergeNodos()
-: <a class="el" href="namespacemaestro.html#a71913eadca5019303c836839d5c1438b">maestro</a>
-</li>
-<li>merggearNuevaDemo()
-: <a class="el" href="namespacemaestro.html#a927f32e4b17d7195e10c291856a12301">maestro</a>
+<li>mlog()
+: <a class="el" href="namespaceir_a.html#a3606979d358f856f0ef754e2064c42a3">irA</a>
 </li>
 </ul>
 
@@ -392,8 +397,17 @@ $(document).ready(function(){initNavTree('namespacemembers_func.html','');});
 
 
 <h3><a class="anchor" id="index_o"></a>- o -</h3><ul>
+<li>obtenerConfiguracion()
+: <a class="el" href="namespacecargar_x_m_l.html#ab473376c250ed2680f361b4e0a9f5a70">cargarXML</a>
+</li>
+<li>obtenerGrafo()
+: <a class="el" href="namespacecargar_x_m_l.html#a4d100fc26f0276aee5f4a48c21048851">cargarXML</a>
+</li>
 <li>obtenerMejorAjuste()
 : <a class="el" href="namespacelcs.html#ad6bac360fa105aa05f72ffbec103a1fd">lcs</a>
+</li>
+<li>odd()
+: <a class="el" href="namespacefind_list.html#abfd9158d48366bf8de10f45e3b3026fa">findList</a>
 </li>
 <li>offLine()
 : <a class="el" href="namespacemaestro.html#aaef2f401a9f5f56765d9c372a3d8b52c">maestro</a>
@@ -402,8 +416,17 @@ $(document).ready(function(){initNavTree('namespacemembers_func.html','');});
 
 
 <h3><a class="anchor" id="index_p"></a>- p -</h3><ul>
+<li>paramToString()
+: <a class="el" href="namespacemaestro.html#a4066fac1aef60567bb9894fba7ad36c8">maestro</a>
+</li>
 <li>pathAntecesores()
 : <a class="el" href="namespacemaestro.html#a6ed9b085c96427ad190a8a38b59a9299">maestro</a>
+</li>
+<li>persistirConfiguracion()
+: <a class="el" href="namespacesalvar_x_m_l.html#a27e57c0d4e51ef38b8f5da8ead230cdc">salvarXML</a>
+</li>
+<li>persistirGrafo()
+: <a class="el" href="namespacesalvar_x_m_l.html#ab7d01ec89b326d9042174a4dab546207">salvarXML</a>
 </li>
 <li>probarAlternancia()
 : <a class="el" href="namespacelcs.html#a973f4572482216f2fb59ccb4c5889bcb">lcs</a>
@@ -434,33 +457,21 @@ $(document).ready(function(){initNavTree('namespacemembers_func.html','');});
 , <a class="el" href="namespacetest_buttons.html#a107f6d8405bd4ad53a7f96361b8c0230">testButtons</a>
 </li>
 <li>processHeadVisionSensor()
-: <a class="el" href="namespacego.html#ab4a864cd8f11f1aa9aceeb6035a54679">go</a>
-</li>
-<li>processHeadVisionSensorData()
-: <a class="el" href="namespaceinputs.html#a5a74e838eb1f288b9125e8afb4bd2ef8">inputs</a>
+: <a class="el" href="namespaceinputs.html#adefb135d670c86a54ba7a907a9db3d2e">inputs</a>
 </li>
 <li>processProximitySensorData()
-: <a class="el" href="namespacego.html#a31e8907a90fef8cc26793a96fd6796b3">go</a>
-, <a class="el" href="namespaceinputs.html#afa512b648293c049edaf0c8c3cdc7922">inputs</a>
-, <a class="el" href="namespacelocalizar.html#a8e8ea3d745f6034c3f28ee113e4ee992">localizar</a>
-, <a class="el" href="namespacetest_color_sensor.html#af23afefa2cc5c50e8e516db26b38138f">testColorSensor</a>
+: <a class="el" href="namespaceinputs.html#afa512b648293c049edaf0c8c3cdc7922">inputs</a>
 </li>
 <li>processSensorLineDetectColorData()
 : <a class="el" href="namespaceinputs.html#ade1963090347e3bf4fa67c324575beb4">inputs</a>
-</li>
-<li>processSensorLineDetectedColorData()
-: <a class="el" href="namespacelocalizar.html#ab4b1d105e801f95e43e328b6762ca179">localizar</a>
-, <a class="el" href="namespacetest_color_sensor.html#a3504317f0ec1c7cc4609fcfc1d240e49">testColorSensor</a>
-</li>
-<li>publish()
-: <a class="el" href="namespacego.html#a19da13e093ac5b1cc6dd849d992f300b">go</a>
-, <a class="el" href="namespacelocalizar.html#a6a96312bcb86ea8c25586ad035a2ebb9">localizar</a>
-, <a class="el" href="namespacetest_color_sensor.html#a7120bde160c8038227f99e4f837f1928">testColorSensor</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
+<li>realizarBad()
+: <a class="el" href="namespaceinit.html#ac0f5abad00849714fbaababa8e538b6f">init</a>
+</li>
 <li>recuperarEnlaces()
 : <a class="el" href="namespacemaestro.html#a705bf1381eecba13ac287629bd610f49">maestro</a>
 </li>
@@ -478,38 +489,36 @@ $(document).ready(function(){initNavTree('namespacemembers_func.html','');});
 
 
 <h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
-<li>sendSensing()
-: <a class="el" href="namespaceinputs.html#a18190ad5a5d00a0ec4819420dea0d2f8">inputs</a>
+<li>separarBloques()
+: <a class="el" href="namespacemaestro.html#a442bcfc419500995b4732c220b4e0acd">maestro</a>
 </li>
 <li>separarCaminos()
-: <a class="el" href="namespaceavanzar.html#a9f8e18eaf3a700398e76bdfb29708b93">avanzar</a>
-, <a class="el" href="namespacego.html#a0e2b43c4280827f12bff71f64a5f8da6">go</a>
-, <a class="el" href="namespaceinit.html#a573233ca7c03c64db9bd21e81929798b">init</a>
-, <a class="el" href="namespacelocalizar.html#a0d2b671725ec451a149daece16de0810">localizar</a>
+: <a class="el" href="namespaceinit.html#a573233ca7c03c64db9bd21e81929798b">init</a>
 </li>
-<li>setDicComportamientos()
-: <a class="el" href="namespacelcs.html#aec235fa0607fa69625771cc1e853d810">lcs</a>
+<li>separarSensados()
+: <a class="el" href="namespacemaestro.html#ae38112fe234f46a34adefcc17f3c8045">maestro</a>
 </li>
 <li>setDicParametros()
 : <a class="el" href="namespacelcs.html#ac7551db5d36e6fcf06e512f163f896c1">lcs</a>
 </li>
 <li>setEstado()
-: <a class="el" href="namespaceavanzar.html#aecebf0a3ec6da082c587bcb17e175899">avanzar</a>
-, <a class="el" href="namespacego.html#a08cc90e2d17aa1ecf363256f16539579">go</a>
-, <a class="el" href="namespaceinit.html#afa887896b6b241210f36f4498110e8c5">init</a>
-, <a class="el" href="namespacelocalizar.html#af20897871ecd5c575a9d2ac260213609">localizar</a>
+: <a class="el" href="namespaceinit.html#afa887896b6b241210f36f4498110e8c5">init</a>
+, <a class="el" href="namespaceinputs.html#a650d4ed6ad38292780f274423741c7dd">inputs</a>
+, <a class="el" href="namespacemotores.html#a82575a1bcb1cf7741df6c19bf628054c">motores</a>
 </li>
 <li>setNetworkGeneral()
 : <a class="el" href="namespacelcs.html#aeb5d05fcd678752912f387ee8224d1f0">lcs</a>
 </li>
 <li>setting()
-: <a class="el" href="namespaceavanzar.html#a0eee5dd4f300dfddacbb802360ebbfe4">avanzar</a>
-, <a class="el" href="namespacego.html#a1c8012c8cc44e80287acd6ba568f0485">go</a>
-, <a class="el" href="namespaceinit.html#a98bf4240784f7bb0914204bc9ce4bf19">init</a>
-, <a class="el" href="namespacelocalizar.html#a1c0f854362440b89376188174c9d7ad9">localizar</a>
+: <a class="el" href="namespaceinit.html#a98bf4240784f7bb0914204bc9ce4bf19">init</a>
 </li>
 <li>setTopologiaGeneral()
 : <a class="el" href="namespacelcs.html#afb086803955abd9ed5aae156af3e0a4b">lcs</a>
+</li>
+<li>shutdown()
+: <a class="el" href="namespaceinputs.html#abb064e4697354eccb350587361ca72a1">inputs</a>
+, <a class="el" href="namespacemaestro.html#a8f3a93c1d7fd2a12073450abd77bc3c9">maestro</a>
+, <a class="el" href="namespacemotores.html#a19f1a4bffa79d7f564366d8541e038f7">motores</a>
 </li>
 <li>sucesoresTopologicos()
 : <a class="el" href="namespacelcs.html#a6718e60ba1a00e0ec21d2f69a6c59b9f">lcs</a>
@@ -534,19 +543,9 @@ $(document).ready(function(){initNavTree('namespacemembers_func.html','');});
 </ul>
 
 
-<h3><a class="anchor" id="index_v"></a>- v -</h3><ul>
-<li>verificarPoscondicionesSensores()
-: <a class="el" href="namespaceavanzar.html#a699b34a5332dadcc3f42ab3ad3edfbd4">avanzar</a>
-, <a class="el" href="namespacego.html#a31f760491e015f5b0a3132414f9cdc0d">go</a>
-, <a class="el" href="namespacelocalizar.html#a22ecd1cbaf61c130e8912fcc010922f7">localizar</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_w"></a>- w -</h3><ul>
-<li>wander()
-: <a class="el" href="namespacelocalizar.html#a4d6a83826f3226a706c8fe7de79f5630">localizar</a>
-, <a class="el" href="namespacetest_color_sensor.html#a4f3957da017ff921d4cfb3668c065dcc">testColorSensor</a>
+<h3><a class="anchor" id="index_u"></a>- u -</h3><ul>
+<li>updateParam()
+: <a class="el" href="namespacemaestro.html#a5ff877fde035db686a4e6ebf3da671f4">maestro</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -554,7 +553,7 @@ $(document).ready(function(){initNavTree('namespacemembers_func.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generado el Miércoles, 2 de Marzo de 2016 02:36:10 para pgrado por
+    <li class="footer">Generado el Domingo, 10 de Abril de 2016 00:27:49 para pgrado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

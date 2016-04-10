@@ -46,6 +46,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
     <ul class="tablist">
       <li><a href="index.html"><span>Página&#160;principal</span></a></li>
       <li class="current"><a href="namespaces.html"><span>Namespaces</span></a></li>
+      <li><a href="annotated.html"><span>Clases</span></a></li>
       <li><a href="files.html"><span>Archivos</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -91,7 +92,7 @@ $(document).ready(function(){initNavTree('namespace_const.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Archivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Funciones</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Clases</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Archivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Funciones</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -110,21 +111,29 @@ $(document).ready(function(){initNavTree('namespace_const.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:a24c5474cd7e20f847085f2d936e07965"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a24c5474cd7e20f847085f2d936e07965">PGRADO_HOME</a> = '/home/viki/pgrado'</td></tr>
+<tr class="separator:a24c5474cd7e20f847085f2d936e07965"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59fb9f5a04c5e4b47efbffb661460071"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a59fb9f5a04c5e4b47efbffb661460071">PERSIT_FOLDER_NAME</a> = 'persist'</td></tr>
+<tr class="separator:a59fb9f5a04c5e4b47efbffb661460071"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3b9983e91cc2bf2d4f87c39ab64ed93"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#af3b9983e91cc2bf2d4f87c39ab64ed93">CONFIG_FOLDER_NAME</a> = 'config'</td></tr>
+<tr class="separator:af3b9983e91cc2bf2d4f87c39ab64ed93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24ecff17a6e566c93e0d445b3ce929ff"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a24ecff17a6e566c93e0d445b3ce929ff">CONFIG_XML_NAME</a> = 'parametros'</td></tr>
+<tr class="separator:a24ecff17a6e566c93e0d445b3ce929ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3df6f015eaa7064b0868c33c77ad9518"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a3df6f015eaa7064b0868c33c77ad9518">SENSOR_COLOR_DETECT_NONE</a> = -1</td></tr>
 <tr class="separator:a3df6f015eaa7064b0868c33c77ad9518"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3aa47f6fe2928ea973807f32681f8a89"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a3aa47f6fe2928ea973807f32681f8a89">SENSOR_COLOR_DETECT_BLACK</a> = 0</td></tr>
 <tr class="separator:a3aa47f6fe2928ea973807f32681f8a89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac034c59cdb3f22d1c7d3197351a46b6b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#ac034c59cdb3f22d1c7d3197351a46b6b">SENSOR_COLOR_DETECT_WHITE</a> = 1</td></tr>
 <tr class="separator:ac034c59cdb3f22d1c7d3197351a46b6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c7d2da5b8342382a2d41a348b3be3ef"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a9c7d2da5b8342382a2d41a348b3be3ef">SENSOR_COLOR_DETECT_GREEN</a> = 2</td></tr>
-<tr class="separator:a9c7d2da5b8342382a2d41a348b3be3ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9eb97167b751e38d98672f3bc67ea838"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a9eb97167b751e38d98672f3bc67ea838">SENSOR_COLOR_DETECT_RED</a> = 3</td></tr>
-<tr class="separator:a9eb97167b751e38d98672f3bc67ea838"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25e70012e67fcfa01addc5a3f1a28e70"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a25e70012e67fcfa01addc5a3f1a28e70">SENSOR_COLOR_DETECT_YELLOW</a> = 4</td></tr>
-<tr class="separator:a25e70012e67fcfa01addc5a3f1a28e70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d59810199556c44528739d48f3e8060"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a6d59810199556c44528739d48f3e8060">SENSOR_COLOR_DETECT_ORANGE</a> = 5</td></tr>
+<tr class="memitem:a6d59810199556c44528739d48f3e8060"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a6d59810199556c44528739d48f3e8060">SENSOR_COLOR_DETECT_ORANGE</a> = 2</td></tr>
 <tr class="separator:a6d59810199556c44528739d48f3e8060"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd216d70e36bbb343058e444fe4a8555"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#afd216d70e36bbb343058e444fe4a8555">SENSOR_COLOR_DETECT_BLUE</a> = 5</td></tr>
+<tr class="memitem:a25e70012e67fcfa01addc5a3f1a28e70"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a25e70012e67fcfa01addc5a3f1a28e70">SENSOR_COLOR_DETECT_YELLOW</a> = 3</td></tr>
+<tr class="separator:a25e70012e67fcfa01addc5a3f1a28e70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c7d2da5b8342382a2d41a348b3be3ef"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a9c7d2da5b8342382a2d41a348b3be3ef">SENSOR_COLOR_DETECT_GREEN</a> = 4</td></tr>
+<tr class="separator:a9c7d2da5b8342382a2d41a348b3be3ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9eb97167b751e38d98672f3bc67ea838"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a9eb97167b751e38d98672f3bc67ea838">SENSOR_COLOR_DETECT_RED</a> = 5</td></tr>
+<tr class="separator:a9eb97167b751e38d98672f3bc67ea838"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd216d70e36bbb343058e444fe4a8555"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#afd216d70e36bbb343058e444fe4a8555">SENSOR_COLOR_DETECT_BLUE</a> = 6</td></tr>
 <tr class="separator:afd216d70e36bbb343058e444fe4a8555"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1851743d9f7ba8c4b39c4243620cab7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#aa1851743d9f7ba8c4b39c4243620cab7">SENSOR_COLOR_DETECT_LINE_ID</a> = 0</td></tr>
 <tr class="separator:aa1851743d9f7ba8c4b39c4243620cab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,8 +151,106 @@ Variables</h2></td></tr>
 <tr class="separator:a580f3f8a5affac0e679908c3997efb08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2edc39a7a825242ca4bbdf0519dfd656"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a2edc39a7a825242ca4bbdf0519dfd656">COMMAND_BAD</a> = 5</td></tr>
 <tr class="separator:a2edc39a7a825242ca4bbdf0519dfd656"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a858929e02a2c02b99c50135ad58ede14"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a858929e02a2c02b99c50135ad58ede14">RED_CALIBRATE</a> = 7</td></tr>
+<tr class="separator:a858929e02a2c02b99c50135ad58ede14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03944fd3ff54fc0881b020972baf9312"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a03944fd3ff54fc0881b020972baf9312">GREEN_CALIBRATE</a> = 8</td></tr>
+<tr class="separator:a03944fd3ff54fc0881b020972baf9312"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4df529d1988afac154a6afd78bc36ccd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a4df529d1988afac154a6afd78bc36ccd">BLUE_CALIBRATE</a> = 9</td></tr>
+<tr class="separator:a4df529d1988afac154a6afd78bc36ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a562caa2040d68706077cddef9c980e48"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a562caa2040d68706077cddef9c980e48">ORANGE_CALIBRATE</a> = 10</td></tr>
+<tr class="separator:a562caa2040d68706077cddef9c980e48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6124710d941c86e3c3e3eef242d1c9eb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a6124710d941c86e3c3e3eef242d1c9eb">YELLOW_CALIBRATE</a> = 11</td></tr>
+<tr class="separator:a6124710d941c86e3c3e3eef242d1c9eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a794c01e97affdb3e28e98d0176c0fcc0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a794c01e97affdb3e28e98d0176c0fcc0">END_CALIBRATE</a> = 12</td></tr>
+<tr class="separator:a794c01e97affdb3e28e98d0176c0fcc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acff04544779e3b5ba88dfc40b78d223d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#acff04544779e3b5ba88dfc40b78d223d">COMMAND_COME</a> = 13</td></tr>
+<tr class="separator:acff04544779e3b5ba88dfc40b78d223d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad43c344dbcd908afe1c1a6d4427512bb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#ad43c344dbcd908afe1c1a6d4427512bb">COMMAND_GO</a> = 14</td></tr>
+<tr class="separator:ad43c344dbcd908afe1c1a6d4427512bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2debc5a6608dc2f19dd909bc111e6ed7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a2debc5a6608dc2f19dd909bc111e6ed7">COMMAND_EXIT</a> = 15</td></tr>
+<tr class="separator:a2debc5a6608dc2f19dd909bc111e6ed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acba7392a72d93b74e82660764a36b0c0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#acba7392a72d93b74e82660764a36b0c0">COMMAND_HERE</a> = 16</td></tr>
+<tr class="separator:acba7392a72d93b74e82660764a36b0c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2dedbc364f0b8d3d5a9a262e78b6623"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#ae2dedbc364f0b8d3d5a9a262e78b6623">LINK_ORD</a> = 0</td></tr>
+<tr class="separator:ae2dedbc364f0b8d3d5a9a262e78b6623"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cc08c45c163b9c465aedfefd2f96ebc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a2cc08c45c163b9c465aedfefd2f96ebc">LINK_ENA</a> = 1</td></tr>
+<tr class="separator:a2cc08c45c163b9c465aedfefd2f96ebc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b1ab10b446fca561c9d302a2b441aaf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a8b1ab10b446fca561c9d302a2b441aaf">LINK_PRM</a> = 2</td></tr>
+<tr class="separator:a8b1ab10b446fca561c9d302a2b441aaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca8b104da015804d7b846b9a3ff125e8"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#aca8b104da015804d7b846b9a3ff125e8">SECCION_NODOS</a> = 'nodos'</td></tr>
+<tr class="separator:aca8b104da015804d7b846b9a3ff125e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3b39f3c5b43177dfafbd7d95697f6a1"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#aa3b39f3c5b43177dfafbd7d95697f6a1">SECCION_PARAMETROS</a> = 'parametros'</td></tr>
+<tr class="separator:aa3b39f3c5b43177dfafbd7d95697f6a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf247536cf19bfbf0c57d17fd2e736c9"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#acf247536cf19bfbf0c57d17fd2e736c9">SECCION_TOPOLOGIA</a> = 'topologia'</td></tr>
+<tr class="separator:acf247536cf19bfbf0c57d17fd2e736c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe2e1be401274005de3b4b2efc37d311"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#afe2e1be401274005de3b4b2efc37d311">SECCION_NETWORK</a> = 'network'</td></tr>
+<tr class="separator:afe2e1be401274005de3b4b2efc37d311"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac94152d3a25106c43a9ff5ead32fefec"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#ac94152d3a25106c43a9ff5ead32fefec">SECCION_COLORES</a> = 'colores'</td></tr>
+<tr class="separator:ac94152d3a25106c43a9ff5ead32fefec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a550297f076bb052cc0941f3f430ca532"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a550297f076bb052cc0941f3f430ca532">ATR_COLOR</a> = 1</td></tr>
+<tr class="separator:a550297f076bb052cc0941f3f430ca532"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3547a8ef8b009e270897e3c835f25c3a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a3547a8ef8b009e270897e3c835f25c3a">ATR_DIST</a> = 2</td></tr>
+<tr class="separator:a3547a8ef8b009e270897e3c835f25c3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e0a44d4ce3ee83ad96eb53a74159458"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_const.html#a5e0a44d4ce3ee83ad96eb53a74159458">ATR_ANGLE</a> = 3</td></tr>
+<tr class="separator:a5e0a44d4ce3ee83ad96eb53a74159458"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Documentación de las variables</h2>
+<a class="anchor" id="a5e0a44d4ce3ee83ad96eb53a74159458"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Const.ATR_ANGLE = 3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00062">62</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a550297f076bb052cc0941f3f430ca532"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Const.ATR_COLOR = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00060">60</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3547a8ef8b009e270897e3c835f25c3a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Const.ATR_DIST = 2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00061">61</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a4df529d1988afac154a6afd78bc36ccd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Const.BLUE_CALIBRATE = 9</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00038">38</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a2edc39a7a825242ca4bbdf0519dfd656"></a>
 <div class="memitem">
 <div class="memproto">
@@ -154,7 +261,21 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00025">25</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00035">35</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acff04544779e3b5ba88dfc40b78d223d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Const.COMMAND_COME = 13</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00042">42</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
 
 </div>
 </div>
@@ -168,7 +289,49 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00022">22</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00032">32</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2debc5a6608dc2f19dd909bc111e6ed7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Const.COMMAND_EXIT = 15</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00044">44</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad43c344dbcd908afe1c1a6d4427512bb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Const.COMMAND_GO = 14</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00043">43</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acba7392a72d93b74e82660764a36b0c0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Const.COMMAND_HERE = 16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00045">45</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
 
 </div>
 </div>
@@ -182,7 +345,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00021">21</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00031">31</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
 
 </div>
 </div>
@@ -196,7 +359,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00023">23</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00033">33</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
 
 </div>
 </div>
@@ -210,7 +373,231 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00024">24</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00034">34</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af3b9983e91cc2bf2d4f87c39ab64ed93"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Const.CONFIG_FOLDER_NAME = 'config'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00011">11</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a24ecff17a6e566c93e0d445b3ce929ff"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Const.CONFIG_XML_NAME = 'parametros'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00012">12</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a794c01e97affdb3e28e98d0176c0fcc0"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Const.END_CALIBRATE = 12</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00041">41</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a03944fd3ff54fc0881b020972baf9312"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Const.GREEN_CALIBRATE = 8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00037">37</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2cc08c45c163b9c465aedfefd2f96ebc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Const.LINK_ENA = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00049">49</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae2dedbc364f0b8d3d5a9a262e78b6623"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Const.LINK_ORD = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00048">48</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a8b1ab10b446fca561c9d302a2b441aaf"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Const.LINK_PRM = 2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00050">50</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a562caa2040d68706077cddef9c980e48"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Const.ORANGE_CALIBRATE = 10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00039">39</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a59fb9f5a04c5e4b47efbffb661460071"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Const.PERSIT_FOLDER_NAME = 'persist'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00010">10</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a24c5474cd7e20f847085f2d936e07965"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Const.PGRADO_HOME = '/home/viki/pgrado'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00009">9</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a858929e02a2c02b99c50135ad58ede14"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Const.RED_CALIBRATE = 7</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00036">36</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac94152d3a25106c43a9ff5ead32fefec"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Const.SECCION_COLORES = 'colores'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00057">57</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="afe2e1be401274005de3b4b2efc37d311"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Const.SECCION_NETWORK = 'network'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00056">56</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aca8b104da015804d7b846b9a3ff125e8"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Const.SECCION_NODOS = 'nodos'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00053">53</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa3b39f3c5b43177dfafbd7d95697f6a1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Const.SECCION_PARAMETROS = 'parametros'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00054">54</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="acf247536cf19bfbf0c57d17fd2e736c9"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string Const.SECCION_TOPOLOGIA = 'topologia'</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00055">55</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
 
 </div>
 </div>
@@ -224,7 +611,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00009">9</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00016">16</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
 
 </div>
 </div>
@@ -233,12 +620,12 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int Const.SENSOR_COLOR_DETECT_BLUE = 5</td>
+          <td class="memname">int Const.SENSOR_COLOR_DETECT_BLUE = 6</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00015">15</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00022">22</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
 
 </div>
 </div>
@@ -247,12 +634,12 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int Const.SENSOR_COLOR_DETECT_GREEN = 2</td>
+          <td class="memname">int Const.SENSOR_COLOR_DETECT_GREEN = 4</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00011">11</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00020">20</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
 
 </div>
 </div>
@@ -266,7 +653,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00017">17</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00026">26</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
 
 </div>
 </div>
@@ -280,7 +667,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00008">8</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00015">15</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
 
 </div>
 </div>
@@ -289,12 +676,12 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int Const.SENSOR_COLOR_DETECT_ORANGE = 5</td>
+          <td class="memname">int Const.SENSOR_COLOR_DETECT_ORANGE = 2</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00014">14</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00018">18</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
 
 </div>
 </div>
@@ -303,12 +690,12 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int Const.SENSOR_COLOR_DETECT_RED = 3</td>
+          <td class="memname">int Const.SENSOR_COLOR_DETECT_RED = 5</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00012">12</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00021">21</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
 
 </div>
 </div>
@@ -322,7 +709,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00010">10</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00017">17</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
 
 </div>
 </div>
@@ -331,12 +718,12 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int Const.SENSOR_COLOR_DETECT_YELLOW = 4</td>
+          <td class="memname">int Const.SENSOR_COLOR_DETECT_YELLOW = 3</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00013">13</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00019">19</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
 
 </div>
 </div>
@@ -350,7 +737,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00018">18</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00027">27</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
 
 </div>
 </div>
@@ -364,7 +751,21 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00019">19</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00028">28</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6124710d941c86e3c3e3eef242d1c9eb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Const.YELLOW_CALIBRATE = 11</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definición en la línea <a class="el" href="_const_8py_source.html#l00040">40</a> del archivo <a class="el" href="_const_8py_source.html">Const.py</a>.</p>
 
 </div>
 </div>
@@ -374,7 +775,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_const.html">Const</a></li>
-    <li class="footer">Generado el Miércoles, 2 de Marzo de 2016 02:36:10 para pgrado por
+    <li class="footer">Generado el Domingo, 10 de Abril de 2016 00:27:49 para pgrado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

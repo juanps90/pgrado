@@ -1,16 +1,19 @@
 var searchData=
 [
-  ['caminitos',['caminitos',['../namespacemaestro.html#ae76f56d8008dc119fae665b5bfa54665',1,'maestro']]],
-  ['caminos',['caminos',['../namespaceavanzar.html#a33f1cf49229bccfbe2be24b582918aa3',1,'avanzar.caminos()'],['../namespacego.html#a4a5c83f1f38949ff8d52ae6fae3c1c27',1,'go.caminos()'],['../namespaceinit.html#a6c488557c04273c187e8a006f43fbfbf',1,'init.caminos()'],['../namespacelocalizar.html#a4a7a758fdb7cb7976f80278f6fe6cf14',1,'localizar.caminos()']]],
-  ['changetime',['changeTime',['../namespacego.html#aed9414041fb3dafaea508571ff1c3169',1,'go.changeTime()'],['../namespacelocalizar.html#a58d9b11bbad1c3a232f5845591dc0b0d',1,'localizar.changeTime()']]],
-  ['colornow',['colorNow',['../namespacego.html#a15ee2cf0fbae975d3b579a2732c1ff5a',1,'go']]],
-  ['comando',['comando',['../namespacemaestro.html#a43bb56c93eb0edc9e0a44866e906a4eb',1,'maestro']]],
-  ['command',['command',['../namespaceinputs.html#ae249ec02168ec10700623bc9a6e304f2',1,'inputs.command()'],['../namespacetest_buttons.html#a66c8ce2ee998f6b92b2d7952e5c48518',1,'testButtons.command()']]],
-  ['command_5fbad',['COMMAND_BAD',['../namespace_const.html#a2edc39a7a825242ca4bbdf0519dfd656',1,'Const']]],
-  ['command_5fend_5flearning',['COMMAND_END_LEARNING',['../namespace_const.html#a66d9bb1612cbdcdcf533cde6ffe4f90a',1,'Const']]],
-  ['command_5finit_5flearning',['COMMAND_INIT_LEARNING',['../namespace_const.html#a4a75715a46f7e5555b4ddde6587b377d',1,'Const']]],
-  ['command_5fplay',['COMMAND_PLAY',['../namespace_const.html#a9fa56d3429f1c81ccfa71e596ca5db40',1,'Const']]],
-  ['command_5fstop',['COMMAND_STOP',['../namespace_const.html#a580f3f8a5affac0e679908c3997efb08',1,'Const']]],
-  ['contador',['contador',['../namespaceinputs.html#a57662b51971e0724b8b5f25dc29f51c1',1,'inputs']]],
-  ['current_5fmilli_5ftime',['current_milli_time',['../namespacemaestro.html#a729b92cd7808fbf7eb0712428f367c8c',1,'maestro']]]
+  ['a',['a',['../namespaceavanzar.html#a4aa963c63215b2dd60a3a777a27c3bc5',1,'avanzar']]],
+  ['action',['action',['../classir_a_1_1ir_a.html#ac193d64cdaa5701922a81a9cbdaef9e4',1,'irA.irA.action()'],['../classlocalizar_1_1localizar.html#a362f0dbebdaaef13b30fa377a3e24624',1,'localizar.localizar.action()'],['../classcomportamiento_1_1comportamiento.html#a78cb730a585ecacca5990943a4d2276e',1,'comportamiento.comportamiento.action()']]],
+  ['action_5fback',['ACTION_BACK',['../classir_a_1_1ir_a.html#ab6d77815c8e2ed80f35cf234cb579440',1,'irA.irA.ACTION_BACK()'],['../classlocalizar_1_1localizar.html#a23e20289dd103da8dc5c774e73214dd8',1,'localizar.localizar.ACTION_BACK()']]],
+  ['action_5fforward',['ACTION_FORWARD',['../classir_a_1_1ir_a.html#ac3d0954a8bc1a6771074828235a6cd92',1,'irA.irA.ACTION_FORWARD()'],['../classlocalizar_1_1localizar.html#aaa50cf55d351e0d16c4417b6e97c1215',1,'localizar.localizar.ACTION_FORWARD()']]],
+  ['action_5fturn_5fleft',['ACTION_TURN_LEFT',['../classir_a_1_1ir_a.html#a2bc167136b9b17f5608239d1cb7c0a89',1,'irA.irA.ACTION_TURN_LEFT()'],['../classlocalizar_1_1localizar.html#a6619e5da219e1f3e06a1a8579f585a10',1,'localizar.localizar.ACTION_TURN_LEFT()']]],
+  ['action_5fturn_5fright',['ACTION_TURN_RIGHT',['../classir_a_1_1ir_a.html#a9450c4bbde8aeb56a85e2818cf01db1a',1,'irA.irA.ACTION_TURN_RIGHT()'],['../classlocalizar_1_1localizar.html#a6ff272f79a68d1ec3a68771b15cd6944',1,'localizar.localizar.ACTION_TURN_RIGHT()']]],
+  ['alist',['aList',['../namespacefind_list.html#a45f631ae1af34f5cbfe4e273802a4172',1,'findList']]],
+  ['angmindist',['angMinDist',['../classir_a_1_1ir_a.html#adba8fbac086d2fd0fdd52eec873666cb',1,'irA.irA.angMinDist()'],['../classir_a_1_1ir_a.html#a98fa580f22b9cdfcac65c2f82445262a',1,'irA.irA.angMinDist()']]],
+  ['atr_5fangle',['ATR_ANGLE',['../namespace_const.html#a5e0a44d4ce3ee83ad96eb53a74159458',1,'Const']]],
+  ['atr_5fcolor',['ATR_COLOR',['../namespace_const.html#a550297f076bb052cc0941f3f430ca532',1,'Const']]],
+  ['atr_5fdist',['ATR_DIST',['../namespace_const.html#a3547a8ef8b009e270897e3c835f25c3a',1,'Const']]],
+  ['att_5fid',['ATT_ID',['../classatributos_1_1_angulo_1_1_angulo.html#a3d076512bb1a4887ea8ebc782aedcbee',1,'atributos.Angulo.Angulo.ATT_ID()'],['../classatributos_1_1_color_1_1_color.html#a2aef9431a889df49fbe28e71c044d9fe',1,'atributos.Color.Color.ATT_ID()'],['../classatributos_1_1_distancia_1_1_distancia.html#a5e74b1764a9613578693302ff226ec6f',1,'atributos.Distancia.Distancia.ATT_ID()']]],
+  ['aux',['aux',['../namespacemaestro.html#aaa709f797d7aff98f4ec62c5f7fd11b9',1,'maestro']]],
+  ['auxdicnodocomp',['auxDicNodoComp',['../namespacemaestro.html#ac274f7a84a9d6f65c14b63a69501ff96',1,'maestro']]],
+  ['auxdicnodoparam',['auxDicNodoParam',['../namespacemaestro.html#a463ca5987a0c9124aba0d7f259aeae21',1,'maestro']]],
+  ['avga',['avgA',['../classir_a_1_1ir_a.html#acfe9b3dd141a59a02392b194adb38d08',1,'irA.irA.avgA()'],['../classir_a_1_1ir_a.html#a9da221e16038d150b6e1c82f85585714',1,'irA.irA.avgA()']]]
 ];

@@ -1,19 +1,6 @@
 var searchData=
 [
-  ['pathantecesores',['pathAntecesores',['../namespacemaestro.html#a6ed9b085c96427ad190a8a38b59a9299',1,'maestro']]],
-  ['probaralternancia',['probarAlternancia',['../namespacelcs.html#a973f4572482216f2fb59ccb4c5889bcb',1,'lcs']]],
-  ['probaralternancia2',['probarAlternancia2',['../namespacelcs.html#aa22b77c2484ac1b58b2ef58efd53b951',1,'lcs']]],
-  ['probarbad',['probarBad',['../namespacelcs.html#ac2d62d2a1ad278f3a21b79dbdff395a5',1,'lcs']]],
-  ['probarbadcaminos',['probarBadCaminos',['../namespacelcs.html#a83a637626a517949e26f30b2fdf758e0',1,'lcs']]],
-  ['probarcomeherego',['probarComeHereGo',['../namespacelcs.html#a0774d029c8749ac20a049a81400588f2',1,'lcs']]],
-  ['probarcomeheregocaminos',['probarComeHereGoCaminos',['../namespacelcs.html#a4ce18bfe5f3cde58b3824bab48edb739',1,'lcs']]],
-  ['probarlcs',['probarLCS',['../namespacelcs.html#a2100f6bceb2c600bb7da1fdfec865055',1,'lcs']]],
-  ['probarlcspapper',['probarLCSPapper',['../namespacelcs.html#af0326c05332d12a588fa185155ed1dc9',1,'lcs']]],
-  ['processcommand',['processCommand',['../namespaceinputs.html#ac831f79b1753e5d8db59fd2396dbc10e',1,'inputs.processCommand()'],['../namespacetest_buttons.html#a107f6d8405bd4ad53a7f96361b8c0230',1,'testButtons.processCommand()']]],
-  ['processheadvisionsensor',['processHeadVisionSensor',['../namespacego.html#ab4a864cd8f11f1aa9aceeb6035a54679',1,'go']]],
-  ['processheadvisionsensordata',['processHeadVisionSensorData',['../namespaceinputs.html#a5a74e838eb1f288b9125e8afb4bd2ef8',1,'inputs']]],
-  ['processproximitysensordata',['processProximitySensorData',['../namespacego.html#a31e8907a90fef8cc26793a96fd6796b3',1,'go.processProximitySensorData()'],['../namespaceinputs.html#afa512b648293c049edaf0c8c3cdc7922',1,'inputs.processProximitySensorData()'],['../namespacelocalizar.html#a8e8ea3d745f6034c3f28ee113e4ee992',1,'localizar.processProximitySensorData()'],['../namespacetest_color_sensor.html#af23afefa2cc5c50e8e516db26b38138f',1,'testColorSensor.processProximitySensorData()']]],
-  ['processsensorlinedetectcolordata',['processSensorLineDetectColorData',['../namespaceinputs.html#ade1963090347e3bf4fa67c324575beb4',1,'inputs']]],
-  ['processsensorlinedetectedcolordata',['processSensorLineDetectedColorData',['../namespacelocalizar.html#ab4b1d105e801f95e43e328b6762ca179',1,'localizar.processSensorLineDetectedColorData()'],['../namespacetest_color_sensor.html#a3504317f0ec1c7cc4609fcfc1d240e49',1,'testColorSensor.processSensorLineDetectedColorData()']]],
-  ['publish',['publish',['../namespacego.html#a19da13e093ac5b1cc6dd849d992f300b',1,'go.publish()'],['../namespacelocalizar.html#a6a96312bcb86ea8c25586ad035a2ebb9',1,'localizar.publish()'],['../namespacetest_color_sensor.html#a7120bde160c8038227f99e4f837f1928',1,'testColorSensor.publish()']]]
+  ['nodoactivo',['nodoActivo',['../namespacemaestro.html#a0b12b7e783aa29f44bdc30f4804ea573',1,'maestro']]],
+  ['nodosiniciales',['nodosIniciales',['../namespacelcs.html#a44480290087b34b1c976aae111faf8d9',1,'lcs']]],
+  ['nuevademostracion',['nuevaDemostracion',['../namespacelcs.html#a64f1abd234a393083d0050982c31b293',1,'lcs']]]
 ];
