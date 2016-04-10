@@ -42,9 +42,9 @@ class avanzar(comportamiento):
 
 
     ##
-    # Retorna True si se cumple las postcondiciones del avanzar al aprender. False en otro caso.
+    # Retorna True si se cumple las postcondiciones del avanzar al momento de aprender. False en otro caso.
     # @param data Datos sensados.
-    # @return Retorna True si se cumple las postcondiciones del avanzar al aprender. False en otro caso.
+    # @return Retorna True si se cumple las postcondiciones del avanzar al momento de aprender. False en otro caso.
     #
     def veriPosSenAprender(self, data):
         activate=False

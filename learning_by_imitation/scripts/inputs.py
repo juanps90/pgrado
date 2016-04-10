@@ -1,10 +1,7 @@
 #!/usr/bin/env python
-import os
-import sys
 import rospy
 from std_msgs.msg import String, Float64, Float64MultiArray,Int32MultiArray
 import time
-#
 import Const
 import salvarXML
 import cargarXML
@@ -19,7 +16,7 @@ dataHeadVisionSensor=None
 dataProximitySensor=None
 detener=False
 calibrarColor=-1
-dicColores={}#diccionario de colores clave el color, dos array uno con lecturas de min y otra de max para RGB
+dicColores={} #diccionario de colores clave el color, dos array uno con lecturas de min y otra de max para RGB
 estado=0
  
 
@@ -37,6 +34,15 @@ def joinData(data):
     return salida
 
 
+
+##
+# Procesa los datos originado por los tres sensores de vision usados para leer linea.
+# La funcion retorna un array donde en la posicion 0 esta el id del conjunto de sensores, en la posicion 1 esta el id
+# del color detectado por el sensor izquierdo, en la posicion 2 esta el id del color detectado por el sensor del medio y 
+# en la posicion 3 esta el id del color detectado por el sensor derecho. Ver Const para saber los colores que pude detectar.
+# @param data Datos originados por los tres sensores de vision.
+# @return Retorna un array con el id del conjunto de sensores y los id de los colores sensados por cada sensor.
+#
 def processSensorLineDetectColorData(data):
     if data==None:
         return []
@@ -62,22 +68,28 @@ def processSensorLineDetectColorData(data):
         else:
              sensorsData.append(Const.SENSOR_COLOR_DETECT_NONE)
 
-    #id del sensor, datos...
     salida = [Const.SENSOR_COLOR_DETECT_LINE_ID,  sensorsData[0], sensorsData[1], sensorsData[2]]
-    #print "color: ",sensorsData[1]
     return salida
-    
-# Se publica en sensores un array de Float64 donde los valores son
-# En la posicion 0 el id del sensor
-# En la posicion 1 un valor entre 0 y 1. 0 indica que el objeto esta lo mas a la izquierda
+
+
+
+
+##
+# Procesa los datos originado por el sensor de vision ubicado en la cabeza.
+# La funcion retorna un array donde en la posicion 0 esta el id del del senosr.
+# En la posicion 1 hay un valor entre 0 y 1. 0 indica que el objeto esta lo mas a la izquierda
 # posible de la imagen. 1 indica que el objeto esta lo mas a la derecha posible de la imagen.
 # En la posicion 2 un valor entero que indica el color del objeto segun las constantes establecidas en Const.
+# En la  posicion 3 el ancho de objeto.
+# En la  posicion 4 el alto de objeto.
+# @param data Datos originados por el sensor de vision de la cabeza del robot.
+# @return Retorna un array con el id del sensor, un valor que indica si el objeto detectado esta hacia la izquierda o derecha.
+#
 def processHeadVisionSensor(data):
     global calibrarColor
     global dicColores 
 
     if data==None:
-        #print "********************   NONE   ****************************"
         return []
     print "data vision:",data.data
     salida=[]
@@ -108,11 +120,6 @@ def processHeadVisionSensor(data):
             else:                
                 #se compara con los datos ya calibrados si los hay sino se harcodea
                 if len(dicColores) == 0:     
-#                    dicColores[2]= [[0.0, 0.65882354974747, 0.074509806931019], [0.16078431904316, 0.83137255907059, 0.22352941334248]]
-#                    dicColores[3]= [[0.61960786581039, 0.0, 0.019607843831182], [0.71764707565308, 0.066666670143604, 0.078431375324726]]
-#                    dicColores[4]= [[0.69019609689713, 0.69019609689713, 0.054901961237192], [0.99607843160629, 0.99607843160629, 0.28627452254295]]
-#                    dicColores[5]= [[0.015686275437474, 0.0, 0.67058825492859], [0.2392156869173, 0.2392156869173, 0.87058824300766]] 
-#                    dicColores[6]= [[0.65882354974747, 0.50588238239288, 0.062745101749897], [0.95294117927551, 0.80392158031464, 0.45490196347237]]
                     dicColores[Const.SENSOR_COLOR_DETECT_GREEN]= [[0.0, 0.65, 0.0], [0.17, 1.0, 0.23]]
                     dicColores[Const.SENSOR_COLOR_DETECT_RED]= [[0.60, 0.0, 0.0], [1.0, 0.12, 0.12]]
                     dicColores[Const.SENSOR_COLOR_DETECT_YELLOW]= [[0.69, 0.69, 0.0], [1.0, 1.0, 0.20]]
@@ -138,7 +145,7 @@ def processHeadVisionSensor(data):
                 if len (salida)==0:
                     salida=[Const.SENSOR_VISION_HEAD_ID]
                 salida =salida+ [ datos[3], colorCode,datos[4],datos[5]]
-   #print "cabeza ",salida
+    print "cabeza ", salida
     return salida
 
 
