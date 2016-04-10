@@ -174,6 +174,7 @@ if __name__ == '__main__':
     l = localizar(datos) 
     rospy.spin()
     l.endTopic() 
+    rospy.signal_shutdown("Bye!")
 
     '''
     def verificarPoscondicionesSensores(self,data):

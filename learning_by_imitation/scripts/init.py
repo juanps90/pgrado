@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-
-
 import os 
 import logging 
 import socket 
@@ -11,7 +9,6 @@ import roslib.network
 import rospkg
 import roslaunch.core
 import roslaunch.remote
-
 import sys
 import rospy
 from std_msgs.msg import Int32MultiArray, Float64MultiArray
@@ -269,7 +266,7 @@ if __name__ == '__main__':
     rospy.Subscriber("topicoCaminos", Int32MultiArray, atenderCaminos)
     rospy.Subscriber("topicoOrdenes", Int32MultiArray, atenderOrdenes)   
     rospy.spin()
-    
+    rospy.signal_shutdown("Bye!")
     
     
     

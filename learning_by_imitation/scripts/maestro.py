@@ -1138,8 +1138,7 @@ if __name__ == '__main__':
          estado.publish(msg)
         #entrada=raw_input("> ")
     finalize()
-    rospy.spin()
-
+    rospy.spin() 
 
 '''
 

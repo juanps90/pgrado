@@ -1,18 +1,6 @@
 #!/usr/bin/env python
 
-##
-# @package inputs
-# @brief Módulo usado para capturar y procesar los datos enviados desde V-Rep.
-# @details V-Rep publica los datos de los sensores en los topicos "/vrep/sensorLineDetectColorData", "/vrep/headSensor"
-# y "/vrep/proximitySensorData". Estos datos son procesados y publicados en el topico "topicoSensores". 
-# Además V-Rep pulica datos de comandos ingresados por el usuario en el topico "/vrep/command" y luego estos datos se
-# envian al sistema mediante el topico "command".
-# @authors Gustavo Irigoyen
-# @authors Juan Pablo Sierra
-# @authors Juan Eliel Ibarra
-# @authors Gustavo Evovlockas
-# @date Abril 2016
-#
+
 
 import rospy
 from std_msgs.msg import String, Int32MultiArray
@@ -348,6 +336,6 @@ if __name__ == '__main__':
     
     envioSensados()	
     rospy.spin()
-    
+    rospy.signal_shutdown("Bye!")
        
  

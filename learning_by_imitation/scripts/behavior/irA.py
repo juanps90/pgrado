@@ -49,7 +49,7 @@ class irA(comportamiento):
         self.delay = 0
         self.changeTime = rospy.Time.now() + rospy.Duration(self.delay)
         self.rate = rospy.Rate(10)
-        self.light = rospy.Publisher('actuatorLed1Topic', Int32, queue_size = 1)
+        self.light = rospy.Publisher('actuatorLed1Topic', Int32MultiArray, queue_size = 1)
 
     ##
     # Busca en los elementos impares de la lista de datos del sensor de vision
@@ -144,9 +144,6 @@ class irA(comportamiento):
                 else:
                     #mlog( "irA if2 con angle=" + str(angle) + "; " + str(self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0]) )
                     #ve el color pero no esta a una distancia adecuada centra y luego avanza
-                    
-                    
-                    
                     
                     if abs(curAngle - angle) < self.DELTA_ANGLE:
                         # Muy proximos al angulo buscado
@@ -300,6 +297,7 @@ class irA(comportamiento):
        #ya que se verifico que hay lectura de distancua mas arriba
        aux=self.getIndObjMoreNear(headSensor)
        cond0=  headSensor[aux*4+1] in self.colorValido  
+       cond1= noseSensor[0] > self.safeDist 
        #rospy.loginfo("color a aprender "+str(headSensor[aux*4+1])+str(cond0))
        '''
        cond1=self.PARAM_DISTANCE - self.DELTA_DISTANCE <= noseSensor 
@@ -309,7 +307,7 @@ class irA(comportamiento):
        if cond0 and cond1 and cond2 and cond3 and cond4:       
        '''
        
-       if cond0:           
+       if cond0 and cond1:           
            #rospy.loginfo("SE CUMPLE POSTCONDICION IR A")
            activate=True
            
@@ -342,18 +340,18 @@ class irA(comportamiento):
        #rospy.loginfo("Estoy en veriPosSenEjecutar")
        headSens = Sensores.get(Const.SENSOR_VISION_HEAD_ID,     self.parametros[Const.SENSOR_VISION_HEAD_ID])
        ultrSens = Sensores.get(Const.SENSOR_NOSE_ULTRASONIC_ID, self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID])
-       #msgLight = Int32()
+       msgLight = Int32MultiArray()
        
        esSimiliar=self.similarHeadSensor(headSens, data[Const.SENSOR_VISION_HEAD_ID])
        if esSimiliar==self.getIndObjMoreNear(data[Const.SENSOR_VISION_HEAD_ID])  and ultrSens.similar(data[Const.SENSOR_NOSE_ULTRASONIC_ID])   :       
            rospy.loginfo("CUMPLE POSTCONDICION IR_A PARA " + str(self.identify) + " CON DISTANCIA " + str(self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID]) + ", COLOR Y ANGULO " + str(self.parametros[Const.SENSOR_VISION_HEAD_ID]))
-           #msgLight.data = [self.identify,1]
-           #self.light.publish(msgLight)
+           msgLight.data = [self.identify,1]
+           self.light.publish(msgLight)
            activate=True
        else:
            rospy.loginfo("NO CUMPLE POSTCONDICION IR_A PARA " + str(self.identify))
-           #msgLight.data = [self.identify,0]
-           #self.light.publish(msgLight)
+           msgLight.data = [self.identify,0]
+           self.light.publish(msgLight)
        #rospy.loginfo("Active irA" + str(activate))
        
        return activate
@@ -404,7 +402,7 @@ if __name__ == '__main__':
     i = irA(datos)
     rospy.spin()
     i.endTopic()
-
+    rospy.signal_shutdown("Bye!")
 
 
 
