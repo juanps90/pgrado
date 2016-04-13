@@ -69,6 +69,8 @@ def processSensorLineDetectColorData(data):
              sensorsData.append(Const.SENSOR_COLOR_DETECT_NONE)
 
     salida = [Const.SENSOR_COLOR_DETECT_LINE_ID,  sensorsData[0], sensorsData[1], sensorsData[2]]
+    if Const.debugInputs == 1:
+        print "color: ",sensorsData[1]
     return salida
 
 
@@ -91,7 +93,8 @@ def processHeadVisionSensor(data):
 
     if data==None:
         return []
-    print "data vision:",data.data
+    if Const.debugInputs == 1:
+        print "data vision:",data.data
     salida=[]
  
     # print "callback: ",data
@@ -116,7 +119,8 @@ def processHeadVisionSensor(data):
                             dicColores[calibrarColor][1][i]=datos[i]
                 else:
                     dicColores[calibrarColor]=[ [datos[0],datos[1],datos[2]],[datos[0],datos[1],datos[2]] ]
-                print "dicCol ",dicColores
+                if Const.debugInputs == 1:
+                    print "dicCol ",dicColores
             else:                
                 #se compara con los datos ya calibrados si los hay sino se harcodea
                 if len(dicColores) == 0:     
@@ -145,7 +149,8 @@ def processHeadVisionSensor(data):
                 if len (salida)==0:
                     salida=[Const.SENSOR_VISION_HEAD_ID]
                 salida =salida+ [ datos[3], colorCode,datos[4],datos[5]]
-    print "cabeza ", salida
+    if Const.debugInputs == 1:
+        print "cabeza ", salida
     return salida
 
 
@@ -211,7 +216,8 @@ def envioSensados():
     
         if not detener and len(mensaje)>0:
             sensores.publish(msg) 
-            #print "envio sensores",msg.data
+            if Const.debugInputs == 1:
+                print "envio sensores",msg.data
             
         dataLineDetectColor=None
         dataHeadVisionSensor=None

@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 
-
-
 import rospy
 from std_msgs.msg import Int32MultiArray, Float64, Float64MultiArray, Int32, String
+import Const
 
 #postConditionDetect = None
 identify=0
@@ -21,9 +20,6 @@ def atendersolicitarOLiberarMotores(data):
     nodoEjecutable=data.data[1]
     # idMotor=data.data[2]
     
-    
-       
-    
     # liberan los motores y se apagan
     #el nodo no es ejecutable (no cumple precondiciones o nivel 0)
     if NodoActivo== nodo and nodoEjecutable == 0:
@@ -33,7 +29,8 @@ def atendersolicitarOLiberarMotores(data):
     elif NodoActivo == -1 and nodoEjecutable == 1:
         NodoActivo = nodo #se asigna al nodo 	
         
-    print "motores node activo: ", str(NodoActivo),str(data.data)     
+    if Const.debugMotores == 1:
+        print "motores node activo: ", str(NodoActivo),str(data.data)     
         
     msg = Int32MultiArray()   
     msg.data = [identify,NodoActivo] #por si necesito los id del par motor     
@@ -72,14 +69,16 @@ def actuatorLed1TopicProccessing(data):
                
 #al iniciar una nueva ejecucion se debe reiniciar la estructura                
 def setEstado(data):  
-    print "Llego estado" , data.data[0]
-       #postConditionDetect = None
+    if Const.debugMotores == 1:
+        print "Llego estado" , data.data[0]
+    #postConditionDetect = None
     global NodoActivo
     NodoActivo = -1   
     leftVelocity.publish(0)
     rightVelocity.publish(0)
 
-    print "motores nodo activo: ", str(NodoActivo),str(data.data)         
+    if Const.debugMotores == 1:
+        print "motores nodo activo: ", str(NodoActivo),str(data.data)         
 
 
 def shutdown():

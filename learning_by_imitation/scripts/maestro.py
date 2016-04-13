@@ -41,8 +41,6 @@ auxDicNodoParam = {}
 comando = ""
 # usado para errores de ruido
 errorRuido = 2000 
-# usado para determinar tipos de links puede pasar que se cierre un comportamiento luego de cerrar otro
-epsilon = 200
 # tiempo que se acepta luego de terminado un comportamiento para indicar que se debe eliminar del grafo
 tiempoBad = 10000
 enablig = {}
@@ -61,7 +59,6 @@ nodosParaAprender = {}
 # nodos lanzados an el proceso de ejecucion
 nodosParaEjecutar = {}
 current_milli_time = lambda: int(round(time.time() * 1000))  
-debug=True
 diccSenAprender={}
 
 
@@ -95,16 +92,21 @@ def separarSensados(separar):
 
 # habria que mandar tolerancias
 def compararParametros(data1,data2):
-    print "comparamos parametros"
+    if Const.debugMaestro == 1:
+        print "comparamos parametros"
     # Recorremos cada clave en el diccionario
     for d in data1: # d tiene el Id de cada SENSOR
-        print "Comparo ", data1[d], " con ", data2[d]
+        if Const.debugMaestro == 1:
+            print "Comparo ", data1[d], " con ", data2[d]
         sns = Sensores.get(d, data1[d]) # Obtenemos un sensor a partir de las lecturas en data1
-        print "sns queda", sns
+        if Const.debugMaestro == 1:
+            print "sns queda", sns
         if not sns.similar(data2[d]):   # Comparamos los datos de data1 con data2
-            print "Encontramos datos dinstitos: ", data1[d], "vs", data2[d]
+            if Const.debugMaestro == 1:
+                print "Encontramos datos dinstitos: ", data1[d], "vs", data2[d]
             return False
-    print "SON IGUALES"
+    if Const.debugMaestro == 1:
+        print "SON IGUALES"
     return True
 
 
@@ -132,7 +134,6 @@ def callback(data):
 
     global nodos
     global idNA
-    global debug
 
     if postcondicion == 1:
         #nodo nuevo comportamiento recien activado
@@ -145,14 +146,14 @@ def callback(data):
             #print "nodo comportamiento sigue activo"
             #actualizar datos del nodoactivo en ambas estructuras nodos y dicc
             updateParam(nodos[idActivo], param)  
-            if debug:
+            if Const.debugMaestro == 1:
                 print "update nodos: ",nodos
         #no hay nodo activo se agrega uno nuevo
         else:
            
             #agregar nodo            
             nuevoNodo=(idNA, current_milli_time(), -1, comportamiento, param)
-            if debug:
+            if Const.debugMaestro == 1:
                 print "idNA en call ",idNA," largo ",len (nodos) ," ",nuevoNodo
                 print comportamiento,"nodo comportamiento nuevo ",nodos
             nodos[idNA]= nuevoNodo
@@ -163,13 +164,13 @@ def callback(data):
 
     #comportamiento que estaba activo y se apaga
     elif nodoActivo(comportamiento) != -1:
-        if debug:        
+        if Const.debugMaestro == 1:        
             print "finalizar nodo comportamiento",comportamiento
         #verificar que el inicio del nodo actual esta a menos de 
         #errorRuidNAo del fin de otro nodo del mismo comportamiento 
         #en tal caso hacer un merge
         tiempoFinal=current_milli_time()
-        if debug:        
+        if Const.debugMaestro == 1:        
             print "tiempo final: ",tiempoFinal," ",comportamiento
         lista=Diccionario[comportamiento]
         tamanio=len(lista)
@@ -182,10 +183,10 @@ def callback(data):
             anterior=list(lista[tamanio-2])
             #se verifica inicio del ultimo y fin del anterior y se saca el ultimo de diccionario y se
             #le asigna final al anterior, de los nodos se saca el de id ultimo
-            if debug:            
+            if Const.debugMaestro == 1:            
                 print ultimo[1]-anterior[2]
             if (ultimo[1]-anterior[2])<errorRuido and compararParametros(ultimo[4],anterior[4]):
-                if debug: 
+                if Const.debugMaestro == 1: 
                     print "hay que merger ",comportamiento
                 # FALTA hacer el merge teniento en cuenta los parametros 
                 hayQueMerger=True                
@@ -213,7 +214,7 @@ def callback(data):
             Diccionario[comportamiento]=lista
             nodos[ultimo[0]]=finalizado
             #cerrarNodo(ultimo[0],finalizado)
-            if debug: 
+            if Const.debugMaestro == 1: 
                 print comportamiento, " cerrar directamente ", finalizado
 
         #print nodos  
@@ -253,14 +254,16 @@ def offLine ():
      
     
     idNodeAdd = lcs.getNewId()
-    print "id nodo inicial ",idNodeAdd
+    if Const.debugMaestro == 1:
+        print "id nodo inicial ",idNodeAdd
     for n in nodos.values(): 	
         if n[2] - n[1] > errorRuido:   #el nodo es menor a un errorRuido
             auxl = list (n)
             auxl[0] = idNodeAdd
             auxNodos[idNodeAdd] = tuple(auxl)            
             idNodeAdd = idNodeAdd + 1
-            print "valores de nodos a agregar ",n,n[2]-n[1]
+            if Const.debugMaestro == 1:
+                print "valores de nodos a agregar ",n,n[2]-n[1]
     nodos =  auxNodos    
     # ultimo nodo es el init
     idNA = idNodeAdd 
@@ -274,8 +277,10 @@ def offLine ():
             print "valores de nodos a borrar ",auxNodo,auxNodo[2]-auxNodo[1] 
     '''    
             
-    print "generando links"
-    print "tamanio nodos ",len(nodos) 
+    if Const.debugMaestro == 1:
+        print "generando links"
+    if Const.debugMaestro == 1:
+        print "tamanio nodos ",len(nodos) 
     links = []
     for n1 in nodos.values()  :
         #carga los diccionarios
@@ -286,32 +291,39 @@ def offLine ():
             auxDicNodoParam[n1[0]]= n1[4]
 
         for n2 in nodos.values()  :
-            if n1[0] != n2[0] and n1[1] <= n2[1]:
-                # son nodos distintos y n2 se agrego luego que n1   
+            if n1[0] != n2[0] and n1[1] < n2[1]:
+                # Son nodos distintos y n2 comenzo despues de n1
 
-                #print "enlaces ",n1,n2,n1[2]+epsilon,n2[1]         
-                
+                # De manera analoga al paper pongo las tareas como A y B
+                iniA, finA, iniB, finB = n1[1], n1[2], n2[1], n2[2]
                 tipoLink = -1
-                if n1[2] + epsilon > n2[2]: 
-                    # el final de n1 mayor al de n2 => permanente
+                if ( iniA + Const.EPSILON < iniB < finA - Const.EPSILON ) and ( iniA + Const.EPSILON < finB < finA + Const.EPSILON ):                    
+                    # (B empieza durante A) y ademas (B termina antes que termine A o junto con A) => permanente
                     tipoLink = Const.LINK_PRM
-                elif n1[2] < n2[2] and n2[1] + epsilon < n1[2]:
-                    # el final de n2 cae en medio de n2 => habilitacion
+                elif ( finA - Const.EPSILON <= iniB < finA + Const.EPSILON ) or ((iniA + Const.EPSILON < iniB < finA - Const.EPSILON) and (finA + Const.EPSILON < finB)) :
+                    # (B empieza justo cuando termina A) o bien (B empieza durante A y termina despues que A) => habilitacion
                     tipoLink = Const.LINK_ENA 
-                elif n1[2] + epsilon < n2[1]: 
-                    # el final de n1 es menor al inicio de n2 => orden
-                    tipoLink = Const.LINK_ORD 
+                elif finA + Const.EPSILON < iniB: 
+                    # B empieza despues que termino A => orden
+                    tipoLink = Const.LINK_ORD
                 if tipoLink != -1:  
                     #links.append((n1[0],n1[3] ,n2[0],n2[3] ,tipoLink))#id nodo 1 (2) comportamiento nodo 1 (2)
-                    links.append((n1[0],n2[0] ,tipoLink))
+                    links.append((n1[0], n2[0], tipoLink))
+                    if Const.debugMaestro == 1:
+                        print "el nodo se agrego"
+                    print "$> {0}, {1}, {2}, {3}, {4}, {5}, {6} >>> {7}".format(n1[0], iniA, finA, n2[0], iniB, finB, Const.EPSILON, tipoLink)
                 else:
-                    print "el nodo no se agrego"
+                    if Const.debugMaestro == 1:
+                        print "el nodo no se agrego"
+                    print "$> {0}, {1}, {2}, {3}, {4}, {5}, {6} >>> {7}".format(n1[0], iniA, finA, n2[0], iniB, finB, Const.EPSILON, tipoLink)
+                tipoLink = -1
     if len (nodos) > 0:
         agregarNodoInit(idNA)
         
     # print "links ",links
-    for it in links:       
-        print "links ",it[0]," ",it[1]," ",it[2]
+    if Const.debugMaestro == 1:
+        for it in links:       
+            print "links ",it[0]," ",it[1]," ",it[2]
         
 #se desacopla de offline para poder usar el metodo anterior en el metodo go, ya 
 #que ahi no se necesita este nodo init 
@@ -369,19 +381,12 @@ def mergeNodos(idEliminar,idModificar,nodoMergueado):
                 return
 '''
 
-
-
-
-
-
-
-
-
 #solo se usa para crear la topologia a partir de una sola demostracion
 def crearTopologia (enlaces):
     salida =[]
     aux={}#diccionario tendra todos los nodos y la cantidad de enlaces que tiene
-    print "links cretto",enlaces
+    if Const.debugMaestro == 1:
+        print "links cretto",enlaces
     for l in enlaces:
         # se agregan al diccionario todos los nodos
         if not aux.has_key(l[0]):
@@ -401,7 +406,8 @@ def crearTopologia (enlaces):
         ordenado[numSuc].append(n)
 
     for o in range (len(ordenado)-1,0,-1):
-        print o,ordenado
+        if Const.debugMaestro == 1:
+            print o,ordenado
         for p in ordenado[o]:
             for s in ordenado[o-1]:
                 salida.append( (p,s) )
@@ -428,7 +434,8 @@ def paramToString(param):
         salida=salida+str(p)
         for d in param[p]:
             salida=salida+'#'+str(d)
-    print "paramtostring", salida
+    if Const.debugMaestro == 1:
+        print "paramtostring", salida
     return salida 
                 
 def lanzarNodo(idNodo,idComportamiento): #es el id numerico del comportamiento 
@@ -436,7 +443,8 @@ def lanzarNodo(idNodo,idComportamiento): #es el id numerico del comportamiento
     global dicNodoParam
     #nombreComportamiento=dicComp [idComportamiento]
     nombreComportamiento=str(idComportamiento)
-    print "se lanza el comportamiento:",nombreComportamiento    
+    if Const.debugMaestro == 1:
+        print "se lanza el comportamiento:",nombreComportamiento    
     
     global pkg
     global dicNodoParam  
@@ -448,7 +456,8 @@ def lanzarNodo(idNodo,idComportamiento): #es el id numerico del comportamiento
         sensado=paramToString(dicNodoParam)
         data= str(idNodo)
         if len(sensado)>1 and idNodo!=-1:
-            print "diccionario nodo param ",dicNodoParam,idNodo,dicNodoParam[int(idNodo)]
+            if Const.debugMaestro == 1:
+                print "diccionario nodo param ",dicNodoParam,idNodo,dicNodoParam[int(idNodo)]
             data=data + '|' + paramToString(dicNodoParam[int(idNodo)])              
         node = roslaunch.core.Node(pkg, execution, args=str(data) )
         #node = roslaunch.core.Node(pkg, execution, env_args=[("identify",str(idNodo)),("color","negro")] )    
@@ -466,7 +475,8 @@ def lanzarNodo(idNodo,idComportamiento): #es el id numerico del comportamiento
 #No olvidar ajustar el nombre de pkg al del proyecto
 
 def cargarDatos():
-    print "cargar Datos mediante XML"
+    if Const.debugMaestro == 1:
+        print "cargar Datos mediante XML"
 
 #se deberian recuperar la topologia de un XML
 def recuperarTopologia():
@@ -551,7 +561,8 @@ def ejecutarBad():
 
     if nodoABorrar==-1:
         return
-    print "nodoEjecutando ",nodoEjecutando  
+    if Const.debugMaestro == 1:
+        print "nodoEjecutando ",nodoEjecutando  
         
     #el lcs verifica si se puede borrar el nodo     
     #no se borra si solo queda un nodo y el init ni si el nodo ya fue borrado
@@ -608,9 +619,10 @@ def ejecutarCome ():
     global diccSenAprende
 
     if fase!="ejecutar":
-        print "ATENCION solo se puede hacer come cuando se este ejecutando"    
+        print "ATENCION solo se puede hacer COME cuando se este ejecutando"    
         return
-    print "nodoEjecutando ",nodoEjecutando
+    if Const.debugMaestro == 1:
+        print "nodoEjecutando ",nodoEjecutando
     idCome=nodoEjecutando[1][0]
     if idCome==-1: 
         print "ATENCION no se puede agregar nodos"  
@@ -634,7 +646,7 @@ def ejecutarHere():
     global nodosParaAprender
     
     if fase!="come":
-        print "ATENCION solo se puede hacer here luego de Come"
+        print "ATENCION solo se puede hacer HERE luego de COME"
         return
 
     nodosParaAprender = {}
@@ -645,13 +657,15 @@ def ejecutarHere():
 
     msg.data = [1,1]#podria ser el segundo valor el id del comportamiento
     estado.publish(msg)
-    print "ejecuto here"
+    if Const.debugMaestro == 1:
+        print "ejecuto here"
     
     
 #se realiza la particion del grafo se agrega los link obtenidos en here  se pasa a modo ejecucion nuevamente y se continua la ejecucion
 def ejecutarGo():  
     
-    print "entro en go"    
+    if Const.debugMaestro == 1:
+        print "entro en go"    
     global fase
     global estado
     global idCome
@@ -668,7 +682,7 @@ def ejecutarGo():
         return
     
     if fase!="here":
-        print "ATENCION solo se puede hacer Go luego de Here" 
+        print "ATENCION solo se puede hacer GO luego de HERE" 
         return
     #se obtiene el grafo generado en la mini demostracion
     global links
@@ -678,7 +692,8 @@ def ejecutarGo():
     estado.publish(msg)
     for it in nodosParaAprender.values():
         print it.stop()	
-    print "antes de offline en go"   
+    if Const.debugMaestro == 1:
+        print "antes de offline en GO"   
     offLine()         
     
     #cortarGo(links,grafoGeneral,idCome)     
@@ -691,7 +706,8 @@ def ejecutarGo():
     # agregarNodoInit()#agrega el nodo init al final de link y agrega enlaces de orden
     # aca se podria agregar el comportamiento del capitulo 5
     if len (links) > 0:        
-        print "nodos nuevos en go",nodos
+        if Const.debugMaestro == 1:
+            print "nodos nuevos en go",nodos
         grafoNuevo= crearTopologia(links)
         lcs.setDicParametros(auxDicNodoParam)
         lcs.appendDicCom(auxDicNodoComp)
@@ -705,7 +721,8 @@ def ejecutarGo():
     else:
         print "ATENCION: La demostracion no genero nodos"    
     
-    print "nodoEjecutando ",nodoEjecutando," idCome ",idCome
+    if Const.debugMaestro == 1:
+        print "nodoEjecutando ",nodoEjecutando," idCome ",idCome
 
     fase="ejecutar"
     
@@ -741,7 +758,8 @@ def pathAntecesores( sucesoresTopologicos):
     #los nodos son un dicc, cada nodo tene una lista de path y cada path es una lista de nodos
     salida ={}
     for nodo in sucesoresTopologicos:#para cada nodo 
-        print "Nodo ",nodo
+        if Const.debugMaestro == 1:
+            print "Nodo ",nodo
         if not salida.has_key(nodo):    
             salida[nodo]=[]
         salida = recursionEnvioPath(nodo, [], salida, sucesoresTopologicos)   
@@ -771,10 +789,12 @@ def recursionEnvioPath(nodo, pathAdd, caminos, sucesoresTopologicos):
                     caminos[sucesor][cs]=pathMasLargo                    
                     
             if accion==2:
-                print "nuevoPAth ", path
+                if Const.debugMaestro == 1:
+                    print "nuevoPAth ", path
                 caminos[sucesor].append(path)  
             if accion >0:   
-                print caminos
+                if Const.debugMaestro == 1:
+                    print caminos
                 caminos = recursionEnvioPath(sucesor,path, caminos,sucesoresTopologicos)  
     return caminos
 
@@ -802,12 +822,14 @@ def compararPath (pathNuevo,pathAntiguo):
     return pathMasLargo #devuelve el path mas largo
     
 def enviarCaminos(caminos): 
-    print "Enviando caminos"
+    if Const.debugMaestro == 1:
+        print "Enviando caminos"
     msg = Int32MultiArray() 
     global pubCaminos  
     #print caminos
     for nodo in caminos:
-        print nodo
+        if Const.debugMaestro == 1:
+            print nodo
         salida = [nodo]
         for lc in range (len (caminos[nodo]) ): 
            # for c in range (len (caminos[nodo][lc]) ): 
@@ -836,7 +858,6 @@ def finDemo():
     if fase != "aprender":
         print "ATENCION: no se inicio aprendizaje"
         return
-
 
     for it in nodosParaAprender.values():
         print it.stop()
@@ -930,7 +951,8 @@ def ejecutar():
     dicNodoComp = lcs.getDicComportamientos()
     dicNodoParam = lcs.getDicParametros()
     lcs.graficar("Ejecutar")
-    print "dicc nodo param ", dicNodoParam
+    if Const.debugMaestro == 1:
+        print "dicc nodo param ", dicNodoParam
     if len (dicNodoParam) == 0:
         print "No hay nada para ejecutar", dicNodoComp
         return
@@ -946,7 +968,8 @@ def ejecutar():
 
     topologia = recuperarTopologia()
     sucesoresTop = sucesoresTopologicos (topologia)
-    print "sucesores: ",sucesoresTop
+    if Const.debugMaestro == 1:
+        print "sucesores: ",sucesoresTop
     caminitos = pathAntecesores(sucesoresTop)    
     enviarCaminos(caminitos)     
     
@@ -971,7 +994,8 @@ def finEjecutar():
 def atenderComandos(data):
     global comando
     global idTarea
-    print "recibo comando",data.data,str(Const.COMMAND_INIT_LEARNING)
+    if Const.debugMaestro == 1:
+        print "recibo comando",data.data,str(Const.COMMAND_INIT_LEARNING)
     #event.signal()
     aux = data.data.split('|')
     if aux[0] ==str(Const.COMMAND_INIT_LEARNING):
@@ -1035,7 +1059,6 @@ if __name__ == '__main__':
     msg.data = [0,1]
     estado.publish(msg)
     
-    print "inicio master" 
     #comando=raw_input("> ") 
     comando = ""
     
@@ -1058,26 +1081,33 @@ if __name__ == '__main__':
 	    #posiblemente se realice el algoritmo en vez de 
 	    #sobre linkEnEjecucion sobre el grafo general	    
 	    aux = ejecutarBad()
-	    print  aux	    
+	    if Const.debugMaestro == 1:
+             print  aux	    
 	elif comando == "come":    
 	    aux = ejecutarCome()
-	    print  aux
+	    if Const.debugMaestro == 1:
+             print  aux
 	elif comando == "here":
 	    aux = ejecutarHere()
-	    print  aux
+	    if Const.debugMaestro == 1:
+             print  aux
 	elif comando == "go": 
-	    print "antes de go"
+	    if Const.debugMaestro == 1:
+             print "antes de go"
 	    aux = ejecutarGo()	    
-	    print  aux	    
+	    if Const.debugMaestro == 1:
+             print  aux	    
 	elif comando == "probarGo": 
 	    grafoGeneral = [(1,1,3,3,0),(2,2,3,3,0),(3,3,4,4,0),(3,3,5,5,0)]
 	    nuevolinks = [(0,6,1,0,0)]
 	    #cortarGo(nuevolinks,grafoGeneral,3)	    
 	#elif comando == "sc": 
 	   # print separarCaminos()
-	elif comando == "topo": 
-            linkEnEjecucion = [(0,1,0),(0,2,0),(0,3,0),(1,2,0),(1,3,0),(2,3,0)]
-	    print crearTopologia(linkEnEjecucion)
+	elif comando == "topo":
+         linkEnEjecucion = [(0,1,0),(0,2,0),(0,3,0),(1,2,0),(1,3,0),(2,3,0)]
+         aux = crearTopologia(linkEnEjecucion)
+         if Const.debugMaestro == 1:
+             print aux
 	elif comando == "lcs":
             lcs.probarLCS()
 	elif comando == "lcsPapper":
@@ -1085,11 +1115,13 @@ if __name__ == '__main__':
 	elif comando == "pp":   
 	    pathAntiguo = [2,3,4]
 	    pathNuevo = [3,4]
-	    print "compararPath> ",compararPath (pathNuevo,pathAntiguo)	    
+	    if Const.debugMaestro == 1:
+             print "compararPath> ",compararPath (pathNuevo,pathAntiguo)	    
 	    topologia = [(2,4),(1,3),(3,4),(1,2),(4,6),(5,1),(7,1),(4,8)]
             #topologia=[(1,2)]
             sucesoresTopologicos = sucesoresTopologicos (topologia)
-            print "sucesores: ",sucesoresTopologicos
+            if Const.debugMaestro == 1:
+                print "sucesores: ",sucesoresTopologicos
             caminitos = pathAntecesores(sucesoresTopologicos)    
 	    enviarCaminos(caminitos)	    
 	#se puede dar bad cuando se ejecuta 
@@ -1097,7 +1129,8 @@ if __name__ == '__main__':
 	    linksBad = [(1,1,3,3,0),(2,2,3,3,0),(3,3,4,4,0),(3,3,5,5,0),(5,5,6,6,2)]	
 	    #salida = borrarNodoBad(linksBad,3)
 	    salida = ejecutarBad(linksBad)
-	    print salida
+	    if Const.debugMaestro == 1:
+             print salida
 	    #msg.data = [0,0] 
 	    #estado.publish(msg)
 	else:
