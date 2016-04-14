@@ -1,6 +1,6 @@
 var NAVTREE =
 [
-  [ "pgrado", "index.html", [
+  [ "Proyecto de grado", "index.html", [
     [ "Namespaces", null, [
       [ "Lista de 'namespaces'", "namespaces.html", "namespaces" ],
       [ "Miembros del Namespace ", "namespacemembers.html", [
@@ -28,8 +28,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "____init_____8py.html",
-"inputs_8py.html#abb064e4697354eccb350587361ca72a1",
-"namespaceroslunch_demo.html"
+"inputs_8py.html#ac72544ee321fdbfa4ee94bc3ef58b793",
+"namespaces.html"
 ];
 
 var SYNCONMSG = 'click en deshabilitar sincronización';

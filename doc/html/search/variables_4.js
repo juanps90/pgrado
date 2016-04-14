@@ -11,7 +11,7 @@ var searchData=
   ['delta_5fangle',['DELTA_ANGLE',['../classir_a_1_1ir_a.html#a8e69baf84411a74acf28b8734b7e025d',1,'irA::irA']]],
   ['delta_5fdistance',['DELTA_DISTANCE',['../classir_a_1_1ir_a.html#a7fdaad91c93bdd6216ffd8b658e21d76',1,'irA::irA']]],
   ['detener',['detener',['../namespaceinputs.html#a73e26604db11903c4a0d3c892a30e1c1',1,'inputs']]],
-  ['diccionario',['diccionario',['../namespacelcs.html#a573c3358f228214c0c8aa18840894746',1,'lcs.diccionario()'],['../namespacemaestro.html#ae6ed8b9a2e2d2dc7e42f2a57af5b7252',1,'maestro.Diccionario()']]],
+  ['diccionario',['Diccionario',['../namespacemaestro.html#ae6ed8b9a2e2d2dc7e42f2a57af5b7252',1,'maestro.Diccionario()'],['../namespacelcs.html#a573c3358f228214c0c8aa18840894746',1,'lcs.diccionario()']]],
   ['diccolores',['dicColores',['../namespaceinputs.html#a5a04077c8f5765e778a1d526540f8a6c',1,'inputs']]],
   ['diccomp',['dicComp',['../namespacemaestro.html#af51a7868d7ab503278b0dc5d17b983b7',1,'maestro']]],
   ['diccsenaprender',['diccSenAprender',['../namespacemaestro.html#aa1b10639a63abf70fb6ac0db7c52d8b9',1,'maestro']]],

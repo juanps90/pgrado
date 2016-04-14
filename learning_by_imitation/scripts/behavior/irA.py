@@ -79,15 +79,6 @@ class irA(comportamiento):
 
         return salida
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
         highMax=-1
         ind=-1
         for d in range( len(data)-1):

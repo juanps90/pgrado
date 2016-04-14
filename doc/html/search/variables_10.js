@@ -19,7 +19,6 @@ var searchData=
   ['sensor_5fnose_5fultrasonic_5fid',['SENSOR_NOSE_ULTRASONIC_ID',['../namespace_const.html#a99fc2d240c593ed047c584cad781354f',1,'Const']]],
   ['sensor_5fvision_5fhead_5fid',['SENSOR_VISION_HEAD_ID',['../namespace_const.html#ac9bddc9350da6edb36b8263fb7b505dc',1,'Const']]],
   ['sensores',['sensores',['../namespaceinputs.html#a97c5ed63e83922601beebfc540678231',1,'inputs']]],
-  ['sensorlinedetectcolordata',['sensorLineDetectColorData',['../namespaceinputs.html#a87fb0dbc17488fdee8b50e955ec1bdd9',1,'inputs']]],
   ['solicitaroliberarmotores',['solicitarOLiberarMotores',['../classcomportamiento_1_1comportamiento.html#ab0143e55e29d225f16bfa4b42adc3a52',1,'comportamiento.comportamiento.solicitarOLiberarMotores()'],['../classcomportamiento_1_1comportamiento.html#aa8218e6d75f1c0e562bf370866150bce',1,'comportamiento.comportamiento.solicitarOLiberarMotores()']]],
   ['speed',['speed',['../classlocalizar_1_1localizar.html#ac0e2d288ef3206b3ba6d38e6e41282ff',1,'localizar.localizar.speed()'],['../classcomportamiento_1_1comportamiento.html#aacf7dd17c914625d4f55e1ecc8cffdcf',1,'comportamiento.comportamiento.speed()']]],
   ['sucesorestopologicos',['sucesoresTopologicos',['../namespacemaestro.html#a91e953c33954429d756711eb652392c8',1,'maestro']]]

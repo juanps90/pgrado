@@ -23,8 +23,6 @@ var inputs_8py =
     [ "detener", "inputs_8py.html#a73e26604db11903c4a0d3c892a30e1c1", null ],
     [ "dicColores", "inputs_8py.html#a5a04077c8f5765e778a1d526540f8a6c", null ],
     [ "estado", "inputs_8py.html#a7c8561041d53c028a27e2995194b5dc3", null ],
-    [ "proximitySensorData", "inputs_8py.html#ae240badc9f15f8473a99ca58c487a722", null ],
     [ "sensores", "inputs_8py.html#a97c5ed63e83922601beebfc540678231", null ],
-    [ "sensorLineDetectColorData", "inputs_8py.html#a87fb0dbc17488fdee8b50e955ec1bdd9", null ],
     [ "topeContador", "inputs_8py.html#a11420aec99c04dc6411518df70fccaa6", null ]
 ];

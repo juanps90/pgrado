@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>pgrado: Referencia del Namespace inputs</title>
+<title>Proyecto de grado: Referencia del Namespace inputs</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -28,10 +28,11 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">pgrado
+   <div id="projectname">Proyecto de grado
    </div>
-   <div id="projectbrief">Aprendizaje por imitacion</div>
+   <div id="projectbrief">Aprendizaje por imitación</div>
   </td>
  </tr>
  </tbody>
@@ -109,6 +110,9 @@ $(document).ready(function(){initNavTree('namespaceinputs.html','');});
 <div class="title">Referencia del Namespace inputs</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Módulo usado para capturar y procesar los datos enviados desde V-Rep.  
+<a href="#details">Más...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Funciones</h2></td></tr>
@@ -163,16 +167,23 @@ Variables</h2></td></tr>
 <tr class="separator:a5a04077c8f5765e778a1d526540f8a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c8561041d53c028a27e2995194b5dc3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceinputs.html#a7c8561041d53c028a27e2995194b5dc3">estado</a> = 0</td></tr>
 <tr class="separator:a7c8561041d53c028a27e2995194b5dc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae240badc9f15f8473a99ca58c487a722"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceinputs.html#ae240badc9f15f8473a99ca58c487a722">proximitySensorData</a> = rospy.Publisher('proximitySensorData', Float64, queue_size=50)</td></tr>
-<tr class="separator:ae240badc9f15f8473a99ca58c487a722"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97c5ed63e83922601beebfc540678231"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceinputs.html#a97c5ed63e83922601beebfc540678231">sensores</a> = rospy.Publisher('topicoSensores', String, queue_size=1)</td></tr>
 <tr class="separator:a97c5ed63e83922601beebfc540678231"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87fb0dbc17488fdee8b50e955ec1bdd9"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceinputs.html#a87fb0dbc17488fdee8b50e955ec1bdd9">sensorLineDetectColorData</a> = rospy.Publisher('sensorLineDetectedColorData', Float64MultiArray, queue_size=10)</td></tr>
-<tr class="separator:a87fb0dbc17488fdee8b50e955ec1bdd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae249ec02168ec10700623bc9a6e304f2"><td class="memItemLeft" align="right" valign="top">tuple&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceinputs.html#ae249ec02168ec10700623bc9a6e304f2">command</a> = rospy.Publisher('command', String, queue_size=10)</td></tr>
 <tr class="separator:ae249ec02168ec10700623bc9a6e304f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Documentación de las funciones</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>Módulo usado para capturar y procesar los datos enviados desde V-Rep. </p>
+<p>V-Rep publica los datos de los sensores en los topicos "/vrep/sensorLineDetectColorData", "/vrep/headSensor" y "/vrep/proximitySensorData". Estos datos son procesados y publicados en el topico "topicoSensores". Además V-Rep pulica datos de comandos ingresados por el usuario en el topico "/vrep/command" y luego estos datos se envian al sistema mediante el topico "command". </p>
+<dl class="section author"><dt>Autores</dt><dd>Gustavo Irigoyen </dd>
+<dd>
+Juan Pablo Sierra </dd>
+<dd>
+Juan Eliel Ibarra </dd>
+<dd>
+Gustavo Evovlockas </dd></dl>
+<dl class="section date"><dt>Fecha</dt><dd>Abril 2016 </dd></dl>
+</div><h2 class="groupheader">Documentación de las funciones</h2>
 <a class="anchor" id="ac72544ee321fdbfa4ee94bc3ef58b793"></a>
 <div class="memitem">
 <div class="memproto">
@@ -187,7 +198,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00173">173</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00188">188</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -205,7 +216,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00168">168</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00183">183</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -223,7 +234,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00163">163</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00178">178</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -240,7 +251,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00179">179</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00194">194</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -258,7 +269,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00304">304</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00319">319</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -275,7 +286,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00282">282</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00297">297</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -293,7 +304,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00023">23</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00038">38</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -311,7 +322,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00224">224</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00239">239</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -339,7 +350,7 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>Retorna un array con el id del sensor, un valor que indica si el objeto detectado esta hacia la izquierda o derecha. </dd></dl>
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00088">88</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00103">103</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -357,7 +368,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00154">154</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00169">169</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -385,7 +396,7 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Devuelve</dt><dd>Retorna un array con el id del conjunto de sensores y los id de los colores sensados por cada sensor. </dd></dl>
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00046">46</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00061">61</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -403,7 +414,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00275">275</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00290">290</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -420,7 +431,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00301">301</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00316">316</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -435,7 +446,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00018">18</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00033">33</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -449,7 +460,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00318">318</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00333">333</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -463,7 +474,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00010">10</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00025">25</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -477,7 +488,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00015">15</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00030">30</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -491,7 +502,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00014">14</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00029">29</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -505,7 +516,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00016">16</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00031">31</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -519,7 +530,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00009">9</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00024">24</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -533,7 +544,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00017">17</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00032">32</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -547,7 +558,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00019">19</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00034">34</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -561,21 +572,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00020">20</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae240badc9f15f8473a99ca58c487a722"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tuple inputs.proximitySensorData = rospy.Publisher('proximitySensorData', Float64, queue_size=50)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00315">315</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00035">35</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -589,21 +586,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00316">316</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a87fb0dbc17488fdee8b50e955ec1bdd9"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tuple inputs.sensorLineDetectColorData = rospy.Publisher('sensorLineDetectedColorData', Float64MultiArray, queue_size=10)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00317">317</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00331">331</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -617,7 +600,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00011">11</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
+<p>Definición en la línea <a class="el" href="inputs_8py_source.html#l00026">26</a> del archivo <a class="el" href="inputs_8py_source.html">inputs.py</a>.</p>
 
 </div>
 </div>
@@ -627,7 +610,7 @@ Variables</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceinputs.html">inputs</a></li>
-    <li class="footer">Generado el Domingo, 10 de Abril de 2016 15:10:01 para pgrado por
+    <li class="footer">Generado el Miércoles, 13 de Abril de 2016 23:22:02 para Proyecto de grado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

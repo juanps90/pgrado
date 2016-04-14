@@ -235,7 +235,7 @@ var NAVTREEINDEX0 =
 "init_8py_source.html":[2,0,0,0,6],
 "inputs_8py.html":[2,0,0,0,7],
 "inputs_8py.html#a080da007b358a5eb17cccba03c7b19ea":[2,0,0,0,7,18],
-"inputs_8py.html#a11420aec99c04dc6411518df70fccaa6":[2,0,0,0,7,26],
+"inputs_8py.html#a11420aec99c04dc6411518df70fccaa6":[2,0,0,0,7,24],
 "inputs_8py.html#a1b9999984f89af405b3ab0271c510130":[2,0,0,0,7,16],
 "inputs_8py.html#a38e6d548ba87d691f98e6628598e4cc8":[2,0,0,0,7,17],
 "inputs_8py.html#a3aa3537502495dc1d39d45209081b6ef":[2,0,0,0,7,2],
@@ -248,6 +248,6 @@ var NAVTREEINDEX0 =
 "inputs_8py.html#a7c8561041d53c028a27e2995194b5dc3":[2,0,0,0,7,22],
 "inputs_8py.html#a7ed1655bbb1b281e95a72a15d9822647":[2,0,0,0,7,5],
 "inputs_8py.html#a7fa8f0e167d968975e4ab6e181ced444":[2,0,0,0,7,3],
-"inputs_8py.html#a87fb0dbc17488fdee8b50e955ec1bdd9":[2,0,0,0,7,25],
-"inputs_8py.html#a97c5ed63e83922601beebfc540678231":[2,0,0,0,7,24]
+"inputs_8py.html#a97c5ed63e83922601beebfc540678231":[2,0,0,0,7,23],
+"inputs_8py.html#abb064e4697354eccb350587361ca72a1":[2,0,0,0,7,12]
 };

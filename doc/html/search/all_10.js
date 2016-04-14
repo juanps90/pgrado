@@ -35,7 +35,6 @@ var searchData=
   ['processproximitysensordata',['processProximitySensorData',['../classcomportamiento_1_1comportamiento.html#ab0f0ee19e24bd2628eab382f8ddf9c3c',1,'comportamiento.comportamiento.processProximitySensorData()'],['../namespaceinputs.html#afa512b648293c049edaf0c8c3cdc7922',1,'inputs.processProximitySensorData()']]],
   ['processsensorlinedetectcolordata',['processSensorLineDetectColorData',['../namespaceinputs.html#ade1963090347e3bf4fa67c324575beb4',1,'inputs']]],
   ['processsensorlinedetectedcolordata',['processSensorLineDetectedColorData',['../classcomportamiento_1_1comportamiento.html#a10bcb1d993f9df7e6844a80cb8641b78',1,'comportamiento::comportamiento']]],
-  ['proximitysensordata',['proximitySensorData',['../namespaceinputs.html#ae240badc9f15f8473a99ca58c487a722',1,'inputs']]],
   ['prueba',['prueba',['../classprobando_class_1_1prueba.html',1,'probandoClass']]],
   ['pub',['pub',['../namespacemaestro.html#a7ffd482e06ca6dbe215c2b80312e0714',1,'maestro']]],
   ['pubcaminos',['pubCaminos',['../namespacemaestro.html#afaf817e6dc525194b1155a7dc3ce5329',1,'maestro']]],

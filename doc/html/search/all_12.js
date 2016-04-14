@@ -24,7 +24,6 @@ var searchData=
   ['sensor_5fvision_5fhead_5fid',['SENSOR_VISION_HEAD_ID',['../namespace_const.html#ac9bddc9350da6edb36b8263fb7b505dc',1,'Const']]],
   ['sensores',['sensores',['../namespaceinputs.html#a97c5ed63e83922601beebfc540678231',1,'inputs']]],
   ['sensores_2epy',['Sensores.py',['../_sensores_8py.html',1,'']]],
-  ['sensorlinedetectcolordata',['sensorLineDetectColorData',['../namespaceinputs.html#a87fb0dbc17488fdee8b50e955ec1bdd9',1,'inputs']]],
   ['separarbloques',['separarBloques',['../classcomportamiento_1_1comportamiento.html#ae0216638aee286e4ee95ca9d3fe25804',1,'comportamiento.comportamiento.separarBloques()'],['../namespacemaestro.html#a442bcfc419500995b4732c220b4e0acd',1,'maestro.separarBloques()']]],
   ['separarcaminos',['separarCaminos',['../classcomportamiento_1_1comportamiento.html#aa28c363e57330787b760da7fec368ede',1,'comportamiento.comportamiento.separarCaminos()'],['../namespaceinit.html#a573233ca7c03c64db9bd21e81929798b',1,'init.separarCaminos()']]],
   ['separarsensados',['separarSensados',['../classcomportamiento_1_1comportamiento.html#a27588aa3f7f3cce41f96616f69663698',1,'comportamiento.comportamiento.separarSensados()'],['../namespacemaestro.html#ae38112fe234f46a34adefcc17f3c8045',1,'maestro.separarSensados()']]],

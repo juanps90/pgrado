@@ -16,7 +16,6 @@ var searchData=
   ['postconditiondetect',['postConditionDetect',['../classlocalizar_1_1localizar.html#a76ae299d847d81d22a9bc82d97104447',1,'localizar.localizar.postConditionDetect()'],['../namespaceinit.html#ad9b7fd3bc2742db5c3847684d9353506',1,'init.postConditionDetect()']]],
   ['preconddet',['preCondDet',['../classcomportamiento_1_1comportamiento.html#a5518b33138e0de851092582881a24ec2',1,'comportamiento.comportamiento.preCondDet()'],['../classcomportamiento_1_1comportamiento.html#a759c63de9ea631d72f31bf19f0e5902b',1,'comportamiento.comportamiento.preCondDet()']]],
   ['preconditiondetect',['preConditionDetect',['../namespaceinit.html#a2b108660b97fbbf6b40a12bc4ab5e542',1,'init']]],
-  ['proximitysensordata',['proximitySensorData',['../namespaceinputs.html#ae240badc9f15f8473a99ca58c487a722',1,'inputs']]],
   ['pub',['pub',['../namespacemaestro.html#a7ffd482e06ca6dbe215c2b80312e0714',1,'maestro']]],
   ['pubcaminos',['pubCaminos',['../namespacemaestro.html#afaf817e6dc525194b1155a7dc3ce5329',1,'maestro']]],
   ['pubestado',['pubEstado',['../namespaceinit.html#a60a796681c16d5738b31dcd9b5db2a7b',1,'init']]]
