@@ -79,15 +79,6 @@ class irA(comportamiento):
 
         return salida
         
-        highMax=-1
-        ind=-1
-        for d in range( len(data)-1):
-            aux= data[4*d+2] 
-            if aux>highMax:
-                ind=d
-                highMax=aux
-        return ind  
-                
     ##
     # Retorna un True si veo algun objeto. En caso de ser visto setea en action la correspondiente 
     # accion a ejecutar. Esta accion puede ser girar a la derecha, girar a la izquierda, avanzar o retroceder.
