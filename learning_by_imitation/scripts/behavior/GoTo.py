@@ -47,6 +47,7 @@ class GoTo(AbstractBehavior):
     action = ACTION_TURN_RIGHT
     delay = 0
     changeTime = None
+    prevColor=None
     
     colorValido=[Const.SENSOR_COLOR_DETECT_ORANGE,Const.SENSOR_COLOR_DETECT_YELLOW, Const.SENSOR_COLOR_DETECT_GREEN,Const.SENSOR_COLOR_DETECT_RED,Const.SENSOR_COLOR_DETECT_BLUE]
     
@@ -295,38 +296,7 @@ class GoTo(AbstractBehavior):
             self.ejecutando=False
 
    
-    def veriPosSenAprender(self, data):
-       activate=False
-       if (not data.has_key(Const.SENSOR_VISION_HEAD_ID)) or (not data.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID)):
-           return False
-           
-       headSensor = data[Const.SENSOR_VISION_HEAD_ID]
-       noseSensor = data[Const.SENSOR_NOSE_ULTRASONIC_ID]
-       
 
-       ##rospy.loginfo("EL COLOR EN IR_A ES " + str(headSensor[1]))
-       
-       #esta entre los colores es la unica condicion a verificar
-       #ya que se verifico que hay lectura de distancua mas arriba
-       aux=self.getIndObjMoreNear(headSensor)
-       cond0=  headSensor[aux*4+1] in self.colorValido  
-       cond1= noseSensor[0] > self.safeDist 
-       #rospy.loginfo("color a aprender "+str(headSensor[aux*4+1])+str(cond0))
-       '''
-       cond1=self.PARAM_DISTANCE - self.DELTA_DISTANCE <= noseSensor 
-       cond2=noseSensor[0] <= self.PARAM_DISTANCE + self.DELTA_DISTANCE  
-       cond3=self.PARAM_ANGLE - self.DELTA_ANGLE <= headSensor[0] 
-       cond4=headSensor[0] <= self.PARAM_ANGLE + self.DELTA_ANGLE       
-       if cond0 and cond1 and cond2 and cond3 and cond4:       
-       '''
-       
-       if cond0 and cond1:           
-           #rospy.loginfo("SE CUMPLE POSTCONDICION IR A")
-           activate=True
-           
-       #rospy.loginfo("Active GoTo" + str(activate))
-       #rospy.loginfo("color = " + str(headSensor[aux*4+1]) + " distancia  = " + str(noseSensor) + " angulo = " + str(headSensor[aux*4]))
-       return activate
 
 
 
@@ -346,14 +316,15 @@ class GoTo(AbstractBehavior):
         return -1
            
     def veriPosSenEjecutar(self,data):
+    
        activate=False
        if (not data.has_key(Const.SENSOR_VISION_HEAD_ID)) or (not data.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID)):
-           return False
-      
+           return False    
        #rospy.loginfo("Estoy en veriPosSenEjecutar")
        headSens = SensorFactory.get(Const.SENSOR_VISION_HEAD_ID,     self.parametros[Const.SENSOR_VISION_HEAD_ID])
        ultrSens = SensorFactory.get(Const.SENSOR_NOSE_ULTRASONIC_ID, self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID])
-       msgLight = Int32MultiArray()
+       msgLight = Int32MultiArray()       
+       
        
        esSimiliar=self.similarHeadSensor(headSens, data[Const.SENSOR_VISION_HEAD_ID])
        if esSimiliar==self.getIndObjMoreNear(data[Const.SENSOR_VISION_HEAD_ID])  and ultrSens.similar(data[Const.SENSOR_NOSE_ULTRASONIC_ID])   :       
@@ -365,9 +336,45 @@ class GoTo(AbstractBehavior):
            rospy.loginfo("NO CUMPLE POSTCONDICION IR_A PARA " + str(self.identify))
            msgLight.data = [self.identify,0]
            self.light.publish(msgLight)
-       #rospy.loginfo("Active GoTo" + str(activate))
-       
+       #rospy.loginfo("Active GoTo" + str(activate))       
        return activate
+
+
+    def veriPosSenAprender(self, data): 
+        activate=False
+        if (not data.has_key(Const.SENSOR_VISION_HEAD_ID)) or (not data.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID)):
+            return False
+  
+            
+        headSensor = data[Const.SENSOR_VISION_HEAD_ID]
+        noseSensor = data[Const.SENSOR_NOSE_ULTRASONIC_ID]       
+        ##rospy.loginfo("EL COLOR EN IR_A ES " + str(headSensor[1]))       
+        #esta entre los colores es la unica condicion a verificar
+        #ya que se verifico que hay lectura de distancua mas arriba
+        aux=self.getIndObjMoreNear(headSensor)
+        if self.prevColor==None or self.prevColor != headSensor[aux*4+1]:
+            self.prevColor = headSensor[aux*4+1]
+            self.minDist=200
+            self.angMinDist=10
+            return False
+        
+        
+        cond0=  headSensor[aux*4+1] in self.colorValido  
+        cond1= noseSensor[0] > self.safeDist 
+        #rospy.loginfo("color a aprender "+str(headSensor[aux*4+1])+str(cond0))
+        '''
+        cond1=self.PARAM_DISTANCE - self.DELTA_DISTANCE <= noseSensor 
+        cond2=noseSensor[0] <= self.PARAM_DISTANCE + self.DELTA_DISTANCE  
+        cond3=self.PARAM_ANGLE - self.DELTA_ANGLE <= headSensor[0] 
+        cond4=headSensor[0] <= self.PARAM_ANGLE + self.DELTA_ANGLE       
+        if cond0 and cond1 and cond2 and cond3 and cond4:       
+        '''
+        if cond0 and cond1:           
+           #rospy.loginfo("SE CUMPLE POSTCONDICION IR A")
+           activate=True
+           #rospy.loginfo("Active GoTo" + str(activate))
+           #rospy.loginfo("color = " + str(headSensor[aux*4+1]) + " distancia  = " + str(noseSensor) + " angulo = " + str(headSensor[aux*4]))
+        return activate
 
 
     def getParAprendidos(self,data):
@@ -376,19 +383,21 @@ class GoTo(AbstractBehavior):
         head=[]
         outHead=""
         outProxim=""
-        esDistMin=False
+        esDistMin=False  
         
         if data.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):   
             proxim=data[Const.SENSOR_NOSE_ULTRASONIC_ID] 
             #se queda con la minima distancia
             if proxim[0] <= self.minDist:
                 esDistMin=True
-                self.minDist=proxim[0]
-                
+                self.minDist=proxim[0]                
             outProxim=str (Const.SENSOR_NOSE_ULTRASONIC_ID) + "#" +str(self.minDist) 
+        else:
+            self.minDist=200
+            self.angMinDist=10
         if data.has_key(Const.SENSOR_VISION_HEAD_ID):
             head=data[Const.SENSOR_VISION_HEAD_ID]
-            idObj=self.getIndObjMoreNear(head)
+            idObj=self.getIndObjMoreNear(head)   
             #si es la minima distancia se guarda el angulo
             if esDistMin:
                 self.angMinDist=head[4*idObj]

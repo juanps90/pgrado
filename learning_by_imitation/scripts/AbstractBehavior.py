@@ -37,9 +37,7 @@ class AbstractBehavior(object):
     topicoEje=None
     topicoAct=None
     topicoOrd=None
-
     borrando=False
-
     identify=-1#modicar mediante mensajes al lanzar el nuevo nodo
     idComportamiento = -1
     reejecutar=True
@@ -54,7 +52,7 @@ class AbstractBehavior(object):
     speed = 1
     parametros=None
     dataSensor={}
-    safeDist=0.2
+    safeDist=0.1
     enable=True
     inContinue=False
     active=-1

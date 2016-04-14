@@ -27,7 +27,7 @@ import Const
 import SaveXML
 import LoadXML
 
-delay=0.2
+delay=1.2
 contador=0
 topeContador=1
 
@@ -119,8 +119,8 @@ def processHeadVisionSensor(data):
 
     if data==None:
         return []
-    if Const.debugInputs == 1:
-        print "data vision:",data.data
+    #if Const.debugInputs == 1:
+        # print "data vision:",data.data
     salida=[]
  
     # print "callback: ",data
@@ -175,8 +175,8 @@ def processHeadVisionSensor(data):
                 if len (salida)==0:
                     salida=[Const.SENSOR_VISION_HEAD_ID]
                 salida =salida+ [ datos[3], colorCode,datos[4],datos[5]]
-    if Const.debugInputs == 1:
-        print "cabeza ", salida
+    #if Const.debugInputs == 1:
+        #print "cabeza ", salida
     return salida
 
 
