@@ -3,7 +3,7 @@
 
 ##
 # @package AbstractBehavior
-# @brief ----
+# @brief Clase abstracta que implementa un comportamiento abstracto.
 # @details ----
 # @authors Gustavo Irigoyen
 # @authors Juan Pablo Sierra
@@ -69,16 +69,16 @@ class AbstractBehavior(object):
 
 
     #se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores
-    def actuar( self ):
+    def perform( self ):
         pass              
 
-    def veriPosSenEjecutar(self,data):
+    def activateOnEjecution(self,data):
         pass
         
-    def getParAprendidos(self):
+    def getBehaviorParameters(self):
         pass
 
-    def veriPosSenAprender(self, data):
+    def activateOnDemonstration(self, data):
         pass
 
     #este metodo podria ser un primitivo por ahora va embebido
@@ -169,11 +169,11 @@ class AbstractBehavior(object):
         if self.estado ==2:
             if self.avoid(self.dataSensor):
                 return            
-            if self.veriPosSenEjecutar(self.dataSensor):
+            if self.activateOnEjecution(self.dataSensor):
                 print "se cumple postcondicion id>",self.identify, self.dataSensor
                 valorEncendido=1  
         elif self.estado ==1 or self.estado ==3:  
-            if self.veriPosSenAprender(self.dataSensor):
+            if self.activateOnDemonstration(self.dataSensor):
                 print "se cumple postcondicion id>",self.identify, self.dataSensor
                 valorEncendido=1            
             
@@ -184,7 +184,7 @@ class AbstractBehavior(object):
             msgString=String()
             msgString.data = str(self.idComportamiento) + "#" + str(valorEncendido) 
             if valorEncendido==1:
-                param= str(self.getParAprendidos(self.dataSensor))
+                param= str(self.getBehaviorParameters(self.dataSensor))
                 if len (param):
                     msgString.data = msgString.data + "|" + param            
                  #"|0#1#1#1"
@@ -207,7 +207,7 @@ class AbstractBehavior(object):
             self.preCondDet.publish(msg)	
             msg.data = [self.identify,nodoEjecutable,-1]  
             self.solicitarOLiberarMotores.publish(msg)	
-            self.actuar()	
+            self.perform()	
             ##rospy.loginfo("Locate ",valorEncendido)
 
 

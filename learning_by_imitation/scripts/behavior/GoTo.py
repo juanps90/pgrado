@@ -274,7 +274,7 @@ class GoTo(AbstractBehavior):
   
 
     #se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores
-    def actuar(self):
+    def perform(self):
         if self.cumplePrecondiciones () and self.nivelActivacion>0 and self.motorLibre:
             
             # SE DEBE RECIBIR EL PARAMETROS DEL COLOR DISTANCIA Y ANGULO.
@@ -295,7 +295,7 @@ class GoTo(AbstractBehavior):
 #           #rospy.loginfo(">>>OFF GoTo id:"+str(self.identify))
             self.ejecutando=False
 
-   
+
 
 
 
@@ -315,8 +315,8 @@ class GoTo(AbstractBehavior):
             return indObj
         return -1
            
-    def veriPosSenEjecutar(self,data):
-    
+ 
+    def activateOnEjecution(self,data): 
        activate=False
        if (not data.has_key(Const.SENSOR_VISION_HEAD_ID)) or (not data.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID)):
            return False    
@@ -339,8 +339,9 @@ class GoTo(AbstractBehavior):
        #rospy.loginfo("Active GoTo" + str(activate))       
        return activate
 
-
-    def veriPosSenAprender(self, data): 
+ 
+ 
+    def activateOnDemonstration(self, data): 
         activate=False
         if (not data.has_key(Const.SENSOR_VISION_HEAD_ID)) or (not data.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID)):
             return False
@@ -377,7 +378,8 @@ class GoTo(AbstractBehavior):
         return activate
 
 
-    def getParAprendidos(self,data):
+ 
+    def getBehaviorParameters(self,data): 
         #rospy.loginfo("getparaprendidos ir a "+str(data))
         proxim=[]
         head=[]

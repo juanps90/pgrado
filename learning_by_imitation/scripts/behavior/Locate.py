@@ -118,7 +118,7 @@ class Locate(AbstractBehavior):
             self.rate.sleep() 
 
     #se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores
-    def actuar(self):
+    def perform(self):
         if self.cumplePrecondiciones () and self.nivelActivacion>0 and self.motorLibre:
             # SE DEBE RECIBIR EL PARAMETRO DEL COLOR DE LA LINEA. POR AHORA ES SOLO NEGRO.
             self.wander(self.parametros[Const.SENSOR_COLOR_DETECT_LINE_ID][1])
@@ -136,7 +136,7 @@ class Locate(AbstractBehavior):
 
 
 
-    def veriPosSenAprender(self, data):
+    def activateOnDemonstration(self, data):
         activate=False
         if not data.has_key(Const.SENSOR_COLOR_DETECT_LINE_ID):
             return False
@@ -151,7 +151,7 @@ class Locate(AbstractBehavior):
     
 
 
-    def veriPosSenEjecutar(self,data):
+    def activateOnEjecution(self,data):
         activate=False
 	
         if not data.has_key(Const.SENSOR_COLOR_DETECT_LINE_ID):
@@ -169,7 +169,7 @@ class Locate(AbstractBehavior):
         return activate
 
 
-    def getParAprendidos(self,data):
+    def getBehaviorParameters(self,data):
         s=data[Const.SENSOR_COLOR_DETECT_LINE_ID]
         return str(Const.SENSOR_COLOR_DETECT_LINE_ID)+ "#" + str(s[0]) + "#" +str(s[1]) + "#" +str(s[2])  
     
