@@ -53,7 +53,7 @@ LINK_PRM = 2
 #
 # >> Constants used on master.py script <<
 #
-debugMaestro = 0 # for debugging set this variable to 1 (0 turns-off debugging)
+debugMaestro = 1 # for debugging set this variable to 1 (0 turns-off debugging)
 if debugMaestro == 1:
     EPSILON = 5000 # Used for link creation with debugging
 else:
@@ -63,13 +63,13 @@ else:
 #
 # >> Constants used on inputs.py script <<
 #
-debugInputs = 0 # for debugging set this variable to 1 (0 turns-off debugging)
+debugInputs = 1 # for debugging set this variable to 1 (0 turns-off debugging)
 #
 #------------------------------------------------------------------------------
 #
 # >> Constants used on motores.py script <<
 #
-debugMotores = 0 # for debugging set this variable to 1 (0 turns-off debugging)
+debugMotores = 1 # for debugging set this variable to 1 (0 turns-off debugging)
 #
 #------------------------------------------------------------------------------
 #

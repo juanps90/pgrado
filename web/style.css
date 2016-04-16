@@ -1,0 +1,141 @@
+@font-face {
+    font-family: ExoBold;
+
+    src: url('fonts/Exo-ExtraBold.ttf');
+}
+@font-face {
+    font-family: Indie;
+
+    src: url('fonts/IndieFlower.ttf');
+}
+@font-face {
+    font-family: Passion;
+
+    src: url('fonts/PassionOne-Bold.ttf');
+}
+@font-face {
+    font-family: Roboto;
+
+    src: url('fonts/Roboto-Light.ttf');
+}
+.header_inner {
+background-image: url("header2.png");
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    
+    width: 843px;
+    height:100%;
+}
+.header {
+    height: 342px;
+    width: 100%;
+    background:url('header-repeat.png');
+    height:180px;
+}
+body{margin:0;padding:0;}
+
+span.titulo {
+    color: #41556a;
+    font-family: ExoBold;
+    font-size: 25px;
+    left: 500px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    text-shadow: 1px 1px 1px #adadad;
+    top: 17px;
+    z-index: 1;
+}
+
+ul.navbar {
+    
+    left: 500px;
+    list-style: none outside none;
+    position: absolute;
+    top: 50px;
+}
+
+
+ul.navbar li {
+    display: inline-block;
+    height: 72px;
+    margin: 0 10px;
+}
+
+
+
+ul.navbar a {
+    color: #595959;
+    display: block;
+    font-family: Indie;
+    line-height: 71px;
+    text-decoration: none;
+}
+
+
+ul.navbar a:hover {
+    border-bottom: 3px solid #5f5f5f;
+    color: #484848;
+}
+
+
+.titlemsg {
+    background-color: rgba(241, 183, 98, 0);
+    border-left: 1px solid #adadad;
+    color: #ffb25c;
+    font-family: ExoBold;
+    text-shadow: 1px 1px 1px #5e5e5e;
+    left: 865px;
+    padding: 10px;
+    position: absolute;
+    top: 13px;
+}
+
+h1 {
+    /*color: #de723d;*/
+     color: #7e7e7e;
+    font-family: Passion;
+    font-size: 30px;
+    font-weight: normal;
+    text-align: center;
+}
+div.content {
+    margin: 0 auto;
+    width: 900px;
+}
+
+div.content p {
+    color: #737373;
+    font-family: Roboto;
+    font-size: 18px;
+}
+div.content ul {
+    font-family: roboto;
+    list-style: none outside none;
+}
+
+div.content ul li {
+   
+    color: #858585;
+    display: inline-block;
+    vertical-align:top;
+    padding-bottom: 10px;
+    width: 400px;
+}
+div.content ul li:before {
+    color: #ff9c2c;
+    padding-right:10px;
+    content: "■";
+    font-family: Arial Black;
+}
+
+
+div.content ul li span {
+    border-bottom: 1px dashed #9f9f9f;
+    color: #5e5e5e;
+}
+
+
+.content a {
+    color: #bf610f;
+}

@@ -66,6 +66,10 @@ class comportamiento(object):
     speed = 1
     parametros=None
     dataSensor={}
+    safeDist=0.2
+    enable=True
+    inContinue=False
+    active=-1
 
     def __init__(self,data):
         bloques=self.separarBloques(data) 
@@ -91,6 +95,16 @@ class comportamiento(object):
     def veriPosSenAprender(self, data):
         pass
 
+    #este metodo podria ser un primitivo por ahora va embebido
+    def avoid (self,data ):
+        if data.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):
+           distancia = data[Const.SENSOR_NOSE_ULTRASONIC_ID][0]
+           if distancia < self.safeDist: 
+               msg = Float64MultiArray()
+               msg.data = [-2, -2, -2]#manda un codigo de ejecutar motor codigo -2 y retrocede
+               self.motores.publish(msg)
+               return True
+        return False
 
 #############################
 #procesado de sensores
@@ -168,6 +182,8 @@ class comportamiento(object):
         
         
         if self.estado ==2:
+            if self.avoid(self.dataSensor):
+                return            
             if self.veriPosSenEjecutar(self.dataSensor):
                 print "se cumple postcondicion id>",self.identify, self.dataSensor
                 valorEncendido=1  

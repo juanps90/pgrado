@@ -49,16 +49,10 @@ def actuarMotoresVREP(data):
         nodo=int(data.data[0])
         leftMsg.data = data.data[1]
         rightMsg.data = data.data[2]
+            
         
-        
-	'''
-	if NodoActivo == -1 :
-        	NodoActivo = nodo #se asigna al nodo 
-        '''
-        
-        
-        #solo se atiende a un nodo activo
-        if NodoActivo == nodo:   
+        #solo se atiende a un nodo activo o a una accion especial si el nodo es -2
+        if NodoActivo == nodo or nodo== -2:   
 		leftVelocity.publish(leftMsg)
 		rightVelocity.publish(rightMsg)
                 
@@ -69,6 +63,10 @@ def actuatorLed1TopicProccessing(data):
                
 #al iniciar una nueva ejecucion se debe reiniciar la estructura                
 def setEstado(data):  
+    sta=data.data[0]
+    if sta==1 or sta==2 or sta==3:
+        light.publish(0)    
+    
     if Const.debugMotores == 1:
         print "Llego estado" , data.data[0]
     #postConditionDetect = None
@@ -76,6 +74,7 @@ def setEstado(data):
     NodoActivo = -1   
     leftVelocity.publish(0)
     rightVelocity.publish(0)
+
 
     if Const.debugMotores == 1:
         print "motores nodo activo: ", str(NodoActivo),str(data.data)         
@@ -105,7 +104,7 @@ if __name__ == '__main__':
     light=rospy.Publisher('/vrep/actuatorLed1Topic', Int32, queue_size = 1)
     
     #Me suscribo para recibir los mensajes de encendido o apagado de luz
-    rospy.Subscriber("actuatorLed1Topic", Int32, actuatorLed1TopicProccessing)
+    rospy.Subscriber("actuatorLed1Topic", Int32MultiArray, actuatorLed1TopicProccessing)
     
     rospy.Subscriber("topicosolicitarOLiberarMotores", Int32MultiArray, atendersolicitarOLiberarMotores)
     rospy.Subscriber("topicoEstado", Int32MultiArray, setEstado)  
