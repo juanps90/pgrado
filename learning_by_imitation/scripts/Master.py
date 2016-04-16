@@ -308,6 +308,14 @@ def updateParam(node, paramNuevo):
     
 
 def offLine ():	
+    
+    global nodes
+    global idNA
+    global identify
+    global links
+    global auxDicNodeComp
+    global auxDicNodeParam    
+    
     global nodesActives
     print "estamos en ooffline" 
     #hay que cerrar los comportamientos cuando se cierre la demostracion
@@ -320,12 +328,7 @@ def offLine ():
                 
           
     #eliminar nodes de menos que errorRuido y a la vez lanzar los nodes del grafo
-    global nodes
-    global idNA
-    global identify
-    global links
-    global auxDicNodeComp
-    global auxDicNodeParam
+
     
     
     auxNodes = {}     
@@ -475,7 +478,7 @@ def createTopology (enlaces):
     salida =[]
     aux={}#diccionario tendra todos los nodes y la cantidad de enlaces que tiene
     if Const.debugMaestro == 1:
-        print "links cretto",enlaces
+        print "links crearTopo",enlaces
     for l in enlaces:
         # se agregan al diccionario todos los nodes
         if not aux.has_key(l[0]):
@@ -487,16 +490,20 @@ def createTopology (enlaces):
         aux[l[0]]=aux[l[0]]+1
 #lista=aux.items()
 
-    ordenado={}
+    auxOrd={}
     for n in aux:
         numSuc=aux[n]
-        if not ordenado.has_key(numSuc):
-            ordenado[numSuc]=[]
-        ordenado[numSuc].append(n)
+        if not auxOrd.has_key(numSuc):
+            auxOrd[numSuc]=[]
+        auxOrd[numSuc].append(n)
+     
+    ordenado=[]
+    for o in auxOrd:
+        ordenado.append(auxOrd[o])
 
-    for o in range (len(ordenado)-1,0,-1):
+    for o in range (len(ordenado)-1,0,-1): 
         if Const.debugMaestro == 1:
-            print o,ordenado
+            print "ordenado>",ordenado
         for p in ordenado[o]:
             for s in ordenado[o-1]:
                 salida.append( (p,s) )
@@ -1129,6 +1136,14 @@ def shutdown():
     print "Bye!"
 
 if __name__ == '__main__':    
+    
+    
+    #links=[(2, 3, 1), (2, 4, 1), (2, 5, 1), (2, 6, 0), (3, 6, 0), (4, 6, 0), (5, 6, 0)]
+
+    
+    #print "topologia crear ",createTopology(links)
+    
+    
 
     print "iniciando Master"
 
