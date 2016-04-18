@@ -11,6 +11,6 @@ if __name__ == '__main__':
 
     rospy.init_node('testColor', anonymous=True)
 
-    rospy.Subscriber("topicoSensores", String, atenderSensores)
+    rospy.Subscriber("topic_sensors", String, atenderSensores)
     rospy.spin()
 

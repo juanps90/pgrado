@@ -25,7 +25,7 @@ if __name__ == '__main__':
     
     #Me suscribo a datos de los commandos
     rospy.Subscriber("/vrep/command", String, processCommand)
-    command = rospy.Publisher('command', String, queue_size=10)
+    command = rospy.Publisher('topic_command', String, queue_size=10)
     rospy.spin()
     
 

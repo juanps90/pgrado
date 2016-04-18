@@ -108,134 +108,132 @@ $(document).ready(function(){initNavTree('motores_8py_source.html','');});
 <div class="contents">
 <a href="motores_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespacemotores.html">    1</a></span>&#160;<span class="comment">#!/usr/bin/env python</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">import</span> rospy</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">from</span> std_msgs.msg <span class="keyword">import</span> Int32MultiArray, Float64, Float64MultiArray, Int32, String</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">#postConditionDetect = None</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="namespacemotores.html#ac4af9fec306792df7480e1732d90eee6">    9</a></span>&#160;identify=0</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="namespacemotores.html#aec5073dce9faecd3e62e00e07309af61">   11</a></span>&#160;NodoActivo = -1</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">#esto anda bien</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">#los nodos mandan solicitudes si cumplen sus precondiciones y su nivel de activacion &gt;0</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="namespacemotores.html#aa1743b974eaa83cba7e4b93c0b6168bd">   16</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacemotores.html#aa1743b974eaa83cba7e4b93c0b6168bd">atendersolicitarOLiberarMotores</a>(data):</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="comment">#indices =&gt; 0:idNodo, 1:nodoEjecutable, 2:idMotor (esto hay que verificar si se sueltan de a uno los motores</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">global</span> NodoActivo    </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    nodo=data.data[0] </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    nodoEjecutable=data.data[1]</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="comment"># idMotor=data.data[2]</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;       </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="comment"># liberan los motores y se apagan</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="comment">#el nodo no es ejecutable (no cumple precondiciones o nivel 0)</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">if</span> NodoActivo== nodo <span class="keywordflow">and</span> nodoEjecutable == 0:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    NodoActivo = -1 </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    leftVelocity.publish(0)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    rightVelocity.publish(0)</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">elif</span> NodoActivo == -1 <span class="keywordflow">and</span> nodoEjecutable == 1:</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        NodoActivo = nodo <span class="comment">#se asigna al nodo    </span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;motores node activo: &quot;</span>, str(NodoActivo),str(data.data)     </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    msg = Int32MultiArray()   </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    msg.data = [identify,NodoActivo] <span class="comment">#por si necesito los id del par motor     </span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    motoresLockeado.publish(msg) </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;   </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">#esto capaz deberia ser una especie de interfaz de modo de resolver los actuadores segun donde se embeba el producto esto es VREP </span></div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="namespacemotores.html#ac9428a32167ca5d73e736e4d8c6b2709">   46</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacemotores.html#ac9428a32167ca5d73e736e4d8c6b2709">actuarMotoresVREP</a>(data):</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        leftMsg = Float64()</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        rightMsg = Float64()</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keyword">global</span> NodoActivo </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        nodo=int(data.data[0])</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        leftMsg.data = data.data[1]</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        rightMsg.data = data.data[2]</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="stringliteral">&#39;&#39;&#39;</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="stringliteral">    if NodoActivo == -1 :</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="stringliteral">            NodoActivo = nodo #se asigna al nodo </span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="stringliteral">        &#39;&#39;&#39;</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="comment">#solo se atiende a un nodo activo</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">if</span> NodoActivo == nodo:   </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        leftVelocity.publish(leftMsg)</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        rightVelocity.publish(rightMsg)</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">#VERIFICAR ESTO DEBE MANEJASRSE parecido a motor                </span></div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="namespacemotores.html#a55261536bb9ec0c3293b04e90e71b288">   69</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacemotores.html#a55261536bb9ec0c3293b04e90e71b288">actuatorLed1TopicProccessing</a>(data):</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">if</span> NodoActivo == data.data[0]: </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        light.publish(data.data[1])</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;               </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">#al iniciar una nueva ejecucion se debe reiniciar la estructura                </span></div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="namespacemotores.html#a82575a1bcb1cf7741df6c19bf628054c">   74</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacemotores.html#a82575a1bcb1cf7741df6c19bf628054c">setEstado</a>(data):  </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;Llego estado&quot;</span> , data.data[0]</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;       <span class="comment">#postConditionDetect = None</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">global</span> NodoActivo</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    NodoActivo = -1   </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    leftVelocity.publish(0)</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    rightVelocity.publish(0)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">import</span> rospy</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">from</span> std_msgs.msg <span class="keyword">import</span> Int32MultiArray, Float64, Float64MultiArray, Int32, String</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">import</span> Const</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">#postConditionDetect = None</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="namespacemotores.html#ac4af9fec306792df7480e1732d90eee6">    8</a></span>&#160;identify=0</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="namespacemotores.html#aec5073dce9faecd3e62e00e07309af61">   10</a></span>&#160;NodoActivo = -1</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">#esto anda bien</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">#los nodos mandan solicitudes si cumplen sus precondiciones y su nivel de activacion &gt;0</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="namespacemotores.html#aa1743b974eaa83cba7e4b93c0b6168bd">   15</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacemotores.html#aa1743b974eaa83cba7e4b93c0b6168bd">atendersolicitarOLiberarMotores</a>(data):</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="comment">#indices =&gt; 0:idNodo, 1:nodoEjecutable, 2:idMotor (esto hay que verificar si se sueltan de a uno los motores</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">global</span> NodoActivo    </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    nodo=data.data[0] </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    nodoEjecutable=data.data[1]</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="comment"># idMotor=data.data[2]</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="comment"># liberan los motores y se apagan</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">#el nodo no es ejecutable (no cumple precondiciones o nivel 0)</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">if</span> NodoActivo== nodo <span class="keywordflow">and</span> nodoEjecutable == 0:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    NodoActivo = -1 </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    leftVelocity.publish(0)</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    rightVelocity.publish(0)</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">elif</span> NodoActivo == -1 <span class="keywordflow">and</span> nodoEjecutable == 1:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        NodoActivo = nodo <span class="comment">#se asigna al nodo    </span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> Const.debugMotores == 1:</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">print</span> <span class="stringliteral">&quot;motores node activo: &quot;</span>, str(NodoActivo),str(data.data)     </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    msg = Int32MultiArray()   </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    msg.data = [identify,NodoActivo] <span class="comment">#por si necesito los id del par motor     </span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    motoresLockeado.publish(msg) </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;   </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">#esto capaz deberia ser una especie de interfaz de modo de resolver los actuadores segun donde se embeba el producto esto es VREP </span></div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="namespacemotores.html#ac9428a32167ca5d73e736e4d8c6b2709">   43</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacemotores.html#ac9428a32167ca5d73e736e4d8c6b2709">actuarMotoresVREP</a>(data):</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        leftMsg = Float64()</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        rightMsg = Float64()</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keyword">global</span> NodoActivo </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        nodo=int(data.data[0])</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        leftMsg.data = data.data[1]</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        rightMsg.data = data.data[2]</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="comment">#solo se atiende a un nodo activo o a una accion especial si el nodo es -2</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">if</span> NodoActivo == nodo <span class="keywordflow">or</span> nodo== -2:   </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        leftVelocity.publish(leftMsg)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        rightVelocity.publish(rightMsg)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">#VERIFICAR ESTO DEBE MANEJASRSE parecido a motor                </span></div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="namespacemotores.html#a55261536bb9ec0c3293b04e90e71b288">   60</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacemotores.html#a55261536bb9ec0c3293b04e90e71b288">actuatorLed1TopicProccessing</a>(data):</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">if</span> NodoActivo == data.data[0]: </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        light.publish(data.data[1])</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;               </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">#al iniciar una nueva ejecucion se debe reiniciar la estructura                </span></div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="namespacemotores.html#a82575a1bcb1cf7741df6c19bf628054c">   65</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacemotores.html#a82575a1bcb1cf7741df6c19bf628054c">setEstado</a>(data):  </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    sta=data.data[0]</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">if</span> sta==1 <span class="keywordflow">or</span> sta==2 <span class="keywordflow">or</span> sta==3:</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        light.publish(0)    </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">if</span> Const.debugMotores == 1:</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">print</span> <span class="stringliteral">&quot;Llego estado&quot;</span> , data.data[0]</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="comment">#postConditionDetect = None</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">global</span> NodoActivo</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    NodoActivo = -1   </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    leftVelocity.publish(0)</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    rightVelocity.publish(0)</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">if</span> Const.debugMotores == 1:</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">print</span> <span class="stringliteral">&quot;motores nodo activo: &quot;</span>, str(NodoActivo),str(data.data)         </div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;motores nodo activo: &quot;</span>, str(NodoActivo),str(data.data)         </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="namespacemotores.html#a19f1a4bffa79d7f564366d8541e038f7">   85</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacemotores.html#a19f1a4bffa79d7f564366d8541e038f7">shutdown</a>():</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;Bye!&quot;</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="namespacemotores.html#adf0b3ecf82fb85c94f8673f8fe8c47b4">   88</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacemotores.html#adf0b3ecf82fb85c94f8673f8fe8c47b4">finalize</a>(data):</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    rospy.signal_shutdown(<span class="stringliteral">&quot;Bye!&quot;</span>)</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="namespacemotores.html#a19f1a4bffa79d7f564366d8541e038f7">   83</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacemotores.html#a19f1a4bffa79d7f564366d8541e038f7">shutdown</a>():</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;Bye!&quot;</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="namespacemotores.html#adf0b3ecf82fb85c94f8673f8fe8c47b4">   86</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacemotores.html#adf0b3ecf82fb85c94f8673f8fe8c47b4">finalize</a>(data):</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    rospy.signal_shutdown(<span class="stringliteral">&quot;Bye!&quot;</span>)</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>:</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;motores inicializados&quot;</span>  </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    rospy.init_node(<span class="stringliteral">&#39;motores&#39;</span>, anonymous=<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>:</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;motores inicializados&quot;</span>  </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    rospy.init_node(<span class="stringliteral">&#39;motores&#39;</span>, anonymous=<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    rospy.on_shutdown(shutdown)</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    rospy.on_shutdown(shutdown)</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    </div>
-<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="namespacemotores.html#a94436ed9e8b9c45d112bffce34f74371">  100</a></span>&#160;    motoresLockeado = rospy.Publisher(<span class="stringliteral">&#39;topicoMotorLockeado&#39;</span>, Int32MultiArray, queue_size=1)</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;topicoActuarMotores&quot;</span>, Float64MultiArray, actuarMotoresVREP)</div>
-<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="namespacemotores.html#a398079aee3420d606e2b310e581878f4">  102</a></span>&#160;    leftVelocity=rospy.Publisher(<span class="stringliteral">&#39;/vrep/leftMotorVelocity&#39;</span>, Float64, queue_size = 1)</div>
-<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="namespacemotores.html#a6d78c03d8e51c439bd3b0e79bf47f78b">  103</a></span>&#160;    rightVelocity=rospy.Publisher(<span class="stringliteral">&#39;/vrep/rightMotorVelocity&#39;</span>, Float64, queue_size = 1)</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="comment">#Publico el entero 1 para prender luz y 0 para apagarla.</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="namespacemotores.html#ace793ea9a667331dca5b23837913a56a">  106</a></span>&#160;    light=rospy.Publisher(<span class="stringliteral">&#39;/vrep/actuatorLed1Topic&#39;</span>, Int32, queue_size = 1)</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="comment">#Me suscribo para recibir los mensajes de encendido o apagado de luz</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;actuatorLed1Topic&quot;</span>, Int32, actuatorLed1TopicProccessing)</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;topicosolicitarOLiberarMotores&quot;</span>, Int32MultiArray, atendersolicitarOLiberarMotores)</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;topicoEstado&quot;</span>, Int32MultiArray, setEstado)  </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;finalize&quot;</span>, String, finalize)</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;   </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;   </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    rospy.spin()</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        </div>
-<div class="ttc" id="namespacemotores_html_aa1743b974eaa83cba7e4b93c0b6168bd"><div class="ttname"><a href="namespacemotores.html#aa1743b974eaa83cba7e4b93c0b6168bd">motores.atendersolicitarOLiberarMotores</a></div><div class="ttdeci">def atendersolicitarOLiberarMotores</div><div class="ttdef"><b>Definition:</b> <a href="motores_8py_source.html#l00016">motores.py:16</a></div></div>
-<div class="ttc" id="namespacemotores_html_ac9428a32167ca5d73e736e4d8c6b2709"><div class="ttname"><a href="namespacemotores.html#ac9428a32167ca5d73e736e4d8c6b2709">motores.actuarMotoresVREP</a></div><div class="ttdeci">def actuarMotoresVREP</div><div class="ttdef"><b>Definition:</b> <a href="motores_8py_source.html#l00046">motores.py:46</a></div></div>
-<div class="ttc" id="namespacemotores_html_a82575a1bcb1cf7741df6c19bf628054c"><div class="ttname"><a href="namespacemotores.html#a82575a1bcb1cf7741df6c19bf628054c">motores.setEstado</a></div><div class="ttdeci">def setEstado</div><div class="ttdef"><b>Definition:</b> <a href="motores_8py_source.html#l00074">motores.py:74</a></div></div>
-<div class="ttc" id="namespacemotores_html_adf0b3ecf82fb85c94f8673f8fe8c47b4"><div class="ttname"><a href="namespacemotores.html#adf0b3ecf82fb85c94f8673f8fe8c47b4">motores.finalize</a></div><div class="ttdeci">def finalize</div><div class="ttdef"><b>Definition:</b> <a href="motores_8py_source.html#l00088">motores.py:88</a></div></div>
-<div class="ttc" id="namespacemotores_html_a19f1a4bffa79d7f564366d8541e038f7"><div class="ttname"><a href="namespacemotores.html#a19f1a4bffa79d7f564366d8541e038f7">motores.shutdown</a></div><div class="ttdeci">def shutdown</div><div class="ttdef"><b>Definition:</b> <a href="motores_8py_source.html#l00085">motores.py:85</a></div></div>
-<div class="ttc" id="namespacemotores_html_a55261536bb9ec0c3293b04e90e71b288"><div class="ttname"><a href="namespacemotores.html#a55261536bb9ec0c3293b04e90e71b288">motores.actuatorLed1TopicProccessing</a></div><div class="ttdeci">def actuatorLed1TopicProccessing</div><div class="ttdef"><b>Definition:</b> <a href="motores_8py_source.html#l00069">motores.py:69</a></div></div>
+<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="namespacemotores.html#a94436ed9e8b9c45d112bffce34f74371">   98</a></span>&#160;    motoresLockeado = rospy.Publisher(<span class="stringliteral">&#39;topicoMotorLockeado&#39;</span>, Int32MultiArray, queue_size=1)</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;topicoActuarMotores&quot;</span>, Float64MultiArray, actuarMotoresVREP)</div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="namespacemotores.html#a398079aee3420d606e2b310e581878f4">  100</a></span>&#160;    leftVelocity=rospy.Publisher(<span class="stringliteral">&#39;/vrep/leftMotorVelocity&#39;</span>, Float64, queue_size = 1)</div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="namespacemotores.html#a6d78c03d8e51c439bd3b0e79bf47f78b">  101</a></span>&#160;    rightVelocity=rospy.Publisher(<span class="stringliteral">&#39;/vrep/rightMotorVelocity&#39;</span>, Float64, queue_size = 1)</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="comment">#Publico el entero 1 para prender luz y 0 para apagarla.</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="namespacemotores.html#ace793ea9a667331dca5b23837913a56a">  104</a></span>&#160;    light=rospy.Publisher(<span class="stringliteral">&#39;/vrep/actuatorLed1Topic&#39;</span>, Int32, queue_size = 1)</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="comment">#Me suscribo para recibir los mensajes de encendido o apagado de luz</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;actuatorLed1Topic&quot;</span>, Int32MultiArray, actuatorLed1TopicProccessing)</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;topicosolicitarOLiberarMotores&quot;</span>, Int32MultiArray, atendersolicitarOLiberarMotores)</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;topic_state&quot;</span>, Int32MultiArray, setEstado)  </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;finalize&quot;</span>, String, finalize)</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;   </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;   </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    rospy.spin()</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        </div>
+<div class="ttc" id="namespacemotores_html_aa1743b974eaa83cba7e4b93c0b6168bd"><div class="ttname"><a href="namespacemotores.html#aa1743b974eaa83cba7e4b93c0b6168bd">motores.atendersolicitarOLiberarMotores</a></div><div class="ttdeci">def atendersolicitarOLiberarMotores</div><div class="ttdef"><b>Definition:</b> <a href="motores_8py_source.html#l00015">motores.py:15</a></div></div>
+<div class="ttc" id="namespacemotores_html_ac9428a32167ca5d73e736e4d8c6b2709"><div class="ttname"><a href="namespacemotores.html#ac9428a32167ca5d73e736e4d8c6b2709">motores.actuarMotoresVREP</a></div><div class="ttdeci">def actuarMotoresVREP</div><div class="ttdef"><b>Definition:</b> <a href="motores_8py_source.html#l00043">motores.py:43</a></div></div>
+<div class="ttc" id="namespacemotores_html_a82575a1bcb1cf7741df6c19bf628054c"><div class="ttname"><a href="namespacemotores.html#a82575a1bcb1cf7741df6c19bf628054c">motores.setEstado</a></div><div class="ttdeci">def setEstado</div><div class="ttdef"><b>Definition:</b> <a href="motores_8py_source.html#l00065">motores.py:65</a></div></div>
+<div class="ttc" id="namespacemotores_html_adf0b3ecf82fb85c94f8673f8fe8c47b4"><div class="ttname"><a href="namespacemotores.html#adf0b3ecf82fb85c94f8673f8fe8c47b4">motores.finalize</a></div><div class="ttdeci">def finalize</div><div class="ttdef"><b>Definition:</b> <a href="motores_8py_source.html#l00086">motores.py:86</a></div></div>
+<div class="ttc" id="namespacemotores_html_a19f1a4bffa79d7f564366d8541e038f7"><div class="ttname"><a href="namespacemotores.html#a19f1a4bffa79d7f564366d8541e038f7">motores.shutdown</a></div><div class="ttdeci">def shutdown</div><div class="ttdef"><b>Definition:</b> <a href="motores_8py_source.html#l00083">motores.py:83</a></div></div>
+<div class="ttc" id="namespacemotores_html_a55261536bb9ec0c3293b04e90e71b288"><div class="ttname"><a href="namespacemotores.html#a55261536bb9ec0c3293b04e90e71b288">motores.actuatorLed1TopicProccessing</a></div><div class="ttdeci">def actuatorLed1TopicProccessing</div><div class="ttdef"><b>Definition:</b> <a href="motores_8py_source.html#l00060">motores.py:60</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_1eeb56e1270a72a2bb3256479a9fd717.html">learning_by_imitation</a></li><li class="navelem"><a class="el" href="dir_1fa9b325c3ee0c04934a471c7f078f26.html">scripts</a></li><li class="navelem"><a class="el" href="motores_8py.html">motores.py</a></li>
-    <li class="footer">Generado el Miércoles, 13 de Abril de 2016 23:22:02 para Proyecto de grado por
+    <li class="footer">Generado el Domingo, 17 de Abril de 2016 23:52:58 para Proyecto de grado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

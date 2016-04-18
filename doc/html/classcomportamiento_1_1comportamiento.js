@@ -8,6 +8,7 @@ var classcomportamiento_1_1comportamiento =
     [ "atenderNodoEjecutando", "classcomportamiento_1_1comportamiento.html#aea5069a298bf0431d52f6aeaac816932", null ],
     [ "atenderOrdenes", "classcomportamiento_1_1comportamiento.html#aa1b59315f86d6434a12b3291c5290fdc", null ],
     [ "atenderSensores", "classcomportamiento_1_1comportamiento.html#aabf4228887480725bc3ee6e5149fe4b8", null ],
+    [ "avoid", "classcomportamiento_1_1comportamiento.html#a0dc955793562da1f9cc5968abf946048", null ],
     [ "cumplePrecondiciones", "classcomportamiento_1_1comportamiento.html#a13ef3e8f8bdf09085beab3338389fe1a", null ],
     [ "endTopic", "classcomportamiento_1_1comportamiento.html#a6caa07fa0a80e9748e27bc71badaaded", null ],
     [ "evaluarPrecondicion", "classcomportamiento_1_1comportamiento.html#a88b39faa3502c7cbaee7c565ba845599", null ],

@@ -11,18 +11,7 @@ exe = 'rqt_gui'
 def lanzarNodo():
     global pkg
     global exe
-#    print "AAAAAAAAAAAAAAAAAAAAA"
-#    command = 'rosrun %s %s &' %(pkg,exe)
-#    print command
-#    print "BBBBBBBBBBBBBBBBBBBBB"
-#    
-#    os.system(command)
-#    os.system(command)
-#    os.system(command)
-#    os.system(command)
-#    os.system(command)
-#    print "CCCCCCCCCCCCCCCCCCCCC"
-    
+   
     print "AAAAAAAAAAAAAAAAAAAAA"
     node = roslaunch.core.Node(pkg, exe)
     print "BBBBBBBBBBBBBBBBBBBBB"

@@ -1040,15 +1040,15 @@ if __name__ == '__main__':
     if not 'irA' in dicComp:
         dicComp.append('irA')
     print "diccionario comportamientos ",dicComp
-    rospy.Subscriber("command", String, atenderComandos)
+    rospy.Subscriber("topic_command", String, atenderComandos)
     ordenes = rospy.Publisher('topicoOrdenes', Int32MultiArray, queue_size = 10)    
     pub = rospy.Publisher('preConditionsSetting', Int32MultiArray, queue_size = 10)
-    estado = rospy.Publisher('topicoEstado', Int32MultiArray, queue_size = 10)    
+    estado = rospy.Publisher('topic_state', Int32MultiArray, queue_size = 10)    
     nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10)
     rospy.Subscriber("topicoPostCondDet", String, atenderAprender)    
     motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
     pubCaminos = rospy.Publisher('topicoCaminos', Int32MultiArray, queue_size=100)
-    finalizeTopic = rospy.Publisher('finalize', String, queue_size=10)
+    finalizeTopic = rospy.Publisher('topic_finalize', String, queue_size=10)
     #rospy.Ssignal.signal(signal.SIGINT, handler)ubscriber("topicoCaminos", Int32MultiArray, atenderCaminos)   
     rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, atenderNodoEjecutando)    
     #rospy.Subscriber("preConditionsSetting", Int32MultiArray, setting)	 

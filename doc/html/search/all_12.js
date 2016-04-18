@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['safedist',['safeDist',['../classcomportamiento_1_1comportamiento.html#ae32fd8c584ca56c2fad7c071f700fe74',1,'comportamiento::comportamiento']]],
   ['salida',['salida',['../namespacemaestro.html#a44d873e072bd4018625ad6f83b7ce666',1,'maestro']]],
   ['salvarxml',['salvarXML',['../namespacesalvar_x_m_l.html',1,'']]],
   ['salvarxml_2epy',['salvarXML.py',['../salvar_x_m_l_8py.html',1,'']]],

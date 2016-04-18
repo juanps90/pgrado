@@ -4,10 +4,14 @@
 # @package inputs
 # @brief Módulo usado para capturar y procesar los datos enviados desde V-Rep.
 # @details V-Rep publica los datos de los sensores en los topicos "/vrep/sensorLineDetectColorData", "/vrep/headSensor"
-# y "/vrep/proximitySensorData". Estos datos son procesados y publicados en el topico "topicoSensores". Los datos recibidos 
-# deben ser publicados en el topico "topicoSenores"
+# y "/vrep/proximitySensorData". Los datos recibidos de los sensores son procesados y publicados en el topico "topicoSenores" como un String
+# y en el formato DATOS_SENSOR_1|DATOS_SENSOR_2|DATOS_SENSOR_3|.... donde DATOS_SENSOR_N posee el subformato ID_SENSOR\#DATO_1\#DATO_2\#DATO_3\#...
+# Como ejemplo supongamos que nuestro robot solo posee un sensor de distancia y uno de color. En esta situacion, en el topoico "topic_sensors"
+# se debe publicar el String ID_SENSOR_DISTANCIA\#VALOR_DISTANCIA|ID_SENSOR_COLOR\#VALOR_COLOR. 
 # Además V-Rep pulica datos de comandos ingresados por el usuario en el topico "/vrep/command" y luego estos datos se
-# envian al sistema mediante el topico "command".
+# envian al sistema mediante el topico "topic_command".
+# Esta clase debe ser reimplementada en caso de requerir un robot diferente o real manteniendo el 
+# formato de los mensajes que se envien al sistema proveniente de los sensores.
 # @authors Gustavo Irigoyen
 # @authors Juan Pablo Sierra
 # @authors Juan Eliel Ibarra
@@ -36,6 +40,13 @@ dicColores={} #diccionario de colores clave el color, dos array uno con lecturas
 estado=0
  
 
+
+
+##
+# Arma el String a partir del arrary data.
+# @param data Array donde en la posicion 0 está el ID del sensor y en el resto de las posiciones los datos que este proporciona.
+# @return Retorna un String concatenando cada dato del array  con el caracter \#
+#
 def joinData(data):
     salida=""
     tamanio=len (data)
@@ -48,8 +59,6 @@ def joinData(data):
         salida=salida+"#"
         salida=salida+str(d)
     return salida
-
-
 
 ##
 # Procesa los datos originado por los tres sensores de vision usados para leer linea.
@@ -171,32 +180,48 @@ def processHeadVisionSensor(data):
 
 
 
-
+##
+# Procesa los datos originado por el sensor de distancia ubicado en la nariz del robot.
+# La funcion retorna un array donde en la posicion 0 esta el id del del senosr y en la
+# posicion 1 hay un valor entre que indica la distancia (en metros) del robot a un objeto del entorno.
+# @param data Datos originados por el sensor de distancia de la nariz del robot.
+# @return Retorna un array con el id del sensor y un valor que indica la distancia desde el robot a un objeto del entorno.
+#
 def processProximitySensorData(data):
     if data==None:
         return []
     return [Const.SENSOR_NOSE_ULTRASONIC_ID, float(data.data)]
-    #msg = Float64MultiArray()
-    #msg.data = [Const.SENSOR_NOSE_ULTRASONIC_ID, float(data.data)] 
-    #sensores.publish(msg)
 
-
+##
+# Copia datos provenientes de los tres senores de vision, usados para detectar lineas, hacia la variable  dataLineDetectColor.
+# @param data Datos originados por los tres sensores de vision usados para detectar lineas.
+#
 def atenderSensorLineDetectColor(data):
     global dataLineDetectColor
     if len(data.data)>0: 
         dataLineDetectColor=data
 
+##
+# Copia datos provenientes del senor distancia hacia la variable  dataProximitySensor.
+# @param data Datos originados por el sensor de distancia.
+#
 def atenderProximitySensor(data): 
     global dataProximitySensor 
     if len(data.data)>0:    
         dataProximitySensor=data
 
+##
+# Copia datos provenientes del senor de vision, ubicado en la cabeza del robot, hacia la variable  dataHeadVisionSensor.
+# @param data Datos originados por el sensor de vision ubicado en la cabeza del robot.
+#
 def atenderHeadVisionSensor(data):
     global dataHeadVisionSensor
     if len(data.data)>0:
         dataHeadVisionSensor=data 
-
-
+##
+# Cada cierto intervalo de tiempo envia datos de los sensores con el formato que se indicó al inicio.
+# Solamente son enviados los datos si la variable de estado es distinta a cero.
+#
 def envioSensados(): 
     while (not rospy.is_shutdown()):
         global dataLineDetectColor 
@@ -242,7 +267,31 @@ def envioSensados():
     
     
     
-
+##
+# Publica en el topico "topic_command" un String que indica el comando a ser ejecutado en el sistema.
+#   - INIT_LEARNING: Comando que indica el comienzo de una demostración.
+#   - END_LEARNING: Comando que indica el fin de una demostración. A este comando se le concatenar un "|" y un string que indica
+#                   el nombre con el cual se persiste lo enseñado. Ejemplo: END_LEARNING|myDemo.xml.
+#   - PLAY: Comando que indica el inicio de una reporducción. A este comando se le concatena un "|" y un string que indica
+#           la tarea a ser reporduciada.
+#   - STOP: Comando que indica el fin de una reproducción en curso.
+#   - BAD: Comando que indica que la parte que se esta reproduciendo esta mal y por tanto debe ser eliminada.
+#          Este comando me premite eliminar un nodo de la red de comportamientos.
+#   - COME: Durante el aprendizaje el robot puede perder pasos relevantes. Este comando permite entrar en modo de aprendizaje
+#         durante la reproducción e indicar asi los pasos faltantes. Esto nos permite agregar una subred a la red actual.
+#   - GO: Este comando perite retomar la reproduccion luego de haber entrado en modo aprendizaje con el comando COME
+#   - HERE: ------------------------
+#   - EXIT: Salir del sistema.
+# Además de estos comandos tenemos otros comandos dedicados a calibrar colores.
+#   - DEL_CALIBRATE: Elimina una calibración existente.
+#   - RED_CALIBRATE: Permite calibra el color rojo.
+#   - GREEN_CALIBRATE: Permite calibra el color verde.
+#   - BLUE_CALIBRATE: Permite calibra el color azul.
+#   - ORANGE_CALIBRATE: Permite calibra el color naranja. 
+#   - YELLOW_CALIBRATE: Permite calibra el color amarillo.
+#   - END_CALIBRATE: Indica el fin de una calibración.
+# @param data Datos de los comandos originados desde V-Rep.
+#
 def processCommand(data):
     global calibrarColor
     global estado
@@ -286,14 +335,12 @@ def processCommand(data):
             salvarXML.persistirConfiguracion(Const.CONFIG_XML_NAME, dicColores)
             calibrarColor=-1
             print "fin calibrar"
-   
-   
     command.publish(msg)
 
-
-
-
-#se detiene el envio de sensores si el estado es nada               
+##
+# Setea el estado actual. Permite detener el envia de los datos sensados si el estado es cero.
+# @param data Datos publicados en el topico "topic_state".
+#             
 def setEstado(data):   
        global detener
        global estado
@@ -301,6 +348,11 @@ def setEstado(data):
        detener = estado == 0            
        print "Llego estado detener> " , detener 
 
+
+##
+# Carga una configuración de calibración de colores. Esta configuración indica el maximio y minimo de R, G y B para cada color
+# posible de ser detectado.
+#     
 def inicializarParametros():
     global dicColores 
     salida = cargarXML.obtenerConfiguracion(Const.CONFIG_XML_NAME)
@@ -320,9 +372,15 @@ def inicializarParametros():
         dicColores[Const.SENSOR_COLOR_DETECT_ORANGE]= [[0.65, 0.50, 0.20], [1.0, 1.0, 0.46]]
         salvarXML.persistirConfiguracion(Const.CONFIG_XML_NAME, dicColores)
 
+##
+# Función que se ejecuta al recibir una señal signal_shutdown.
+#   
 def shutdown():
     print "Bye!"
 
+##
+# La función emite una señal signal_shutdown para finalizar este nodo.
+#   
 def finalize(data):
     rospy.signal_shutdown("Bye!")
 
@@ -334,21 +392,18 @@ if __name__ == '__main__':
     
     rospy.on_shutdown(shutdown)
     
-#    proximitySensorData = rospy.Publisher('proximitySensorData', Float64, queue_size=50)
-    sensores = rospy.Publisher('topicoSensores', String, queue_size=1)
-#    sensorLineDetectColorData = rospy.Publisher('sensorLineDetectedColorData', Float64MultiArray, queue_size=10)    
-    command = rospy.Publisher('command', String, queue_size=10)    
-    #processHeadVisionSensor = rospy.Publisher('processHeadVisionSensor', Float64MultiArray, queue_size=10)   
+    sensores = rospy.Publisher('topic_sensors', String, queue_size=1)
+    command = rospy.Publisher('topic_command', String, queue_size=10)    
     
-    rospy.Subscriber("topicoEstado", Int32MultiArray, setEstado)  
+    rospy.Subscriber("topic_state", Int32MultiArray, setEstado)  
     rospy.Subscriber("/vrep/command", String, processCommand) # interprete de comandos
     rospy.Subscriber("/vrep/sensorLineDetectColorData", String, atenderSensorLineDetectColor) # Color en el piso (sensores de piso)
     rospy.Subscriber("/vrep/headSensor", String,atenderHeadVisionSensor) # vision color y angulo ("casquito")
     rospy.Subscriber("/vrep/proximitySensorData", String, atenderProximitySensor ) # distancia
-    rospy.Subscriber("finalize", String, finalize)
+    rospy.Subscriber("topic_finalize", String, finalize)
     
     envioSensados()	
     rospy.spin()
-    rospy.signal_shutdown("Bye!")
+    finalize(None)
        
  

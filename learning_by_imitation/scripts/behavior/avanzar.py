@@ -105,10 +105,10 @@ if __name__ == '__main__':
         
         '''
         #lo que sigue se podria ver de meter en comportamiento
-        rospy.Subscriber("topicoSensores", String, l.atenderSensores)
+        rospy.Subscriber("topic_sensors", String, l.atenderSensores)
         rospy.Subscriber("preConditionDetect", Int32MultiArray, l.evaluarPrecondicion)
         rospy.Subscriber("preConditionsSetting", Int32MultiArray, l.setting)	    
-        rospy.Subscriber("topicoEstado", Int32MultiArray, l.setEstado)
+        rospy.Subscriber("topic_state", Int32MultiArray, l.setEstado)
         rospy.Subscriber("topicoNivel", Int32MultiArray, l.atenderNivel)
         rospy.Subscriber("topicoCaminos", Int32MultiArray, l.atenderCaminos)
         rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, l.atenderNodoEjecutando)

@@ -107,8 +107,8 @@ if __name__ == '__main__':
     rospy.Subscriber("actuatorLed1Topic", Int32MultiArray, actuatorLed1TopicProccessing)
     
     rospy.Subscriber("topicosolicitarOLiberarMotores", Int32MultiArray, atendersolicitarOLiberarMotores)
-    rospy.Subscriber("topicoEstado", Int32MultiArray, setEstado)  
-    rospy.Subscriber("finalize", String, finalize)
+    rospy.Subscriber("topic_state", Int32MultiArray, setEstado)  
+    rospy.Subscriber("topic_finalize", String, finalize)
    
    
     rospy.spin()

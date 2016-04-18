@@ -20,5 +20,6 @@ var searchData=
   ['atenderproximitysensor',['atenderProximitySensor',['../namespaceinputs.html#a4469de80b4abc4c6658a495576ede3d2',1,'inputs']]],
   ['atendersensores',['atenderSensores',['../classcomportamiento_1_1comportamiento.html#aabf4228887480725bc3ee6e5149fe4b8',1,'comportamiento.comportamiento.atenderSensores()'],['../namespacetest_color_sensor.html#a7faae5024d8ed69b2fd52ace0df9409e',1,'testColorSensor.atenderSensores()']]],
   ['atendersensorlinedetectcolor',['atenderSensorLineDetectColor',['../namespaceinputs.html#a3aa3537502495dc1d39d45209081b6ef',1,'inputs']]],
-  ['atendersolicitaroliberarmotores',['atendersolicitarOLiberarMotores',['../namespacemotores.html#aa1743b974eaa83cba7e4b93c0b6168bd',1,'motores']]]
+  ['atendersolicitaroliberarmotores',['atendersolicitarOLiberarMotores',['../namespacemotores.html#aa1743b974eaa83cba7e4b93c0b6168bd',1,'motores']]],
+  ['avoid',['avoid',['../classcomportamiento_1_1comportamiento.html#a0dc955793562da1f9cc5968abf946048',1,'comportamiento::comportamiento']]]
 ];

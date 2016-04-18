@@ -440,15 +440,15 @@ class comportamiento(object):
     def initTopicos(self):
                  
         self.topicoOrd=rospy.Subscriber("topicoOrdenes", Int32MultiArray, self.atenderOrdenes)         
-        self.topicoSen=rospy.Subscriber("topicoSensores", String, self.atenderSensores)
+        self.topicoSen=rospy.Subscriber("topic_sensors", String, self.atenderSensores)
         self.topicoPre=rospy.Subscriber("preConditionDetect", Int32MultiArray, self.evaluarPrecondicion)
         self.topicoSet=rospy.Subscriber("preConditionsSetting", Int32MultiArray, self.setting)	    
-        self.topicoEst=rospy.Subscriber("topicoEstado", Int32MultiArray, self.setEstado)
+        self.topicoEst=rospy.Subscriber("topic_state", Int32MultiArray, self.setEstado)
         self.topicoNiv=rospy.Subscriber("topicoNivel", Int32MultiArray, self.atenderNivel)
         self.topicoCam=rospy.Subscriber("topicoCaminos", Int32MultiArray, self.atenderCaminos)
         self.topicoEje=rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, self.atenderNodoEjecutando)
         self.topicoAct=rospy.Subscriber("topicoMotorLockeado", Int32MultiArray, self.atenderMotorLockeado)
-        rospy.Subscriber("finalize", String, self.finalize)
+        rospy.Subscriber("topic_finalize", String, self.finalize)
 
 
     def finalize(self, data):

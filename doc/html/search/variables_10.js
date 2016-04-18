@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['safedist',['safeDist',['../classcomportamiento_1_1comportamiento.html#ae32fd8c584ca56c2fad7c071f700fe74',1,'comportamiento::comportamiento']]],
   ['salida',['salida',['../namespacemaestro.html#a44d873e072bd4018625ad6f83b7ce666',1,'maestro']]],
   ['seccion_5fcolores',['SECCION_COLORES',['../namespace_const.html#ac94152d3a25106c43a9ff5ead32fefec',1,'Const']]],
   ['seccion_5fnetwork',['SECCION_NETWORK',['../namespace_const.html#afe2e1be401274005de3b4b2efc37d311',1,'Const']]],

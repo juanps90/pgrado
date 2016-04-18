@@ -7,5 +7,6 @@ var searchData=
   ['identify',['identify',['../classcomportamiento_1_1comportamiento.html#a60d7bd1cc2fa1f16d1e4378eb1b339c6',1,'comportamiento.comportamiento.identify()'],['../classcomportamiento_1_1comportamiento.html#a2f4360d799c8d4e1b5179f6376323d44',1,'comportamiento.comportamiento.identify()'],['../namespaceinit.html#aaf1877723c332368d5a592a6c783b62e',1,'init.identify()'],['../namespacemaestro.html#a0bac38514dc52396f8070b59d1f592f1',1,'maestro.identify()'],['../namespacemotores.html#ac4af9fec306792df7480e1732d90eee6',1,'motores.identify()']]],
   ['idna',['idNA',['../namespacemaestro.html#a413c339c6998374d0ef7482b89ad4586',1,'maestro']]],
   ['idtarea',['idTarea',['../namespacemaestro.html#a174a4778f2fece18c755137c313c2410',1,'maestro']]],
+  ['incontinue',['inContinue',['../classcomportamiento_1_1comportamiento.html#ac076c0684ec1823e470b7e6f8358241c',1,'comportamiento::comportamiento']]],
   ['iscenter',['isCenter',['../classir_a_1_1ir_a.html#a949b6543123ebf218c04ef9fd6fe8dea',1,'irA::irA']]]
 ];

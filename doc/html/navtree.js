@@ -28,8 +28,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "____init_____8py.html",
-"inputs_8py.html#ac72544ee321fdbfa4ee94bc3ef58b793",
-"namespaces.html"
+"inputs_8py.html#a7c8561041d53c028a27e2995194b5dc3",
+"namespaceprobando_class.html"
 ];
 
 var SYNCONMSG = 'click en deshabilitar sincronización';
