@@ -1,6 +1,6 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-import sys
 import os
 import Const
 from lxml import etree, objectify, builder

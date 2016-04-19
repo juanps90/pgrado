@@ -106,34 +106,37 @@ $(document).ready(function(){initNavTree('_sensor_8py_source.html','');});
 <div class="title">Sensor.py</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_sensor_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespaceatributos_1_1_sensor.html">    1</a></span>&#160;<span class="keyword">from</span> abc <span class="keyword">import</span> ABCMeta, abstractmethod</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
+<a href="_sensor_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespaceatributos_1_1_sensor.html">    1</a></span>&#160;<span class="comment">#!/usr/bin/env python</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"># -*- coding: utf-8 -*-</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
-<div class="line"><a name="l00004"></a><span class="lineno"><a class="line" href="classatributos_1_1_sensor_1_1_sensor.html">    4</a></span>&#160;<span class="keyword">class </span><a class="code" href="classatributos_1_1_sensor_1_1_sensor.html">Sensor</a>:</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Clase base de Comportamiento Abstracto&quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    __metaclass__ = ABCMeta</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Evalua las postcondiciones del comportamiento abstracto&quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    @abstractmethod</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classatributos_1_1_sensor_1_1_sensor.html#a1d4c0bb06135ed92cddcea2e0aa6647d">   10</a></span>&#160;    <span class="keyword">def </span><a class="code" href="classatributos_1_1_sensor_1_1_sensor.html#a1d4c0bb06135ed92cddcea2e0aa6647d">similar</a>(valores):</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        <span class="keywordflow">pass</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Parametriza el comportamiento abstracto a partir de las condiciones&quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classatributos_1_1_sensor_1_1_sensor.html#a442cf2ff82c87ee2effe2361ae185b7f">   14</a></span>&#160;    <span class="keyword">def </span><a class="code" href="classatributos_1_1_sensor_1_1_sensor.html#a442cf2ff82c87ee2effe2361ae185b7f">__init__</a>(self, valor):</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classatributos_1_1_sensor_1_1_sensor.html#a4ed36cd803c3c9e600cbb60030aa8991">   15</a></span>&#160;        self.<a class="code" href="classatributos_1_1_sensor_1_1_sensor.html#a4ed36cd803c3c9e600cbb60030aa8991">valor</a> = valor</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  </div>
-<div class="ttc" id="classatributos_1_1_sensor_1_1_sensor_html"><div class="ttname"><a href="classatributos_1_1_sensor_1_1_sensor.html">atributos.Sensor.Sensor</a></div><div class="ttdef"><b>Definition:</b> <a href="_sensor_8py_source.html#l00004">Sensor.py:4</a></div></div>
-<div class="ttc" id="classatributos_1_1_sensor_1_1_sensor_html_a1d4c0bb06135ed92cddcea2e0aa6647d"><div class="ttname"><a href="classatributos_1_1_sensor_1_1_sensor.html#a1d4c0bb06135ed92cddcea2e0aa6647d">atributos.Sensor.Sensor.similar</a></div><div class="ttdeci">def similar</div><div class="ttdef"><b>Definition:</b> <a href="_sensor_8py_source.html#l00010">Sensor.py:10</a></div></div>
-<div class="ttc" id="classatributos_1_1_sensor_1_1_sensor_html_a4ed36cd803c3c9e600cbb60030aa8991"><div class="ttname"><a href="classatributos_1_1_sensor_1_1_sensor.html#a4ed36cd803c3c9e600cbb60030aa8991">atributos.Sensor.Sensor.valor</a></div><div class="ttdeci">valor</div><div class="ttdef"><b>Definition:</b> <a href="_sensor_8py_source.html#l00015">Sensor.py:15</a></div></div>
-<div class="ttc" id="classatributos_1_1_sensor_1_1_sensor_html_a442cf2ff82c87ee2effe2361ae185b7f"><div class="ttname"><a href="classatributos_1_1_sensor_1_1_sensor.html#a442cf2ff82c87ee2effe2361ae185b7f">atributos.Sensor.Sensor.__init__</a></div><div class="ttdeci">def __init__</div><div class="ttdef"><b>Definition:</b> <a href="_sensor_8py_source.html#l00014">Sensor.py:14</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">from</span> abc <span class="keyword">import</span> ABCMeta, abstractmethod</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="classatributos_1_1_sensor_1_1_sensor.html">    7</a></span>&#160;<span class="keyword">class </span><a class="code" href="classatributos_1_1_sensor_1_1_sensor.html">Sensor</a>:</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Clase base de Comportamiento Abstracto&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    __metaclass__ = ABCMeta</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Evalua las postcondiciones del comportamiento abstracto&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    @abstractmethod</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classatributos_1_1_sensor_1_1_sensor.html#a1d4c0bb06135ed92cddcea2e0aa6647d">   13</a></span>&#160;    <span class="keyword">def </span><a class="code" href="classatributos_1_1_sensor_1_1_sensor.html#a1d4c0bb06135ed92cddcea2e0aa6647d">similar</a>(valores):</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keywordflow">pass</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Parametriza el comportamiento abstracto a partir de las condiciones&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classatributos_1_1_sensor_1_1_sensor.html#a442cf2ff82c87ee2effe2361ae185b7f">   17</a></span>&#160;    <span class="keyword">def </span><a class="code" href="classatributos_1_1_sensor_1_1_sensor.html#a442cf2ff82c87ee2effe2361ae185b7f">__init__</a>(self, valor):</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classatributos_1_1_sensor_1_1_sensor.html#a4ed36cd803c3c9e600cbb60030aa8991">   18</a></span>&#160;        self.<a class="code" href="classatributos_1_1_sensor_1_1_sensor.html#a4ed36cd803c3c9e600cbb60030aa8991">valor</a> = valor</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  </div>
+<div class="ttc" id="classatributos_1_1_sensor_1_1_sensor_html"><div class="ttname"><a href="classatributos_1_1_sensor_1_1_sensor.html">atributos.Sensor.Sensor</a></div><div class="ttdef"><b>Definition:</b> <a href="_sensor_8py_source.html#l00007">Sensor.py:7</a></div></div>
+<div class="ttc" id="classatributos_1_1_sensor_1_1_sensor_html_a1d4c0bb06135ed92cddcea2e0aa6647d"><div class="ttname"><a href="classatributos_1_1_sensor_1_1_sensor.html#a1d4c0bb06135ed92cddcea2e0aa6647d">atributos.Sensor.Sensor.similar</a></div><div class="ttdeci">def similar</div><div class="ttdef"><b>Definition:</b> <a href="_sensor_8py_source.html#l00013">Sensor.py:13</a></div></div>
+<div class="ttc" id="classatributos_1_1_sensor_1_1_sensor_html_a4ed36cd803c3c9e600cbb60030aa8991"><div class="ttname"><a href="classatributos_1_1_sensor_1_1_sensor.html#a4ed36cd803c3c9e600cbb60030aa8991">atributos.Sensor.Sensor.valor</a></div><div class="ttdeci">valor</div><div class="ttdef"><b>Definition:</b> <a href="_sensor_8py_source.html#l00018">Sensor.py:18</a></div></div>
+<div class="ttc" id="classatributos_1_1_sensor_1_1_sensor_html_a442cf2ff82c87ee2effe2361ae185b7f"><div class="ttname"><a href="classatributos_1_1_sensor_1_1_sensor.html#a442cf2ff82c87ee2effe2361ae185b7f">atributos.Sensor.Sensor.__init__</a></div><div class="ttdeci">def __init__</div><div class="ttdef"><b>Definition:</b> <a href="_sensor_8py_source.html#l00017">Sensor.py:17</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_1eeb56e1270a72a2bb3256479a9fd717.html">learning_by_imitation</a></li><li class="navelem"><a class="el" href="dir_1fa9b325c3ee0c04934a471c7f078f26.html">scripts</a></li><li class="navelem"><a class="el" href="dir_42a458834a7875d6a180686e1b98b3f7.html">atributos</a></li><li class="navelem"><a class="el" href="_sensor_8py.html">Sensor.py</a></li>
-    <li class="footer">Generado el Domingo, 17 de Abril de 2016 23:52:58 para Proyecto de grado por
+    <li class="footer">Generado el Martes, 19 de Abril de 2016 00:13:53 para Proyecto de grado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

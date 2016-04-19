@@ -107,36 +107,37 @@ $(document).ready(function(){initNavTree('find_list_8py_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="find_list_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespacefind_list.html">    1</a></span>&#160;<span class="comment">#!/usr/bin/env python</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
-<div class="line"><a name="l00003"></a><span class="lineno"><a class="line" href="namespacefind_list.html#abfd9158d48366bf8de10f45e3b3026fa">    3</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacefind_list.html#abfd9158d48366bf8de10f45e3b3026fa">odd</a>(l):</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;    <span class="keywordflow">return</span> l[1::2]</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"># -*- coding: utf-8 -*-</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno"><a class="line" href="namespacefind_list.html#abfd9158d48366bf8de10f45e3b3026fa">    4</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacefind_list.html#abfd9158d48366bf8de10f45e3b3026fa">odd</a>(l):</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    <span class="keywordflow">return</span> l[1::2]</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="namespacefind_list.html#a46e34b318faf2fcfc3945075726d41d2">    7</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacefind_list.html#a46e34b318faf2fcfc3945075726d41d2">hasValue</a>(l, v):</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="keywordflow">return</span> v <span class="keywordflow">in</span> l</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>:</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;Prueba find&quot;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;   </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="namespacefind_list.html#a45f631ae1af34f5cbfe4e273802a4172">   14</a></span>&#160;    aList = [123, <span class="stringliteral">&#39;xyz&#39;</span>, <span class="stringliteral">&#39;zara&#39;</span>, <span class="stringliteral">&#39;abc&#39;</span>, 3.0, 2.0]</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;Index for xyz : &quot;</span>, <a class="code" href="namespacefind_list.html#a46e34b318faf2fcfc3945075726d41d2">hasValue</a>( aList, <span class="stringliteral">&#39;xyz&#39;</span> ) </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;Index for zara : &quot;</span>, <a class="code" href="namespacefind_list.html#a46e34b318faf2fcfc3945075726d41d2">hasValue</a>( aList, <span class="stringliteral">&#39;zara&#39;</span> ) </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;Index for xara : &quot;</span>, <a class="code" href="namespacefind_list.html#a46e34b318faf2fcfc3945075726d41d2">hasValue</a>( aList, <span class="stringliteral">&#39;xara&#39;</span> ) </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;Index for 3.0 : &quot;</span>, <a class="code" href="namespacefind_list.html#a46e34b318faf2fcfc3945075726d41d2">hasValue</a>( aList, 3.0 ) </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;Index for 3 : &quot;</span>, <a class="code" href="namespacefind_list.html#a46e34b318faf2fcfc3945075726d41d2">hasValue</a>( aList, 3 ) </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;Los impares son &quot;</span>, <a class="code" href="namespacefind_list.html#abfd9158d48366bf8de10f45e3b3026fa">odd</a>(aList)</div>
-<div class="ttc" id="namespacefind_list_html_abfd9158d48366bf8de10f45e3b3026fa"><div class="ttname"><a href="namespacefind_list.html#abfd9158d48366bf8de10f45e3b3026fa">findList.odd</a></div><div class="ttdeci">def odd</div><div class="ttdef"><b>Definition:</b> <a href="find_list_8py_source.html#l00003">findList.py:3</a></div></div>
-<div class="ttc" id="namespacefind_list_html_a46e34b318faf2fcfc3945075726d41d2"><div class="ttname"><a href="namespacefind_list.html#a46e34b318faf2fcfc3945075726d41d2">findList.hasValue</a></div><div class="ttdeci">def hasValue</div><div class="ttdef"><b>Definition:</b> <a href="find_list_8py_source.html#l00007">findList.py:7</a></div></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="namespacefind_list.html#a46e34b318faf2fcfc3945075726d41d2">    8</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespacefind_list.html#a46e34b318faf2fcfc3945075726d41d2">hasValue</a>(l, v):</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <span class="keywordflow">return</span> v <span class="keywordflow">in</span> l</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>:</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;Prueba find&quot;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;   </div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="namespacefind_list.html#a45f631ae1af34f5cbfe4e273802a4172">   15</a></span>&#160;    aList = [123, <span class="stringliteral">&#39;xyz&#39;</span>, <span class="stringliteral">&#39;zara&#39;</span>, <span class="stringliteral">&#39;abc&#39;</span>, 3.0, 2.0]</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;Index for xyz : &quot;</span>, <a class="code" href="namespacefind_list.html#a46e34b318faf2fcfc3945075726d41d2">hasValue</a>( aList, <span class="stringliteral">&#39;xyz&#39;</span> ) </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;Index for zara : &quot;</span>, <a class="code" href="namespacefind_list.html#a46e34b318faf2fcfc3945075726d41d2">hasValue</a>( aList, <span class="stringliteral">&#39;zara&#39;</span> ) </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;Index for xara : &quot;</span>, <a class="code" href="namespacefind_list.html#a46e34b318faf2fcfc3945075726d41d2">hasValue</a>( aList, <span class="stringliteral">&#39;xara&#39;</span> ) </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;Index for 3.0 : &quot;</span>, <a class="code" href="namespacefind_list.html#a46e34b318faf2fcfc3945075726d41d2">hasValue</a>( aList, 3.0 ) </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;Index for 3 : &quot;</span>, <a class="code" href="namespacefind_list.html#a46e34b318faf2fcfc3945075726d41d2">hasValue</a>( aList, 3 ) </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;Los impares son &quot;</span>, <a class="code" href="namespacefind_list.html#abfd9158d48366bf8de10f45e3b3026fa">odd</a>(aList)</div>
+<div class="ttc" id="namespacefind_list_html_abfd9158d48366bf8de10f45e3b3026fa"><div class="ttname"><a href="namespacefind_list.html#abfd9158d48366bf8de10f45e3b3026fa">findList.odd</a></div><div class="ttdeci">def odd</div><div class="ttdef"><b>Definition:</b> <a href="find_list_8py_source.html#l00004">findList.py:4</a></div></div>
+<div class="ttc" id="namespacefind_list_html_a46e34b318faf2fcfc3945075726d41d2"><div class="ttname"><a href="namespacefind_list.html#a46e34b318faf2fcfc3945075726d41d2">findList.hasValue</a></div><div class="ttdeci">def hasValue</div><div class="ttdef"><b>Definition:</b> <a href="find_list_8py_source.html#l00008">findList.py:8</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_1eeb56e1270a72a2bb3256479a9fd717.html">learning_by_imitation</a></li><li class="navelem"><a class="el" href="dir_1fa9b325c3ee0c04934a471c7f078f26.html">scripts</a></li><li class="navelem"><a class="el" href="find_list_8py.html">findList.py</a></li>
-    <li class="footer">Generado el Domingo, 17 de Abril de 2016 23:52:58 para Proyecto de grado por
+    <li class="footer">Generado el Martes, 19 de Abril de 2016 00:13:53 para Proyecto de grado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

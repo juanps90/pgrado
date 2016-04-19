@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import sys
 import rospy
 import roslaunch
@@ -1041,17 +1043,17 @@ if __name__ == '__main__':
         dicComp.append('irA')
     print "diccionario comportamientos ",dicComp
     rospy.Subscriber("topic_command", String, atenderComandos)
-    ordenes = rospy.Publisher('topicoOrdenes', Int32MultiArray, queue_size = 10)    
-    pub = rospy.Publisher('preConditionsSetting', Int32MultiArray, queue_size = 10)
+    ordenes = rospy.Publisher('topic_orders', Int32MultiArray, queue_size = 10)    
+    pub = rospy.Publisher('topic_preConSetting', Int32MultiArray, queue_size = 10)
     estado = rospy.Publisher('topic_state', Int32MultiArray, queue_size = 10)    
-    nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10)
-    rospy.Subscriber("topicoPostCondDet", String, atenderAprender)    
-    motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
+    nivel = rospy.Publisher('topic_level', Int32MultiArray, queue_size=10)
+    rospy.Subscriber("topic_postCondDetected", String, atenderAprender)    
+    motores = rospy.Publisher('topic_operateEngine', Float64MultiArray, queue_size=10)
     pubCaminos = rospy.Publisher('topic_path', Int32MultiArray, queue_size=100)
     finalizeTopic = rospy.Publisher('topic_finalize', String, queue_size=10)
     #rospy.Ssignal.signal(signal.SIGINT, handler)ubscriber("topic_path", Int32MultiArray, atenderCaminos)   
-    rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, atenderNodoEjecutando)    
-    #rospy.Subscriber("preConditionsSetting", Int32MultiArray, setting)	 
+    rospy.Subscriber("topic_runningNode", Int32MultiArray, atenderNodoEjecutando)    
+    #rospy.Subscriber("topic_preConSetting", Int32MultiArray, setting)	 
     #rospy.Subscriber("topic_preConDetection", Int32MultiArray, evaluarPrecondicion)    
     
     #event.wait()

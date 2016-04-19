@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from Atributo import Atributo
 
 # -- esta lista tendria que ser dinamica --

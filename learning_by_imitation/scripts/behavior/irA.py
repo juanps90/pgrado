@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import sys 
 import rospy
 from std_msgs.msg import Int32MultiArray, Float64MultiArray, Int32
@@ -211,7 +213,7 @@ class irA(comportamiento):
 
 		   
     ##
-    # Publica en el topico "topicoActuarMotores" la velocidad del motor derecho e izuierdo a ser usada.
+    # Publica en el topico "topic_operateEngine" la velocidad del motor derecho e izuierdo a ser usada.
     # @param speedRight Velocidad del motor derecho.
     # @param speedLeft Velocidad del motor izquierdo.
     #		   

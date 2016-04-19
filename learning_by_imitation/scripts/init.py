@@ -1,18 +1,9 @@
 #!/usr/bin/env python
-import os 
-import logging 
-import socket 
+# -*- coding: utf-8 -*-
+
 import sys 
-import xmlrpclib 
-import roslib.names  
-import roslib.network  
-import rospkg
-import roslaunch.core
-import roslaunch.remote
-import sys
 import rospy
 from std_msgs.msg import Int32MultiArray, Float64MultiArray
-from random import randint
 
 
 postConditionDetect = None
@@ -252,19 +243,19 @@ if __name__ == '__main__':
     identify=int(rospy.myargv(argv=sys.argv)[1])
     #rospy.loginfo("identificador init "+str(identify))
     pubEstado=rospy.Publisher('topic_state', Int32MultiArray, queue_size = 10) 
-    motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
+    motores = rospy.Publisher('topic_operateEngine', Float64MultiArray, queue_size=10)
     postConditionDetect = rospy.Publisher('topic_postCondDetection', Int32MultiArray, queue_size=10) #usado para aprender
     preConditionDetect = rospy.Publisher('topic_preConDetection', Int32MultiArray, queue_size=10) #usado para ejecutar
     #rospy.Subscriber("input", Int32MultiArray, atenderSensores)
     rospy.Subscriber("topic_preConDetection", Int32MultiArray, evaluarPrecondicion)
-    rospy.Subscriber("preConditionsSetting", Int32MultiArray, setting)	    
+    rospy.Subscriber("topic_preConSetting", Int32MultiArray, setting)	    
     rospy.Subscriber("topic_state", Int32MultiArray, setEstado)
-    #rospy.Subscriber("topicoNivel", Int32MultiArray, nivel)
-    nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10)
-    nodoEjecutando=rospy.Publisher('topicoNodoEjecutando', Int32MultiArray, queue_size=10)
-    rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, atenderNodoEjecutando)
+    #rospy.Subscriber("topic_level", Int32MultiArray, nivel)
+    nivel = rospy.Publisher('topic_level', Int32MultiArray, queue_size=10)
+    nodoEjecutando=rospy.Publisher('topic_runningNode', Int32MultiArray, queue_size=10)
+    rospy.Subscriber("topic_runningNode", Int32MultiArray, atenderNodoEjecutando)
     rospy.Subscriber("topic_path", Int32MultiArray, atenderCaminos)
-    rospy.Subscriber("topicoOrdenes", Int32MultiArray, atenderOrdenes)   
+    rospy.Subscriber("topic_orders", Int32MultiArray, atenderOrdenes)   
     rospy.spin()
     rospy.signal_shutdown("Bye!")
     

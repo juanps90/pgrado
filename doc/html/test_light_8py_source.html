@@ -107,32 +107,34 @@ $(document).ready(function(){initNavTree('test_light_8py_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="test_light_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespacetest_light.html">    1</a></span>&#160;<span class="comment">#!/usr/bin/env python</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="keyword">import</span> rospy</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">from</span> std_msgs.msg <span class="keyword">import</span> Int32</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>:</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;test light&quot;</span>  </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    rospy.init_node(<span class="stringliteral">&#39;testLight&#39;</span>, anonymous=<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="namespacetest_light.html#a0434ebe38f95f49f041bfa75cee08e3c">   10</a></span>&#160;    light=rospy.Publisher(<span class="stringliteral">&#39;/vrep/actuatorLed1Topic&#39;</span>, Int32, queue_size = 1)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="namespacetest_light.html#a1d562ea0ee2f9e8e843cc5c8efb166e8">   12</a></span>&#160;    comando=raw_input(<span class="stringliteral">&quot;&gt; &quot;</span>)</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="namespacetest_light.html#a6b65634136f277346f98bb4bbe18d279">   13</a></span>&#160;    msg = Int32()</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">while</span> comando != <span class="stringliteral">&quot;salir&quot;</span>:</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keywordflow">if</span> comando==<span class="stringliteral">&quot;1&quot;</span> <span class="keywordflow">or</span> comando==<span class="stringliteral">&quot;0&quot;</span>:</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;            msg.data = int(comando)</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            light.publish(msg)</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        comando=raw_input(<span class="stringliteral">&quot;&gt; &quot;</span>)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        </div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"># -*- coding: utf-8 -*-</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">import</span> rospy</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">from</span> std_msgs.msg <span class="keyword">import</span> Int32</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>:</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;test light&quot;</span>  </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    rospy.init_node(<span class="stringliteral">&#39;testLight&#39;</span>, anonymous=<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="namespacetest_light.html#a0434ebe38f95f49f041bfa75cee08e3c">   12</a></span>&#160;    light=rospy.Publisher(<span class="stringliteral">&#39;/vrep/actuatorLed1Topic&#39;</span>, Int32, queue_size = 1)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="namespacetest_light.html#a1d562ea0ee2f9e8e843cc5c8efb166e8">   14</a></span>&#160;    comando=raw_input(<span class="stringliteral">&quot;&gt; &quot;</span>)</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="namespacetest_light.html#a6b65634136f277346f98bb4bbe18d279">   15</a></span>&#160;    msg = Int32()</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">while</span> comando != <span class="stringliteral">&quot;salir&quot;</span>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordflow">if</span> comando==<span class="stringliteral">&quot;1&quot;</span> <span class="keywordflow">or</span> comando==<span class="stringliteral">&quot;0&quot;</span>:</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            msg.data = int(comando)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            light.publish(msg)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        comando=raw_input(<span class="stringliteral">&quot;&gt; &quot;</span>)</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        </div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_1eeb56e1270a72a2bb3256479a9fd717.html">learning_by_imitation</a></li><li class="navelem"><a class="el" href="dir_1fa9b325c3ee0c04934a471c7f078f26.html">scripts</a></li><li class="navelem"><a class="el" href="test_light_8py.html">testLight.py</a></li>
-    <li class="footer">Generado el Domingo, 17 de Abril de 2016 23:52:58 para Proyecto de grado por
+    <li class="footer">Generado el Martes, 19 de Abril de 2016 00:13:53 para Proyecto de grado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

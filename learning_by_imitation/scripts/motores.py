@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import rospy
 from std_msgs.msg import Int32MultiArray, Float64, Float64MultiArray, Int32, String
@@ -93,8 +94,8 @@ if __name__ == '__main__':
     
     rospy.on_shutdown(shutdown)
     
-    motoresLockeado = rospy.Publisher('topicoMotorLockeado', Int32MultiArray, queue_size=1)
-    rospy.Subscriber("topicoActuarMotores", Float64MultiArray, actuarMotoresVREP)
+    motoresLockeado = rospy.Publisher('topic_engineLocked', Int32MultiArray, queue_size=1)
+    rospy.Subscriber("topic_operateEngine", Float64MultiArray, actuarMotoresVREP)
     leftVelocity=rospy.Publisher('/vrep/leftMotorVelocity', Float64, queue_size = 1)
     rightVelocity=rospy.Publisher('/vrep/rightMotorVelocity', Float64, queue_size = 1)
     
@@ -104,7 +105,7 @@ if __name__ == '__main__':
     #Me suscribo para recibir los mensajes de encendido o apagado de luz
     rospy.Subscriber("topic_led", Int32MultiArray, actuatorLed1TopicProccessing)
     
-    rospy.Subscriber("topicosolicitarOLiberarMotores", Int32MultiArray, atendersolicitarOLiberarMotores)
+    rospy.Subscriber("topic_engineAccess", Int32MultiArray, atendersolicitarOLiberarMotores)
     rospy.Subscriber("topic_state", Int32MultiArray, setEstado)  
     rospy.Subscriber("topic_finalize", String, finalize)
    

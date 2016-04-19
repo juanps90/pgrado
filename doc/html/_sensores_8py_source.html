@@ -106,30 +106,33 @@ $(document).ready(function(){initNavTree('_sensores_8py_source.html','');});
 <div class="title">Sensores.py</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_sensores_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespaceatributos_1_1_sensores.html">    1</a></span>&#160;<span class="keyword">from</span> Sensor <span class="keyword">import</span> Sensor</div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"># -- esta lista tendria que ser dinamica --</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">from</span> HeadSensor <span class="keyword">import</span> HeadSensor</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">from</span> UltrasonicSensor <span class="keyword">import</span> UltrasonicSensor</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">from</span> LineDetect <span class="keyword">import</span> LineDetect</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="namespaceatributos_1_1_sensores.html#af9c461eff779675003943180009a6452">   10</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespaceatributos_1_1_sensores.html#af9c461eff779675003943180009a6452">get</a>(sensor_id, value):</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    gen = (subclass <span class="keywordflow">for</span> subclass <span class="keywordflow">in</span> Sensor.__subclasses__() <span class="keywordflow">if</span> subclass.SENSOR_ID == sensor_id)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    subclass = next(gen, <span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordflow">if</span> subclass <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keywordflow">raise</span> ValueError(<span class="stringliteral">&quot;No matching sensor&quot;</span>)</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    new_obj = subclass(value)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">return</span> new_obj</div>
-<div class="ttc" id="namespaceatributos_1_1_sensores_html_af9c461eff779675003943180009a6452"><div class="ttname"><a href="namespaceatributos_1_1_sensores.html#af9c461eff779675003943180009a6452">atributos.Sensores.get</a></div><div class="ttdeci">def get</div><div class="ttdef"><b>Definition:</b> <a href="_sensores_8py_source.html#l00010">Sensores.py:10</a></div></div>
+<a href="_sensores_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespaceatributos_1_1_sensores.html">    1</a></span>&#160;<span class="comment">#!/usr/bin/env python</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"># -*- coding: utf-8 -*-</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">from</span> Sensor <span class="keyword">import</span> Sensor</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"># -- esta lista tendria que ser dinamica --</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">from</span> HeadSensor <span class="keyword">import</span> HeadSensor</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">from</span> UltrasonicSensor <span class="keyword">import</span> UltrasonicSensor</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">from</span> LineDetect <span class="keyword">import</span> LineDetect</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="namespaceatributos_1_1_sensores.html#af9c461eff779675003943180009a6452">   13</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespaceatributos_1_1_sensores.html#af9c461eff779675003943180009a6452">get</a>(sensor_id, value):</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    gen = (subclass <span class="keywordflow">for</span> subclass <span class="keywordflow">in</span> Sensor.__subclasses__() <span class="keywordflow">if</span> subclass.SENSOR_ID == sensor_id)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    subclass = next(gen, <span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">if</span> subclass <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordflow">raise</span> ValueError(<span class="stringliteral">&quot;No matching sensor&quot;</span>)</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    new_obj = subclass(value)</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">return</span> new_obj</div>
+<div class="ttc" id="namespaceatributos_1_1_sensores_html_af9c461eff779675003943180009a6452"><div class="ttname"><a href="namespaceatributos_1_1_sensores.html#af9c461eff779675003943180009a6452">atributos.Sensores.get</a></div><div class="ttdeci">def get</div><div class="ttdef"><b>Definition:</b> <a href="_sensores_8py_source.html#l00013">Sensores.py:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_1eeb56e1270a72a2bb3256479a9fd717.html">learning_by_imitation</a></li><li class="navelem"><a class="el" href="dir_1fa9b325c3ee0c04934a471c7f078f26.html">scripts</a></li><li class="navelem"><a class="el" href="dir_42a458834a7875d6a180686e1b98b3f7.html">atributos</a></li><li class="navelem"><a class="el" href="_sensores_8py.html">Sensores.py</a></li>
-    <li class="footer">Generado el Domingo, 17 de Abril de 2016 23:52:58 para Proyecto de grado por
+    <li class="footer">Generado el Martes, 19 de Abril de 2016 00:13:53 para Proyecto de grado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

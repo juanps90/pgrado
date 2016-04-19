@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from abc import ABCMeta, abstractmethod
 from atributos import Atributos
 from Sensor import Sensor
