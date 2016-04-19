@@ -4,7 +4,6 @@ import rospy
 from std_msgs.msg import Int32MultiArray, Float64, Float64MultiArray, Int32, String
 import Const
 
-#postConditionDetect = None
 identify=0
 
 NodoActivo = -1
@@ -69,7 +68,6 @@ def setEstado(data):
     
     if Const.debugMotores == 1:
         print "Llego estado" , data.data[0]
-    #postConditionDetect = None
     global NodoActivo
     NodoActivo = -1   
     leftVelocity.publish(0)
@@ -104,7 +102,7 @@ if __name__ == '__main__':
     light=rospy.Publisher('/vrep/actuatorLed1Topic', Int32, queue_size = 1)
     
     #Me suscribo para recibir los mensajes de encendido o apagado de luz
-    rospy.Subscriber("actuatorLed1Topic", Int32MultiArray, actuatorLed1TopicProccessing)
+    rospy.Subscriber("topic_led", Int32MultiArray, actuatorLed1TopicProccessing)
     
     rospy.Subscriber("topicosolicitarOLiberarMotores", Int32MultiArray, atendersolicitarOLiberarMotores)
     rospy.Subscriber("topic_state", Int32MultiArray, setEstado)  

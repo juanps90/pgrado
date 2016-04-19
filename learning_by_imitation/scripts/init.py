@@ -253,17 +253,17 @@ if __name__ == '__main__':
     #rospy.loginfo("identificador init "+str(identify))
     pubEstado=rospy.Publisher('topic_state', Int32MultiArray, queue_size = 10) 
     motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
-    postConditionDetect = rospy.Publisher('postConditionDetect', Int32MultiArray, queue_size=10) #usado para aprender
-    preConditionDetect = rospy.Publisher('preConditionDetect', Int32MultiArray, queue_size=10) #usado para ejecutar
+    postConditionDetect = rospy.Publisher('topic_postCondDetection', Int32MultiArray, queue_size=10) #usado para aprender
+    preConditionDetect = rospy.Publisher('topic_preConDetection', Int32MultiArray, queue_size=10) #usado para ejecutar
     #rospy.Subscriber("input", Int32MultiArray, atenderSensores)
-    rospy.Subscriber("preConditionDetect", Int32MultiArray, evaluarPrecondicion)
+    rospy.Subscriber("topic_preConDetection", Int32MultiArray, evaluarPrecondicion)
     rospy.Subscriber("preConditionsSetting", Int32MultiArray, setting)	    
     rospy.Subscriber("topic_state", Int32MultiArray, setEstado)
     #rospy.Subscriber("topicoNivel", Int32MultiArray, nivel)
     nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10)
     nodoEjecutando=rospy.Publisher('topicoNodoEjecutando', Int32MultiArray, queue_size=10)
     rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, atenderNodoEjecutando)
-    rospy.Subscriber("topicoCaminos", Int32MultiArray, atenderCaminos)
+    rospy.Subscriber("topic_path", Int32MultiArray, atenderCaminos)
     rospy.Subscriber("topicoOrdenes", Int32MultiArray, atenderOrdenes)   
     rospy.spin()
     rospy.signal_shutdown("Bye!")

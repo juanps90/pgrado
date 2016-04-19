@@ -106,19 +106,19 @@ if __name__ == '__main__':
         '''
         #lo que sigue se podria ver de meter en comportamiento
         rospy.Subscriber("topic_sensors", String, l.atenderSensores)
-        rospy.Subscriber("preConditionDetect", Int32MultiArray, l.evaluarPrecondicion)
+        rospy.Subscriber("topic_preConDetection", Int32MultiArray, l.evaluarPrecondicion)
         rospy.Subscriber("preConditionsSetting", Int32MultiArray, l.setting)	    
         rospy.Subscriber("topic_state", Int32MultiArray, l.setEstado)
         rospy.Subscriber("topicoNivel", Int32MultiArray, l.atenderNivel)
-        rospy.Subscriber("topicoCaminos", Int32MultiArray, l.atenderCaminos)
+        rospy.Subscriber("topic_path", Int32MultiArray, l.atenderCaminos)
         rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, l.atenderNodoEjecutando)
         rospy.Subscriber("topicoMotorLockeado", Int32MultiArray, l.atenderMotorLockeado)
 
         motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10)
         l.setMotores(motores)
-        postConditionDetect = rospy.Publisher('postConditionDetect', Int32MultiArray, queue_size=10) #usado para aprender
+        postConditionDetect = rospy.Publisher('topic_postCondDetection', Int32MultiArray, queue_size=10) #usado para aprender
         l.setPostConditionDetect(postConditionDetect)
-        preConditionDetect = rospy.Publisher('preConditionDetect', Int32MultiArray, queue_size=10) #usado para ejecutar
+        preConditionDetect = rospy.Publisher('topic_preConDetection', Int32MultiArray, queue_size=10) #usado para ejecutar
         l.setPreConditionDetect(preConditionDetect)
         nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10)
         l.setNivel(nivel)
@@ -126,8 +126,6 @@ if __name__ == '__main__':
         l.setNodoEjecutando(nodoEjecutando)
         solicitarOLiberarMotores=rospy.Publisher('topicosolicitarOLiberarMotores', Int32MultiArray, queue_size=10) 
         l.SetSLMotores(solicitarOLiberarMotores)
-        #  rospy.Subscriber("sensorLineDetectedColorData", Float64MultiArray, processSensorLineDetectedColorData)
-        # rospy.Subscriber("proximitySensorData", Float64, processProximitySensorData)
   
         '''
         rospy.spin()

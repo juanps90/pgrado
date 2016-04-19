@@ -24,7 +24,7 @@ class comportamiento(object):
     
     motores = rospy.Publisher('topicoActuarMotores', Float64MultiArray, queue_size=10) 
     postCondDet   = rospy.Publisher('topicoPostCondDet',String , queue_size=10) #usado para aprender 
-    preCondDet = rospy.Publisher('preConditionDetect',Int32MultiArray , queue_size=10) #usado para ejecutar 
+    preCondDet = rospy.Publisher('topic_preConDetection',Int32MultiArray , queue_size=10) #usado para ejecutar 
     nivel = rospy.Publisher('topicoNivel', Int32MultiArray, queue_size=10) 
     nodoEjecutando=rospy.Publisher('topicoNodoEjecutando', Int32MultiArray, queue_size=10) 
     solicitarOLiberarMotores=rospy.Publisher('topicosolicitarOLiberarMotores', Int32MultiArray, queue_size=10)
@@ -441,11 +441,11 @@ class comportamiento(object):
                  
         self.topicoOrd=rospy.Subscriber("topicoOrdenes", Int32MultiArray, self.atenderOrdenes)         
         self.topicoSen=rospy.Subscriber("topic_sensors", String, self.atenderSensores)
-        self.topicoPre=rospy.Subscriber("preConditionDetect", Int32MultiArray, self.evaluarPrecondicion)
+        self.topicoPre=rospy.Subscriber("topic_preConDetection", Int32MultiArray, self.evaluarPrecondicion)
         self.topicoSet=rospy.Subscriber("preConditionsSetting", Int32MultiArray, self.setting)	    
         self.topicoEst=rospy.Subscriber("topic_state", Int32MultiArray, self.setEstado)
         self.topicoNiv=rospy.Subscriber("topicoNivel", Int32MultiArray, self.atenderNivel)
-        self.topicoCam=rospy.Subscriber("topicoCaminos", Int32MultiArray, self.atenderCaminos)
+        self.topicoCam=rospy.Subscriber("topic_path", Int32MultiArray, self.atenderCaminos)
         self.topicoEje=rospy.Subscriber("topicoNodoEjecutando", Int32MultiArray, self.atenderNodoEjecutando)
         self.topicoAct=rospy.Subscriber("topicoMotorLockeado", Int32MultiArray, self.atenderMotorLockeado)
         rospy.Subscriber("topic_finalize", String, self.finalize)

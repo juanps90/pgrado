@@ -49,7 +49,7 @@ class irA(comportamiento):
         self.delay = 0
         self.changeTime = rospy.Time.now() + rospy.Duration(self.delay)
         self.rate = rospy.Rate(10)
-        self.light = rospy.Publisher('actuatorLed1Topic', Int32MultiArray, queue_size = 1)
+        self.light = rospy.Publisher('topic_led', Int32MultiArray, queue_size = 1)
 
     ##
     # Busca en los elementos impares de la lista de datos del sensor de vision
