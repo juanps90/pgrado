@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from abc import ABCMeta, abstractmethod
-from atributos import Atributos
+from AttributeFactory import AttributeFactory
 from Sensor import Sensor
 
 import Const
@@ -13,6 +13,6 @@ class HeadSensor(Sensor):
     
     """Compara"""
     def similar(self,at2):
-        return Atributos.get(Const.ATR_ANGLE, self.valor[0]).similar(Atributos.get(Const.ATR_ANGLE, at2[0])) \
-           and Atributos.get(Const.ATR_COLOR, self.valor[1]).similar(Atributos.get(Const.ATR_COLOR, at2[1] ))
+        return AttributeFactory.get(Const.ATR_ANGLE, self.valor[0]).similar(AttributeFactory.get(Const.ATR_ANGLE, at2[0])) \
+           and AttributeFactory.get(Const.ATR_COLOR, self.valor[1]).similar(AttributeFactory.get(Const.ATR_COLOR, at2[1] ))
 	 

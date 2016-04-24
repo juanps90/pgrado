@@ -1,0 +1,608 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.6"/>
+<title>Proyecto de grado: Fichero Fuente /home/viki/pgrado/learning_by_imitation/scripts/behavior/GoTo.py</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Proyecto de grado
+   </div>
+   <div id="projectbrief">Aprendizaje por imitación</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.6 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
+      <li><a href="annotated.html"><span>Clases</span></a></li>
+      <li class="current"><a href="files.html"><span>Archivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;archivos</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('_go_to_8py_source.html','');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Clases</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Archivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Funciones</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">GoTo.py</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_go_to_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespace_go_to.html">    1</a></span>&#160;<span class="comment">#!/usr/bin/env python</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"># -*- coding: utf-8 -*-</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">import</span> sys </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">import</span> rospy</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">from</span> std_msgs.msg <span class="keyword">import</span> Int32MultiArray, Float64MultiArray, Int32</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">from</span> random <span class="keyword">import</span> randint</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">import</span> Const</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">from</span> AbstractBehavior <span class="keyword">import</span> AbstractBehavior</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">import</span> os</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">from</span> atributos <span class="keyword">import</span> SensorFactory</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="namespace_go_to.html#a6a8512c6f28835b0d9ceb2dbf43d3bbd">   14</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespace_go_to.html#a6a8512c6f28835b0d9ceb2dbf43d3bbd">mlog</a>(msg):</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    with open(<span class="stringliteral">&quot;/tmp/log.txt&quot;</span>, <span class="stringliteral">&quot;a&quot;</span>) <span class="keyword">as</span> myfile:</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        myfile.write(msg + <span class="stringliteral">&quot;\n&quot;</span>)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_go_to_1_1_go_to.html">GoTo</a>(<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html">AbstractBehavior</a>):</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#aa6c7a86d7e91e09486e9993f946378b3">   19</a></span>&#160;    rate=<span class="keywordtype">None</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a035142f6ec6e0ebdd3265ccecb813645">   21</a></span>&#160;    ACTION_FORWARD = 1</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a9401b46057f93003ff7bde2816d35af5">   22</a></span>&#160;    ACTION_TURN_LEFT = 2</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a4066e473375b719a5886c712a96fa4ee">   23</a></span>&#160;    ACTION_TURN_RIGHT = 3</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#aeb9371a2e14ca92ea176a529cb1c5a75">   24</a></span>&#160;    ACTION_BACK = 4</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#aac6988e0f9d1f1063153bb219b8e3189">   26</a></span>&#160;    DELTA_DISTANCE = 0.08</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a77949f3b35399e21e948bfebd88aa39b">   27</a></span>&#160;    DELTA_ANGLE = 0.1</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#ae8deda5a45f7ba77c1dfd778baee2356">   30</a></span>&#160;    PARAM_COLOR = Const.SENSOR_COLOR_DETECT_RED</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#abcdd127376aa1554f2164bcd2d9f4743">   31</a></span>&#160;    PARAM_DISTANCE = 0.5</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#ada09c2316385a35cddbcb93faac468d2">   32</a></span>&#160;    PARAM_ANGLE = 0.5</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a5e4cd1f6bf62481cbf83e06b2917b155">   33</a></span>&#160;    light = <span class="keywordtype">None</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a11decba1ba19597e7e6eeae4f8791aac">   34</a></span>&#160;    isCenter = <span class="keyword">False</span> </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a03aac452ffaa198cb6da959be635fb0e">   36</a></span>&#160;    action = ACTION_TURN_RIGHT</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a46b24e8c66b6ef925598b3c7dfaed91e">   37</a></span>&#160;    delay = 0</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a043eb6233a8966985e43748e8af771c6">   38</a></span>&#160;    changeTime = <span class="keywordtype">None</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#aebe7980900cc627841ce1a1d09d9f78b">   40</a></span>&#160;    colorValido=[Const.SENSOR_COLOR_DETECT_ORANGE,Const.SENSOR_COLOR_DETECT_YELLOW, Const.SENSOR_COLOR_DETECT_GREEN,Const.SENSOR_COLOR_DETECT_RED,Const.SENSOR_COLOR_DETECT_BLUE]</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="comment">#son las distancias minimas en aprender, angulo para esa distancia</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#ad6ec0d99b95a9c285d4cabbfae11f5ae">   43</a></span>&#160;    minDist=200</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a85dc1a7d4144e1d990af5ef6e6bc1049">   44</a></span>&#160;    angMinDist=1</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#ab8943903a0d7fffdcb744925b46d24dd">   45</a></span>&#160;    avgA = 0</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#acd31315692db9da7d6361e414be43526">   46</a></span>&#160;    lastSeenRight = <span class="keyword">False</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a3bfec0b76a78eee713ac8afb5cfdd73c">   48</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_go_to_1_1_go_to.html#a3bfec0b76a78eee713ac8afb5cfdd73c">__init__</a>(self,datos): </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        super(GoTo,self).<a class="code" href="class_go_to_1_1_go_to.html#a3bfec0b76a78eee713ac8afb5cfdd73c">__init__</a>(datos) </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a1e9aee6762f10c1d346d383323689468">   50</a></span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a6b62d310255a6d6b26c59d02384f6b55">idComportamiento</a>=<span class="stringliteral">&quot;GoTo&quot;</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a14da618c796cb3b3e28e6b8244d696c0">   51</a></span>&#160;        self.<a class="code" href="class_go_to_1_1_go_to.html#a46b24e8c66b6ef925598b3c7dfaed91e">delay</a> = 0</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        self.<a class="code" href="class_go_to_1_1_go_to.html#a043eb6233a8966985e43748e8af771c6">changeTime</a> = rospy.Time.now() + rospy.Duration(self.<a class="code" href="class_go_to_1_1_go_to.html#a46b24e8c66b6ef925598b3c7dfaed91e">delay</a>)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        self.<a class="code" href="class_go_to_1_1_go_to.html#aa6c7a86d7e91e09486e9993f946378b3">rate</a> = rospy.Rate(10)</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        self.<a class="code" href="class_go_to_1_1_go_to.html#a5e4cd1f6bf62481cbf83e06b2917b155">light</a> = rospy.Publisher(<span class="stringliteral">&#39;topic_led&#39;</span>, Int32MultiArray, queue_size = 1)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="comment">##</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="comment"># Busca en los elementos impares de la lista de datos del sensor de vision</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="comment"># el color deseado, retornando  True si lo encuentra y false en otro caso.</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="comment"># @param ls lista de datos del sensor de vision.</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="comment"># @param c Color buscado.</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="comment"># @return Retorna elindice donde esta el color si encuentra el color. False en otro caso.</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="comment">#</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a9119e2fae4fd03c35efb1650669efd27">   63</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_go_to_1_1_go_to.html#a9119e2fae4fd03c35efb1650669efd27">getIndObjetoColor</a>(self, ls, c):</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">if</span> c <span class="keywordflow">in</span> ls[1::2]:</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="keywordflow">return</span> ls.index(c)</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">return</span> -1</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">#recibe los datos de los sensores y verifica cual es el objeto mas cercano por el tama;o</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#ad210a9f2333d5c55b3f63eb4bf82a721">   69</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_go_to_1_1_go_to.html#ad210a9f2333d5c55b3f63eb4bf82a721">getIndObjMoreNear</a>(self,data): </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        indObj=-1</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        i = 0</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        highMax=-1</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        salida=-1</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">while</span> i &lt; len(data):</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            indObj=indObj+1</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            aux= data[i+2] * data[i+3] </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            <span class="keywordflow">if</span> aux&gt;highMax:</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                salida=indObj</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                highMax=aux </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            i = i + 4</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordflow">return</span> salida</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="comment">##</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="comment"># Retorna un True si veo algun objeto. En caso de ser visto setea en action la correspondiente </span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="comment"># accion a ejecutar. Esta accion puede ser girar a la derecha, girar a la izquierda, avanzar o retroceder.</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="comment"># @param color Color buscado.</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="comment"># @param distance Distancia a posicionarse respecto al objeto.</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="comment"># @param angle Angulo a posicionarse respecto al objeto.</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="comment"># @return Retorna un True si veo algun objeto. False en otro caso.</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="comment">#</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a5b0254ed7e28037fc1024e8e74cc0ace">   92</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_go_to_1_1_go_to.html#a5b0254ed7e28037fc1024e8e74cc0ace">getAction</a>(self, color, distance, angle):</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="comment">#mlog( &quot;------------------------ GET ACTION&quot;)</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        see = <span class="keyword">False</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        sensoVision = self.dataSensor.has_key(Const.SENSOR_VISION_HEAD_ID) </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="comment">#mlog(&quot;VEO EL COSITO?&quot;)</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="comment">#mlog(&quot;Busco Color: &quot; + str(color) + &quot;, array: &quot; + str(self.dataSensor))</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <a class="code" href="namespace_go_to.html#a6a8512c6f28835b0d9ceb2dbf43d3bbd">mlog</a>( <span class="stringliteral">&quot;Angulo=&quot;</span> + str(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">dataSensor</a>[Const.SENSOR_VISION_HEAD_ID][0]) + <span class="stringliteral">&quot;; tgt=&quot;</span> + str(angle))</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            <span class="keywordflow">pass</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <a class="code" href="namespace_go_to.html#a6a8512c6f28835b0d9ceb2dbf43d3bbd">mlog</a>(<span class="stringliteral">&quot;dist=&quot;</span> + str(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">dataSensor</a>[Const.SENSOR_NOSE_ULTRASONIC_ID][0]))</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordflow">except</span>:</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            <span class="keywordflow">pass</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keywordflow">if</span> sensoVision :  </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            <span class="comment">#mlog(&quot;VISTO&quot;)   </span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            see = <span class="keyword">True</span>  </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <span class="comment">#Aca se deberia recibir todos los pares anguo color y ver si entr los vistos</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            <span class="comment">#esta el color buscado, hay que tener cuidado de no avanzar si </span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            <span class="comment">#hay un objeto en frente qu eno es nuestro color            </span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            <span class="comment">#rospy.loginfo(&quot;DATA IN HEAD SENSOR &quot; + str(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]))</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            auxIndColor=self.<a class="code" href="class_go_to_1_1_go_to.html#a9119e2fae4fd03c35efb1650669efd27">getIndObjetoColor</a>(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">dataSensor</a>[Const.SENSOR_VISION_HEAD_ID], color)</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <span class="keywordflow">if</span> auxIndColor!=-1:</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                curAngle = self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">dataSensor</a>[Const.SENSOR_VISION_HEAD_ID][0]</div>
+<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a98fb05ed3f1eeedaf4d2036f2f2ed5da">  125</a></span>&#160;                <span class="keywordflow">if</span> self.<a class="code" href="class_go_to_1_1_go_to.html#ab8943903a0d7fffdcb744925b46d24dd">avgA</a> == 0:</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                    self.<a class="code" href="class_go_to_1_1_go_to.html#ab8943903a0d7fffdcb744925b46d24dd">avgA</a> = curAngle</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                    self.<a class="code" href="class_go_to_1_1_go_to.html#ab8943903a0d7fffdcb744925b46d24dd">avgA</a> = (self.<a class="code" href="class_go_to_1_1_go_to.html#ab8943903a0d7fffdcb744925b46d24dd">avgA</a> * 2 + curAngle)/3</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                    </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                curAngle = self.<a class="code" href="class_go_to_1_1_go_to.html#ab8943903a0d7fffdcb744925b46d24dd">avgA</a></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                <span class="comment">#mlog(  &quot;color en vista&quot;)</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                <span class="comment">#se pregunta si el sensor de distancia esta activo pero ademas se debe verificar que la </span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                <span class="comment">#distancia medida sea la del objeto y no de otro para eso se usa la altura</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;                <span class="keywordflow">if</span> self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID) <span class="keywordflow">and</span> self.<a class="code" href="class_go_to_1_1_go_to.html#ad210a9f2333d5c55b3f63eb4bf82a721">getIndObjMoreNear</a>(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">dataSensor</a>[Const.SENSOR_VISION_HEAD_ID])==auxIndColor:                </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                    <span class="comment">#mlog( &quot;GoTo if1&quot;)</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                    <span class="keywordflow">if</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">dataSensor</a>[Const.SENSOR_NOSE_ULTRASONIC_ID][0] &gt; distance + self.<a class="code" href="class_go_to_1_1_go_to.html#aac6988e0f9d1f1063153bb219b8e3189">DELTA_DISTANCE</a>:</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> = self.<a class="code" href="class_go_to_1_1_go_to.html#a035142f6ec6e0ebdd3265ccecb813645">ACTION_FORWARD</a></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                    <span class="keywordflow">elif</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">dataSensor</a>[Const.SENSOR_NOSE_ULTRASONIC_ID][0] &lt; distance - self.<a class="code" href="class_go_to_1_1_go_to.html#aac6988e0f9d1f1063153bb219b8e3189">DELTA_DISTANCE</a>:</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> = self.<a class="code" href="class_go_to_1_1_go_to.html#aeb9371a2e14ca92ea176a529cb1c5a75">ACTION_BACK</a></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                    <span class="keywordflow">elif</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">dataSensor</a>[Const.SENSOR_VISION_HEAD_ID][0] &lt; angle - self.<a class="code" href="class_go_to_1_1_go_to.html#a77949f3b35399e21e948bfebd88aa39b">DELTA_ANGLE</a>:</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;                        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> = self.<a class="code" href="class_go_to_1_1_go_to.html#a9401b46057f93003ff7bde2816d35af5">ACTION_TURN_LEFT</a></div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                        self.<a class="code" href="class_go_to_1_1_go_to.html#acd31315692db9da7d6361e414be43526">lastSeenRight</a> = <span class="keyword">False</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                    <span class="keywordflow">elif</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">dataSensor</a>[Const.SENSOR_VISION_HEAD_ID][0] &gt; angle + self.<a class="code" href="class_go_to_1_1_go_to.html#a77949f3b35399e21e948bfebd88aa39b">DELTA_ANGLE</a>:</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> = self.<a class="code" href="class_go_to_1_1_go_to.html#a4066e473375b719a5886c712a96fa4ee">ACTION_TURN_RIGHT</a></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                        self.<a class="code" href="class_go_to_1_1_go_to.html#acd31315692db9da7d6361e414be43526">lastSeenRight</a> = <span class="keyword">True</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                    <span class="comment">#mlog( &quot;GoTo if2 con angle=&quot; + str(angle) + &quot;; &quot; + str(self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0]) )</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                    <span class="comment">#ve el color pero no esta a una distancia adecuada centra y luego avanza</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                    </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;                    <span class="keywordflow">if</span> abs(curAngle - angle) &lt; self.<a class="code" href="class_go_to_1_1_go_to.html#a77949f3b35399e21e948bfebd88aa39b">DELTA_ANGLE</a>:</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;                        <span class="comment"># Muy proximos al angulo buscado</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                        <a class="code" href="namespace_go_to.html#a6a8512c6f28835b0d9ceb2dbf43d3bbd">mlog</a>(<span class="stringliteral">&quot;En el angulo&quot;</span>)</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> = self.<a class="code" href="class_go_to_1_1_go_to.html#a035142f6ec6e0ebdd3265ccecb813645">ACTION_FORWARD</a></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                    <span class="keywordflow">elif</span> (curAngle &gt; 0.5 <span class="keywordflow">and</span> angle &gt; curAngle):</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;                        <a class="code" href="namespace_go_to.html#a6a8512c6f28835b0d9ceb2dbf43d3bbd">mlog</a>(<span class="stringliteral">&quot;Avance por derecha&quot;</span>)</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> = self.<a class="code" href="class_go_to_1_1_go_to.html#a035142f6ec6e0ebdd3265ccecb813645">ACTION_FORWARD</a></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                    <span class="keywordflow">elif</span> (curAngle &lt; 0.5 <span class="keywordflow">and</span> angle &lt; curAngle):</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                        <a class="code" href="namespace_go_to.html#a6a8512c6f28835b0d9ceb2dbf43d3bbd">mlog</a>(<span class="stringliteral">&quot;Avance por izquierda&quot;</span>)</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> = self.<a class="code" href="class_go_to_1_1_go_to.html#a035142f6ec6e0ebdd3265ccecb813645">ACTION_FORWARD</a></div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                    <span class="keywordflow">elif</span> (1-curAngle) &lt; self.<a class="code" href="class_go_to_1_1_go_to.html#a77949f3b35399e21e948bfebd88aa39b">DELTA_ANGLE</a> * 1.5:</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                        <a class="code" href="namespace_go_to.html#a6a8512c6f28835b0d9ceb2dbf43d3bbd">mlog</a>(<span class="stringliteral">&quot;Recupero derecha&quot;</span>)</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> = self.<a class="code" href="class_go_to_1_1_go_to.html#a4066e473375b719a5886c712a96fa4ee">ACTION_TURN_RIGHT</a></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                    <span class="keywordflow">elif</span> curAngle &lt; self.<a class="code" href="class_go_to_1_1_go_to.html#a77949f3b35399e21e948bfebd88aa39b">DELTA_ANGLE</a> * 1.5:</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                        <a class="code" href="namespace_go_to.html#a6a8512c6f28835b0d9ceb2dbf43d3bbd">mlog</a>(<span class="stringliteral">&quot;Recupero izquierda&quot;</span>)</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> = self.<a class="code" href="class_go_to_1_1_go_to.html#a9401b46057f93003ff7bde2816d35af5">ACTION_TURN_LEFT</a></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                        <span class="comment"># sdas</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;                    <span class="keywordflow">elif</span> (curAngle &gt; 0.5 <span class="keywordflow">and</span> angle &lt; curAngle):</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                        <a class="code" href="namespace_go_to.html#a6a8512c6f28835b0d9ceb2dbf43d3bbd">mlog</a>(<span class="stringliteral">&quot;Acomodo derecha&quot;</span>)</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> = self.<a class="code" href="class_go_to_1_1_go_to.html#a4066e473375b719a5886c712a96fa4ee">ACTION_TURN_RIGHT</a></div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                    <span class="keywordflow">elif</span> (curAngle &lt; 0.5 <span class="keywordflow">and</span> angle &gt; curAngle):</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                        <a class="code" href="namespace_go_to.html#a6a8512c6f28835b0d9ceb2dbf43d3bbd">mlog</a>(<span class="stringliteral">&quot;Acomodo izquierda&quot;</span>)</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;                        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> = self.<a class="code" href="class_go_to_1_1_go_to.html#a9401b46057f93003ff7bde2816d35af5">ACTION_TURN_LEFT</a></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                    </div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                    <span class="stringliteral">&#39;&#39;&#39;if  &lt; angle - self.DELTA_ANGLE:</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="stringliteral">                        mlog(&quot;Recupero para un lado&quot;)</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="stringliteral">                        self.action = self.ACTION_TURN_LEFT</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="stringliteral">                        self.lastSeenRight = False</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="stringliteral">                    elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] &gt; angle + self.DELTA_ANGLE:</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="stringliteral">                        mlog(&quot;Recupero para el otro lado&quot;)</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="stringliteral">                        self.action = self.ACTION_TURN_RIGHT</span></div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="stringliteral">                        self.lastSeenRight = True</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="stringliteral">                    elif (1-self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0]) &lt; self.DELTA_ANGLE * 1.5:</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="stringliteral">                        mlog(&quot;Engancho para la izquierda&quot;)</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="stringliteral">                        self.action = self.ACTION_TURN_RIGHT</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="stringliteral">                    elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] &lt; self.DELTA_ANGLE * 1.5:</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="stringliteral">                        mlog(&quot;Engancho para la derecha&quot;)</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="stringliteral">                        self.action = self.ACTION_TURN_LEFT</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="stringliteral">                    else:</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="stringliteral">                        self.action = self.ACTION_FORWARD&#39;&#39;&#39;</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;            <span class="comment">#no es el color buscado </span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;            <span class="keywordflow">elif</span> self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                <span class="comment">#mlog( &quot;GoTo if3&quot;)</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;                <span class="comment"># estoy muy cerca entonces retrocedo</span></div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                <span class="keywordflow">if</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">dataSensor</a>[Const.SENSOR_NOSE_ULTRASONIC_ID][0] &lt; 0.1 :  </div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;                    self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> = self.<a class="code" href="class_go_to_1_1_go_to.html#aeb9371a2e14ca92ea176a529cb1c5a75">ACTION_BACK</a></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                    <span class="keywordflow">if</span> self.<a class="code" href="class_go_to_1_1_go_to.html#acd31315692db9da7d6361e414be43526">lastSeenRight</a>:</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;                        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> = self.<a class="code" href="class_go_to_1_1_go_to.html#a9401b46057f93003ff7bde2816d35af5">ACTION_TURN_LEFT</a></div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                        self.<a class="code" href="class_go_to_1_1_go_to.html#acd31315692db9da7d6361e414be43526">lastSeenRight</a> = <span class="keyword">False</span></div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                    <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> = self.<a class="code" href="class_go_to_1_1_go_to.html#a4066e473375b719a5886c712a96fa4ee">ACTION_TURN_RIGHT</a></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;                        self.<a class="code" href="class_go_to_1_1_go_to.html#acd31315692db9da7d6361e414be43526">lastSeenRight</a> = <span class="keyword">True</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;            <span class="keywordflow">else</span>: </div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;                <span class="comment">#mlog( &quot;GoTo if4&quot;)</span></div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;                self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> = self.<a class="code" href="class_go_to_1_1_go_to.html#a9401b46057f93003ff7bde2816d35af5">ACTION_TURN_LEFT</a>   </div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        <span class="comment">#else:</span></div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            <span class="comment">#self.action = self.ACTION_FORWARD</span></div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;            </div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <span class="keywordflow">return</span> see</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;           </div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="comment">##</span></div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="comment"># Publica en el topico &quot;topic_operateEngine&quot; la velocidad del motor derecho e izuierdo a ser usada.</span></div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <span class="comment"># @param speedRight Velocidad del motor derecho.</span></div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="comment"># @param speedLeft Velocidad del motor izquierdo.</span></div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="comment">#          </span></div>
+<div class="line"><a name="l00220"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a8f897f2366b424272d622853d4f9d5d5">  220</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_go_to_1_1_go_to.html#a8f897f2366b424272d622853d4f9d5d5">publish</a>(self,speedRight, speedLeft):</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        msg = Float64MultiArray()</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        msg.data = [self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>, speedRight, speedLeft]</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        self.motores.publish(msg)</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;</div>
+<div class="line"><a name="l00225"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a0d28bdad66945ae6b3f2a07a9c6da057">  225</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_go_to_1_1_go_to.html#a0d28bdad66945ae6b3f2a07a9c6da057">findObject</a>(self, color, distance, angle):</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        <span class="comment">#En caso de no ser visto hago wander.</span></div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        wander=<span class="keywordflow">not</span> self.<a class="code" href="class_go_to_1_1_go_to.html#a5b0254ed7e28037fc1024e8e74cc0ace">getAction</a>(color, distance, angle)</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="keywordflow">if</span> wander <span class="keywordflow">and</span> self.<a class="code" href="class_go_to_1_1_go_to.html#a043eb6233a8966985e43748e8af771c6">changeTime</a> &lt; rospy.Time.now(): </div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;            <span class="keywordflow">if</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> == self.<a class="code" href="class_go_to_1_1_go_to.html#a035142f6ec6e0ebdd3265ccecb813645">ACTION_FORWARD</a> <span class="keywordflow">or</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> == self.<a class="code" href="class_go_to_1_1_go_to.html#aeb9371a2e14ca92ea176a529cb1c5a75">ACTION_BACK</a>:</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;                <span class="keywordflow">if</span> randint(0, 1) == 0:</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                    self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> = self.<a class="code" href="class_go_to_1_1_go_to.html#a9401b46057f93003ff7bde2816d35af5">ACTION_TURN_LEFT</a></div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                    self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> = self.<a class="code" href="class_go_to_1_1_go_to.html#a4066e473375b719a5886c712a96fa4ee">ACTION_TURN_RIGHT</a></div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;                self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> = self.<a class="code" href="class_go_to_1_1_go_to.html#a035142f6ec6e0ebdd3265ccecb813645">ACTION_FORWARD</a></div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;                <span class="keywordflow">print</span> <span class="stringliteral">&quot;ADELANTE&quot;</span></div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;            self.<a class="code" href="class_go_to_1_1_go_to.html#a46b24e8c66b6ef925598b3c7dfaed91e">delay</a> = randint(2, 9)</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;            self.<a class="code" href="class_go_to_1_1_go_to.html#a043eb6233a8966985e43748e8af771c6">changeTime</a> = rospy.Time.now() + rospy.Duration(self.<a class="code" href="class_go_to_1_1_go_to.html#a46b24e8c66b6ef925598b3c7dfaed91e">delay</a>)</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;            self.rate.sleep() </div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;            </div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        <span class="keywordflow">if</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> == self.<a class="code" href="class_go_to_1_1_go_to.html#aeb9371a2e14ca92ea176a529cb1c5a75">ACTION_BACK</a>:</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;            <span class="comment"># voy hacia atras</span></div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;            <span class="comment">#azar=randint(0,2)</span></div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;            self.<a class="code" href="class_go_to_1_1_go_to.html#a8f897f2366b424272d622853d4f9d5d5">publish</a>(-self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2373ed0699119ed36f4c035d4f3e638d">speed</a>, -self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2373ed0699119ed36f4c035d4f3e638d">speed</a>)</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        <span class="keywordflow">elif</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> == self.<a class="code" href="class_go_to_1_1_go_to.html#a035142f6ec6e0ebdd3265ccecb813645">ACTION_FORWARD</a>:</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;            <span class="comment"># sigo hacia adelante</span></div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;            self.<a class="code" href="class_go_to_1_1_go_to.html#a8f897f2366b424272d622853d4f9d5d5">publish</a>(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2373ed0699119ed36f4c035d4f3e638d">speed</a>, self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2373ed0699119ed36f4c035d4f3e638d">speed</a>)</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        <span class="keywordflow">elif</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> == self.<a class="code" href="class_go_to_1_1_go_to.html#a9401b46057f93003ff7bde2816d35af5">ACTION_TURN_LEFT</a>:</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;            <span class="comment"># girar a la izquierda</span></div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;            self.<a class="code" href="class_go_to_1_1_go_to.html#a8f897f2366b424272d622853d4f9d5d5">publish</a>(-self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2373ed0699119ed36f4c035d4f3e638d">speed</a>/2, self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2373ed0699119ed36f4c035d4f3e638d">speed</a>/2)</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;            <span class="comment"># girar a la derecha</span></div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;            self.<a class="code" href="class_go_to_1_1_go_to.html#a8f897f2366b424272d622853d4f9d5d5">publish</a>(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2373ed0699119ed36f4c035d4f3e638d">speed</a>/2, -self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2373ed0699119ed36f4c035d4f3e638d">speed</a>/2)   </div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;         </div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;         </div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        <span class="comment">#rospy.loginfo(&quot;action &quot; + str( self.action )+ &quot; color &quot;+str(color)+str(wander)) </span></div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;  </div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160; </div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;  </div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <span class="comment">#se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores</span></div>
+<div class="line"><a name="l00265"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a18d637bee4641bbfe1d773046e8abbaa">  265</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_go_to_1_1_go_to.html#a18d637bee4641bbfe1d773046e8abbaa">actuar</a>(self):</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;        <span class="keywordflow">if</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a02783bb181e7f9d752741182e49eeeef">cumplePrecondiciones</a> () <span class="keywordflow">and</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a36e4e0bc09289b8f35f594710863957c">nivelActivacion</a>&gt;0 <span class="keywordflow">and</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a041502175c2c71abd4d8aa90122c1146">motorLibre</a>:</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;            </div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;            <span class="comment"># SE DEBE RECIBIR EL PARAMETROS DEL COLOR DISTANCIA Y ANGULO.</span></div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;            head=[-1,-1]</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;            <span class="keywordflow">if</span> self.parametros.has_key(Const.SENSOR_VISION_HEAD_ID):</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                head=self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a45b216d9a5ca95f403665d3e60e2809c">parametros</a>[Const.SENSOR_VISION_HEAD_ID]</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;            dist=[200]</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;            <span class="keywordflow">if</span> self.parametros.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):    </div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;                dist=self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a45b216d9a5ca95f403665d3e60e2809c">parametros</a>[Const.SENSOR_NOSE_ULTRASONIC_ID]</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;            self.<a class="code" href="class_go_to_1_1_go_to.html#a0d28bdad66945ae6b3f2a07a9c6da057">findObject</a>(head[1], dist[0], head[0])</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="comment">#            #rospy.loginfo(&quot;&gt;&gt;&gt;ON GoTo id:&quot;+str(self.identify))</span></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;            <span class="comment">##rospy.loginfo( nivelActivacion)</span></div>
+<div class="line"><a name="l00278"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a92fe8b1b148f65c48fd705a24de38041">  278</a></span>&#160;            self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a75218f4c8dbbe5a8a62b354c4ac928a4">ejecutando</a>=<span class="keyword">True</span></div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;            msg2 = Int32MultiArray()  </div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;            msg2.data = [self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>,self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>] <span class="comment">#por si necesito otro parametro        </span></div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;            self.nodoEjecutando.publish(msg2) </div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        <span class="keywordflow">else</span>: </div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<span class="comment">#           #rospy.loginfo(&quot;&gt;&gt;&gt;OFF GoTo id:&quot;+str(self.identify))</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;            self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a75218f4c8dbbe5a8a62b354c4ac928a4">ejecutando</a>=<span class="keyword">False</span></div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;   </div>
+<div class="line"><a name="l00287"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#ae359cc1f0467933757fae2a1d23ab769">  287</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_go_to_1_1_go_to.html#ae359cc1f0467933757fae2a1d23ab769">veriPosSenAprender</a>(self, data):</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;       activate=<span class="keyword">False</span></div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;       <span class="keywordflow">if</span> (<span class="keywordflow">not</span> data.has_key(Const.SENSOR_VISION_HEAD_ID)) <span class="keywordflow">or</span> (<span class="keywordflow">not</span> data.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID)):</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;           <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;           </div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;       headSensor = data[Const.SENSOR_VISION_HEAD_ID]</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;       noseSensor = data[Const.SENSOR_NOSE_ULTRASONIC_ID]</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;       </div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;       <span class="comment">##rospy.loginfo(&quot;EL COLOR EN IR_A ES &quot; + str(headSensor[1]))</span></div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;       </div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;       <span class="comment">#esta entre los colores es la unica condicion a verificar</span></div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;       <span class="comment">#ya que se verifico que hay lectura de distancua mas arriba</span></div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;       aux=self.<a class="code" href="class_go_to_1_1_go_to.html#ad210a9f2333d5c55b3f63eb4bf82a721">getIndObjMoreNear</a>(headSensor)</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;       cond0=  headSensor[aux*4+1] <span class="keywordflow">in</span> self.<a class="code" href="class_go_to_1_1_go_to.html#aebe7980900cc627841ce1a1d09d9f78b">colorValido</a>  </div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;       cond1= noseSensor[0] &gt; self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2b1d1552600506f5db476b6567fa637b">safeDist</a> </div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;       <span class="comment">#rospy.loginfo(&quot;color a aprender &quot;+str(headSensor[aux*4+1])+str(cond0))</span></div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;       <span class="stringliteral">&#39;&#39;&#39;</span></div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="stringliteral">       cond1=self.PARAM_DISTANCE - self.DELTA_DISTANCE &lt;= noseSensor </span></div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;<span class="stringliteral">       cond2=noseSensor[0] &lt;= self.PARAM_DISTANCE + self.DELTA_DISTANCE  </span></div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<span class="stringliteral">       cond3=self.PARAM_ANGLE - self.DELTA_ANGLE &lt;= headSensor[0] </span></div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="stringliteral">       cond4=headSensor[0] &lt;= self.PARAM_ANGLE + self.DELTA_ANGLE       </span></div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<span class="stringliteral">       if cond0 and cond1 and cond2 and cond3 and cond4:       </span></div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="stringliteral">       &#39;&#39;&#39;</span></div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;       </div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;       <span class="keywordflow">if</span> cond0 <span class="keywordflow">and</span> cond1:           </div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;           <span class="comment">#rospy.loginfo(&quot;SE CUMPLE POSTCONDICION IR A&quot;)</span></div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;           activate=<span class="keyword">True</span></div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;           </div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;       <span class="comment">#rospy.loginfo(&quot;Active GoTo&quot; + str(activate))</span></div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;       <span class="comment">#rospy.loginfo(&quot;color = &quot; + str(headSensor[aux*4+1]) + &quot; distancia  = &quot; + str(noseSensor) + &quot; angulo = &quot; + str(headSensor[aux*4]))</span></div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;       <span class="keywordflow">return</span> activate</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;</div>
+<div class="line"><a name="l00322"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a375d710e65361fa3eafafc13aa3706f3">  322</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_go_to_1_1_go_to.html#a375d710e65361fa3eafafc13aa3706f3">similarHeadSensor</a>(self, headSens, l):</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        aux =<span class="keyword">False</span> </div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        indObj=-1</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        i = 1</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        </div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;        <span class="keywordflow">while</span> ((<span class="keywordflow">not</span> aux) <span class="keywordflow">and</span> (i &lt; len(l))):</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;            indObj=indObj+1</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;            aux = aux <span class="keywordflow">or</span> headSens.similar([l[i - 1], l[i]])</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;            i = i + 4</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        <span class="comment">#rospy.loginfo(&quot;EN SIMILAR HEAD SENSOR LOS DATOS SON &quot; + str(l) + &quot; Y LA SALIDA ES &quot; + str(aux))</span></div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        <span class="keywordflow">if</span> aux:</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;            <span class="keywordflow">return</span> indObj</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;        <span class="keywordflow">return</span> -1</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;           </div>
+<div class="line"><a name="l00337"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#a05316ef5d2763cce5674e1e009963758">  337</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_go_to_1_1_go_to.html#a05316ef5d2763cce5674e1e009963758">veriPosSenEjecutar</a>(self,data):</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;       activate=<span class="keyword">False</span></div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;       <span class="keywordflow">if</span> (<span class="keywordflow">not</span> data.has_key(Const.SENSOR_VISION_HEAD_ID)) <span class="keywordflow">or</span> (<span class="keywordflow">not</span> data.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID)):</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;           <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;      </div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;       <span class="comment">#rospy.loginfo(&quot;Estoy en veriPosSenEjecutar&quot;)</span></div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;       headSens = SensorFactory.get(Const.SENSOR_VISION_HEAD_ID,     self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a45b216d9a5ca95f403665d3e60e2809c">parametros</a>[Const.SENSOR_VISION_HEAD_ID])</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;       ultrSens = SensorFactory.get(Const.SENSOR_NOSE_ULTRASONIC_ID, self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a45b216d9a5ca95f403665d3e60e2809c">parametros</a>[Const.SENSOR_NOSE_ULTRASONIC_ID])</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;       msgLight = Int32MultiArray()</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;       </div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;       esSimiliar=self.<a class="code" href="class_go_to_1_1_go_to.html#a375d710e65361fa3eafafc13aa3706f3">similarHeadSensor</a>(headSens, data[Const.SENSOR_VISION_HEAD_ID])</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;       <span class="keywordflow">if</span> esSimiliar==self.<a class="code" href="class_go_to_1_1_go_to.html#ad210a9f2333d5c55b3f63eb4bf82a721">getIndObjMoreNear</a>(data[Const.SENSOR_VISION_HEAD_ID])  <span class="keywordflow">and</span> ultrSens.similar(data[Const.SENSOR_NOSE_ULTRASONIC_ID])   :       </div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;           rospy.loginfo(<span class="stringliteral">&quot;CUMPLE POSTCONDICION IR_A PARA &quot;</span> + str(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>) + <span class="stringliteral">&quot; CON DISTANCIA &quot;</span> + str(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a45b216d9a5ca95f403665d3e60e2809c">parametros</a>[Const.SENSOR_NOSE_ULTRASONIC_ID]) + <span class="stringliteral">&quot;, COLOR Y ANGULO &quot;</span> + str(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a45b216d9a5ca95f403665d3e60e2809c">parametros</a>[Const.SENSOR_VISION_HEAD_ID]))</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;           msgLight.data = [self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>,1]</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;           self.light.publish(msgLight)</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;           activate=<span class="keyword">True</span></div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;       <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;           rospy.loginfo(<span class="stringliteral">&quot;NO CUMPLE POSTCONDICION IR_A PARA &quot;</span> + str(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>))</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;           msgLight.data = [self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>,0]</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;           self.light.publish(msgLight)</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;       <span class="comment">#rospy.loginfo(&quot;Active GoTo&quot; + str(activate))</span></div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;       </div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;       <span class="keywordflow">return</span> activate</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;</div>
+<div class="line"><a name="l00362"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#ade22aceee368c1ea15f063bd3d1c94c7">  362</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_go_to_1_1_go_to.html#ade22aceee368c1ea15f063bd3d1c94c7">getParAprendidos</a>(self,data):</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        <span class="comment">#rospy.loginfo(&quot;getparaprendidos ir a &quot;+str(data))</span></div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        proxim=[]</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;        head=[]</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;        outHead=<span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;        outProxim=<span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;        esDistMin=<span class="keyword">False</span></div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;        </div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;        <span class="keywordflow">if</span> data.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):   </div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;            proxim=data[Const.SENSOR_NOSE_ULTRASONIC_ID] </div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;            <span class="comment">#se queda con la minima distancia</span></div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;            <span class="keywordflow">if</span> proxim[0] &lt;= self.<a class="code" href="class_go_to_1_1_go_to.html#ad6ec0d99b95a9c285d4cabbfae11f5ae">minDist</a>:</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;                esDistMin=<span class="keyword">True</span></div>
+<div class="line"><a name="l00375"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#afb5582298756db39f79596c9ff9bac8a">  375</a></span>&#160;                self.<a class="code" href="class_go_to_1_1_go_to.html#ad6ec0d99b95a9c285d4cabbfae11f5ae">minDist</a>=proxim[0]</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;                </div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;            outProxim=str (Const.SENSOR_NOSE_ULTRASONIC_ID) + <span class="stringliteral">&quot;#&quot;</span> +str(self.<a class="code" href="class_go_to_1_1_go_to.html#ad6ec0d99b95a9c285d4cabbfae11f5ae">minDist</a>) </div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;        <span class="keywordflow">if</span> data.has_key(Const.SENSOR_VISION_HEAD_ID):</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;            head=data[Const.SENSOR_VISION_HEAD_ID]</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;            idObj=self.<a class="code" href="class_go_to_1_1_go_to.html#ad210a9f2333d5c55b3f63eb4bf82a721">getIndObjMoreNear</a>(head)</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;            <span class="comment">#si es la minima distancia se guarda el angulo</span></div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;            <span class="keywordflow">if</span> esDistMin:</div>
+<div class="line"><a name="l00383"></a><span class="lineno"><a class="line" href="class_go_to_1_1_go_to.html#ac97565064e897d76a40a0c792ac4e871">  383</a></span>&#160;                self.<a class="code" href="class_go_to_1_1_go_to.html#a85dc1a7d4144e1d990af5ef6e6bc1049">angMinDist</a>=head[4*idObj]</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;            outHead=str (Const.SENSOR_VISION_HEAD_ID) + <span class="stringliteral">&quot;#&quot;</span> +str(self.<a class="code" href="class_go_to_1_1_go_to.html#a85dc1a7d4144e1d990af5ef6e6bc1049">angMinDist</a>) + <span class="stringliteral">&quot;#&quot;</span> +str(head[4*idObj+1]) </div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;        salida=<span class="stringliteral">&quot;&quot;</span></div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;        <span class="keywordflow">if</span> len(outHead)&gt;0:</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;            salida=salida+outHead </div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;        <span class="keywordflow">if</span> len(outProxim)&gt;0:</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;            <span class="keywordflow">if</span> len(salida):</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;                salida=salida+ <span class="stringliteral">&quot;|&quot;</span></div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;            salida=salida+outProxim </div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        <span class="keywordflow">return</span> salida</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>:</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;iniciando GoTo&quot;</span>  </div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    rospy.init_node(<span class="stringliteral">&#39;GoTo&#39;</span>, anonymous=<span class="keyword">True</span>) </div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    <span class="comment">#aca se recibe string se desenvuelve y se obtiene id y parametros       </span></div>
+<div class="line"><a name="l00402"></a><span class="lineno"><a class="line" href="namespace_go_to.html#a27c3401252ad334815551bbe780ed900">  402</a></span>&#160;    datos=str(rospy.myargv(argv=sys.argv)[1])</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    <span class="comment">#rospy.loginfo(&quot;datos GoTo &quot;+str(datos)) </span></div>
+<div class="line"><a name="l00404"></a><span class="lineno"><a class="line" href="namespace_go_to.html#a08b454c6b809b4d277ed611fa154378e">  404</a></span>&#160;    i = <a class="code" href="class_go_to_1_1_go_to.html">GoTo</a>(datos)</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    rospy.spin()</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    i.endTopic()</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    rospy.signal_shutdown(<span class="stringliteral">&quot;Bye!&quot;</span>)</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;<span class="comment">#    def getAction(self, color, distance, angle):</span></div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;<span class="comment">#        see = False        </span></div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;<span class="comment">#        sensoVision = self.dataSensor.has_key(Const.SENSOR_VISION_HEAD_ID) </span></div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;<span class="comment">#        if sensoVision :  </span></div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;<span class="comment">#            #rospy.loginfo(&quot;VISTO&quot;)   </span></div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;<span class="comment">#            see = True  </span></div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;<span class="comment">#            if self.dataSensor[Const.SENSOR_VISION_HEAD_ID][1] == color: </span></div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="comment">#                if self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):                </span></div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;<span class="comment">#                    if self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] &gt; distance + self.DELTA_DISTANCE:</span></div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="comment">#                        self.action = self.ACTION_FORWARD</span></div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;<span class="comment">#                    elif self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] &lt; distance - self.DELTA_DISTANCE:</span></div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;<span class="comment">#                        self.action = self.ACTION_BACK</span></div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;<span class="comment">#                    elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] &lt; angle + self.DELTA_ANGLE:</span></div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;<span class="comment">#                        self.action = self.ACTION_TURN_LEFT</span></div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="comment">#                    elif self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0] &gt; angle - self.DELTA_ANGLE:</span></div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;<span class="comment">#                        self.action = self.ACTION_TURN_RIGHT</span></div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;<span class="comment">#                else:</span></div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;<span class="comment">#                    self.action = self.ACTION_FORWARD</span></div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;<span class="comment">#            #no es el color buscado </span></div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;<span class="comment">#            elif self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):</span></div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;<span class="comment">#                # estoy muy cerca entonces retrocedo</span></div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;<span class="comment">#                if self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] &lt; 0.1 :  </span></div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;<span class="comment">#                    self.action = self.ACTION_BACK</span></div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;<span class="comment">#                elif randint(0, 1) == 0:</span></div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;<span class="comment">#                    self.action = self.ACTION_TURN_LEFT </span></div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;<span class="comment">#        return see</span></div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;</div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_aeb9371a2e14ca92ea176a529cb1c5a75"><div class="ttname"><a href="class_go_to_1_1_go_to.html#aeb9371a2e14ca92ea176a529cb1c5a75">GoTo.GoTo.ACTION_BACK</a></div><div class="ttdeci">int ACTION_BACK</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00024">GoTo.py:24</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_a9401b46057f93003ff7bde2816d35af5"><div class="ttname"><a href="class_go_to_1_1_go_to.html#a9401b46057f93003ff7bde2816d35af5">GoTo.GoTo.ACTION_TURN_LEFT</a></div><div class="ttdeci">int ACTION_TURN_LEFT</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00022">GoTo.py:22</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a7f1e4b3fcfe0bceb8f1d700201349e19"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">AbstractBehavior.AbstractBehavior.identify</a></div><div class="ttdeci">int identify</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00032">AbstractBehavior.py:32</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_acd31315692db9da7d6361e414be43526"><div class="ttname"><a href="class_go_to_1_1_go_to.html#acd31315692db9da7d6361e414be43526">GoTo.GoTo.lastSeenRight</a></div><div class="ttdeci">lastSeenRight</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00046">GoTo.py:46</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_a3bfec0b76a78eee713ac8afb5cfdd73c"><div class="ttname"><a href="class_go_to_1_1_go_to.html#a3bfec0b76a78eee713ac8afb5cfdd73c">GoTo.GoTo.__init__</a></div><div class="ttdeci">def __init__</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00048">GoTo.py:48</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_ad210a9f2333d5c55b3f63eb4bf82a721"><div class="ttname"><a href="class_go_to_1_1_go_to.html#ad210a9f2333d5c55b3f63eb4bf82a721">GoTo.GoTo.getIndObjMoreNear</a></div><div class="ttdeci">def getIndObjMoreNear</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00069">GoTo.py:69</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_ad6ec0d99b95a9c285d4cabbfae11f5ae"><div class="ttname"><a href="class_go_to_1_1_go_to.html#ad6ec0d99b95a9c285d4cabbfae11f5ae">GoTo.GoTo.minDist</a></div><div class="ttdeci">int minDist</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00043">GoTo.py:43</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a75218f4c8dbbe5a8a62b354c4ac928a4"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a75218f4c8dbbe5a8a62b354c4ac928a4">AbstractBehavior.AbstractBehavior.ejecutando</a></div><div class="ttdeci">ejecutando</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00035">AbstractBehavior.py:35</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_a77949f3b35399e21e948bfebd88aa39b"><div class="ttname"><a href="class_go_to_1_1_go_to.html#a77949f3b35399e21e948bfebd88aa39b">GoTo.GoTo.DELTA_ANGLE</a></div><div class="ttdeci">float DELTA_ANGLE</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00027">GoTo.py:27</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_a4066e473375b719a5886c712a96fa4ee"><div class="ttname"><a href="class_go_to_1_1_go_to.html#a4066e473375b719a5886c712a96fa4ee">GoTo.GoTo.ACTION_TURN_RIGHT</a></div><div class="ttdeci">int ACTION_TURN_RIGHT</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00023">GoTo.py:23</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_aebe7980900cc627841ce1a1d09d9f78b"><div class="ttname"><a href="class_go_to_1_1_go_to.html#aebe7980900cc627841ce1a1d09d9f78b">GoTo.GoTo.colorValido</a></div><div class="ttdeci">list colorValido</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00040">GoTo.py:40</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a6b62d310255a6d6b26c59d02384f6b55"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a6b62d310255a6d6b26c59d02384f6b55">AbstractBehavior.AbstractBehavior.idComportamiento</a></div><div class="ttdeci">int idComportamiento</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00033">AbstractBehavior.py:33</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a99f05420d74dfcffb1534837f5783550"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">AbstractBehavior.AbstractBehavior.action</a></div><div class="ttdeci">action</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00096">AbstractBehavior.py:96</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_ab1fc3af56fc8543a0ea5d89030f45684"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">AbstractBehavior.AbstractBehavior.dataSensor</a></div><div class="ttdeci">dictionary dataSensor</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00045">AbstractBehavior.py:45</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_a0d28bdad66945ae6b3f2a07a9c6da057"><div class="ttname"><a href="class_go_to_1_1_go_to.html#a0d28bdad66945ae6b3f2a07a9c6da057">GoTo.GoTo.findObject</a></div><div class="ttdeci">def findObject</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00225">GoTo.py:225</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html">AbstractBehavior.AbstractBehavior</a></div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00009">AbstractBehavior.py:9</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a2b1d1552600506f5db476b6567fa637b"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a2b1d1552600506f5db476b6567fa637b">AbstractBehavior.AbstractBehavior.safeDist</a></div><div class="ttdeci">float safeDist</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00046">AbstractBehavior.py:46</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_ae359cc1f0467933757fae2a1d23ab769"><div class="ttname"><a href="class_go_to_1_1_go_to.html#ae359cc1f0467933757fae2a1d23ab769">GoTo.GoTo.veriPosSenAprender</a></div><div class="ttdeci">def veriPosSenAprender</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00287">GoTo.py:287</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_aac6988e0f9d1f1063153bb219b8e3189"><div class="ttname"><a href="class_go_to_1_1_go_to.html#aac6988e0f9d1f1063153bb219b8e3189">GoTo.GoTo.DELTA_DISTANCE</a></div><div class="ttdeci">float DELTA_DISTANCE</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00026">GoTo.py:26</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html"><div class="ttname"><a href="class_go_to_1_1_go_to.html">GoTo.GoTo</a></div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00018">GoTo.py:18</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_a043eb6233a8966985e43748e8af771c6"><div class="ttname"><a href="class_go_to_1_1_go_to.html#a043eb6233a8966985e43748e8af771c6">GoTo.GoTo.changeTime</a></div><div class="ttdeci">changeTime</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00038">GoTo.py:38</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_a9119e2fae4fd03c35efb1650669efd27"><div class="ttname"><a href="class_go_to_1_1_go_to.html#a9119e2fae4fd03c35efb1650669efd27">GoTo.GoTo.getIndObjetoColor</a></div><div class="ttdeci">def getIndObjetoColor</div><div class="ttdoc">Busca en los elementos impares de la lista de datos del sensor de vision el color deseado...</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00063">GoTo.py:63</a></div></div>
+<div class="ttc" id="namespace_go_to_html_a6a8512c6f28835b0d9ceb2dbf43d3bbd"><div class="ttname"><a href="namespace_go_to.html#a6a8512c6f28835b0d9ceb2dbf43d3bbd">GoTo.mlog</a></div><div class="ttdeci">def mlog</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00014">GoTo.py:14</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a2373ed0699119ed36f4c035d4f3e638d"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a2373ed0699119ed36f4c035d4f3e638d">AbstractBehavior.AbstractBehavior.speed</a></div><div class="ttdeci">int speed</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00043">AbstractBehavior.py:43</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a02783bb181e7f9d752741182e49eeeef"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a02783bb181e7f9d752741182e49eeeef">AbstractBehavior.AbstractBehavior.cumplePrecondiciones</a></div><div class="ttdeci">def cumplePrecondiciones</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00265">AbstractBehavior.py:265</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a45b216d9a5ca95f403665d3e60e2809c"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a45b216d9a5ca95f403665d3e60e2809c">AbstractBehavior.AbstractBehavior.parametros</a></div><div class="ttdeci">parametros</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00044">AbstractBehavior.py:44</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_a05316ef5d2763cce5674e1e009963758"><div class="ttname"><a href="class_go_to_1_1_go_to.html#a05316ef5d2763cce5674e1e009963758">GoTo.GoTo.veriPosSenEjecutar</a></div><div class="ttdeci">def veriPosSenEjecutar</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00337">GoTo.py:337</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_a85dc1a7d4144e1d990af5ef6e6bc1049"><div class="ttname"><a href="class_go_to_1_1_go_to.html#a85dc1a7d4144e1d990af5ef6e6bc1049">GoTo.GoTo.angMinDist</a></div><div class="ttdeci">int angMinDist</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00044">GoTo.py:44</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a041502175c2c71abd4d8aa90122c1146"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a041502175c2c71abd4d8aa90122c1146">AbstractBehavior.AbstractBehavior.motorLibre</a></div><div class="ttdeci">motorLibre</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00041">AbstractBehavior.py:41</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_a18d637bee4641bbfe1d773046e8abbaa"><div class="ttname"><a href="class_go_to_1_1_go_to.html#a18d637bee4641bbfe1d773046e8abbaa">GoTo.GoTo.actuar</a></div><div class="ttdeci">def actuar</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00265">GoTo.py:265</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_ade22aceee368c1ea15f063bd3d1c94c7"><div class="ttname"><a href="class_go_to_1_1_go_to.html#ade22aceee368c1ea15f063bd3d1c94c7">GoTo.GoTo.getParAprendidos</a></div><div class="ttdeci">def getParAprendidos</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00362">GoTo.py:362</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_a8f897f2366b424272d622853d4f9d5d5"><div class="ttname"><a href="class_go_to_1_1_go_to.html#a8f897f2366b424272d622853d4f9d5d5">GoTo.GoTo.publish</a></div><div class="ttdeci">def publish</div><div class="ttdoc">Publica en el topico &quot;topic_operateEngine&quot; la velocidad del motor derecho e izuierdo a ser usada...</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00220">GoTo.py:220</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_a375d710e65361fa3eafafc13aa3706f3"><div class="ttname"><a href="class_go_to_1_1_go_to.html#a375d710e65361fa3eafafc13aa3706f3">GoTo.GoTo.similarHeadSensor</a></div><div class="ttdeci">def similarHeadSensor</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00322">GoTo.py:322</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a36e4e0bc09289b8f35f594710863957c"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a36e4e0bc09289b8f35f594710863957c">AbstractBehavior.AbstractBehavior.nivelActivacion</a></div><div class="ttdeci">int nivelActivacion</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00039">AbstractBehavior.py:39</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_a5b0254ed7e28037fc1024e8e74cc0ace"><div class="ttname"><a href="class_go_to_1_1_go_to.html#a5b0254ed7e28037fc1024e8e74cc0ace">GoTo.GoTo.getAction</a></div><div class="ttdeci">def getAction</div><div class="ttdoc">Retorna un True si veo algun objeto. </div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00092">GoTo.py:92</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_a035142f6ec6e0ebdd3265ccecb813645"><div class="ttname"><a href="class_go_to_1_1_go_to.html#a035142f6ec6e0ebdd3265ccecb813645">GoTo.GoTo.ACTION_FORWARD</a></div><div class="ttdeci">int ACTION_FORWARD</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00021">GoTo.py:21</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_a5e4cd1f6bf62481cbf83e06b2917b155"><div class="ttname"><a href="class_go_to_1_1_go_to.html#a5e4cd1f6bf62481cbf83e06b2917b155">GoTo.GoTo.light</a></div><div class="ttdeci">light</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00033">GoTo.py:33</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_ab8943903a0d7fffdcb744925b46d24dd"><div class="ttname"><a href="class_go_to_1_1_go_to.html#ab8943903a0d7fffdcb744925b46d24dd">GoTo.GoTo.avgA</a></div><div class="ttdeci">int avgA</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00045">GoTo.py:45</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_a46b24e8c66b6ef925598b3c7dfaed91e"><div class="ttname"><a href="class_go_to_1_1_go_to.html#a46b24e8c66b6ef925598b3c7dfaed91e">GoTo.GoTo.delay</a></div><div class="ttdeci">int delay</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00037">GoTo.py:37</a></div></div>
+<div class="ttc" id="class_go_to_1_1_go_to_html_aa6c7a86d7e91e09486e9993f946378b3"><div class="ttname"><a href="class_go_to_1_1_go_to.html#aa6c7a86d7e91e09486e9993f946378b3">GoTo.GoTo.rate</a></div><div class="ttdeci">rate</div><div class="ttdef"><b>Definition:</b> <a href="_go_to_8py_source.html#l00019">GoTo.py:19</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_1eeb56e1270a72a2bb3256479a9fd717.html">learning_by_imitation</a></li><li class="navelem"><a class="el" href="dir_1fa9b325c3ee0c04934a471c7f078f26.html">scripts</a></li><li class="navelem"><a class="el" href="dir_de48dffd9054fc08bbf3dec66d3b8142.html">behavior</a></li><li class="navelem"><a class="el" href="_go_to_8py.html">GoTo.py</a></li>
+    <li class="footer">Generado el Domingo, 24 de Abril de 2016 20:51:36 para Proyecto de grado por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
+  </ul>
+</div>
+</body>
+</html>

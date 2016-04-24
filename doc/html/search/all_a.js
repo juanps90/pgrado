@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['joindata',['joinData',['../namespaceinputs.html#acbc16774debcfbca01b3118fe808a240',1,'inputs']]]
+  ['joindata',['joinData',['../namespace_inputs.html#a5eb3c52ee8e6c6ee6494383fed3f6b45',1,'Inputs']]]
 ];

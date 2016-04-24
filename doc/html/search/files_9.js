@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['probandoclass_2epy',['probandoClass.py',['../probando_class_8py.html',1,'']]]
+  ['master_2epy',['Master.py',['../_master_8py.html',1,'']]]
 ];

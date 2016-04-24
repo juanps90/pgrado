@@ -1,0 +1,28 @@
+var _inputs_8py =
+[
+    [ "atenderHeadVisionSensor", "_inputs_8py.html#ac639895982e3a1ed2c08d54c47b99df8", null ],
+    [ "atenderProximitySensor", "_inputs_8py.html#afc57c1af9fe5b604acb2724be5faadb8", null ],
+    [ "atenderSensorLineDetectColor", "_inputs_8py.html#aa529fd5f530dc842fd918b00e1369cbb", null ],
+    [ "envioSensados", "_inputs_8py.html#a5e22acfcb972739c8364a5a12ccbdaf0", null ],
+    [ "finalize", "_inputs_8py.html#a98355b2ec288d953c8873eb3dbb0f387", null ],
+    [ "inicializarParametros", "_inputs_8py.html#aca55e0f7ef24be9972d4bc6f4bb6b5c0", null ],
+    [ "joinData", "_inputs_8py.html#a5eb3c52ee8e6c6ee6494383fed3f6b45", null ],
+    [ "processCommand", "_inputs_8py.html#a0a099ce134a2054cfa94cf9668342537", null ],
+    [ "processHeadVisionSensor", "_inputs_8py.html#a8d1a21dd8c919ed68cc3a084d3d626d1", null ],
+    [ "processProximitySensorData", "_inputs_8py.html#aa41a6019b8ced05d5db230855661002a", null ],
+    [ "processSensorLineDetectColorData", "_inputs_8py.html#adcc790570927b8550d0e44cf8da51b0e", null ],
+    [ "setEstado", "_inputs_8py.html#a6550aaa13da1a515e1cc7ea62fa295de", null ],
+    [ "shutdown", "_inputs_8py.html#aa78626a6ed0620d649651cc3ebd3e39a", null ],
+    [ "calibrarColor", "_inputs_8py.html#a6c83615d4a248fea646efde6ab70cb1f", null ],
+    [ "command", "_inputs_8py.html#ab4d718c90165ac0eb56aa08d4ef7e625", null ],
+    [ "contador", "_inputs_8py.html#a914d6b524a16c335bac3d6e4f856d880", null ],
+    [ "dataHeadVisionSensor", "_inputs_8py.html#a928284c5b811e0908f89104bbfa36bb2", null ],
+    [ "dataLineDetectColor", "_inputs_8py.html#a38ca05816497a2c93abdff30344c860c", null ],
+    [ "dataProximitySensor", "_inputs_8py.html#a0b684018765c487f27087b85f3232b80", null ],
+    [ "delay", "_inputs_8py.html#af2c798b1d93e553f849fcf652b4775a6", null ],
+    [ "detener", "_inputs_8py.html#a402e5cf621947d196f0997315781059c", null ],
+    [ "dicColores", "_inputs_8py.html#aa6ba334405862c3bdc1e433b066e31da", null ],
+    [ "estado", "_inputs_8py.html#a52944b028fc6bfda5b7d08a93e12480e", null ],
+    [ "sensores", "_inputs_8py.html#ae45361d819cad8c79422389b556a80f2", null ],
+    [ "topeContador", "_inputs_8py.html#a631b19fe23d06d56a3a1c04e1f3c54db", null ]
+];

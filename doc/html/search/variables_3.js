@@ -1,13 +1,13 @@
 var searchData=
 [
-  ['c1',['c1',['../namespacesalvar_x_m_l.html#ab4bef4b28cfc1f304733b9dd3316924a',1,'salvarXML']]],
-  ['calibrarcolor',['calibrarColor',['../namespaceinputs.html#ae1f45a4a522521a36019871caf5a6533',1,'inputs']]],
-  ['caminitos',['caminitos',['../namespacemaestro.html#ae76f56d8008dc119fae665b5bfa54665',1,'maestro']]],
-  ['caminos',['caminos',['../classlocalizar_1_1localizar.html#a5c08f1dad613cacf5a42455eea54cf9f',1,'localizar.localizar.caminos()'],['../classcomportamiento_1_1comportamiento.html#a23ef80616f8d9c73a40a086ff9cd3b7d',1,'comportamiento.comportamiento.caminos()'],['../classcomportamiento_1_1comportamiento.html#a0b33dbc81d3a6e50e8b8d358b30b47bb',1,'comportamiento.comportamiento.caminos()'],['../namespaceinit.html#a6c488557c04273c187e8a006f43fbfbf',1,'init.caminos()']]],
-  ['changetime',['changeTime',['../classir_a_1_1ir_a.html#ab156349ea60b3ae9ad20b10af6792255',1,'irA.irA.changeTime()'],['../classlocalizar_1_1localizar.html#a7609af1263cb77349a4cec5f123897ad',1,'localizar.localizar.changeTime()']]],
-  ['colorvalido',['colorValido',['../classavanzar_1_1avanzar.html#a619e3bd2baa11ee4382ac88e8c319cfe',1,'avanzar.avanzar.colorValido()'],['../classir_a_1_1ir_a.html#a41328e1b2361fe4d62650a07a86082c2',1,'irA.irA.colorValido()'],['../classlocalizar_1_1localizar.html#a1bee0fc0b90c9001d73e66819e3ade76',1,'localizar.localizar.colorValido()']]],
-  ['comando',['comando',['../namespacemaestro.html#a43bb56c93eb0edc9e0a44866e906a4eb',1,'maestro.comando()'],['../namespacetest_light.html#a1d562ea0ee2f9e8e843cc5c8efb166e8',1,'testLight.comando()']]],
-  ['command',['command',['../namespaceinputs.html#ae249ec02168ec10700623bc9a6e304f2',1,'inputs.command()'],['../namespacetest_buttons.html#a66c8ce2ee998f6b92b2d7952e5c48518',1,'testButtons.command()']]],
+  ['c1',['c1',['../namespace_save_x_m_l.html#a7a5b149adc216b7ecf61388b5855f565',1,'SaveXML']]],
+  ['calibrarcolor',['calibrarColor',['../namespace_inputs.html#a6c83615d4a248fea646efde6ab70cb1f',1,'Inputs']]],
+  ['caminitos',['caminitos',['../namespace_master.html#a3f8e594e665956bd9129380942de4ec7',1,'Master']]],
+  ['caminos',['caminos',['../class_abstract_behavior_1_1_abstract_behavior.html#a847d71a202309d917c10901ee1823056',1,'AbstractBehavior.AbstractBehavior.caminos()'],['../class_abstract_behavior_1_1_abstract_behavior.html#a7bcdab76fd5fbcce49477fc302ba6ba6',1,'AbstractBehavior.AbstractBehavior.caminos()'],['../class_locate_1_1_locate.html#a662255fe706deb3b0754c2370193ac2d',1,'Locate.Locate.caminos()'],['../namespace_init.html#a704e4d667e7aaa4c0b45ec40701c0f19',1,'Init.caminos()']]],
+  ['changetime',['changeTime',['../class_go_to_1_1_go_to.html#a043eb6233a8966985e43748e8af771c6',1,'GoTo.GoTo.changeTime()'],['../class_locate_1_1_locate.html#a60cb69ef7d0cc562d9cd84f0a762be34',1,'Locate.Locate.changeTime()']]],
+  ['colorvalido',['colorValido',['../class_forward_1_1_forward.html#a33d5db1afaee6a81d5fcc28b5408ffeb',1,'Forward.Forward.colorValido()'],['../class_go_to_1_1_go_to.html#aebe7980900cc627841ce1a1d09d9f78b',1,'GoTo.GoTo.colorValido()'],['../class_locate_1_1_locate.html#a9d76f0230786cb814c3bb7c43802d243',1,'Locate.Locate.colorValido()']]],
+  ['comando',['comando',['../namespace_master.html#a6bb325cdc1bf3929e20a1e4afe66ca76',1,'Master.comando()'],['../namespacetest_light.html#a1d562ea0ee2f9e8e843cc5c8efb166e8',1,'testLight.comando()']]],
+  ['command',['command',['../namespace_inputs.html#ab4d718c90165ac0eb56aa08d4ef7e625',1,'Inputs.command()'],['../namespacetest_buttons.html#a66c8ce2ee998f6b92b2d7952e5c48518',1,'testButtons.command()']]],
   ['command_5fbad',['COMMAND_BAD',['../namespace_const.html#a2edc39a7a825242ca4bbdf0519dfd656',1,'Const']]],
   ['command_5fcome',['COMMAND_COME',['../namespace_const.html#acff04544779e3b5ba88dfc40b78d223d',1,'Const']]],
   ['command_5fend_5flearning',['COMMAND_END_LEARNING',['../namespace_const.html#a66d9bb1612cbdcdcf533cde6ffe4f90a',1,'Const']]],
@@ -19,6 +19,6 @@ var searchData=
   ['command_5fstop',['COMMAND_STOP',['../namespace_const.html#a580f3f8a5affac0e679908c3997efb08',1,'Const']]],
   ['config_5ffolder_5fname',['CONFIG_FOLDER_NAME',['../namespace_const.html#af3b9983e91cc2bf2d4f87c39ab64ed93',1,'Const']]],
   ['config_5fxml_5fname',['CONFIG_XML_NAME',['../namespace_const.html#a24ecff17a6e566c93e0d445b3ce929ff',1,'Const']]],
-  ['contador',['contador',['../namespaceinputs.html#a57662b51971e0724b8b5f25dc29f51c1',1,'inputs']]],
-  ['current_5fmilli_5ftime',['current_milli_time',['../namespacemaestro.html#a729b92cd7808fbf7eb0712428f367c8c',1,'maestro']]]
+  ['contador',['contador',['../namespace_inputs.html#a914d6b524a16c335bac3d6e4f856d880',1,'Inputs']]],
+  ['current_5fmilli_5ftime',['current_milli_time',['../namespace_master.html#a612eb9b53a723c5f029c92b9c09d463c',1,'Master']]]
 ];

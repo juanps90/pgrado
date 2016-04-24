@@ -3,10 +3,10 @@
 
 from abc import ABCMeta, abstractmethod
 
-from Atributo import Atributo
+from Attribute import Attribute
 import Const
 
-class Color(Atributo):
+class Color(Attribute):
 
     ATT_ID = Const.ATR_COLOR
     

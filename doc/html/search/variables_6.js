@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['fase',['fase',['../namespacemaestro.html#a3935e5dccf9e8a400d445b649e4b6833',1,'maestro']]],
-  ['finalizetopic',['finalizeTopic',['../namespacemaestro.html#acd4071b625634087d3ee1853a11eb1f8',1,'maestro']]]
+  ['fase',['fase',['../namespace_master.html#a98c15a0aa756bf155cb2a46acd8a082b',1,'Master']]],
+  ['finalizetopic',['finalizeTopic',['../namespace_master.html#a0d58caeddd5ed2f9e724c9200a6a6b66',1,'Master']]]
 ];

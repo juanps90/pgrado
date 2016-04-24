@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['backtrack',['backtrack',['../namespacelcs.html#a0e4be20afe3fb85c570cacbb0c8278c0',1,'lcs']]],
-  ['borrarnodobad',['borrarNodoBad',['../namespacelcs.html#a3cd0b74c6bb79fc1941f9eff0c56735b',1,'lcs']]],
-  ['borrarnodobadcaminos',['borrarNodoBadCaminos',['../namespacelcs.html#ab910b075b1df8095ced86c46700e50cf',1,'lcs']]],
-  ['buscarcomportamiento',['buscarComportamiento',['../namespacemaestro.html#a8a2ea521930b3547c63ef806615353ae',1,'maestro']]]
+  ['backtrack',['backtrack',['../namespace_l_c_s.html#ab211e59f8694972b652a329a87afda16',1,'LCS']]],
+  ['borrarnodobad',['borrarNodoBad',['../namespace_l_c_s.html#abb21702f28570cff16505473c23d8215',1,'LCS']]],
+  ['borrarnodobadcaminos',['borrarNodoBadCaminos',['../namespace_l_c_s.html#a942991075d1b533a706ddb5058baa590',1,'LCS']]],
+  ['buscarcomportamiento',['buscarComportamiento',['../namespace_master.html#a497724883074413d0dbd4c5b7038f8d2',1,'Master']]]
 ];

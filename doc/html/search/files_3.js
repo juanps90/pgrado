@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['distancia_2epy',['Distancia.py',['../_distancia_8py.html',1,'']]]
+  ['distance_2epy',['Distance.py',['../_distance_8py.html',1,'']]]
 ];

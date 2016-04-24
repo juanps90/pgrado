@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['headsensor_2epy',['HeadSensor.py',['../_head_sensor_8py.html',1,'']]]
+  ['goto_2epy',['GoTo.py',['../_go_to_8py.html',1,'']]]
 ];

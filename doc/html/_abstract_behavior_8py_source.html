@@ -1,0 +1,616 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.6"/>
+<title>Proyecto de grado: Fichero Fuente /home/viki/pgrado/learning_by_imitation/scripts/AbstractBehavior.py</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+  $(window).load(resizeHeight);
+</script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { searchBox.OnSelectItem(0); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">Proyecto de grado
+   </div>
+   <div id="projectbrief">Aprendizaje por imitación</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.6 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
+      <li><a href="annotated.html"><span>Clases</span></a></li>
+      <li class="current"><a href="files.html"><span>Archivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;archivos</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('_abstract_behavior_8py_source.html','');});
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>Todo</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Clases</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Archivos</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Funciones</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a></div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">AbstractBehavior.py</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_abstract_behavior_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespace_abstract_behavior.html">    1</a></span>&#160;<span class="comment">#!/usr/bin/env python</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"># -*- coding: utf-8 -*-</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">import</span> sys </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">import</span> rospy</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">from</span> std_msgs.msg <span class="keyword">import</span> Int32MultiArray, Float64MultiArray,String</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">import</span> Const</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html">    9</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html">AbstractBehavior</a>(object):</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    </div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a0c9332ee7595f6f9524a7469a2cc195b">   12</a></span>&#160;    motores = rospy.Publisher(<span class="stringliteral">&#39;topic_operateEngine&#39;</span>, Float64MultiArray, queue_size=10) </div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#ac00316310f32a9bf0e7664879c45d95f">   13</a></span>&#160;    postCondDet   = rospy.Publisher(<span class="stringliteral">&#39;topic_postCondDetected&#39;</span>,String , queue_size=10) <span class="comment">#usado para aprender </span></div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a933997c869fa29b791a545e73d297e20">   14</a></span>&#160;    preCondDet = rospy.Publisher(<span class="stringliteral">&#39;topic_preConDetection&#39;</span>,Int32MultiArray , queue_size=10) <span class="comment">#usado para ejecutar </span></div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a65d3d335744c2d7ecae9b57feb83bf58">   15</a></span>&#160;    nivel = rospy.Publisher(<span class="stringliteral">&#39;topic_level&#39;</span>, Int32MultiArray, queue_size=10) </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#acaa3cd9a0f9fb386c8fc46c4f89a05f7">   16</a></span>&#160;    nodoEjecutando=rospy.Publisher(<span class="stringliteral">&#39;topic_runningNode&#39;</span>, Int32MultiArray, queue_size=10) </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#ada588d7b3e3176c6503a4424289a3559">   17</a></span>&#160;    solicitarOLiberarMotores=rospy.Publisher(<span class="stringliteral">&#39;topic_engineAccess&#39;</span>, Int32MultiArray, queue_size=10)</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#aaaee43210a2510dc5d1267815c801aa5">   20</a></span>&#160;    topicoSen=<span class="keywordtype">None</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a01ada6d6cecf1973adae9f33802d2c47">   21</a></span>&#160;    topicoPre=<span class="keywordtype">None</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a9941439685b9789e9e1cd389233c89ab">   22</a></span>&#160;    topicoSet=<span class="keywordtype">None</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a9743061405eb7a5d65777007bf645385">   23</a></span>&#160;    topicoEst=<span class="keywordtype">None</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a32254327dd39cf2af406ee1882917ea2">   24</a></span>&#160;    topicoNiv=<span class="keywordtype">None</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a65544c98fa3d2799a718b075a4bc0dcf">   25</a></span>&#160;    topicoCam=<span class="keywordtype">None</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#ab0f8082d8a98b219a6b5ef62d4fb8bf8">   26</a></span>&#160;    topicoEje=<span class="keywordtype">None</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a7b4835bf36e631bd6dce0b4a5a08b637">   27</a></span>&#160;    topicoAct=<span class="keywordtype">None</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a3745ad44286ca424f31da363edcf923f">   28</a></span>&#160;    topicoOrd=<span class="keywordtype">None</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a380002857ff6cafe6df2a53406404acb">   30</a></span>&#160;    borrando=<span class="keyword">False</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">   32</a></span>&#160;    identify=-1<span class="comment">#modicar mediante mensajes al lanzar el nuevo nodo</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a6b62d310255a6d6b26c59d02384f6b55">   33</a></span>&#160;    idComportamiento = -1</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a59dfc6fd7663f88c47a6debf87ff89fd">   34</a></span>&#160;    reejecutar=<span class="keyword">True</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a75218f4c8dbbe5a8a62b354c4ac928a4">   35</a></span>&#160;    ejecutando=<span class="keyword">False</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#ae4900e06bba768070c36ca6e1cb53fdd">   36</a></span>&#160;    permanent = {}</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#acc07d02ae179130db9f9071b1e3b9032">   37</a></span>&#160;    enablig = {}</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a2c4a5c4ab4b76fb10781fb2ab787403b">   38</a></span>&#160;    ordering = {}</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a36e4e0bc09289b8f35f594710863957c">   39</a></span>&#160;    nivelActivacion=0</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a3608127cd8445462d38c296da61cc190">   40</a></span>&#160;    estado=1</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a041502175c2c71abd4d8aa90122c1146">   41</a></span>&#160;    motorLibre=<span class="keyword">False</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a847d71a202309d917c10901ee1823056">   42</a></span>&#160;    caminos=[]</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a2373ed0699119ed36f4c035d4f3e638d">   43</a></span>&#160;    speed = 1</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a45b216d9a5ca95f403665d3e60e2809c">   44</a></span>&#160;    parametros=<span class="keywordtype">None</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">   45</a></span>&#160;    dataSensor={}</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a2b1d1552600506f5db476b6567fa637b">   46</a></span>&#160;    safeDist=0.2</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a6cfa99fc4a0f47b1538e644c68da08d2">   47</a></span>&#160;    enable=<span class="keyword">True</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a4405bc074cef66e8985a2599cd8620e4">   48</a></span>&#160;    inContinue=<span class="keyword">False</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a77b1065c5475920ba2b660991cba175d">   49</a></span>&#160;    active=-1</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a791ffb1a9170904cf471f69f81d3c353">   51</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a791ffb1a9170904cf471f69f81d3c353">__init__</a>(self,data):</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        bloques=self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2b2a5e3d456a846434ec29cd1088dfc7">separarBloques</a>(data) </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a48b5daa087f8c1cdc792ef12ce74d6e9">   53</a></span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>=int(bloques[0])</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        rospy.loginfo(<span class="stringliteral">&quot;AbstractBehavior datos bloques&quot;</span>+str(bloques))</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        del bloques[0]</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a45b216d9a5ca95f403665d3e60e2809c">parametros</a>=self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a8f58f1bf249985b163626ae92964a590">separarSensados</a>(bloques)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ac73c5b204aac79daf01813014f2cec56">initTopicos</a>()</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        rospy.on_shutdown(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2749a2defe13e082e8d8f9ab973c8052">endTopic</a>)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="comment">#se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#ad24d214f152070519006d57ba835dc1b">   63</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ad24d214f152070519006d57ba835dc1b">actuar</a>( self ):</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">pass</span>              </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#ad31fc0fa00195d0d204e451189027753">   66</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ad31fc0fa00195d0d204e451189027753">veriPosSenEjecutar</a>(self,data):</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">pass</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        </div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a75902caf47db04c94038067e98a5076f">   69</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a75902caf47db04c94038067e98a5076f">getParAprendidos</a>(self):</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">pass</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a76aae7c40e5611fe2209a11889be0f18">   72</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a76aae7c40e5611fe2209a11889be0f18">veriPosSenAprender</a>(self, data):</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">pass</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">#este metodo podria ser un primitivo por ahora va embebido</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a5b6ad72e7eb7ccef2315357f8274d57d">   76</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a5b6ad72e7eb7ccef2315357f8274d57d">avoid</a> (self,data ):</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">if</span> data.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID):</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;           distancia = data[Const.SENSOR_NOSE_ULTRASONIC_ID][0]</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;           <span class="keywordflow">if</span> distancia &lt; self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2b1d1552600506f5db476b6567fa637b">safeDist</a>: </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;               msg = Float64MultiArray()</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;               msg.data = [-2, -2, -2]<span class="comment">#manda un codigo de ejecutar motor codigo -2 y retrocede</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;               self.motores.publish(msg)</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;               <span class="keywordflow">return</span> <span class="keyword">True</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">False</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">#############################</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">#procesado de sensores</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">###########################</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#ac14615660bfc0055ab1a8cb1f2fdc21d">   90</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ac14615660bfc0055ab1a8cb1f2fdc21d">processSensorLineDetectedColorData</a>(self,data):</div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a761b941b2bab9e7656b99a4f4beb6be2">   91</a></span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a761b941b2bab9e7656b99a4f4beb6be2">dataSensorColor</a> = [data[0], data[1], data[2]]</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#abba995934e9053e9c3b7eba747061e79">   94</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#abba995934e9053e9c3b7eba747061e79">processProximitySensorData</a>(self,data): </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordflow">if</span> data.data[1] &lt; 0.25:</div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">   96</a></span>&#160;            self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">action</a> = self.ACTION_BACK</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <span class="keywordflow">print</span> <span class="stringliteral">&quot;ATRAS&quot;</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="comment">#print data.data</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a141bf2c85486d2fc83611f41c0b53900">  102</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a141bf2c85486d2fc83611f41c0b53900">evaluarPrecondicionesPorCaminos</a>(self): </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            salida=<span class="keyword">True</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="comment">#Se evalua para cada camino si se cumplen las precondiciones para cada nodo del camino</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <span class="keywordflow">for</span> c <span class="keywordflow">in</span> range (len(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a847d71a202309d917c10901ee1823056">caminos</a>)):</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                salida=<span class="keyword">True</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                <span class="comment">#para un camino se cumplen todas las precondiciones de los nodos</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                <span class="keywordflow">for</span> n <span class="keywordflow">in</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a847d71a202309d917c10901ee1823056">caminos</a>[c]:</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                    <span class="keywordflow">if</span> self.permanent.has_key(n):</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                        <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ae4900e06bba768070c36ca6e1cb53fdd">permanent</a>[n]:</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                            salida= <span class="keyword">False</span> <span class="comment">#si una precondicion no se cumple todo el camino es no cumpido</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                            <span class="keywordflow">break</span> </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                    <span class="keywordflow">if</span> self.enablig.has_key(n):</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                        <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#acc07d02ae179130db9f9071b1e3b9032">enablig</a>[n] <span class="keywordflow">and</span> <span class="keywordflow">not</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a75218f4c8dbbe5a8a62b354c4ac928a4">ejecutando</a>:<span class="comment">#ADEMAS VERIFICAR QUE NO SE ESTA EJECUTANDO</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                            salida= <span class="keyword">False</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                            <span class="keywordflow">break</span>  </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                    <span class="keywordflow">if</span> self.ordering.has_key(n):</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                        <span class="keywordflow">if</span> <span class="keywordflow">not</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2c4a5c4ab4b76fb10781fb2ab787403b">ordering</a>[n]:</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                            salida= <span class="keyword">False</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                            <span class="keywordflow">break</span> </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                <span class="comment">#en caso de que en la recorrida un camino cumplio todas las precondiciones se termina el ciclo</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                <span class="keywordflow">if</span> salida:</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                    <span class="keywordflow">break</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            <span class="comment">#rospy.loginfo(&quot;entro en evaluarporcaminos &quot;+str(self.identify)+&quot; &quot; +str(salida) + str(self.caminos))</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <span class="keywordflow">return</span> salida  </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    </div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a2b2a5e3d456a846434ec29cd1088dfc7">  128</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2b2a5e3d456a846434ec29cd1088dfc7">separarBloques</a>(self,data):</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keywordflow">return</span> map(str, data.split(<span class="stringliteral">&#39;|&#39;</span>))</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="comment">#devuelve un diccionario con clave id del sensor </span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="comment">#values una lista de datos sensados</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a8f58f1bf249985b163626ae92964a590">  133</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a8f58f1bf249985b163626ae92964a590">separarSensados</a>(self,separar):</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        sensados={}</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="keywordflow">for</span> s <span class="keywordflow">in</span>  separar:</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            <span class="keywordflow">if</span> len(s)&gt;1:</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                <span class="comment">#rospy.loginfo(str(len(s))+&quot;separar &quot;+s)</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                datos = map(float, s.split(<span class="stringliteral">&#39;#&#39;</span>))</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                <span class="keywordflow">print</span> s,datos</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;                idSensor=int (datos[0])</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;                del datos[0]</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                sensados[idSensor]=datos        </div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="keywordflow">return</span> sensados</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="comment">#posiblemente haya mas sensores, se debe realizar una lectura de todos los sensores</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="comment"># y luego de esto verificar si el estado es de ejecucion</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a34bd8f944caa53436bdaf792c05e492d">  148</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a34bd8f944caa53436bdaf792c05e492d">atenderSensores</a>(self,data):</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <span class="comment">#se verifican las condiciones en base a los sensores</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordflow">print</span> <span class="stringliteral">&quot;aprender id&gt;&quot;</span>,self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a> </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        </div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        valorEncendido=0</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        bloques=self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2b2a5e3d456a846434ec29cd1088dfc7">separarBloques</a>(data.data)</div>
+<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a842841784785d383ad67a0f7dbc38385">  156</a></span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">dataSensor</a>=self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a8f58f1bf249985b163626ae92964a590">separarSensados</a>(bloques)        </div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        rospy.loginfo(str(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">dataSensor</a>))</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        </div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        </div>
+<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a2d4503cd447932a8a30d1567f0092105">  160</a></span>&#160;        <span class="keywordflow">if</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a3608127cd8445462d38c296da61cc190">estado</a> ==2:</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            <span class="keywordflow">if</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a5b6ad72e7eb7ccef2315357f8274d57d">avoid</a>(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">dataSensor</a>):</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                <span class="keywordflow">return</span>            </div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;            <span class="keywordflow">if</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ad31fc0fa00195d0d204e451189027753">veriPosSenEjecutar</a>(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">dataSensor</a>):</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;                <span class="keywordflow">print</span> <span class="stringliteral">&quot;se cumple postcondicion id&gt;&quot;</span>,self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>, self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">dataSensor</a></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;                valorEncendido=1  </div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keywordflow">elif</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a3608127cd8445462d38c296da61cc190">estado</a> ==1 <span class="keywordflow">or</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a3608127cd8445462d38c296da61cc190">estado</a> ==3:  </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;            <span class="keywordflow">if</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a76aae7c40e5611fe2209a11889be0f18">veriPosSenAprender</a>(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">dataSensor</a>):</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;                <span class="keywordflow">print</span> <span class="stringliteral">&quot;se cumple postcondicion id&gt;&quot;</span>,self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>, self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">dataSensor</a></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;                valorEncendido=1            </div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            </div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;         </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        <span class="comment">##rospy.loginfo(estado)</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <span class="keywordflow">if</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a3608127cd8445462d38c296da61cc190">estado</a> ==1 <span class="keywordflow">and</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>==-1:<span class="comment">#aprender el -1 es para que contesten nodos lanzados para aprender </span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;            </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;            msgString=String()</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;            msgString.data = str(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a6b62d310255a6d6b26c59d02384f6b55">idComportamiento</a>) + <span class="stringliteral">&quot;#&quot;</span> + str(valorEncendido) </div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;            <span class="keywordflow">if</span> valorEncendido==1:</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;                param= str(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a75902caf47db04c94038067e98a5076f">getParAprendidos</a>(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">dataSensor</a>))</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;                <span class="keywordflow">if</span> len (param):</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                    msgString.data = msgString.data + <span class="stringliteral">&quot;|&quot;</span> + param            </div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                 <span class="comment">#&quot;|0#1#1#1&quot;</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;            </div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;            self.postCondDet.publish(msgString)</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;            rospy.loginfo(<span class="stringliteral">&quot;encendido &quot;</span>+str(valorEncendido)+<span class="stringliteral">&quot;idCOmp :&quot;</span>+str(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a6b62d310255a6d6b26c59d02384f6b55">idComportamiento</a>))</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keywordflow">elif</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a3608127cd8445462d38c296da61cc190">estado</a> ==2:<span class="comment">#ejecutar</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            msg = Int32MultiArray()</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;            cumplePrecondiciones=self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a141bf2c85486d2fc83611f41c0b53900">evaluarPrecondicionesPorCaminos</a>()</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            nodoEjecutable = cumplePrecondiciones <span class="keywordflow">and</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a36e4e0bc09289b8f35f594710863957c">nivelActivacion</a> &gt; 0</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            <span class="comment">#rospy.loginfo(&quot;nodo ejecutable id:&quot;+str(self.identify)+&quot; &quot;+str(nodoEjecutable))</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;            <span class="comment">#rospy.loginfo(&quot;post detec id:&quot;+str(self.identify)+&quot; &quot;+str(valorEncendido and nodoEjecutable))</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;            </div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            <span class="comment">#se deben cumplir postcondiciones pero ademas precondiciones para enviar un dato true</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            <span class="comment">#esto para evitar que un nodo envie de orden cuando aun no deberia</span></div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;            preCD=0</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;            <span class="keywordflow">if</span> valorEncendido <span class="keywordflow">and</span> cumplePrecondiciones:</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                preCD=1</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            msg.data = [self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>,preCD]   <span class="comment">#cuando se ejecuta se envia el id del nodo</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            self.preCondDet.publish(msg)    </div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            msg.data = [self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>,nodoEjecutable,-1]  </div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            self.solicitarOLiberarMotores.publish(msg)  </div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;            self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ad24d214f152070519006d57ba835dc1b">actuar</a>()   </div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            <span class="comment">##rospy.loginfo(&quot;Locate &quot;,valorEncendido)</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;</div>
+<div class="line"><a name="l00205"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a532a2f9d70b7f18208da8628b299e290">  205</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a532a2f9d70b7f18208da8628b299e290">realizarBad</a>(self,borrar):</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        <span class="keyword">global</span> borrando</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        borrando=<span class="keyword">True</span></div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        msg = Int32MultiArray()</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        <span class="comment">#se borran de permanencia y de habilitacion y se agregan de orden y se da cumplidos</span></div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        <span class="keywordflow">if</span> self.permanent.has_key(borrar):</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;            del self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ae4900e06bba768070c36ca6e1cb53fdd">permanent</a>[borrar]</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;            self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2c4a5c4ab4b76fb10781fb2ab787403b">ordering</a>[borrar]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        <span class="keywordflow">if</span>  self.enablig.has_key(borrar): </div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;            del self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#acc07d02ae179130db9f9071b1e3b9032">enablig</a>[borrar]</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;            self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2c4a5c4ab4b76fb10781fb2ab787403b">ordering</a>[borrar]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;            </div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        <span class="comment">#se agrega de orden si no esta  en vez del borrado  </span></div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        <span class="keywordflow">if</span> self.ordering.has_key(borrar):</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;            self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2c4a5c4ab4b76fb10781fb2ab787403b">ordering</a>[borrar]=<span class="keyword">True</span></div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;            </div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        <span class="comment">#if self.identify== data:#por las dudas hago que todos liberen los actuadores</span></div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        borrando=<span class="keyword">False</span></div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        msg.data = [self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>,0,-1]  </div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        self.solicitarOLiberarMotores.publish(msg)  </div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="comment">#fata matar al nodo bad</span></div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;</div>
+<div class="line"><a name="l00231"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#ae83c325d321e73ab08f118d10312c289">  231</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ae83c325d321e73ab08f118d10312c289">atenderOrdenes</a>(self,data):</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        <span class="keywordflow">if</span> data.data[0]==0:</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;            self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a532a2f9d70b7f18208da8628b299e290">realizarBad</a>(data.data[1])     </div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    </div>
+<div class="line"><a name="l00236"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a78cc9be825bcad28eed844b3eae1c9eb">  236</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a78cc9be825bcad28eed844b3eae1c9eb">setEstado</a>(self,data):  </div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a3608127cd8445462d38c296da61cc190">estado</a>=data.data[0]</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        <span class="keywordflow">if</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a3608127cd8445462d38c296da61cc190">estado</a>==3:</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;            <span class="comment">#se detienen los motores estamos en estado come </span></div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;            msg = Float64MultiArray() </div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;            msg.data = [self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>,0,0]   </div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;            self.motores.publish(msg) </div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        <span class="comment">#rospy.loginfo(&quot;estado&quot;+str(self.estado))</span></div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        <span class="keywordflow">elif</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a3608127cd8445462d38c296da61cc190">estado</a>==4:</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;            nodoABorrar=data.data[1]</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;            self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a532a2f9d70b7f18208da8628b299e290">realizarBad</a>(nodoABorrar)</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        <span class="comment">#cuando un nodo ejecuta avisa que lo hace hasta que un nuevo comportamiento no ejecute no avisa</span></div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        <span class="comment">#supongamos que el comportamiento habilante se esta ejecutandode de pronto el comportamiento que es habilitado recibe de sensore</span></div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        <span class="comment">#la senal que esperaba pasa a estar activo avisa de este hecho...luego cuando se pregunte por el enlace de habilitacion se preguntara</span></div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        <span class="comment">#si esta ejecutando y no importaria ya si el habilitante esta o no activo  </span></div>
+<div class="line"><a name="l00256"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#aa817c9b4e7005863496033a8bd877927">  256</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#aa817c9b4e7005863496033a8bd877927">atenderNodoEjecutando</a>(self,data):</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        <span class="keywordflow">if</span>  data.data[0] == self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>:</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;            self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a75218f4c8dbbe5a8a62b354c4ac928a4">ejecutando</a>=<span class="keyword">True</span></div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        <span class="keywordflow">else</span>:    </div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;            self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a75218f4c8dbbe5a8a62b354c4ac928a4">ejecutando</a>=<span class="keyword">False</span></div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;                </div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;                </div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;                </div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;</div>
+<div class="line"><a name="l00265"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a02783bb181e7f9d752741182e49eeeef">  265</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a02783bb181e7f9d752741182e49eeeef">cumplePrecondiciones</a>(self):</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;        <span class="comment">#salida = evaluation(permanent.values()) and (ejecutando or evaluation(enablig.values()) )</span></div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;        <span class="comment"># and evaluation(ordering.values()) #si esta ejecutando no se evalua enabling</span></div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        salida = self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a141bf2c85486d2fc83611f41c0b53900">evaluarPrecondicionesPorCaminos</a>()</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        <span class="keywordflow">print</span> <span class="stringliteral">&quot;cumplePrecondiciones &quot;</span>,salida</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        <span class="keywordflow">return</span> salida</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        </div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;  </div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;</div>
+<div class="line"><a name="l00276"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a64162f548f9f72640cf5113a319b4f08">  276</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a64162f548f9f72640cf5113a319b4f08">setting</a>(self,data):</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;        <span class="comment">#rospy.loginfo(&quot;entro en setting id&gt;&quot;+ str(self.identify) )</span></div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    </div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;            <span class="comment"># data.data[0] = fromCompID, data.data[1] = toCompID, data.data[2] = linkType. linkType puede ser permantente(0), de orden(1) o de habilitacion(2)</span></div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        <span class="keywordflow">if</span> data.data[1] == self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>:</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;                <span class="keywordflow">print</span> <span class="stringliteral">&quot;es mi id&quot;</span></div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;                <span class="keywordflow">if</span> data.data[2] == 2:</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;                        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ae4900e06bba768070c36ca6e1cb53fdd">permanent</a>[data.data[0]] = <span class="keyword">False</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;                        <span class="keywordflow">print</span> <span class="stringliteral">&quot;permanente &quot;</span></div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;                        <span class="keywordflow">print</span> len(self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ae4900e06bba768070c36ca6e1cb53fdd">permanent</a>)</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;                <span class="keywordflow">elif</span> data.data[2] == 1:</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;                        <span class="keywordflow">print</span> <span class="stringliteral">&quot;habilitacion &quot;</span></div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;                        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#acc07d02ae179130db9f9071b1e3b9032">enablig</a>[data.data[0]] = <span class="keyword">False</span></div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;                <span class="keywordflow">elif</span> data.data[2] == 0:</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;                        <span class="keywordflow">print</span> <span class="stringliteral">&quot;orden &quot;</span></div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;                        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2c4a5c4ab4b76fb10781fb2ab787403b">ordering</a>[data.data[0]] = <span class="keyword">False</span></div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160; </div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;</div>
+<div class="line"><a name="l00296"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a2d6367f78a2422fd0dd89ae8fc7b04f5">  296</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2d6367f78a2422fd0dd89ae8fc7b04f5">atenderCaminos</a>(self,data): </div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        <span class="comment">#si es mi id agrego la lista de caminos camino el nodo</span></div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        <span class="keywordflow">if</span> data.data[0] == self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>:</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;            <span class="comment">#elimina de la lista el dato del id</span></div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;            lista=list(data.data)        </div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;            <span class="comment">#print lista</span></div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;            del lista[0]</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;</div>
+<div class="line"><a name="l00304"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a7bcdab76fd5fbcce49477fc302ba6ba6">  304</a></span>&#160;            self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a847d71a202309d917c10901ee1823056">caminos</a>= self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a32e479148652de009d399724c1479c84">separarCaminos</a>(lista)</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;            <span class="comment">#rospy.loginfo(self.caminos)</span></div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;</div>
+<div class="line"><a name="l00307"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a32e479148652de009d399724c1479c84">  307</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a32e479148652de009d399724c1479c84">separarCaminos</a>(self,caminitos):</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;        salida = []</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        inicio=0</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        fin=0</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        guardaSeparacion=-10</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;        <span class="keywordflow">while</span> inicio&lt; len (caminitos):    </div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;            fin=caminitos.index(guardaSeparacion,inicio)</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;            <span class="comment">#print fin</span></div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;            tramo=caminitos[inicio:fin]</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;            <span class="comment">#print tramo</span></div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;            salida.append(tramo) </div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;            inicio=fin+1    </div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;        <span class="keywordflow">return</span> salida</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;</div>
+<div class="line"><a name="l00321"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#afd29d07b63f75014c9bf1daccc5baf65">  321</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#afd29d07b63f75014c9bf1daccc5baf65">atenderNivel</a> (self,data):</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;            <span class="comment">#  #rospy.loginfo(&quot;Entro en nivel&quot;)</span></div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;            msg = Int32MultiArray() </div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    </div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;            <span class="keywordflow">if</span> data.data[1] == self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>:</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;                <span class="comment">#rospy.loginfo(&quot;me llego nivel id&gt;&quot;+str(data.data[2])+&quot;: &quot;+str(self.identify)+&quot;&lt;&lt;&quot;+str(data.data[0]))</span></div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;                <span class="comment">#no se suman niveles solo se verifica si es uno o cero</span></div>
+<div class="line"><a name="l00329"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#ac8bfaa7cd680bab0cc838f9b4e3b447c">  329</a></span>&#160;                self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a36e4e0bc09289b8f35f594710863957c">nivelActivacion</a>=data.data[2]</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;                nivelAtras=0</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;                <span class="keywordflow">if</span> data.data[2] !=0 <span class="keywordflow">and</span> <span class="keywordflow">not</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a141bf2c85486d2fc83611f41c0b53900">evaluarPrecondicionesPorCaminos</a>(): </div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;                    nivelAtras=1         </div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;                    </div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;                <span class="comment">#se verifica si hay un camino cumplido se les manda a los predecesores inmediaros mensajes a 0</span></div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                <span class="comment">#sino se envia mensaje de nivel 1 </span></div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    </div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;                <span class="keywordflow">for</span> c <span class="keywordflow">in</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a847d71a202309d917c10901ee1823056">caminos</a>:</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;                    rospy.loginfo(<span class="stringliteral">&quot;lacan &quot;</span>+ str(len(c)))</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;                    ultimoNodo=c[len(c)-1] <span class="comment">#ultimo nodo del camino previo</span></div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;                    msg.data = [self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>, ultimoNodo,nivelAtras]<span class="comment">#manda para atras el nivel  </span></div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;                    self.nivel.publish(msg)</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        <span class="keywordflow">except</span>: <span class="comment"># catch *all* exceptions</span></div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;            e = sys.exc_info()[0]</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;            rospy.loginfo(<span class="stringliteral">&quot;error &quot;</span>+ str(e)) </div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;</div>
+<div class="line"><a name="l00347"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a46d220823a37dfda9c091170b0e5b2ef">  347</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a46d220823a37dfda9c091170b0e5b2ef">evaluarPrecondicion</a>(self,data):<span class="comment">#invocado en etapa de ejecucion cuando llega una postcondicion</span></div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;        <span class="keywordflow">print</span> <span class="stringliteral">&quot;entro en evaluarPrecondicion id&gt;&quot;</span>,self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a> </div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;        comportamiento=data.data[0] </div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;        postcondicion=data.data[1]</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;            <span class="keywordflow">if</span> self.permanent.has_key(comportamiento):</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;                self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ae4900e06bba768070c36ca6e1cb53fdd">permanent</a>[comportamiento] = postcondicion == 1</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;                <span class="keywordflow">if</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ae4900e06bba768070c36ca6e1cb53fdd">permanent</a>[comportamiento]:</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;                    <span class="keywordflow">print</span> <span class="stringliteral">&quot;es permanente&quot;</span></div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;                    <span class="keywordflow">print</span> <span class="stringliteral">&quot;salio de permanente&quot;</span></div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;            <span class="keywordflow">elif</span> self.enablig.has_key(comportamiento):</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;                self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#acc07d02ae179130db9f9071b1e3b9032">enablig</a>[comportamiento] = postcondicion == 1</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;                <span class="keywordflow">if</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#acc07d02ae179130db9f9071b1e3b9032">enablig</a>[comportamiento] <span class="keywordflow">or</span> self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a75218f4c8dbbe5a8a62b354c4ac928a4">ejecutando</a>:<span class="comment">#si se esta ejecutando no importa que se apague</span></div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;                    <span class="keywordflow">print</span> <span class="stringliteral">&quot;esta habilitado&quot;</span> </div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;                    <span class="keywordflow">print</span> <span class="stringliteral">&quot;se inhabilito&quot;</span></div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;            <span class="keywordflow">elif</span> self.ordering.has_key(comportamiento):</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;                self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2c4a5c4ab4b76fb10781fb2ab787403b">ordering</a>[comportamiento] = self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2c4a5c4ab4b76fb10781fb2ab787403b">ordering</a>[comportamiento] <span class="keywordflow">or</span> (postcondicion == 1)</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;                <span class="keywordflow">print</span> <span class="stringliteral">&quot;es de orden&quot;</span></div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;        <span class="keywordflow">except</span>: <span class="comment"># catch *all* exceptions</span></div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;            e = sys.exc_info()[0]</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;            rospy.loginfo(<span class="stringliteral">&quot;error &quot;</span>+ str(e)) </div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;</div>
+<div class="line"><a name="l00371"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a47ee879b020a8d488a5f5fefcb5f4fd8">  371</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a47ee879b020a8d488a5f5fefcb5f4fd8">atenderMotorLockeado</a>(self,data):   </div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;        <span class="keywordflow">if</span> data.data[1] == -1 <span class="keywordflow">or</span> data.data[1]== self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">identify</a>:   <span class="comment">#el valor 0 es para el id del motor</span></div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;            self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a041502175c2c71abd4d8aa90122c1146">motorLibre</a>=<span class="keyword">True</span></div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;        <span class="keywordflow">else</span> :</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;            self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a041502175c2c71abd4d8aa90122c1146">motorLibre</a>=<span class="keyword">False</span>  </div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    <span class="comment">#se fijan los publicadores</span></div>
+<div class="line"><a name="l00381"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a2e23434e1423648a3511fd86f5f777fe">  381</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2e23434e1423648a3511fd86f5f777fe">setMotores</a>(self,dato):    </div>
+<div class="line"><a name="l00382"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#af3188f3143cabf081784a8b642b5921b">  382</a></span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a0c9332ee7595f6f9524a7469a2cc195b">motores</a>= dato</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;     </div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    <span class="comment">#def setPostConditionDetect(self,dato):  </span></div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;    <span class="comment">#    self.postCondDet=dato </span></div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;        </div>
+<div class="line"><a name="l00387"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a8b093c4fe7b6f607b0b843f44adb29dd">  387</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a8b093c4fe7b6f607b0b843f44adb29dd">setPreConditionDetect</a>(self,dato): </div>
+<div class="line"><a name="l00388"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a9dd82d21d2ce84d37e96a279b6e94b53">  388</a></span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a933997c869fa29b791a545e73d297e20">preCondDet</a>=dato</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    </div>
+<div class="line"><a name="l00390"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#ab4eacd4604bcbcf747c0ba9e16ac57d2">  390</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab4eacd4604bcbcf747c0ba9e16ac57d2">setNivel</a>(self,dato):  </div>
+<div class="line"><a name="l00391"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a3538641f3b0596af68c5d9645c925656">  391</a></span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a65d3d335744c2d7ecae9b57feb83bf58">nivel</a>=dato</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;        </div>
+<div class="line"><a name="l00393"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a986d454988f00886c4dd94afe39ddcad">  393</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a986d454988f00886c4dd94afe39ddcad">setNodoEjecutando</a>(self,dato): </div>
+<div class="line"><a name="l00394"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#acfcb08ea72e29c09f84e259d8b5cc555">  394</a></span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#acaa3cd9a0f9fb386c8fc46c4f89a05f7">nodoEjecutando</a>=dato</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    </div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    </div>
+<div class="line"><a name="l00397"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#ab5d6060bae9a7553c5be3e772b8a186f">  397</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab5d6060bae9a7553c5be3e772b8a186f">SetSLMotores</a> (self,dato): </div>
+<div class="line"><a name="l00398"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#ae9c2173c5dbba2f1d8cd784dd1d4ef45">  398</a></span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ada588d7b3e3176c6503a4424289a3559">solicitarOLiberarMotores</a>=dato </div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;   </div>
+<div class="line"><a name="l00400"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a0d7a5a35618aa9458269bfeb0a0d0490">  400</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a0d7a5a35618aa9458269bfeb0a0d0490">setIdComp</a>(self,dato):</div>
+<div class="line"><a name="l00401"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#abee14a0ae5494ccc739cfa8ae0caad60">  401</a></span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a6b62d310255a6d6b26c59d02384f6b55">idComportamiento</a>=dato</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    </div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    </div>
+<div class="line"><a name="l00404"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a2749a2defe13e082e8d8f9ab973c8052">  404</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2749a2defe13e082e8d8f9ab973c8052">endTopic</a>(self):    </div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;        self.topicoSen.unregister() </div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;        self.topicoPre.unregister()</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;        self.topicoSet.unregister() </div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;        self.topicoEst.unregister() </div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;        self.topicoNiv.unregister() </div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;        self.topicoCam.unregister() </div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;        self.topicoEje.unregister() </div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;        self.topicoAct.unregister()    </div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        self.topicoOrd.unregister()    </div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;        <span class="keywordflow">return</span> 0</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    </div>
+<div class="line"><a name="l00416"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#ac73c5b204aac79daf01813014f2cec56">  416</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ac73c5b204aac79daf01813014f2cec56">initTopicos</a>(self):</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;                 </div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a3745ad44286ca424f31da363edcf923f">topicoOrd</a>=rospy.Subscriber(<span class="stringliteral">&quot;topic_orders&quot;</span>, Int32MultiArray, self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ae83c325d321e73ab08f118d10312c289">atenderOrdenes</a>)         </div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#aaaee43210a2510dc5d1267815c801aa5">topicoSen</a>=rospy.Subscriber(<span class="stringliteral">&quot;topic_sensors&quot;</span>, String, self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a34bd8f944caa53436bdaf792c05e492d">atenderSensores</a>)</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a01ada6d6cecf1973adae9f33802d2c47">topicoPre</a>=rospy.Subscriber(<span class="stringliteral">&quot;topic_preConDetection&quot;</span>, Int32MultiArray, self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a46d220823a37dfda9c091170b0e5b2ef">evaluarPrecondicion</a>)</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a9941439685b9789e9e1cd389233c89ab">topicoSet</a>=rospy.Subscriber(<span class="stringliteral">&quot;topic_preConSetting&quot;</span>, Int32MultiArray, self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a64162f548f9f72640cf5113a319b4f08">setting</a>)       </div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a9743061405eb7a5d65777007bf645385">topicoEst</a>=rospy.Subscriber(<span class="stringliteral">&quot;topic_state&quot;</span>, Int32MultiArray, self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a78cc9be825bcad28eed844b3eae1c9eb">setEstado</a>)</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a32254327dd39cf2af406ee1882917ea2">topicoNiv</a>=rospy.Subscriber(<span class="stringliteral">&quot;topic_level&quot;</span>, Int32MultiArray, self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#afd29d07b63f75014c9bf1daccc5baf65">atenderNivel</a>)</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a65544c98fa3d2799a718b075a4bc0dcf">topicoCam</a>=rospy.Subscriber(<span class="stringliteral">&quot;topic_path&quot;</span>, Int32MultiArray, self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a2d6367f78a2422fd0dd89ae8fc7b04f5">atenderCaminos</a>)</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#ab0f8082d8a98b219a6b5ef62d4fb8bf8">topicoEje</a>=rospy.Subscriber(<span class="stringliteral">&quot;topic_runningNode&quot;</span>, Int32MultiArray, self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#aa817c9b4e7005863496033a8bd877927">atenderNodoEjecutando</a>)</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;        self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7b4835bf36e631bd6dce0b4a5a08b637">topicoAct</a>=rospy.Subscriber(<span class="stringliteral">&quot;topic_engineLocked&quot;</span>, Int32MultiArray, self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a47ee879b020a8d488a5f5fefcb5f4fd8">atenderMotorLockeado</a>)</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;        rospy.Subscriber(<span class="stringliteral">&quot;topic_finalize&quot;</span>, String, self.<a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7a4cd0a294d4021613d3c788921afc34">finalize</a>)</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;</div>
+<div class="line"><a name="l00430"></a><span class="lineno"><a class="line" href="class_abstract_behavior_1_1_abstract_behavior.html#a7a4cd0a294d4021613d3c788921afc34">  430</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_abstract_behavior_1_1_abstract_behavior.html#a7a4cd0a294d4021613d3c788921afc34">finalize</a>(self, data):</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;        rospy.signal_shutdown(<span class="stringliteral">&quot;Bye!&quot;</span>)</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    </div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a791ffb1a9170904cf471f69f81d3c353"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a791ffb1a9170904cf471f69f81d3c353">AbstractBehavior.AbstractBehavior.__init__</a></div><div class="ttdeci">def __init__</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00051">AbstractBehavior.py:51</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_ab5d6060bae9a7553c5be3e772b8a186f"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#ab5d6060bae9a7553c5be3e772b8a186f">AbstractBehavior.AbstractBehavior.SetSLMotores</a></div><div class="ttdeci">def SetSLMotores</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00397">AbstractBehavior.py:397</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a7f1e4b3fcfe0bceb8f1d700201349e19"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a7f1e4b3fcfe0bceb8f1d700201349e19">AbstractBehavior.AbstractBehavior.identify</a></div><div class="ttdeci">int identify</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00032">AbstractBehavior.py:32</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_ae4900e06bba768070c36ca6e1cb53fdd"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#ae4900e06bba768070c36ca6e1cb53fdd">AbstractBehavior.AbstractBehavior.permanent</a></div><div class="ttdeci">dictionary permanent</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00036">AbstractBehavior.py:36</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_afd29d07b63f75014c9bf1daccc5baf65"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#afd29d07b63f75014c9bf1daccc5baf65">AbstractBehavior.AbstractBehavior.atenderNivel</a></div><div class="ttdeci">def atenderNivel</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00321">AbstractBehavior.py:321</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_acaa3cd9a0f9fb386c8fc46c4f89a05f7"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#acaa3cd9a0f9fb386c8fc46c4f89a05f7">AbstractBehavior.AbstractBehavior.nodoEjecutando</a></div><div class="ttdeci">tuple nodoEjecutando</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00016">AbstractBehavior.py:16</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_abba995934e9053e9c3b7eba747061e79"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#abba995934e9053e9c3b7eba747061e79">AbstractBehavior.AbstractBehavior.processProximitySensorData</a></div><div class="ttdeci">def processProximitySensorData</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00094">AbstractBehavior.py:94</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_ac73c5b204aac79daf01813014f2cec56"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#ac73c5b204aac79daf01813014f2cec56">AbstractBehavior.AbstractBehavior.initTopicos</a></div><div class="ttdeci">def initTopicos</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00416">AbstractBehavior.py:416</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a75218f4c8dbbe5a8a62b354c4ac928a4"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a75218f4c8dbbe5a8a62b354c4ac928a4">AbstractBehavior.AbstractBehavior.ejecutando</a></div><div class="ttdeci">ejecutando</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00035">AbstractBehavior.py:35</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a7a4cd0a294d4021613d3c788921afc34"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a7a4cd0a294d4021613d3c788921afc34">AbstractBehavior.AbstractBehavior.finalize</a></div><div class="ttdeci">def finalize</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00430">AbstractBehavior.py:430</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a8b093c4fe7b6f607b0b843f44adb29dd"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a8b093c4fe7b6f607b0b843f44adb29dd">AbstractBehavior.AbstractBehavior.setPreConditionDetect</a></div><div class="ttdeci">def setPreConditionDetect</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00387">AbstractBehavior.py:387</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a7b4835bf36e631bd6dce0b4a5a08b637"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a7b4835bf36e631bd6dce0b4a5a08b637">AbstractBehavior.AbstractBehavior.topicoAct</a></div><div class="ttdeci">topicoAct</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00027">AbstractBehavior.py:27</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a6b62d310255a6d6b26c59d02384f6b55"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a6b62d310255a6d6b26c59d02384f6b55">AbstractBehavior.AbstractBehavior.idComportamiento</a></div><div class="ttdeci">int idComportamiento</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00033">AbstractBehavior.py:33</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a32e479148652de009d399724c1479c84"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a32e479148652de009d399724c1479c84">AbstractBehavior.AbstractBehavior.separarCaminos</a></div><div class="ttdeci">def separarCaminos</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00307">AbstractBehavior.py:307</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a99f05420d74dfcffb1534837f5783550"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a99f05420d74dfcffb1534837f5783550">AbstractBehavior.AbstractBehavior.action</a></div><div class="ttdeci">action</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00096">AbstractBehavior.py:96</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_ab1fc3af56fc8543a0ea5d89030f45684"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#ab1fc3af56fc8543a0ea5d89030f45684">AbstractBehavior.AbstractBehavior.dataSensor</a></div><div class="ttdeci">dictionary dataSensor</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00045">AbstractBehavior.py:45</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html">AbstractBehavior.AbstractBehavior</a></div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00009">AbstractBehavior.py:9</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a0c9332ee7595f6f9524a7469a2cc195b"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a0c9332ee7595f6f9524a7469a2cc195b">AbstractBehavior.AbstractBehavior.motores</a></div><div class="ttdeci">tuple motores</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00012">AbstractBehavior.py:12</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a2b1d1552600506f5db476b6567fa637b"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a2b1d1552600506f5db476b6567fa637b">AbstractBehavior.AbstractBehavior.safeDist</a></div><div class="ttdeci">float safeDist</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00046">AbstractBehavior.py:46</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a3608127cd8445462d38c296da61cc190"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a3608127cd8445462d38c296da61cc190">AbstractBehavior.AbstractBehavior.estado</a></div><div class="ttdeci">int estado</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00040">AbstractBehavior.py:40</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a75902caf47db04c94038067e98a5076f"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a75902caf47db04c94038067e98a5076f">AbstractBehavior.AbstractBehavior.getParAprendidos</a></div><div class="ttdeci">def getParAprendidos</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00069">AbstractBehavior.py:69</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a761b941b2bab9e7656b99a4f4beb6be2"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a761b941b2bab9e7656b99a4f4beb6be2">AbstractBehavior.AbstractBehavior.dataSensorColor</a></div><div class="ttdeci">dataSensorColor</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00091">AbstractBehavior.py:91</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a2e23434e1423648a3511fd86f5f777fe"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a2e23434e1423648a3511fd86f5f777fe">AbstractBehavior.AbstractBehavior.setMotores</a></div><div class="ttdeci">def setMotores</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00381">AbstractBehavior.py:381</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a32254327dd39cf2af406ee1882917ea2"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a32254327dd39cf2af406ee1882917ea2">AbstractBehavior.AbstractBehavior.topicoNiv</a></div><div class="ttdeci">topicoNiv</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00024">AbstractBehavior.py:24</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_aa817c9b4e7005863496033a8bd877927"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#aa817c9b4e7005863496033a8bd877927">AbstractBehavior.AbstractBehavior.atenderNodoEjecutando</a></div><div class="ttdeci">def atenderNodoEjecutando</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00256">AbstractBehavior.py:256</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a2749a2defe13e082e8d8f9ab973c8052"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a2749a2defe13e082e8d8f9ab973c8052">AbstractBehavior.AbstractBehavior.endTopic</a></div><div class="ttdeci">def endTopic</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00404">AbstractBehavior.py:404</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_aaaee43210a2510dc5d1267815c801aa5"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#aaaee43210a2510dc5d1267815c801aa5">AbstractBehavior.AbstractBehavior.topicoSen</a></div><div class="ttdeci">topicoSen</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00020">AbstractBehavior.py:20</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a532a2f9d70b7f18208da8628b299e290"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a532a2f9d70b7f18208da8628b299e290">AbstractBehavior.AbstractBehavior.realizarBad</a></div><div class="ttdeci">def realizarBad</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00205">AbstractBehavior.py:205</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_ada588d7b3e3176c6503a4424289a3559"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#ada588d7b3e3176c6503a4424289a3559">AbstractBehavior.AbstractBehavior.solicitarOLiberarMotores</a></div><div class="ttdeci">tuple solicitarOLiberarMotores</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00017">AbstractBehavior.py:17</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a0d7a5a35618aa9458269bfeb0a0d0490"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a0d7a5a35618aa9458269bfeb0a0d0490">AbstractBehavior.AbstractBehavior.setIdComp</a></div><div class="ttdeci">def setIdComp</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00400">AbstractBehavior.py:400</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a2d6367f78a2422fd0dd89ae8fc7b04f5"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a2d6367f78a2422fd0dd89ae8fc7b04f5">AbstractBehavior.AbstractBehavior.atenderCaminos</a></div><div class="ttdeci">def atenderCaminos</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00296">AbstractBehavior.py:296</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a2b2a5e3d456a846434ec29cd1088dfc7"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a2b2a5e3d456a846434ec29cd1088dfc7">AbstractBehavior.AbstractBehavior.separarBloques</a></div><div class="ttdeci">def separarBloques</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00128">AbstractBehavior.py:128</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a3745ad44286ca424f31da363edcf923f"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a3745ad44286ca424f31da363edcf923f">AbstractBehavior.AbstractBehavior.topicoOrd</a></div><div class="ttdeci">topicoOrd</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00028">AbstractBehavior.py:28</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a01ada6d6cecf1973adae9f33802d2c47"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a01ada6d6cecf1973adae9f33802d2c47">AbstractBehavior.AbstractBehavior.topicoPre</a></div><div class="ttdeci">topicoPre</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00021">AbstractBehavior.py:21</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a34bd8f944caa53436bdaf792c05e492d"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a34bd8f944caa53436bdaf792c05e492d">AbstractBehavior.AbstractBehavior.atenderSensores</a></div><div class="ttdeci">def atenderSensores</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00148">AbstractBehavior.py:148</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a8f58f1bf249985b163626ae92964a590"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a8f58f1bf249985b163626ae92964a590">AbstractBehavior.AbstractBehavior.separarSensados</a></div><div class="ttdeci">def separarSensados</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00133">AbstractBehavior.py:133</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a9743061405eb7a5d65777007bf645385"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a9743061405eb7a5d65777007bf645385">AbstractBehavior.AbstractBehavior.topicoEst</a></div><div class="ttdeci">topicoEst</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00023">AbstractBehavior.py:23</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a65544c98fa3d2799a718b075a4bc0dcf"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a65544c98fa3d2799a718b075a4bc0dcf">AbstractBehavior.AbstractBehavior.topicoCam</a></div><div class="ttdeci">topicoCam</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00025">AbstractBehavior.py:25</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a02783bb181e7f9d752741182e49eeeef"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a02783bb181e7f9d752741182e49eeeef">AbstractBehavior.AbstractBehavior.cumplePrecondiciones</a></div><div class="ttdeci">def cumplePrecondiciones</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00265">AbstractBehavior.py:265</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a2c4a5c4ab4b76fb10781fb2ab787403b"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a2c4a5c4ab4b76fb10781fb2ab787403b">AbstractBehavior.AbstractBehavior.ordering</a></div><div class="ttdeci">dictionary ordering</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00038">AbstractBehavior.py:38</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a45b216d9a5ca95f403665d3e60e2809c"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a45b216d9a5ca95f403665d3e60e2809c">AbstractBehavior.AbstractBehavior.parametros</a></div><div class="ttdeci">parametros</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00044">AbstractBehavior.py:44</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a5b6ad72e7eb7ccef2315357f8274d57d"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a5b6ad72e7eb7ccef2315357f8274d57d">AbstractBehavior.AbstractBehavior.avoid</a></div><div class="ttdeci">def avoid</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00076">AbstractBehavior.py:76</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a9941439685b9789e9e1cd389233c89ab"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a9941439685b9789e9e1cd389233c89ab">AbstractBehavior.AbstractBehavior.topicoSet</a></div><div class="ttdeci">topicoSet</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00022">AbstractBehavior.py:22</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a78cc9be825bcad28eed844b3eae1c9eb"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a78cc9be825bcad28eed844b3eae1c9eb">AbstractBehavior.AbstractBehavior.setEstado</a></div><div class="ttdeci">def setEstado</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00236">AbstractBehavior.py:236</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a933997c869fa29b791a545e73d297e20"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a933997c869fa29b791a545e73d297e20">AbstractBehavior.AbstractBehavior.preCondDet</a></div><div class="ttdeci">tuple preCondDet</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00014">AbstractBehavior.py:14</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a041502175c2c71abd4d8aa90122c1146"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a041502175c2c71abd4d8aa90122c1146">AbstractBehavior.AbstractBehavior.motorLibre</a></div><div class="ttdeci">motorLibre</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00041">AbstractBehavior.py:41</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a986d454988f00886c4dd94afe39ddcad"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a986d454988f00886c4dd94afe39ddcad">AbstractBehavior.AbstractBehavior.setNodoEjecutando</a></div><div class="ttdeci">def setNodoEjecutando</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00393">AbstractBehavior.py:393</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a76aae7c40e5611fe2209a11889be0f18"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a76aae7c40e5611fe2209a11889be0f18">AbstractBehavior.AbstractBehavior.veriPosSenAprender</a></div><div class="ttdeci">def veriPosSenAprender</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00072">AbstractBehavior.py:72</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a847d71a202309d917c10901ee1823056"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a847d71a202309d917c10901ee1823056">AbstractBehavior.AbstractBehavior.caminos</a></div><div class="ttdeci">list caminos</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00042">AbstractBehavior.py:42</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a47ee879b020a8d488a5f5fefcb5f4fd8"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a47ee879b020a8d488a5f5fefcb5f4fd8">AbstractBehavior.AbstractBehavior.atenderMotorLockeado</a></div><div class="ttdeci">def atenderMotorLockeado</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00371">AbstractBehavior.py:371</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_ab4eacd4604bcbcf747c0ba9e16ac57d2"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#ab4eacd4604bcbcf747c0ba9e16ac57d2">AbstractBehavior.AbstractBehavior.setNivel</a></div><div class="ttdeci">def setNivel</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00390">AbstractBehavior.py:390</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a141bf2c85486d2fc83611f41c0b53900"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a141bf2c85486d2fc83611f41c0b53900">AbstractBehavior.AbstractBehavior.evaluarPrecondicionesPorCaminos</a></div><div class="ttdeci">def evaluarPrecondicionesPorCaminos</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00102">AbstractBehavior.py:102</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_ad24d214f152070519006d57ba835dc1b"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#ad24d214f152070519006d57ba835dc1b">AbstractBehavior.AbstractBehavior.actuar</a></div><div class="ttdeci">def actuar</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00063">AbstractBehavior.py:63</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a65d3d335744c2d7ecae9b57feb83bf58"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a65d3d335744c2d7ecae9b57feb83bf58">AbstractBehavior.AbstractBehavior.nivel</a></div><div class="ttdeci">tuple nivel</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00015">AbstractBehavior.py:15</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a64162f548f9f72640cf5113a319b4f08"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a64162f548f9f72640cf5113a319b4f08">AbstractBehavior.AbstractBehavior.setting</a></div><div class="ttdeci">def setting</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00276">AbstractBehavior.py:276</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_ad31fc0fa00195d0d204e451189027753"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#ad31fc0fa00195d0d204e451189027753">AbstractBehavior.AbstractBehavior.veriPosSenEjecutar</a></div><div class="ttdeci">def veriPosSenEjecutar</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00066">AbstractBehavior.py:66</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_ac14615660bfc0055ab1a8cb1f2fdc21d"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#ac14615660bfc0055ab1a8cb1f2fdc21d">AbstractBehavior.AbstractBehavior.processSensorLineDetectedColorData</a></div><div class="ttdeci">def processSensorLineDetectedColorData</div><div class="ttdoc">procesado de sensores </div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00090">AbstractBehavior.py:90</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_acc07d02ae179130db9f9071b1e3b9032"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#acc07d02ae179130db9f9071b1e3b9032">AbstractBehavior.AbstractBehavior.enablig</a></div><div class="ttdeci">dictionary enablig</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00037">AbstractBehavior.py:37</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_ab0f8082d8a98b219a6b5ef62d4fb8bf8"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#ab0f8082d8a98b219a6b5ef62d4fb8bf8">AbstractBehavior.AbstractBehavior.topicoEje</a></div><div class="ttdeci">topicoEje</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00026">AbstractBehavior.py:26</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a46d220823a37dfda9c091170b0e5b2ef"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a46d220823a37dfda9c091170b0e5b2ef">AbstractBehavior.AbstractBehavior.evaluarPrecondicion</a></div><div class="ttdeci">def evaluarPrecondicion</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00347">AbstractBehavior.py:347</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_a36e4e0bc09289b8f35f594710863957c"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#a36e4e0bc09289b8f35f594710863957c">AbstractBehavior.AbstractBehavior.nivelActivacion</a></div><div class="ttdeci">int nivelActivacion</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00039">AbstractBehavior.py:39</a></div></div>
+<div class="ttc" id="class_abstract_behavior_1_1_abstract_behavior_html_ae83c325d321e73ab08f118d10312c289"><div class="ttname"><a href="class_abstract_behavior_1_1_abstract_behavior.html#ae83c325d321e73ab08f118d10312c289">AbstractBehavior.AbstractBehavior.atenderOrdenes</a></div><div class="ttdeci">def atenderOrdenes</div><div class="ttdef"><b>Definition:</b> <a href="_abstract_behavior_8py_source.html#l00231">AbstractBehavior.py:231</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_1eeb56e1270a72a2bb3256479a9fd717.html">learning_by_imitation</a></li><li class="navelem"><a class="el" href="dir_1fa9b325c3ee0c04934a471c7f078f26.html">scripts</a></li><li class="navelem"><a class="el" href="_abstract_behavior_8py.html">AbstractBehavior.py</a></li>
+    <li class="footer">Generado el Domingo, 24 de Abril de 2016 20:51:36 para Proyecto de grado por
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['lcs',['lcs',['../namespacelcs.html',1,'']]],
-  ['loadbehavior',['loadBehavior',['../namespaceload_behavior.html',1,'']]],
-  ['localizar',['localizar',['../namespacelocalizar.html',1,'']]]
+  ['init',['Init',['../namespace_init.html',1,'']]],
+  ['inputs',['Inputs',['../namespace_inputs.html',1,'']]]
 ];

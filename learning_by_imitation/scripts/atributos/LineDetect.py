@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from abc import ABCMeta, abstractmethod
-from atributos import Atributos
+from AttributeFactory import AttributeFactory
 from Sensor import Sensor
 
 import Const
@@ -13,4 +12,4 @@ class LineDetect(Sensor):
     
     """Compara"""
     def similar(self,at2):
-        return Atributos.get(Const.ATR_COLOR, self.valor[1]).similar(Atributos.get(Const.ATR_COLOR, at2[1])) 
+        return AttributeFactory.get(Const.ATR_COLOR, self.valor[1]).similar(AttributeFactory.get(Const.ATR_COLOR, at2[1])) 

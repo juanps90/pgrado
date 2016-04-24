@@ -1,13 +1,12 @@
 var searchData=
 [
-  ['maestro',['maestro',['../namespacemaestro.html',1,'']]],
-  ['maestro_2epy',['maestro.py',['../maestro_8py.html',1,'']]],
-  ['mejorcamino',['MejorCamino',['../namespacelcs.html#a15b05538a8c6635fed6b0f96084e2389',1,'lcs']]],
-  ['mindist',['minDist',['../classir_a_1_1ir_a.html#a8f123c02c0dbf65f7e03b266d79caeb5',1,'irA.irA.minDist()'],['../classir_a_1_1ir_a.html#aa0cdf31557f3c8417bf3ae8e1afd161a',1,'irA.irA.minDist()']]],
-  ['mlog',['mlog',['../namespaceir_a.html#a3606979d358f856f0ef754e2064c42a3',1,'irA']]],
-  ['motores',['motores',['../namespacemotores.html',1,'motores'],['../classcomportamiento_1_1comportamiento.html#a43932bd90fafce2f56cafaf31c45771e',1,'comportamiento.comportamiento.motores()'],['../classcomportamiento_1_1comportamiento.html#aa0783b16c79cd08231ef2047f683f5fb',1,'comportamiento.comportamiento.motores()'],['../namespaceinit.html#abe9606d51737c348ff657b7c04c82f2b',1,'init.motores()'],['../namespacemaestro.html#aaed86f6bf102087dd7a8865918a89ea5',1,'maestro.motores()']]],
-  ['motores_2epy',['motores.py',['../motores_8py.html',1,'']]],
-  ['motoreslockeado',['motoresLockeado',['../namespacemotores.html#a94436ed9e8b9c45d112bffce34f74371',1,'motores']]],
-  ['motorlibre',['motorLibre',['../classlocalizar_1_1localizar.html#a17e6c2df8857e3783d840041efc7acae',1,'localizar.localizar.motorLibre()'],['../classcomportamiento_1_1comportamiento.html#a29c4c8a4ece0deadfe7d7c0493391fc5',1,'comportamiento.comportamiento.motorLibre()']]],
-  ['msg',['msg',['../namespacemaestro.html#afec26c7ec5375a42be9b49ec03153d78',1,'maestro.msg()'],['../namespacetest_light.html#a6b65634136f277346f98bb4bbe18d279',1,'testLight.msg()']]]
+  ['master',['Master',['../namespace_master.html',1,'']]],
+  ['master_2epy',['Master.py',['../_master_8py.html',1,'']]],
+  ['mejorcamino',['MejorCamino',['../namespace_l_c_s.html#ac3221dbc37ca28b1cd5f660cb3f7cdaa',1,'LCS']]],
+  ['mindist',['minDist',['../class_go_to_1_1_go_to.html#ad6ec0d99b95a9c285d4cabbfae11f5ae',1,'GoTo.GoTo.minDist()'],['../class_go_to_1_1_go_to.html#afb5582298756db39f79596c9ff9bac8a',1,'GoTo.GoTo.minDist()']]],
+  ['mlog',['mlog',['../namespace_go_to.html#a6a8512c6f28835b0d9ceb2dbf43d3bbd',1,'GoTo']]],
+  ['motores',['motores',['../class_abstract_behavior_1_1_abstract_behavior.html#a0c9332ee7595f6f9524a7469a2cc195b',1,'AbstractBehavior.AbstractBehavior.motores()'],['../class_abstract_behavior_1_1_abstract_behavior.html#af3188f3143cabf081784a8b642b5921b',1,'AbstractBehavior.AbstractBehavior.motores()'],['../namespace_init.html#a1d725aacee7dc6ae23596d7f8ba59012',1,'Init.motores()'],['../namespace_master.html#a187978b554f1a6e70ccd1bb525f52685',1,'Master.motores()']]],
+  ['motoreslockeado',['motoresLockeado',['../namespace_outputs.html#a2d88db3a6134455eed510d3232a97471',1,'Outputs']]],
+  ['motorlibre',['motorLibre',['../class_abstract_behavior_1_1_abstract_behavior.html#a041502175c2c71abd4d8aa90122c1146',1,'AbstractBehavior.AbstractBehavior.motorLibre()'],['../class_locate_1_1_locate.html#a8c6071c79f7006ff0b99d35c71a9b1b9',1,'Locate.Locate.motorLibre()']]],
+  ['msg',['msg',['../namespace_master.html#ab46d9647ea7291275b65fc33fe945186',1,'Master.msg()'],['../namespacetest_light.html#a6b65634136f277346f98bb4bbe18d279',1,'testLight.msg()']]]
 ];

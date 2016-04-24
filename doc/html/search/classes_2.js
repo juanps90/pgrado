@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['distancia',['Distancia',['../classatributos_1_1_distancia_1_1_distancia.html',1,'atributos::Distancia']]]
+  ['distance',['Distance',['../classatributos_1_1_distance_1_1_distance.html',1,'atributos::Distance']]]
 ];

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['prueba',['prueba',['../classprobando_class_1_1prueba.html',1,'probandoClass']]]
+  ['linedetect',['LineDetect',['../classatributos_1_1_line_detect_1_1_line_detect.html',1,'atributos::LineDetect']]],
+  ['locate',['Locate',['../class_locate_1_1_locate.html',1,'Locate']]]
 ];

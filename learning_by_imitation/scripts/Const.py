@@ -63,19 +63,19 @@ else:
 #
 #------------------------------------------------------------------------------
 #
-# >> Constants used on inputs.py script <<
+# >> Constants used on Inputs.py script <<
 #
 debugInputs = 1 # for debugging set this variable to 1 (0 turns-off debugging)
 #
 #------------------------------------------------------------------------------
 #
-# >> Constants used on motores.py script <<
+# >> Constants used on Outputs.py script <<
 #
 debugMotores = 1 # for debugging set this variable to 1 (0 turns-off debugging)
 #
 #------------------------------------------------------------------------------
 #
-# >> Constants used on cargarXML.py and salvarXML scripts <<
+# >> Constants used on LoadXML.py and SaveXML scripts <<
 #
 # XML sections' tags
 SECCION_NODOS = 'nodos'
