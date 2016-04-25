@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from abc import ABCMeta, abstractmethod
-from AttributeFactory import AttributeFactory
+from atributos import AttributeFactory
 from Sensor import Sensor
 
 import Const
