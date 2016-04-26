@@ -13,9 +13,5 @@ var dir_1fa9b325c3ee0c04934a471c7f078f26 =
     [ "LoadXML.py", "_load_x_m_l_8py.html", "_load_x_m_l_8py" ],
     [ "Master.py", "_master_8py.html", "_master_8py" ],
     [ "Outputs.py", "_outputs_8py.html", "_outputs_8py" ],
-    [ "roslunchDemo.py", "roslunch_demo_8py.html", "roslunch_demo_8py" ],
-    [ "SaveXML.py", "_save_x_m_l_8py.html", "_save_x_m_l_8py" ],
-    [ "testButtons.py", "test_buttons_8py.html", "test_buttons_8py" ],
-    [ "testColorSensor.py", "test_color_sensor_8py.html", "test_color_sensor_8py" ],
-    [ "testLight.py", "test_light_8py.html", "test_light_8py" ]
+    [ "SaveXML.py", "_save_x_m_l_8py.html", "_save_x_m_l_8py" ]
 ];

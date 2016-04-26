@@ -13,10 +13,5 @@ var namespaces =
     [ "Locate", "namespace_locate.html", null ],
     [ "Master", "namespace_master.html", null ],
     [ "Outputs", "namespace_outputs.html", null ],
-    [ "probandoClass", "namespaceprobando_class.html", null ],
-    [ "roslunchDemo", "namespaceroslunch_demo.html", null ],
-    [ "SaveXML", "namespace_save_x_m_l.html", null ],
-    [ "testButtons", "namespacetest_buttons.html", null ],
-    [ "testColorSensor", "namespacetest_color_sensor.html", null ],
-    [ "testLight", "namespacetest_light.html", null ]
+    [ "SaveXML", "namespace_save_x_m_l.html", null ]
 ];

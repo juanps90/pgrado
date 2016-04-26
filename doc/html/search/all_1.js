@@ -32,7 +32,7 @@ var searchData=
   ['atendernodoejecutando',['atenderNodoEjecutando',['../class_abstract_behavior_1_1_abstract_behavior.html#aa817c9b4e7005863496033a8bd877927',1,'AbstractBehavior.AbstractBehavior.atenderNodoEjecutando()'],['../namespace_init.html#a4c3578f003026153c416a6ef705b6b98',1,'Init.atenderNodoEjecutando()'],['../namespace_master.html#af4df545a26551c7baaf1eac2be082ceb',1,'Master.atenderNodoEjecutando()']]],
   ['atenderordenes',['atenderOrdenes',['../class_abstract_behavior_1_1_abstract_behavior.html#ae83c325d321e73ab08f118d10312c289',1,'AbstractBehavior.AbstractBehavior.atenderOrdenes()'],['../namespace_init.html#a4e51e9eed067a308b3aa444e52fe780f',1,'Init.atenderOrdenes()']]],
   ['atenderproximitysensor',['atenderProximitySensor',['../namespace_inputs.html#afc57c1af9fe5b604acb2724be5faadb8',1,'Inputs']]],
-  ['atendersensores',['atenderSensores',['../class_abstract_behavior_1_1_abstract_behavior.html#a34bd8f944caa53436bdaf792c05e492d',1,'AbstractBehavior.AbstractBehavior.atenderSensores()'],['../namespacetest_color_sensor.html#a7faae5024d8ed69b2fd52ace0df9409e',1,'testColorSensor.atenderSensores()']]],
+  ['atendersensores',['atenderSensores',['../class_abstract_behavior_1_1_abstract_behavior.html#a34bd8f944caa53436bdaf792c05e492d',1,'AbstractBehavior::AbstractBehavior']]],
   ['atendersensorlinedetectcolor',['atenderSensorLineDetectColor',['../namespace_inputs.html#aa529fd5f530dc842fd918b00e1369cbb',1,'Inputs']]],
   ['atendersolicitaroliberarmotores',['atendersolicitarOLiberarMotores',['../namespace_outputs.html#aab772372a77cca838a9b00fce4c4cd59',1,'Outputs']]],
   ['atr_5fangle',['ATR_ANGLE',['../namespace_const.html#a5e0a44d4ce3ee83ad96eb53a74159458',1,'Const']]],

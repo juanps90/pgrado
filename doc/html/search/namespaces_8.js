@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['probandoclass',['probandoClass',['../namespaceprobando_class.html',1,'']]]
+  ['savexml',['SaveXML',['../namespace_save_x_m_l.html',1,'']]]
 ];

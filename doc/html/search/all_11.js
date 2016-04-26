@@ -9,7 +9,5 @@ var searchData=
   ['recursionsucesores',['recursionSucesores',['../namespace_l_c_s.html#ae925dca56550095734f9742982380178',1,'LCS']]],
   ['red_5fcalibrate',['RED_CALIBRATE',['../namespace_const.html#a858929e02a2c02b99c50135ad58ede14',1,'Const']]],
   ['reejecutar',['reejecutar',['../class_abstract_behavior_1_1_abstract_behavior.html#a59dfc6fd7663f88c47a6debf87ff89fd',1,'AbstractBehavior.AbstractBehavior.reejecutar()'],['../class_locate_1_1_locate.html#a827d05e44857982e64b090d6c329bae8',1,'Locate.Locate.reejecutar()'],['../namespace_init.html#a4fd3d6713871df69fd9f709305e591bc',1,'Init.reejecutar()']]],
-  ['rightvelocity',['rightVelocity',['../namespace_outputs.html#a0956b39afc9c7aed27306472a5851336',1,'Outputs']]],
-  ['roslunchdemo',['roslunchDemo',['../namespaceroslunch_demo.html',1,'']]],
-  ['roslunchdemo_2epy',['roslunchDemo.py',['../roslunch_demo_8py.html',1,'']]]
+  ['rightvelocity',['rightVelocity',['../namespace_outputs.html#a0956b39afc9c7aed27306472a5851336',1,'Outputs']]]
 ];

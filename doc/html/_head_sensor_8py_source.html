@@ -109,30 +109,29 @@ $(document).ready(function(){initNavTree('_head_sensor_8py_source.html','');});
 <a href="_head_sensor_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespaceatributos_1_1_head_sensor.html">    1</a></span>&#160;<span class="comment">#!/usr/bin/env python</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"># -*- coding: utf-8 -*-</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">from</span> abc <span class="keyword">import</span> ABCMeta, abstractmethod</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">from</span> AttributeFactory <span class="keyword">import</span> AttributeFactory</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">from</span> Sensor <span class="keyword">import</span> Sensor</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">import</span> Const</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classatributos_1_1_head_sensor_1_1_head_sensor.html">   10</a></span>&#160;<span class="keyword">class </span><a class="code" href="classatributos_1_1_head_sensor_1_1_head_sensor.html">HeadSensor</a>(Sensor):</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classatributos_1_1_head_sensor_1_1_head_sensor.html#a4c889da86fb2d12de37209cbd2804b9a">   12</a></span>&#160;    SENSOR_ID = Const.SENSOR_VISION_HEAD_ID</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Compara&quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classatributos_1_1_head_sensor_1_1_head_sensor.html#ab943089d09d22800446dba72f39cdba0">   15</a></span>&#160;    <span class="keyword">def </span><a class="code" href="classatributos_1_1_head_sensor_1_1_head_sensor.html#ab943089d09d22800446dba72f39cdba0">similar</a>(self,at2):</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keywordflow">return</span> AttributeFactory.get(Const.ATR_ANGLE, self.valor[0]).<a class="code" href="classatributos_1_1_head_sensor_1_1_head_sensor.html#ab943089d09d22800446dba72f39cdba0">similar</a>(AttributeFactory.get(Const.ATR_ANGLE, at2[0])) \</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;           <span class="keywordflow">and</span> AttributeFactory.get(Const.ATR_COLOR, self.valor[1]).<a class="code" href="classatributos_1_1_head_sensor_1_1_head_sensor.html#ab943089d09d22800446dba72f39cdba0">similar</a>(AttributeFactory.get(Const.ATR_COLOR, at2[1] ))</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;     </div>
-<div class="ttc" id="classatributos_1_1_head_sensor_1_1_head_sensor_html_ab943089d09d22800446dba72f39cdba0"><div class="ttname"><a href="classatributos_1_1_head_sensor_1_1_head_sensor.html#ab943089d09d22800446dba72f39cdba0">atributos.HeadSensor.HeadSensor.similar</a></div><div class="ttdeci">def similar</div><div class="ttdef"><b>Definition:</b> <a href="_head_sensor_8py_source.html#l00015">HeadSensor.py:15</a></div></div>
-<div class="ttc" id="classatributos_1_1_head_sensor_1_1_head_sensor_html"><div class="ttname"><a href="classatributos_1_1_head_sensor_1_1_head_sensor.html">atributos.HeadSensor.HeadSensor</a></div><div class="ttdef"><b>Definition:</b> <a href="_head_sensor_8py_source.html#l00010">HeadSensor.py:10</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">from</span> atributos <span class="keyword">import</span> AttributeFactory</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">from</span> Sensor <span class="keyword">import</span> Sensor</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">import</span> Const</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="classatributos_1_1_head_sensor_1_1_head_sensor.html">    9</a></span>&#160;<span class="keyword">class </span><a class="code" href="classatributos_1_1_head_sensor_1_1_head_sensor.html">HeadSensor</a>(Sensor):</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    </div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classatributos_1_1_head_sensor_1_1_head_sensor.html#a4c889da86fb2d12de37209cbd2804b9a">   11</a></span>&#160;    SENSOR_ID = Const.SENSOR_VISION_HEAD_ID</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Compara&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classatributos_1_1_head_sensor_1_1_head_sensor.html#ab943089d09d22800446dba72f39cdba0">   14</a></span>&#160;    <span class="keyword">def </span><a class="code" href="classatributos_1_1_head_sensor_1_1_head_sensor.html#ab943089d09d22800446dba72f39cdba0">similar</a>(self,at2):</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keywordflow">return</span> AttributeFactory.get(Const.ATR_ANGLE, self.valor[0]).<a class="code" href="classatributos_1_1_head_sensor_1_1_head_sensor.html#ab943089d09d22800446dba72f39cdba0">similar</a>(AttributeFactory.get(Const.ATR_ANGLE, at2[0])) \</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;           <span class="keywordflow">and</span> AttributeFactory.get(Const.ATR_COLOR, self.valor[1]).<a class="code" href="classatributos_1_1_head_sensor_1_1_head_sensor.html#ab943089d09d22800446dba72f39cdba0">similar</a>(AttributeFactory.get(Const.ATR_COLOR, at2[1] ))</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;     </div>
+<div class="ttc" id="classatributos_1_1_head_sensor_1_1_head_sensor_html_ab943089d09d22800446dba72f39cdba0"><div class="ttname"><a href="classatributos_1_1_head_sensor_1_1_head_sensor.html#ab943089d09d22800446dba72f39cdba0">atributos.HeadSensor.HeadSensor.similar</a></div><div class="ttdeci">def similar</div><div class="ttdef"><b>Definition:</b> <a href="_head_sensor_8py_source.html#l00014">HeadSensor.py:14</a></div></div>
+<div class="ttc" id="classatributos_1_1_head_sensor_1_1_head_sensor_html"><div class="ttname"><a href="classatributos_1_1_head_sensor_1_1_head_sensor.html">atributos.HeadSensor.HeadSensor</a></div><div class="ttdef"><b>Definition:</b> <a href="_head_sensor_8py_source.html#l00009">HeadSensor.py:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_1eeb56e1270a72a2bb3256479a9fd717.html">learning_by_imitation</a></li><li class="navelem"><a class="el" href="dir_1fa9b325c3ee0c04934a471c7f078f26.html">scripts</a></li><li class="navelem"><a class="el" href="dir_42a458834a7875d6a180686e1b98b3f7.html">atributos</a></li><li class="navelem"><a class="el" href="_head_sensor_8py.html">HeadSensor.py</a></li>
-    <li class="footer">Generado el Domingo, 24 de Abril de 2016 20:51:36 para Proyecto de grado por
+    <li class="footer">Generado el Lunes, 25 de Abril de 2016 23:00:22 para Proyecto de grado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

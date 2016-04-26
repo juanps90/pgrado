@@ -8,7 +8,6 @@ var hierarchy =
         [ "Locate.Locate", "class_locate_1_1_locate.html", null ]
       ] ]
     ] ],
-    [ "probandoClass.prueba", "classprobando_class_1_1prueba.html", null ],
     [ "atributos.Sensor.Sensor", "classatributos_1_1_sensor_1_1_sensor.html", null ],
     [ "Attribute", null, [
       [ "atributos.Angle.Angle", "classatributos_1_1_angle_1_1_angle.html", null ],

@@ -109,15 +109,37 @@ $(document).ready(function(){initNavTree('namespace_load_behavior.html','');});
 <div class="title">Referencia del Namespace LoadBehavior</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Modulo usado para listar todos los comportamientos abstractos existentes en el sistema.  
+<a href="#details">Más...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Funciones</h2></td></tr>
 <tr class="memitem:a4d4a9616b3025ac217814a61eec95e37"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_load_behavior.html#a4d4a9616b3025ac217814a61eec95e37">load_class</a></td></tr>
+<tr class="memdesc:a4d4a9616b3025ac217814a61eec95e37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retorna una instancia de la clase.  <a href="#a4d4a9616b3025ac217814a61eec95e37">Más...</a><br/></td></tr>
 <tr class="separator:a4d4a9616b3025ac217814a61eec95e37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ec9dfd7b09adc955a8aabd1c4e07b16"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_load_behavior.html#a8ec9dfd7b09adc955a8aabd1c4e07b16">load_abstract_behavior</a></td></tr>
+<tr class="memdesc:a8ec9dfd7b09adc955a8aabd1c4e07b16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retorna una lista con los nombres de todos los comoprtamientos abstractos disponibles, según las condiciones mencionadas anteriormente.  <a href="#a8ec9dfd7b09adc955a8aabd1c4e07b16">Más...</a><br/></td></tr>
 <tr class="separator:a8ec9dfd7b09adc955a8aabd1c4e07b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Documentación de las funciones</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>Modulo usado para listar todos los comportamientos abstractos existentes en el sistema. </p>
+<p>Para que el sistema sepa que comportamientos abstractos tiene disponibles se debe chequear las siguientes condiciones:</p>
+<ul>
+<li>El archivo debe estar en la carpeta behavior.</li>
+<li>Debe ser un archivo con extension py (archivo python)</li>
+<li>Debe contener una clase con nombre igual al del archivo y modulo.</li>
+<li>La clase mencionada en el punto anterior debe heredar de <a class="el" href="namespace_abstract_behavior.html">AbstractBehavior</a>, por tanto deberá implementar los metodos actuar, veriPosSenEjecutar, getParAprendidos y veriPosSenAprender. <dl class="section author"><dt>Autores</dt><dd>Gustavo Irigoyen </dd>
+<dd>
+Juan Pablo Sierra </dd>
+<dd>
+Juan Eliel Ibarra </dd>
+<dd>
+Gustavo Evovlockas </dd></dl>
+<dl class="section date"><dt>Fecha</dt><dd>Abril 2016 </dd></dl>
+</li>
+</ul>
+</div><h2 class="groupheader">Documentación de las funciones</h2>
 <a class="anchor" id="a8ec9dfd7b09adc955a8aabd1c4e07b16"></a>
 <div class="memitem">
 <div class="memproto">
@@ -131,7 +153,11 @@ Funciones</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="_load_behavior_8py_source.html#l00022">22</a> del archivo <a class="el" href="_load_behavior_8py_source.html">LoadBehavior.py</a>.</p>
+<p>Retorna una lista con los nombres de todos los comoprtamientos abstractos disponibles, según las condiciones mencionadas anteriormente. </p>
+<p>Por defecto el path en donde estan los comportamientos abstractos se encuentran en $HOME/catkin_ws/src/learning_by_imitation/scripts/behavior. Para indicar lo contrario debemos configurar la variable de entorno llamada LEARNING_BY_IMITATION_PATH. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>Retorna un lista con todos los comportamientos abstractos disponibles. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="_load_behavior_8py_source.html#l00049">49</a> del archivo <a class="el" href="_load_behavior_8py_source.html">LoadBehavior.py</a>.</p>
 
 </div>
 </div>
@@ -159,7 +185,17 @@ Funciones</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definición en la línea <a class="el" href="_load_behavior_8py_source.html#l00012">12</a> del archivo <a class="el" href="_load_behavior_8py_source.html">LoadBehavior.py</a>.</p>
+<p>Retorna una instancia de la clase. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">full_class_string</td><td>Nombre de la clase a instanciar. </td></tr>
+    <tr><td class="paramname">behaviorPath</td><td>Path de la clase a instanciar. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Retorna una instancia de la clase. </dd></dl>
+
+<p>Definición en la línea <a class="el" href="_load_behavior_8py_source.html#l00033">33</a> del archivo <a class="el" href="_load_behavior_8py_source.html">LoadBehavior.py</a>.</p>
 
 </div>
 </div>
@@ -169,7 +205,7 @@ Funciones</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_load_behavior.html">LoadBehavior</a></li>
-    <li class="footer">Generado el Domingo, 24 de Abril de 2016 20:51:36 para Proyecto de grado por
+    <li class="footer">Generado el Lunes, 25 de Abril de 2016 23:00:23 para Proyecto de grado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

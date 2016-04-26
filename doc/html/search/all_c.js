@@ -1,13 +1,13 @@
 var searchData=
 [
   ['l',['l',['../namespace_locate.html#a3abf07ee19456c5a2cfe98d906048f98',1,'Locate']]],
-  ['lanzarnodo',['lanzarNodo',['../namespace_master.html#a9f673c0abc141e7a16da685ef495b9f5',1,'Master.lanzarNodo()'],['../namespaceroslunch_demo.html#a9f3432892aa20c5b0f10dfa3c0fd13ae',1,'roslunchDemo.lanzarNodo()']]],
+  ['lanzarnodo',['lanzarNodo',['../namespace_master.html#a9f673c0abc141e7a16da685ef495b9f5',1,'Master']]],
   ['lastseenright',['lastSeenRight',['../class_go_to_1_1_go_to.html#acd31315692db9da7d6361e414be43526',1,'GoTo::GoTo']]],
   ['lcs',['LCS',['../namespace_l_c_s.html',1,'']]],
   ['lcs_2epy',['LCS.py',['../_l_c_s_8py.html',1,'']]],
   ['lcslength',['LCSLength',['../namespace_l_c_s.html#acd555f45ce9a96868a80483f8051d11e',1,'LCS']]],
   ['leftvelocity',['leftVelocity',['../namespace_outputs.html#abf7e8898adb069edefda067c34c4a7ea',1,'Outputs']]],
-  ['light',['light',['../class_go_to_1_1_go_to.html#a5e4cd1f6bf62481cbf83e06b2917b155',1,'GoTo.GoTo.light()'],['../namespace_outputs.html#a9572c067ff01af4f340592822f311727',1,'Outputs.light()'],['../namespacetest_light.html#a0434ebe38f95f49f041bfa75cee08e3c',1,'testLight.light()']]],
+  ['light',['light',['../class_go_to_1_1_go_to.html#a5e4cd1f6bf62481cbf83e06b2917b155',1,'GoTo.GoTo.light()'],['../namespace_outputs.html#a9572c067ff01af4f340592822f311727',1,'Outputs.light()']]],
   ['linedetect',['LineDetect',['../classatributos_1_1_line_detect_1_1_line_detect.html',1,'atributos::LineDetect']]],
   ['linedetect_2epy',['LineDetect.py',['../_line_detect_8py.html',1,'']]],
   ['link_5fena',['LINK_ENA',['../namespace_const.html#a2cc08c45c163b9c465aedfefd2f96ebc',1,'Const']]],

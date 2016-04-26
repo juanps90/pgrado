@@ -1,12 +1,6 @@
 var searchData=
 [
   ['t1',['t1',['../namespace_save_x_m_l.html#aaf5a2be781b3e521532b382c8900e4d8',1,'SaveXML']]],
-  ['testbuttons',['testButtons',['../namespacetest_buttons.html',1,'']]],
-  ['testbuttons_2epy',['testButtons.py',['../test_buttons_8py.html',1,'']]],
-  ['testcolorsensor',['testColorSensor',['../namespacetest_color_sensor.html',1,'']]],
-  ['testcolorsensor_2epy',['testColorSensor.py',['../test_color_sensor_8py.html',1,'']]],
-  ['testlight',['testLight',['../namespacetest_light.html',1,'']]],
-  ['testlight_2epy',['testLight.py',['../test_light_8py.html',1,'']]],
   ['tiempobad',['tiempoBad',['../namespace_master.html#a0c3db48df6a8f9f5bcfbed331255c67d',1,'Master']]],
   ['todosloscaminos',['todosLosCaminos',['../namespace_l_c_s.html#a026551fc482b702161e69112f0851897',1,'LCS']]],
   ['todoslossucesores',['todosLosSucesores',['../namespace_l_c_s.html#a52ec270e3fdda34937c548f97e763f29',1,'LCS']]],
