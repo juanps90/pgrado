@@ -96,7 +96,7 @@ def processSensorLineDetectColorData(data):
 
     salida = [Const.SENSOR_COLOR_DETECT_LINE_ID,  sensorsData[0], sensorsData[1], sensorsData[2]]
     if Const.debugInputs == 1:
-        print "color: ",sensorsData[1]
+        print "color Linea: ",sensorsData[1]
     return salida
 
 
@@ -150,12 +150,11 @@ def processHeadVisionSensor(data):
             else:                
                 #se compara con los datos ya calibrados si los hay sino se harcodea
                 if len(dicColores) == 0:     
-                    dicColores[Const.SENSOR_COLOR_DETECT_GREEN]= [[0.0, 0.65, 0.0], [0.17, 1.0, 0.23]]
-                    dicColores[Const.SENSOR_COLOR_DETECT_RED]= [[0.60, 0.0, 0.0], [1.0, 0.12, 0.12]]
-                    dicColores[Const.SENSOR_COLOR_DETECT_YELLOW]= [[0.69, 0.69, 0.0], [1.0, 1.0, 0.20]]
-                    dicColores[Const.SENSOR_COLOR_DETECT_BLUE]= [[0.0, 0.0, 0.55], [0.25, 0.25, 1.0]] 
-                    dicColores[Const.SENSOR_COLOR_DETECT_ORANGE]= [[0.65, 0.50, 0.20], [1.0, 1.0, 0.46]]
-               
+                    dicColores[Const.SENSOR_COLOR_DETECT_GREEN]= [[0.0, 0.65, 0.0], [0.270588248968, 1.0, 0.337254911661]]
+                    dicColores[Const.SENSOR_COLOR_DETECT_RED]= [[0.60, 0.0, 0.0], [1.0,0.29411765933,0.282352954149]]     
+                    dicColores[Const.SENSOR_COLOR_DETECT_BLUE]= [[0.0, 0.0, 0.55], [0.290196090937,0.29411765933, 1.0]] 
+                    dicColores[Const.SENSOR_COLOR_DETECT_YELLOW]= [[0.654901981354,0.654901981354,0.0549019612372], [1.0, 1.0, 0.321568638086]]
+                    dicColores[Const.SENSOR_COLOR_DETECT_ORANGE]= [[0.65, 0.407843142748, 0.0941176488996], [1.0, 1.0, 0.46]]
                 match=False
                 for c in dicColores:
                     
@@ -175,6 +174,7 @@ def processHeadVisionSensor(data):
                 if len (salida)==0:
                     salida=[Const.SENSOR_VISION_HEAD_ID]
                 salida =salida+ [ datos[3], colorCode,datos[4],datos[5]]
+                print "color objeto 0: ",salida[2]
     #if Const.debugInputs == 1:
         #print "cabeza ", salida
     return salida

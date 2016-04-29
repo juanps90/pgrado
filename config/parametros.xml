@@ -4,66 +4,66 @@
     <color>
       <idColor>2</idColor>
       <minRGB>
-        <red>0.592156887054</red>
-        <green>0.392156869173</green>
+        <red>0.0</red>
+        <green>0.65</green>
         <blue>0.0</blue>
       </minRGB>
       <maxRGB>
-        <red>0.843137264252</red>
-        <green>0.61960786581</green>
-        <blue>0.600000023842</blue>
+        <red>0.270588248968</red>
+        <green>1.0</green>
+        <blue>0.337254911661</blue>
       </maxRGB>
     </color>
     <color>
       <idColor>3</idColor>
       <minRGB>
-        <red>0.592156887054</red>
-        <green>0.392156869173</green>
+        <red>0.6</red>
+        <green>0.0</green>
         <blue>0.0</blue>
       </minRGB>
       <maxRGB>
         <red>1.0</red>
-        <green>1.0</green>
-        <blue>0.600000023842</blue>
+        <green>0.29411765933</green>
+        <blue>0.282352954149</blue>
       </maxRGB>
     </color>
     <color>
       <idColor>4</idColor>
       <minRGB>
         <red>0.0</red>
-        <green>0.392156869173</green>
-        <blue>0.0</blue>
+        <green>0.0</green>
+        <blue>0.55</blue>
       </minRGB>
       <maxRGB>
-        <red>0.721568644047</red>
-        <green>0.847058832645</green>
-        <blue>0.600000023842</blue>
+        <red>0.290196090937</red>
+        <green>0.29411765933</green>
+        <blue>1.0</blue>
       </maxRGB>
     </color>
     <color>
       <idColor>5</idColor>
       <minRGB>
-        <red>0.596078455448</red>
-        <green>0.0</green>
-        <blue>0.0</blue>
+        <red>0.654901981354</red>
+        <green>0.654901981354</green>
+        <blue>0.0549019612372</blue>
       </minRGB>
       <maxRGB>
-        <red>0.835294127464</red>
-        <green>0.61960786581</green>
-        <blue>0.600000023842</blue>
+        <red>1.0</red>
+        <green>1.0</green>
+        <blue>0.321568638086</blue>
       </maxRGB>
     </color>
     <color>
       <idColor>6</idColor>
       <minRGB>
-        <red>0.0117647061124</red>
-        <green>0.0</green>
-        <blue>0.0</blue>
+        <red>0.65</red>
+        <green>0.407843142748</green>
+        <blue>0.0941176488996</blue>
       </minRGB>
       <maxRGB>
-        <red>0.721568644047</red>
-        <green>0.623529434204</green>
-        <blue>0.89411765337</blue>
+        <red>1.0</red>
+        <green>1.0</green>
+        <blue>0.46</blue>
       </maxRGB>
     </color>
   </calibracion>

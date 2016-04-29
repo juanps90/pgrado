@@ -28,16 +28,17 @@ SENSOR_COLOR_DETECT_NONE = -1
 SENSOR_COLOR_DETECT_BLACK = 0
 ## Identificador del color blanco.
 SENSOR_COLOR_DETECT_WHITE = 1
-## Identificador del color anaranjado.
-SENSOR_COLOR_DETECT_ORANGE = 2
-## Identificador del color amarillo.
-SENSOR_COLOR_DETECT_YELLOW = 3
 ## Identificador del color verde.
-SENSOR_COLOR_DETECT_GREEN = 4
+SENSOR_COLOR_DETECT_GREEN = 2
 ## Identificador del color rojo.
-SENSOR_COLOR_DETECT_RED = 5
+SENSOR_COLOR_DETECT_RED = 3
 ## Identificador del color azul.
-SENSOR_COLOR_DETECT_BLUE = 6
+SENSOR_COLOR_DETECT_BLUE = 4
+## Identificador del color amarillo.
+SENSOR_COLOR_DETECT_YELLOW = 5
+## Identificador del color anaranjado.
+SENSOR_COLOR_DETECT_ORANGE = 6
+
 
 ## Identificador de los sensores de detección de color que apuntan al suelo.
 SENSOR_COLOR_DETECT_LINE_ID = 0

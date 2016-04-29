@@ -86,9 +86,17 @@ class GoTo(AbstractBehavior):
         return salida   
         
         
+    def getColors(self, data):
+        indObj=-1
+        i = 0
+        salida=[]
+        while i+3 < len(data):
+            indObj=indObj+1
+            salida.append ( data[i+1] )
+            i = i + 4
+        return salida  
         
-        
-    #recibe los datos de los sensores y verifica cual es el objeto mas cercano por el tama;o
+    #recibe los datos de los sensores y verifica cual es el objeto mas cercano por el tamanio
     def getIndObjMoreNear(self,data): 
         indObj=-1
         i = 0
@@ -142,7 +150,7 @@ class GoTo(AbstractBehavior):
             
             auxIndColor=self.getIndObjetoColor(self.dataSensor[Const.SENSOR_VISION_HEAD_ID], color)
             
-            rospy.loginfo("Largo datos " +str(len(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]))+str (self.dataSensor[Const.SENSOR_VISION_HEAD_ID]) +"indColor "+ str(auxIndColor )+" indCercano " +str( self.getIndObjMoreNear(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]) ) )
+            rospy.loginfo("Largo datos " +str(len(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]))+str (  self.getColors (self.dataSensor[Const.SENSOR_VISION_HEAD_ID])) +"indColor:"+ str(color)+ " "+ str(auxIndColor )+" indCercano " +str( self.getIndObjMoreNear(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]) ) )
 
             
             
