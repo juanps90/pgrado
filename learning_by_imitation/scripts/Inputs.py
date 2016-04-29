@@ -27,7 +27,7 @@ import Const
 import SaveXML
 import LoadXML
 
-delay=1.2
+delay=0.2
 contador=0
 topeContador=1
 

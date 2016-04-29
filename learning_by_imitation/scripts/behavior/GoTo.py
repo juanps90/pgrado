@@ -72,10 +72,21 @@ class GoTo(AbstractBehavior):
     # @param c Color buscado.
     # @return Retorna elindice donde esta el color si encuentra el color. False en otro caso.
     #
-    def getIndObjetoColor(self, ls, c):
-        if c in ls[1::2]:
-            return ls.index(c)
-        return -1
+           
+        
+    def getIndObjetoColor(self, data, c):
+        indObj=-1
+        i = 0
+        salida=-1
+        while i+3 < len(data):
+            indObj=indObj+1
+            if data[i+1]==c:
+                return indObj
+            i = i + 4
+        return salida   
+        
+        
+        
         
     #recibe los datos de los sensores y verifica cual es el objeto mas cercano por el tama;o
     def getIndObjMoreNear(self,data): 
@@ -83,7 +94,7 @@ class GoTo(AbstractBehavior):
         i = 0
         highMax=-1
         salida=-1
-        while i < len(data):
+        while i +3< len(data):
             indObj=indObj+1
             aux= data[i+2] * data[i+3] 
             if aux>highMax:
@@ -130,10 +141,20 @@ class GoTo(AbstractBehavior):
             
             
             auxIndColor=self.getIndObjetoColor(self.dataSensor[Const.SENSOR_VISION_HEAD_ID], color)
+            
+            rospy.loginfo("Largo datos " +str(len(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]))+str (self.dataSensor[Const.SENSOR_VISION_HEAD_ID]) +"indColor "+ str(auxIndColor )+" indCercano " +str( self.getIndObjMoreNear(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]) ) )
+
+            
+            
             if auxIndColor!=-1:
                 
+               # rospy.loginfo("Largo datos " +str(len(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]))+ "indColor "+ str(auxIndColor )+" indCercano " +str( self.getIndObjMoreNear(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]) ) )
+
+                indAngle=0
+                if len (self.dataSensor[Const.SENSOR_VISION_HEAD_ID]) > 4 * (auxIndColor):
+                    indAngle = 4 * (auxIndColor)
                 
-                curAngle = self.dataSensor[Const.SENSOR_VISION_HEAD_ID][0]
+                curAngle = self.dataSensor[Const.SENSOR_VISION_HEAD_ID][indAngle]
                 if self.avgA == 0:
                     self.avgA = curAngle
                 else:
@@ -213,8 +234,8 @@ class GoTo(AbstractBehavior):
                         self.action = self.ACTION_TURN_RIGHT
                         self.lastSeenRight = True
             else: 
-                #mlog( "GoTo if4")
-                self.action = self.ACTION_TURN_LEFT   
+                mlog( "GoTo if4")
+                #self.action = self.ACTION_TURN_LEFT   
         #else:
             #self.action = self.ACTION_FORWARD
             
@@ -328,12 +349,12 @@ class GoTo(AbstractBehavior):
        
        esSimiliar=self.similarHeadSensor(headSens, data[Const.SENSOR_VISION_HEAD_ID])
        if esSimiliar==self.getIndObjMoreNear(data[Const.SENSOR_VISION_HEAD_ID])  and ultrSens.similar(data[Const.SENSOR_NOSE_ULTRASONIC_ID])   :       
-           rospy.loginfo("CUMPLE POSTCONDICION IR_A PARA " + str(self.identify) + " CON DISTANCIA " + str(self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID]) + ", COLOR Y ANGULO " + str(self.parametros[Const.SENSOR_VISION_HEAD_ID]))
+           #rospy.loginfo("CUMPLE POSTCONDICION IR_A PARA " + str(self.identify) + " CON DISTANCIA " + str(self.parametros[Const.SENSOR_NOSE_ULTRASONIC_ID]) + ", COLOR Y ANGULO " + str(self.parametros[Const.SENSOR_VISION_HEAD_ID]))
            msgLight.data = [self.identify,1]
            self.light.publish(msgLight)
            activate=True
        else:
-           rospy.loginfo("NO CUMPLE POSTCONDICION IR_A PARA " + str(self.identify))
+           #rospy.loginfo("NO CUMPLE POSTCONDICION IR_A PARA " + str(self.identify))
            msgLight.data = [self.identify,0]
            self.light.publish(msgLight)
        #rospy.loginfo("Active GoTo" + str(activate))       

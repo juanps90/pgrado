@@ -61,7 +61,7 @@ class AbstractBehavior(object):
         bloques=self.separarBloques(data) 
         self.identify=int(bloques[0])
  
-        rospy.loginfo("AbstractBehavior datos bloques"+str(bloques))
+        #rospy.loginfo("AbstractBehavior datos bloques"+str(bloques))
         del bloques[0]
         self.parametros=self.separarSensados(bloques)
         self.initTopicos()
@@ -163,7 +163,7 @@ class AbstractBehavior(object):
         valorEncendido=0
         bloques=self.separarBloques(data.data)
         self.dataSensor=self.separarSensados(bloques)        
-        rospy.loginfo(str(self.dataSensor))
+        #rospy.loginfo(str(self.dataSensor))
         
         
         if self.estado ==2:
@@ -190,7 +190,7 @@ class AbstractBehavior(object):
                  #"|0#1#1#1"
             
             self.postCondDet.publish(msgString)
-            rospy.loginfo("encendido "+str(valorEncendido)+"idCOmp :"+str(self.idComportamiento))
+            #rospy.loginfo("encendido "+str(valorEncendido)+"idCOmp :"+str(self.idComportamiento))
         elif self.estado ==2:#ejecutar
             msg = Int32MultiArray()
             cumplePrecondiciones=self.evaluarPrecondicionesPorCaminos()
@@ -344,14 +344,14 @@ class AbstractBehavior(object):
                 #sino se envia mensaje de nivel 1 
     
                 for c in self.caminos:
-                    rospy.loginfo("lacan "+ str(len(c)))
+                    #rospy.loginfo("lacan "+ str(len(c)))
                     ultimoNodo=c[len(c)-1] #ultimo nodo del camino previo
                     msg.data = [self.identify, ultimoNodo,nivelAtras]#manda para atras el nivel  
                     self.nivel.publish(msg)
 
         except: # catch *all* exceptions
             e = sys.exc_info()[0]
-            rospy.loginfo("error "+ str(e)) 
+            #rospy.loginfo("error "+ str(e)) 
 
     def evaluarPrecondicion(self,data):#invocado en etapa de ejecucion cuando llega una postcondicion
         print "entro en evaluarPrecondicion id>",self.identify 
@@ -375,7 +375,7 @@ class AbstractBehavior(object):
                 print "es de orden"
         except: # catch *all* exceptions
             e = sys.exc_info()[0]
-            rospy.loginfo("error "+ str(e)) 
+            # rospy.loginfo("error "+ str(e)) 
 
     def atenderMotorLockeado(self,data):   
         if data.data[1] == -1 or data.data[1]== self.identify:   #el valor 0 es para el id del motor

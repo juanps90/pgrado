@@ -22,8 +22,8 @@
         <blue>0.0</blue>
       </minRGB>
       <maxRGB>
-        <red>0.843137264252</red>
-        <green>0.827450990677</green>
+        <red>1.0</red>
+        <green>1.0</green>
         <blue>0.600000023842</blue>
       </maxRGB>
     </color>
