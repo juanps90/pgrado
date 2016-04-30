@@ -612,7 +612,7 @@ def createLinks(linksACrear):
     for it in linksACrear:
         msg = Int32MultiArray()
         msg.data = [it[0], it[1], it[2]]#id node 1 y 2 y tipo de link	         
-        rospy.loginfo(msg.data)
+        #rospy.loginfo(msg.data)
         pub.publish(msg) 
 
 
@@ -627,9 +627,14 @@ def executeBad():
         return
     fase="bad"
     
-    tiempoActual = current_milli_time()
+    if nodeEjecutando[1] ==-1:
+        print "ATENCION no hay nada ejecutandose"  
+        fase="execute"
+        return
+    
+    actualTime = current_milli_time()
     # si el node actual inicio hace menos de tiempoBad se borra el node anterior    
-    tiempoDif = tiempoActual - nodeEjecutando[1][1]
+    tiempoDif = actualTime - nodeEjecutando[1][1]
     dentroDelTiempo = tiempoDif < tiempoBad
     existeNodeAnterior = nodeEjecutando[0][0] != -1
     
@@ -644,12 +649,13 @@ def executeBad():
         nodeABorrar = nodeEjecutando[0][0]
         nodeEjecutando = (-1, nodeEjecutando[1])
     
-    elif nodeABorrar == nodeEjecutando[1][0] and nodeABorrar <> -1:
-        
-        nodeEjecutando = nodeEjecutando = (nodeEjecutando[0], -1)         
+    elif nodeABorrar == nodeEjecutando[1][0] and nodeABorrar <> -1:        
+        nodeEjecutando = (nodeEjecutando[0], -1)         
         #odoEjecutando[0] = nodeEjecutando[1]
 
     if nodeABorrar==-1:
+        print "ATENCION no se puede borrar el nodo"  
+        fase="execute"
         return
     if Const.debugMaestro == 1:
         print "nodeEjecutando ",nodeEjecutando  
@@ -659,16 +665,13 @@ def executeBad():
     #tener en cuenta que el ejecutando anterior al Init es uno y si ya se borro
     #no se puede volver a borrar
     borrar=LCS.borrarNodeBad(idTask,nodeABorrar)        
-    LCS.graficar("bad")   
-    
-
-  
+    LCS.graficar("bad")     
+ 
     #se publica estado a Bad capaz el nombre habria que cambiarlo,
     if borrar:  
         msg = Int32MultiArray()
         msg.data = [0,nodeABorrar] 
         ordenes.publish(msg)
-
 
     fase="execute"
 
@@ -678,7 +681,7 @@ def executeBad():
 def atenderNodeEjecutando(data):
     global nodeEjecutando
     # llega un nuevo node ejecutando
-    if  data.data[0] != nodeEjecutando[1][0]: 
+    if nodeEjecutando[1] !=-1 and data.data[0] != nodeEjecutando[1][0]: 
         # acomodo los datos del que era ultimo pasa a ser el anterior        
         anterior=nodeEjecutando[1]
         

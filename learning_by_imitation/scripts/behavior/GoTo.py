@@ -150,10 +150,10 @@ class GoTo(AbstractBehavior):
             
             auxIndColor=self.getIndObjetoColor(self.dataSensor[Const.SENSOR_VISION_HEAD_ID], color)
             
-            rospy.loginfo("Largo datos " +str(len(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]))+str (  self.getColors (self.dataSensor[Const.SENSOR_VISION_HEAD_ID])) +"indColor:"+ str(color)+ " "+ str(auxIndColor )+" indCercano " +str( self.getIndObjMoreNear(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]) ) )
+            #rospy.loginfo("Largo datos " +str(len(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]))+str (  self.getColors (self.dataSensor[Const.SENSOR_VISION_HEAD_ID])) +"indColor:"+ str(color)+ " "+ str(auxIndColor )+" indCercano " +str( self.getIndObjMoreNear(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]) ) )
 
             
-            
+            #hallo el color
             if auxIndColor!=-1:
                 
                # rospy.loginfo("Largo datos " +str(len(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]))+ "indColor "+ str(auxIndColor )+" indCercano " +str( self.getIndObjMoreNear(self.dataSensor[Const.SENSOR_VISION_HEAD_ID]) ) )
@@ -174,6 +174,7 @@ class GoTo(AbstractBehavior):
                 #distancia medida sea la del objeto y no de otro para eso se usa la altura
                 if self.dataSensor.has_key(Const.SENSOR_NOSE_ULTRASONIC_ID) and self.getIndObjMoreNear(self.dataSensor[Const.SENSOR_VISION_HEAD_ID])==auxIndColor:                
                     #mlog( "GoTo if1")
+                    rospy.loginfo("en color")
                     if self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] > distance + self.DELTA_DISTANCE:
                         self.action = self.ACTION_FORWARD
                     elif self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] < distance - self.DELTA_DISTANCE:
@@ -234,13 +235,17 @@ class GoTo(AbstractBehavior):
                 # estoy muy cerca entonces retrocedo
                 if self.dataSensor[Const.SENSOR_NOSE_ULTRASONIC_ID][0] < 0.1 :  
                     self.action = self.ACTION_BACK
+                    rospy.loginfo("pa atras")
+
                 else:
                     if self.lastSeenRight:
                         self.action = self.ACTION_TURN_LEFT
                         self.lastSeenRight = False
+                        rospy.loginfo("pa izq")
                     else:
                         self.action = self.ACTION_TURN_RIGHT
-                        self.lastSeenRight = True
+                        #self.lastSeenLeft = False
+                        rospy.loginfo("pa derecha")
             else: 
                 mlog( "GoTo if4")
                 #self.action = self.ACTION_TURN_LEFT   

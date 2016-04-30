@@ -303,7 +303,8 @@ def graficar(idArchivo):
     graficarNetwork(networkGeneral,idArchivo)
 
 
-
+def getCompDeNode (idNode):    
+    return  diccionario[idNode]
 
 ###############################################3
 
@@ -642,7 +643,7 @@ def borrarNodoBadCaminos(idBad, idPrevio):
         borrarNodoBad(idBad)
 
 #Nota los links no tienen un orden en la lista, el nodo Init no se debe borrar (controlar en el q llama a este metodo)
-def borrarNodoBad(idTarea,idBad):
+def borrarNodeBad(idTarea,idBad):
     global topologiaGeneral
     global networkGeneral
     global diccionario
