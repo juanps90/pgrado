@@ -17,14 +17,14 @@
     <color>
       <idColor>3</idColor>
       <minRGB>
-        <red>0.6</red>
+        <red>0.0156862754375</red>
         <green>0.0</green>
         <blue>0.0</blue>
       </minRGB>
       <maxRGB>
         <red>1.0</red>
-        <green>0.29411765933</green>
-        <blue>0.282352954149</blue>
+        <green>0.309803932905</green>
+        <blue>0.658823549747</blue>
       </maxRGB>
     </color>
     <color>

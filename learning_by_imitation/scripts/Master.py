@@ -181,7 +181,7 @@ def callback(data):
     #elif nodeActive(comportamiento) != -1: 
     elif idActive!=-1:  
         #se saca de la lista de activos
-        print ">>>ID ACTIVOS ",idActive 
+        print ">>>ID ACTIVOS ",idActive,nodesFinalized
         del nodesActives[idActive]      
         
         if Const.debugMaestro == 1:   
@@ -192,14 +192,16 @@ def callback(data):
              
              
         #busca el nodo en los terminados los cuales estan ordenados por finalizacion
-        #
-        for n in range(len(nodesFinalized)-1,-1,-1):    
+        topeFinalized=len(nodesFinalized)-1
+        for n in range(topeFinalized,-1,-1): 
+            if Const.debugMaestro == 1:   
+                print nodesFinalized
             if tiempoFinal-nodesFinalized[n][2]<errorRuido:
                 if  nodesFinalized[n][3]==comportamiento and compararParametros(param,nodesFinalized[n][4]):
-                    auxNode=list (nodes[nodesFinalized[n][0]])
+                    auxNode=list (nodes[nodesFinalized[n][0]])#recupera el nodo de id finalizzado
                     auxNode[2]=tiempoFinal
                     nodes[nodesFinalized[n][0]]=tuple (auxNode)   
-                    nodesFinalized.append(nodesFinalized[n][0])
+                    nodesFinalized.append(tuple (auxNode) )#se agrega el mergeado al final de finalizados
                     del nodes[idActive]
                     del nodesFinalized [n] 
                     huboMerged=True
@@ -214,15 +216,7 @@ def callback(data):
             auxTupla=tuple (auxNode)  
             nodes[idActive]=auxTupla
             nodesFinalized.append(auxTupla)
-            
-            
-            
-            
-            
-            
-            
-            
-            
+   
             
         '''
             
