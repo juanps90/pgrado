@@ -1,0 +1,5 @@
+<launch>
+	<node name="Inputs" pkg="learning_by_imitation" type="Inputs.py" output="screen" launch-prefix="gnome-terminal -x" />
+	<node name="Outputs" pkg="learning_by_imitation" type="Outputs.py" output="screen" launch-prefix="gnome-terminal -x" />
+	<node name="Master" pkg="learning_by_imitation" type="Master.py" output="screen" launch-prefix="gnome-terminal -x"/>
+</launch>
