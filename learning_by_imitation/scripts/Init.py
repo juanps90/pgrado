@@ -1,6 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+##
+# @package Init
+# @brief ----
+# @details ----
+# @authors Gustavo Irigoyen
+# @authors Juan Pablo Sierra
+# @authors Juan Eliel Ibarra
+# @authors Gustavo Evovlockas
+# @date Abril 2016
+#
+
+
 import sys 
 import rospy
 from std_msgs.msg import Int32MultiArray, Float64MultiArray
@@ -251,96 +263,4 @@ if __name__ == '__main__':
     rospy.Subscriber("topic_orders", Int32MultiArray, atenderOrdenes)   
     rospy.spin()
     rospy.signal_shutdown("Bye!")
-    
-    
-    
-    
-    
-    
-'''
-def arranqueNivel():
-  # print "nivel de activacion Init"
-    global nivel
-    global nodoEnEjecucion
-    global nodoEnEjecucionAnterior
-    global ordering
-    msg = Int32MultiArray()
-        
-    #rospy.loginfo("nodo en ejecucion "+str(nodoEnEjecucion))    
-    
-    #se verifica que el comportamiento cambio
-    
-    finalizo = True
-    for it in ordering:   
-        finalizo = finalizo and ordering[it]
-        if not finalizo:
-            break
-   
-    
-    #rospy.loginfo("finalizo "+str(finalizo))   
-    if nodoEnEjecucionAnterior == nodoEnEjecucion and not finalizo:
-        return
-    else:
-        nodoEnEjecucionAnterior=nodoEnEjecucion 
-        
-    fin=True
-    #para todos los nodos envia el valor para que se inicie el nivel
-    for o in ordering:
-        msg.data = [identify, -1]#manda para atras el nivel inicial
-        nivel.publish(msg)        
-    
-    
-    #CAMBIAR
-    
-    #se recorre la lista de predecesores solo se verifican para cada nodo final si alguno se cumple no se manda
-    #para atras, si ninguno se cumple manda a todos esos nodos finales
-    listaNodosAEnviarNivel=[]
-    for c in caminos:
-        ultimoNodo=c[len(c)-1] #ultimo nodo del camino previo
-        #se verifica a cual de los link pertenece
-        #rospy.loginfo("ultimo nodo: "+str(ultimoNodo))
-        if ordering.has_key(ultimoNodo):
-            if not ordering[ultimoNodo]: 
-                listaNodosAEnviarNivel.append(ultimoNodo) 
-            else:
-                listaNodosAEnviarNivel=[]
-                break         
-        
-         
-    for l in listaNodosAEnviarNivel:
-        msg.data = [identify, 1]#manda para atras el nivel el segundo valor se usa solo para reiniciar lo hace Init
-        nivel.publish(msg)
-
-    if len(listaNodosAEnviarNivel)==0:
-        #rospy.loginfo("termino el ciclo")
-        
-
-
-
-
-''' 
-    
-    
-'''
-def realizarBad(borrar):     
-    global caminos   
-    auxCaminos=[]
-    auxC=[]
-    vacio=True
-    #esto es para borrar solo si al hacerlo no queda una estructura vacia
-    for c in caminos:
-        auxC=list(c)      
-        
-        if borrar in auxC:
-            auxC.remove(borrar)
-        if len(auxC)>0:
-            vacio=False
-        auxCaminos.append(auxC)
-    if not vacio:
-        caminos=auxCaminos            
-        #como se comprobo que no queda vacio se borran los network 
-        if  ordering.has_key(borrar):    
-            del ordering[borrar]   
-'''
-
     

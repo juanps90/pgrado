@@ -339,7 +339,7 @@ def processCommand(data):
     command.publish(msg)
 
 ##
-# Setea el estado actual. Permite detener el envia de los datos sensados si el estado es cero.
+# Setea el estado actual. Permite detener el envio de los datos sensados si el estado es cero.
 # @param data Datos publicados en el topico "topic_state".
 #             
 def setEstado(data):   
@@ -381,6 +381,7 @@ def shutdown():
 
 ##
 # La funcion emite una señal signal_shutdown para finalizar este nodo.
+# @param data Datos publicados en el tópico. No es usado.
 #   
 def finalize(data):
     rospy.signal_shutdown("Bye!")

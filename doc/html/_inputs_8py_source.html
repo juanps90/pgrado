@@ -447,7 +447,7 @@ $(document).ready(function(){initNavTree('_inputs_8py_source.html','');});
 <div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    command.publish(msg)</div>
 <div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;</div>
 <div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="comment">##</span></div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="comment"># Setea el estado actual. Permite detener el envia de los datos sensados si el estado es cero.</span></div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="comment"># Setea el estado actual. Permite detener el envio de los datos sensados si el estado es cero.</span></div>
 <div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;<span class="comment"># @param data Datos publicados en el topico &quot;topic_state&quot;.</span></div>
 <div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;<span class="comment">#             </span></div>
 <div class="line"><a name="l00345"></a><span class="lineno"><a class="line" href="namespace_inputs.html#a6550aaa13da1a515e1cc7ea62fa295de">  345</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespace_inputs.html#a6550aaa13da1a515e1cc7ea62fa295de">setEstado</a>(data):   </div>
@@ -489,34 +489,35 @@ $(document).ready(function(){initNavTree('_inputs_8py_source.html','');});
 <div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;</div>
 <div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;<span class="comment">##</span></div>
 <div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;<span class="comment"># La funcion emite una señal signal_shutdown para finalizar este nodo.</span></div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;<span class="comment">#   </span></div>
-<div class="line"><a name="l00385"></a><span class="lineno"><a class="line" href="namespace_inputs.html#a98355b2ec288d953c8873eb3dbb0f387">  385</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespace_inputs.html#a98355b2ec288d953c8873eb3dbb0f387">finalize</a>(data):</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    rospy.signal_shutdown(<span class="stringliteral">&quot;Bye!&quot;</span>)</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;<span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>:</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;sensado&quot;</span></div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    <span class="comment"># Antes de iniciar cualquier cosa, configuro o cargo la configuracion existente.</span></div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    <a class="code" href="namespace_inputs.html#aca55e0f7ef24be9972d4bc6f4bb6b5c0">inicializarParametros</a>()</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    rospy.init_node(<span class="stringliteral">&#39;Inputs&#39;</span>, anonymous=<span class="keyword">True</span>)</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    </div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    rospy.on_shutdown(shutdown)</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    </div>
-<div class="line"><a name="l00396"></a><span class="lineno"><a class="line" href="namespace_inputs.html#ae45361d819cad8c79422389b556a80f2">  396</a></span>&#160;    sensores = rospy.Publisher(<span class="stringliteral">&#39;topic_sensors&#39;</span>, String, queue_size=1)</div>
-<div class="line"><a name="l00397"></a><span class="lineno"><a class="line" href="namespace_inputs.html#ab4d718c90165ac0eb56aa08d4ef7e625">  397</a></span>&#160;    command = rospy.Publisher(<span class="stringliteral">&#39;topic_command&#39;</span>, String, queue_size=10)    </div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    </div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;topic_state&quot;</span>, Int32MultiArray, setEstado)  </div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;/vrep/command&quot;</span>, String, processCommand) <span class="comment"># interprete de comandos</span></div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;/vrep/sensorLineDetectColorData&quot;</span>, String, atenderSensorLineDetectColor) <span class="comment"># Color en el piso (sensores de piso)</span></div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;/vrep/headSensor&quot;</span>, String,atenderHeadVisionSensor) <span class="comment"># vision color y angulo (&quot;casquito&quot;)</span></div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;/vrep/proximitySensorData&quot;</span>, String, atenderProximitySensor ) <span class="comment"># distancia</span></div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;topic_finalize&quot;</span>, String, finalize)</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    </div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    <a class="code" href="namespace_inputs.html#a5e22acfcb972739c8364a5a12ccbdaf0">envioSensados</a>() </div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    rospy.spin()</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;    <a class="code" href="namespace_inputs.html#a98355b2ec288d953c8873eb3dbb0f387">finalize</a>(<span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;       </div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160; </div>
-<div class="ttc" id="namespace_inputs_html_a98355b2ec288d953c8873eb3dbb0f387"><div class="ttname"><a href="namespace_inputs.html#a98355b2ec288d953c8873eb3dbb0f387">Inputs.finalize</a></div><div class="ttdeci">def finalize</div><div class="ttdoc">La funcion emite una señal signal_shutdown para finalizar este nodo. </div><div class="ttdef"><b>Definition:</b> <a href="_inputs_8py_source.html#l00385">Inputs.py:385</a></div></div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;<span class="comment"># @param data Datos publicados en el tópico. No es usado.</span></div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<span class="comment">#   </span></div>
+<div class="line"><a name="l00386"></a><span class="lineno"><a class="line" href="namespace_inputs.html#a98355b2ec288d953c8873eb3dbb0f387">  386</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespace_inputs.html#a98355b2ec288d953c8873eb3dbb0f387">finalize</a>(data):</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    rospy.signal_shutdown(<span class="stringliteral">&quot;Bye!&quot;</span>)</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="keywordflow">if</span> __name__ == <span class="stringliteral">&#39;__main__&#39;</span>:</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&quot;sensado&quot;</span></div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    <span class="comment"># Antes de iniciar cualquier cosa, configuro o cargo la configuracion existente.</span></div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    <a class="code" href="namespace_inputs.html#aca55e0f7ef24be9972d4bc6f4bb6b5c0">inicializarParametros</a>()</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    rospy.init_node(<span class="stringliteral">&#39;Inputs&#39;</span>, anonymous=<span class="keyword">True</span>)</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    </div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    rospy.on_shutdown(shutdown)</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    </div>
+<div class="line"><a name="l00397"></a><span class="lineno"><a class="line" href="namespace_inputs.html#ae45361d819cad8c79422389b556a80f2">  397</a></span>&#160;    sensores = rospy.Publisher(<span class="stringliteral">&#39;topic_sensors&#39;</span>, String, queue_size=1)</div>
+<div class="line"><a name="l00398"></a><span class="lineno"><a class="line" href="namespace_inputs.html#ab4d718c90165ac0eb56aa08d4ef7e625">  398</a></span>&#160;    command = rospy.Publisher(<span class="stringliteral">&#39;topic_command&#39;</span>, String, queue_size=10)    </div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    </div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;topic_state&quot;</span>, Int32MultiArray, setEstado)  </div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;/vrep/command&quot;</span>, String, processCommand) <span class="comment"># interprete de comandos</span></div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;/vrep/sensorLineDetectColorData&quot;</span>, String, atenderSensorLineDetectColor) <span class="comment"># Color en el piso (sensores de piso)</span></div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;/vrep/headSensor&quot;</span>, String,atenderHeadVisionSensor) <span class="comment"># vision color y angulo (&quot;casquito&quot;)</span></div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;/vrep/proximitySensorData&quot;</span>, String, atenderProximitySensor ) <span class="comment"># distancia</span></div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    rospy.Subscriber(<span class="stringliteral">&quot;topic_finalize&quot;</span>, String, finalize)</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    </div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    <a class="code" href="namespace_inputs.html#a5e22acfcb972739c8364a5a12ccbdaf0">envioSensados</a>() </div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;    rospy.spin()</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    <a class="code" href="namespace_inputs.html#a98355b2ec288d953c8873eb3dbb0f387">finalize</a>(<span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;       </div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160; </div>
+<div class="ttc" id="namespace_inputs_html_a98355b2ec288d953c8873eb3dbb0f387"><div class="ttname"><a href="namespace_inputs.html#a98355b2ec288d953c8873eb3dbb0f387">Inputs.finalize</a></div><div class="ttdeci">def finalize</div><div class="ttdoc">La funcion emite una señal signal_shutdown para finalizar este nodo. </div><div class="ttdef"><b>Definition:</b> <a href="_inputs_8py_source.html#l00386">Inputs.py:386</a></div></div>
 <div class="ttc" id="namespace_inputs_html_a0a099ce134a2054cfa94cf9668342537"><div class="ttname"><a href="namespace_inputs.html#a0a099ce134a2054cfa94cf9668342537">Inputs.processCommand</a></div><div class="ttdeci">def processCommand</div><div class="ttdoc">Publica en el topico &quot;topic_command&quot; un String que indica el comando a ser ejecutado en el sistema...</div><div class="ttdef"><b>Definition:</b> <a href="_inputs_8py_source.html#l00296">Inputs.py:296</a></div></div>
 <div class="ttc" id="namespace_inputs_html_aa78626a6ed0620d649651cc3ebd3e39a"><div class="ttname"><a href="namespace_inputs.html#aa78626a6ed0620d649651cc3ebd3e39a">Inputs.shutdown</a></div><div class="ttdeci">def shutdown</div><div class="ttdoc">Funcion que se ejecuta al recibir una señal signal_shutdown. </div><div class="ttdef"><b>Definition:</b> <a href="_inputs_8py_source.html#l00379">Inputs.py:379</a></div></div>
 <div class="ttc" id="namespace_inputs_html_adcc790570927b8550d0e44cf8da51b0e"><div class="ttname"><a href="namespace_inputs.html#adcc790570927b8550d0e44cf8da51b0e">Inputs.processSensorLineDetectColorData</a></div><div class="ttdeci">def processSensorLineDetectColorData</div><div class="ttdoc">Procesa los datos originado por los tres sensores de vision usados para leer linea. </div><div class="ttdef"><b>Definition:</b> <a href="_inputs_8py_source.html#l00072">Inputs.py:72</a></div></div>
@@ -537,7 +538,7 @@ $(document).ready(function(){initNavTree('_inputs_8py_source.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_1eeb56e1270a72a2bb3256479a9fd717.html">learning_by_imitation</a></li><li class="navelem"><a class="el" href="dir_1fa9b325c3ee0c04934a471c7f078f26.html">scripts</a></li><li class="navelem"><a class="el" href="_inputs_8py.html">Inputs.py</a></li>
-    <li class="footer">Generado el Lunes, 25 de Abril de 2016 23:00:22 para Proyecto de grado por
+    <li class="footer">Generado el Domingo, 1 de Mayo de 2016 20:50:29 para Proyecto de grado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

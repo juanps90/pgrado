@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>Proyecto de grado: Fichero Fuente /home/viki/pgrado/learning_by_imitation/scripts/atributos/Angle.py</title>
+<title>Proyecto de grado: Fichero Fuente /home/viki/pgrado/learning_by_imitation/scripts/attributes/Angle.py</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -106,31 +106,49 @@ $(document).ready(function(){initNavTree('_angle_8py_source.html','');});
 <div class="title">Angle.py</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_angle_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespaceatributos_1_1_angle.html">    1</a></span>&#160;<span class="comment">#!/usr/bin/env python</span></div>
+<a href="_angle_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespaceattributes_1_1_angle.html">    1</a></span>&#160;<span class="comment">#!/usr/bin/env python</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"># -*- coding: utf-8 -*-</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">from</span> abc <span class="keyword">import</span> ABCMeta, abstractmethod</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">from</span> Attribute <span class="keyword">import</span> Attribute</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">import</span> Const</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="classatributos_1_1_angle_1_1_angle.html">    9</a></span>&#160;<span class="keyword">class </span><a class="code" href="classatributos_1_1_angle_1_1_angle.html">Angle</a>(Attribute):</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classatributos_1_1_angle_1_1_angle.html#ac48a63b0fedb8d33b456c64e1c96a3bb">   11</a></span>&#160;    ATT_ID = Const.ATR_ANGLE <span class="comment"># deberia ser ATRIBUTO_ID</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Compara&quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classatributos_1_1_angle_1_1_angle.html#a2604411aafe875ccdba1f408f5d57ef8">   14</a></span>&#160;    <span class="keyword">def </span><a class="code" href="classatributos_1_1_angle_1_1_angle.html#a2604411aafe875ccdba1f408f5d57ef8">similar</a>(self,at2):</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="comment">#return abs(self.valor - at2.valor ) &lt; 0.5</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;     <span class="keywordflow">return</span> abs(self.valor - at2.valor ) &lt; 0.2</div>
-<div class="ttc" id="classatributos_1_1_angle_1_1_angle_html"><div class="ttname"><a href="classatributos_1_1_angle_1_1_angle.html">atributos.Angle.Angle</a></div><div class="ttdef"><b>Definition:</b> <a href="_angle_8py_source.html#l00009">Angle.py:9</a></div></div>
-<div class="ttc" id="classatributos_1_1_angle_1_1_angle_html_a2604411aafe875ccdba1f408f5d57ef8"><div class="ttname"><a href="classatributos_1_1_angle_1_1_angle.html#a2604411aafe875ccdba1f408f5d57ef8">atributos.Angle.Angle.similar</a></div><div class="ttdeci">def similar</div><div class="ttdef"><b>Definition:</b> <a href="_angle_8py_source.html#l00014">Angle.py:14</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">##</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"># @package Angle</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"># @brief Modulo usado para capturar y procesar los datos enviados desde V-Rep.</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"># @details V-Rep publica los datos de los sensores en los topicos &quot;/vrep/sensorLineDetectColorData&quot;, &quot;/vrep/headSensor&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"># y &quot;/vrep/proximitySensorData&quot;. Los datos recibidos de los sensores son procesados y publicados en el topico &quot;topicoSenores&quot; como un String</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"># y en el formato DATOS_SENSOR_1|DATOS_SENSOR_2|DATOS_SENSOR_3|.... donde DATOS_SENSOR_N posee el subformato ID_SENSOR\#DATO_1\#DATO_2\#DATO_3\#...</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"># Como ejemplo supongamos que nuestro robot solo posee un sensor de distancia y uno de color. En esta situacion, en el topoico &quot;topic_sensors&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"># se debe publicar el String ID_SENSOR_DISTANCIA\#VALOR_DISTANCIA|ID_SENSOR_COLOR\#VALOR_COLOR. </span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"># Ademas V-Rep pulica datos de comandos ingresados por el usuario en el topico &quot;/vrep/command&quot; y luego estos datos se</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"># envian al sistema mediante el topico &quot;topic_command&quot;.</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"># Esta clase debe ser reimplementada en caso de requerir un robot diferente o real manteniendo el </span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"># formato de los mensajes que se envien al sistema proveniente de los sensores.</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment"># @authors Gustavo Irigoyen</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"># @authors Juan Pablo Sierra</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment"># @authors Juan Eliel Ibarra</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment"># @authors Gustavo Evovlockas</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment"># @date Abril 2016</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">from</span> abc <span class="keyword">import</span> ABCMeta, abstractmethod</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">from</span> Attribute <span class="keyword">import</span> Attribute</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">import</span> Const</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classattributes_1_1_angle_1_1_angle.html">   28</a></span>&#160;<span class="keyword">class </span><a class="code" href="classattributes_1_1_angle_1_1_angle.html">Angle</a>(Attribute):</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classattributes_1_1_angle_1_1_angle.html#a4aac53b1ca96454aa614829e62c7d89f">   30</a></span>&#160;    ATT_ID = Const.ATR_ANGLE <span class="comment"># deberia ser ATRIBUTO_ID</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Compara&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classattributes_1_1_angle_1_1_angle.html#a10c03a7bf13f189b9cb36fbe0908c224">   33</a></span>&#160;    <span class="keyword">def </span><a class="code" href="classattributes_1_1_angle_1_1_angle.html#a10c03a7bf13f189b9cb36fbe0908c224">similar</a>(self,at2):</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;     <span class="keywordflow">return</span> abs(self.valor - at2.valor ) &lt; 0.2</div>
+<div class="ttc" id="classattributes_1_1_angle_1_1_angle_html_a10c03a7bf13f189b9cb36fbe0908c224"><div class="ttname"><a href="classattributes_1_1_angle_1_1_angle.html#a10c03a7bf13f189b9cb36fbe0908c224">attributes.Angle.Angle.similar</a></div><div class="ttdeci">def similar</div><div class="ttdef"><b>Definition:</b> <a href="_angle_8py_source.html#l00033">Angle.py:33</a></div></div>
+<div class="ttc" id="classattributes_1_1_angle_1_1_angle_html"><div class="ttname"><a href="classattributes_1_1_angle_1_1_angle.html">attributes.Angle.Angle</a></div><div class="ttdef"><b>Definition:</b> <a href="_angle_8py_source.html#l00028">Angle.py:28</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_1eeb56e1270a72a2bb3256479a9fd717.html">learning_by_imitation</a></li><li class="navelem"><a class="el" href="dir_1fa9b325c3ee0c04934a471c7f078f26.html">scripts</a></li><li class="navelem"><a class="el" href="dir_42a458834a7875d6a180686e1b98b3f7.html">atributos</a></li><li class="navelem"><a class="el" href="_angle_8py.html">Angle.py</a></li>
-    <li class="footer">Generado el Lunes, 25 de Abril de 2016 23:00:22 para Proyecto de grado por
+    <li class="navelem"><a class="el" href="dir_1eeb56e1270a72a2bb3256479a9fd717.html">learning_by_imitation</a></li><li class="navelem"><a class="el" href="dir_1fa9b325c3ee0c04934a471c7f078f26.html">scripts</a></li><li class="navelem"><a class="el" href="dir_0785d29950645e876e75fb438b2145ab.html">attributes</a></li><li class="navelem"><a class="el" href="_angle_8py.html">Angle.py</a></li>
+    <li class="footer">Generado el Domingo, 1 de Mayo de 2016 20:50:29 para Proyecto de grado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

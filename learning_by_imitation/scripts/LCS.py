@@ -8,7 +8,7 @@ import LoadXML
 import SaveXML 
 
 
-from atributos import SensorFactory
+from attributes import SensorFactory
 
 MejorCamino=[]
 topologiaGeneral=[]

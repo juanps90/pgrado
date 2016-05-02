@@ -1,5 +1,5 @@
 <map id="Representación gráfica de la clase" name="Representación gráfica de la clase">
-<area shape="rect" id="node2" href="$classatributos_1_1_head_sensor_1_1_head_sensor.html" title="atributos.HeadSensor.Head\lSensor" alt="" coords="118,5,301,46"/>
-<area shape="rect" id="node3" href="$classatributos_1_1_line_detect_1_1_line_detect.html" title="atributos.LineDetect.Line\lDetect" alt="" coords="126,70,293,111"/>
-<area shape="rect" id="node4" href="$classatributos_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor.html" title="atributos.UltrasonicSensor.\lUltrasonicSensor" alt="" coords="119,135,299,177"/>
+<area shape="rect" id="node2" href="$classattributes_1_1_head_sensor_1_1_head_sensor.html" title="attributes.HeadSensor.Head\lSensor" alt="" coords="117,5,304,46"/>
+<area shape="rect" id="node3" href="$classattributes_1_1_line_detect_1_1_line_detect.html" title="attributes.LineDetect.Line\lDetect" alt="" coords="125,70,296,111"/>
+<area shape="rect" id="node4" href="$classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor.html" title="attributes.UltrasonicSensor.\lUltrasonicSensor" alt="" coords="119,135,303,177"/>
 </map>

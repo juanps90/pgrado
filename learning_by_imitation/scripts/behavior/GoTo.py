@@ -9,7 +9,7 @@ import Const
 from AbstractBehavior import AbstractBehavior
 import os
 
-from atributos import SensorFactory
+from attributes import SensorFactory
 
 def mlog(msg):
     with open("/tmp/log.txt", "a") as myfile:

@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>Proyecto de grado: Fichero Fuente /home/viki/pgrado/learning_by_imitation/scripts/atributos/AttributeFactory.py</title>
+<title>Proyecto de grado: Fichero Fuente /home/viki/pgrado/learning_by_imitation/scripts/attributes/AttributeFactory.py</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -106,7 +106,7 @@ $(document).ready(function(){initNavTree('_attribute_factory_8py_source.html',''
 <div class="title">AttributeFactory.py</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_attribute_factory_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespaceatributos_1_1_attribute_factory.html">    1</a></span>&#160;<span class="comment">#!/usr/bin/env python</span></div>
+<a href="_attribute_factory_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespaceattributes_1_1_attribute_factory.html">    1</a></span>&#160;<span class="comment">#!/usr/bin/env python</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"># -*- coding: utf-8 -*-</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">from</span> Attribute <span class="keyword">import</span> Attribute</div>
@@ -117,21 +117,21 @@ $(document).ready(function(){initNavTree('_attribute_factory_8py_source.html',''
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">from</span> Distance <span class="keyword">import</span> Distance</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="namespaceatributos_1_1_attribute_factory.html#a07ee5c5c7b437f240770b739b745eafc">   12</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespaceatributos_1_1_attribute_factory.html#a07ee5c5c7b437f240770b739b745eafc">get</a>(sensor_id, value):</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="namespaceattributes_1_1_attribute_factory.html#a2f02b7a90f3a1786f221aff72420eba5">   12</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespaceattributes_1_1_attribute_factory.html#a2f02b7a90f3a1786f221aff72420eba5">get</a>(sensor_id, value):</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    gen = (subclass <span class="keywordflow">for</span> subclass <span class="keywordflow">in</span> Attribute.__subclasses__() <span class="keywordflow">if</span> subclass.ATT_ID == sensor_id)</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    subclass = next(gen, <span class="keywordtype">None</span>)</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">if</span> subclass <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keywordflow">raise</span> ValueError(<span class="stringliteral">&quot;No matching attribute&quot;</span>)</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    new_obj = subclass(value)</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">return</span> new_obj</div>
-<div class="ttc" id="namespaceatributos_1_1_attribute_factory_html_a07ee5c5c7b437f240770b739b745eafc"><div class="ttname"><a href="namespaceatributos_1_1_attribute_factory.html#a07ee5c5c7b437f240770b739b745eafc">atributos.AttributeFactory.get</a></div><div class="ttdeci">def get</div><div class="ttdef"><b>Definition:</b> <a href="_attribute_factory_8py_source.html#l00012">AttributeFactory.py:12</a></div></div>
+<div class="ttc" id="namespaceattributes_1_1_attribute_factory_html_a2f02b7a90f3a1786f221aff72420eba5"><div class="ttname"><a href="namespaceattributes_1_1_attribute_factory.html#a2f02b7a90f3a1786f221aff72420eba5">attributes.AttributeFactory.get</a></div><div class="ttdeci">def get</div><div class="ttdef"><b>Definition:</b> <a href="_attribute_factory_8py_source.html#l00012">AttributeFactory.py:12</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_1eeb56e1270a72a2bb3256479a9fd717.html">learning_by_imitation</a></li><li class="navelem"><a class="el" href="dir_1fa9b325c3ee0c04934a471c7f078f26.html">scripts</a></li><li class="navelem"><a class="el" href="dir_42a458834a7875d6a180686e1b98b3f7.html">atributos</a></li><li class="navelem"><a class="el" href="_attribute_factory_8py.html">AttributeFactory.py</a></li>
-    <li class="footer">Generado el Lunes, 25 de Abril de 2016 23:00:22 para Proyecto de grado por
+    <li class="navelem"><a class="el" href="dir_1eeb56e1270a72a2bb3256479a9fd717.html">learning_by_imitation</a></li><li class="navelem"><a class="el" href="dir_1fa9b325c3ee0c04934a471c7f078f26.html">scripts</a></li><li class="navelem"><a class="el" href="dir_0785d29950645e876e75fb438b2145ab.html">attributes</a></li><li class="navelem"><a class="el" href="_attribute_factory_8py.html">AttributeFactory.py</a></li>
+    <li class="footer">Generado el Domingo, 1 de Mayo de 2016 20:50:29 para Proyecto de grado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

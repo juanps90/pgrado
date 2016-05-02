@@ -11,7 +11,7 @@ import LoadBehavior
 
 
 
-from atributos import SensorFactory
+from attributes import SensorFactory
 
 # paquete donde se encuentran los archivo py
 pkg = "learning_by_imitation"

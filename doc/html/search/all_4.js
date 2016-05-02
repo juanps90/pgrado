@@ -20,6 +20,6 @@ var searchData=
   ['dicnodocomp',['dicNodoComp',['../namespace_master.html#a4864267884cb47babb1102cc76754eef',1,'Master']]],
   ['dicnodoparam',['dicNodoParam',['../namespace_master.html#a3258ec48cb507365a491496adbf2b9e0',1,'Master']]],
   ['dicpostcondicion',['dicPostCondicion',['../namespace_init.html#a57771871775d4b5acb020b58ccfdd283',1,'Init']]],
-  ['distance',['Distance',['../classatributos_1_1_distance_1_1_distance.html',1,'atributos::Distance']]],
+  ['distance',['Distance',['../classattributes_1_1_distance_1_1_distance.html',1,'attributes::Distance']]],
   ['distance_2epy',['Distance.py',['../_distance_8py.html',1,'']]]
 ];

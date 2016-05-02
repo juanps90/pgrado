@@ -1,7 +1,8 @@
 var namespaces =
 [
     [ "AbstractBehavior", "namespace_abstract_behavior.html", null ],
-    [ "atributos", "namespaceatributos.html", "namespaceatributos" ],
+    [ "Angle", "namespace_angle.html", null ],
+    [ "attributes", "namespaceattributes.html", "namespaceattributes" ],
     [ "Const", "namespace_const.html", null ],
     [ "Forward", "namespace_forward.html", null ],
     [ "GoTo", "namespace_go_to.html", null ],

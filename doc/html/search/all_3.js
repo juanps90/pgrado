@@ -8,7 +8,7 @@ var searchData=
   ['cargardatos',['cargarDatos',['../namespace_master.html#a31b80a3eaafbf342b1d642f08880d56b',1,'Master']]],
   ['cargarestructuras',['cargarEstructuras',['../namespace_l_c_s.html#ad44f5a298011a770be43a4ec46573600',1,'LCS']]],
   ['changetime',['changeTime',['../class_go_to_1_1_go_to.html#a043eb6233a8966985e43748e8af771c6',1,'GoTo.GoTo.changeTime()'],['../class_locate_1_1_locate.html#a60cb69ef7d0cc562d9cd84f0a762be34',1,'Locate.Locate.changeTime()']]],
-  ['color',['Color',['../classatributos_1_1_color_1_1_color.html',1,'atributos::Color']]],
+  ['color',['Color',['../classattributes_1_1_color_1_1_color.html',1,'attributes::Color']]],
   ['color_2epy',['Color.py',['../_color_8py.html',1,'']]],
   ['colorear',['colorear',['../namespace_l_c_s.html#a8be383737564c5f7a35ea919564a28b0',1,'LCS']]],
   ['colorvalido',['colorValido',['../class_forward_1_1_forward.html#a33d5db1afaee6a81d5fcc28b5408ffeb',1,'Forward.Forward.colorValido()'],['../class_go_to_1_1_go_to.html#aebe7980900cc627841ce1a1d09d9f78b',1,'GoTo.GoTo.colorValido()'],['../class_locate_1_1_locate.html#a9d76f0230786cb814c3bb7c43802d243',1,'Locate.Locate.colorValido()']]],
