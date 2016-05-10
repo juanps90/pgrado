@@ -1,6 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+##
+# @package Attribute
+# @brief ----
+# @details ----
+# @authors Gustavo Irigoyen
+# @authors Juan Pablo Sierra
+# @authors Juan Eliel Ibarra
+# @authors Gustavo Evovlockas
+# @date Abril 2016
+#
+
 from abc import ABCMeta, abstractmethod
 
 class Attribute:

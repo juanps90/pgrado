@@ -109,100 +109,137 @@ $(document).ready(function(){initNavTree('_const_8py_source.html','');});
 <a href="_const_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespace_const.html">    1</a></span>&#160;<span class="comment">#!/usr/bin/env python</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"># -*- coding: utf-8 -*-</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">#------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"># --------------------------- General use constants --------------------------</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">#------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"># </span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"># Environment variables, important folder and file names</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="namespace_const.html#a24c5474cd7e20f847085f2d936e07965">   10</a></span>&#160;PGRADO_HOME = <span class="stringliteral">&#39;/home/viki/pgrado&#39;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="namespace_const.html#a59fb9f5a04c5e4b47efbffb661460071">   11</a></span>&#160;PERSIT_FOLDER_NAME = <span class="stringliteral">&#39;persist&#39;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="namespace_const.html#af3b9983e91cc2bf2d4f87c39ab64ed93">   12</a></span>&#160;CONFIG_FOLDER_NAME = <span class="stringliteral">&#39;config&#39;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="namespace_const.html#a24ecff17a6e566c93e0d445b3ce929ff">   13</a></span>&#160;CONFIG_XML_NAME = <span class="stringliteral">&#39;parametros&#39;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment"># Color codification used by sensors</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="namespace_const.html#a3df6f015eaa7064b0868c33c77ad9518">   16</a></span>&#160;SENSOR_COLOR_DETECT_NONE = -1</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="namespace_const.html#a3aa47f6fe2928ea973807f32681f8a89">   17</a></span>&#160;SENSOR_COLOR_DETECT_BLACK = 0</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="namespace_const.html#ac034c59cdb3f22d1c7d3197351a46b6b">   18</a></span>&#160;SENSOR_COLOR_DETECT_WHITE = 1</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="namespace_const.html#a6d59810199556c44528739d48f3e8060">   19</a></span>&#160;SENSOR_COLOR_DETECT_ORANGE = 2</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="namespace_const.html#a25e70012e67fcfa01addc5a3f1a28e70">   20</a></span>&#160;SENSOR_COLOR_DETECT_YELLOW = 3</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="namespace_const.html#a9c7d2da5b8342382a2d41a348b3be3ef">   21</a></span>&#160;SENSOR_COLOR_DETECT_GREEN = 4</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="namespace_const.html#a9eb97167b751e38d98672f3bc67ea838">   22</a></span>&#160;SENSOR_COLOR_DETECT_RED = 5</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="namespace_const.html#afd216d70e36bbb343058e444fe4a8555">   23</a></span>&#160;SENSOR_COLOR_DETECT_BLUE = 6</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"># sensors&#39; id</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="namespace_const.html#aa1851743d9f7ba8c4b39c4243620cab7">   26</a></span>&#160;SENSOR_COLOR_DETECT_LINE_ID = 0</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="namespace_const.html#a99fc2d240c593ed047c584cad781354f">   27</a></span>&#160;SENSOR_NOSE_ULTRASONIC_ID = 1</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="namespace_const.html#ac9bddc9350da6edb36b8263fb7b505dc">   28</a></span>&#160;SENSOR_VISION_HEAD_ID = 2</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment"># commands&#39; id</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="namespace_const.html#a4a75715a46f7e5555b4ddde6587b377d">   31</a></span>&#160;COMMAND_INIT_LEARNING = 1</div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="namespace_const.html#a66d9bb1612cbdcdcf533cde6ffe4f90a">   32</a></span>&#160;COMMAND_END_LEARNING = 2</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="namespace_const.html#a9fa56d3429f1c81ccfa71e596ca5db40">   33</a></span>&#160;COMMAND_PLAY = 3</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="namespace_const.html#a580f3f8a5affac0e679908c3997efb08">   34</a></span>&#160;COMMAND_STOP = 4</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="namespace_const.html#a2edc39a7a825242ca4bbdf0519dfd656">   35</a></span>&#160;COMMAND_BAD = 5</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="namespace_const.html#a858929e02a2c02b99c50135ad58ede14">   36</a></span>&#160;RED_CALIBRATE = 7</div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="namespace_const.html#a03944fd3ff54fc0881b020972baf9312">   37</a></span>&#160;GREEN_CALIBRATE=8</div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="namespace_const.html#a4df529d1988afac154a6afd78bc36ccd">   38</a></span>&#160;BLUE_CALIBRATE=9</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="namespace_const.html#a562caa2040d68706077cddef9c980e48">   39</a></span>&#160;ORANGE_CALIBRATE=10</div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="namespace_const.html#a6124710d941c86e3c3e3eef242d1c9eb">   40</a></span>&#160;YELLOW_CALIBRATE=11</div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="namespace_const.html#a794c01e97affdb3e28e98d0176c0fcc0">   41</a></span>&#160;END_CALIBRATE=12</div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="namespace_const.html#acff04544779e3b5ba88dfc40b78d223d">   42</a></span>&#160;COMMAND_COME = 13</div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="namespace_const.html#ad43c344dbcd908afe1c1a6d4427512bb">   43</a></span>&#160;COMMAND_GO = 14</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="namespace_const.html#a2debc5a6608dc2f19dd909bc111e6ed7">   44</a></span>&#160;COMMAND_EXIT = 15</div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="namespace_const.html#acba7392a72d93b74e82660764a36b0c0">   45</a></span>&#160;COMMAND_HERE = 16</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment"># link types </span></div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="namespace_const.html#ae2dedbc364f0b8d3d5a9a262e78b6623">   48</a></span>&#160;LINK_ORD = 0 </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="namespace_const.html#a2cc08c45c163b9c465aedfefd2f96ebc">   49</a></span>&#160;LINK_ENA = 1 </div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="namespace_const.html#a8b1ab10b446fca561c9d302a2b441aaf">   50</a></span>&#160;LINK_PRM = 2</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">#------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">#-------------------------- Script specific constats --------------------------</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">#------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment"># &gt;&gt; Constants used on master.py script &lt;&lt;</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="namespace_const.html#a3ade9f4769010b3139917adca506eced">   58</a></span>&#160;debugMaestro = 1 <span class="comment"># for debugging set this variable to 1 (0 turns-off debugging)</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keywordflow">if</span> debugMaestro == 1:</div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="namespace_const.html#ae4ce99d46ea9f5d652b4d19e4d417f5f">   60</a></span>&#160;    EPSILON = 5000 <span class="comment"># Used for link creation with debugging</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    EPSILON = 500 <span class="comment"># Used for link creation without debugging</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">#------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment"># &gt;&gt; Constants used on Inputs.py script &lt;&lt;</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="namespace_const.html#ad07d3f0b3e950e66c7bd5808e06e2cb6">   68</a></span>&#160;debugInputs = 1 <span class="comment"># for debugging set this variable to 1 (0 turns-off debugging)</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">#------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment"># &gt;&gt; Constants used on Outputs.py script &lt;&lt;</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="namespace_const.html#a9be51dfc7fb824232df3cdd1080fafeb">   74</a></span>&#160;debugMotores = 1 <span class="comment"># for debugging set this variable to 1 (0 turns-off debugging)</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">#------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment"># &gt;&gt; Constants used on LoadXML.py and SaveXML scripts &lt;&lt;</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment"># XML sections&#39; tags</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="namespace_const.html#aca8b104da015804d7b846b9a3ff125e8">   81</a></span>&#160;SECCION_NODOS = <span class="stringliteral">&#39;nodos&#39;</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="namespace_const.html#aa3b39f3c5b43177dfafbd7d95697f6a1">   82</a></span>&#160;SECCION_PARAMETROS = <span class="stringliteral">&#39;parametros&#39;</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="namespace_const.html#acf247536cf19bfbf0c57d17fd2e736c9">   83</a></span>&#160;SECCION_TOPOLOGIA = <span class="stringliteral">&#39;topologia&#39;</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="namespace_const.html#afe2e1be401274005de3b4b2efc37d311">   84</a></span>&#160;SECCION_NETWORK = <span class="stringliteral">&#39;network&#39;</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="namespace_const.html#ac94152d3a25106c43a9ff5ead32fefec">   85</a></span>&#160;SECCION_COLORES = <span class="stringliteral">&#39;colores&#39;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">##</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"># @package Const</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"># @brief Contiene un conjunto de constantes.</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"># @details Contiene un conjunto de constantes. La idea es que estos valores sean fijos y no se modifiquen dinamicamente.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"># @authors Gustavo Irigoyen</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"># @authors Juan Pablo Sierra</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"># @authors Juan Eliel Ibarra</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"># @authors Gustavo Evovlockas</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"># @date Abril 2016</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">## Path por defecto en donde se encuentra la aplicación</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="namespace_const.html#a24c5474cd7e20f847085f2d936e07965">   16</a></span>&#160;PGRADO_HOME = <span class="stringliteral">&#39;/home/viki/pgrado&#39;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">## Carpeta en donde se guardan los archivos XML de aprendizajes</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="namespace_const.html#a59fb9f5a04c5e4b47efbffb661460071">   18</a></span>&#160;PERSIT_FOLDER_NAME = <span class="stringliteral">&#39;persist&#39;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">## Carpeta en donde se guarda el archivo XML de configuración</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="namespace_const.html#af3b9983e91cc2bf2d4f87c39ab64ed93">   20</a></span>&#160;CONFIG_FOLDER_NAME = <span class="stringliteral">&#39;config&#39;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">## Valor del nombre por defecto con el que se guarda el archivo de configuración</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="namespace_const.html#a24ecff17a6e566c93e0d445b3ce929ff">   22</a></span>&#160;CONFIG_XML_NAME = <span class="stringliteral">&#39;parametros&#39;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">## Indentificado de un color no detectable.</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="namespace_const.html#a3df6f015eaa7064b0868c33c77ad9518">   26</a></span>&#160;SENSOR_COLOR_DETECT_NONE = -1</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">## Identificador del color negro.</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="namespace_const.html#a3aa47f6fe2928ea973807f32681f8a89">   28</a></span>&#160;SENSOR_COLOR_DETECT_BLACK = 0</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">## Identificador del color blanco.</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="namespace_const.html#ac034c59cdb3f22d1c7d3197351a46b6b">   30</a></span>&#160;SENSOR_COLOR_DETECT_WHITE = 1</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">## Identificador del color anaranjado.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="namespace_const.html#a6d59810199556c44528739d48f3e8060">   32</a></span>&#160;SENSOR_COLOR_DETECT_ORANGE = 2</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">## Identificador del color amarillo.</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="namespace_const.html#a25e70012e67fcfa01addc5a3f1a28e70">   34</a></span>&#160;SENSOR_COLOR_DETECT_YELLOW = 3</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">## Identificador del color verde.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="namespace_const.html#a9c7d2da5b8342382a2d41a348b3be3ef">   36</a></span>&#160;SENSOR_COLOR_DETECT_GREEN = 4</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">## Identificador del color rojo.</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="namespace_const.html#a9eb97167b751e38d98672f3bc67ea838">   38</a></span>&#160;SENSOR_COLOR_DETECT_RED = 5</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">## Identificador del color azul.</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="namespace_const.html#afd216d70e36bbb343058e444fe4a8555">   40</a></span>&#160;SENSOR_COLOR_DETECT_BLUE = 6</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">## Identificador de los sensores de detección de color que apuntan al suelo.</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="namespace_const.html#aa1851743d9f7ba8c4b39c4243620cab7">   43</a></span>&#160;SENSOR_COLOR_DETECT_LINE_ID = 0</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">## Identificador del sensor de ultrasonido usado para detectar distancias.</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="namespace_const.html#a99fc2d240c593ed047c584cad781354f">   45</a></span>&#160;SENSOR_NOSE_ULTRASONIC_ID = 1</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">## Identificador de la camara usada como sensor de vision.</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="namespace_const.html#ac9bddc9350da6edb36b8263fb7b505dc">   47</a></span>&#160;SENSOR_VISION_HEAD_ID = 2</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">## Identificador del comando de inicio del aprendizaje.</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="namespace_const.html#a4a75715a46f7e5555b4ddde6587b377d">   49</a></span>&#160;COMMAND_INIT_LEARNING = 1</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">## Identificador del comando de fin del aprendizaje.</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="namespace_const.html#a66d9bb1612cbdcdcf533cde6ffe4f90a">   51</a></span>&#160;COMMAND_END_LEARNING = 2</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">## Identificador del comando de inicio de reporducción de un aprendizaje.</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="namespace_const.html#a9fa56d3429f1c81ccfa71e596ca5db40">   53</a></span>&#160;COMMAND_PLAY = 3</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">## Identificador del comando de fin de reporducción de un aprendizaje.</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="namespace_const.html#a580f3f8a5affac0e679908c3997efb08">   55</a></span>&#160;COMMAND_STOP = 4</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">## Identificador del comando BAD para indicar al robot que lo que hace esta mal.</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="namespace_const.html#a2edc39a7a825242ca4bbdf0519dfd656">   57</a></span>&#160;COMMAND_BAD = 5</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">## Identificador del comando de calibración del color rojo.</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="namespace_const.html#a858929e02a2c02b99c50135ad58ede14">   59</a></span>&#160;RED_CALIBRATE = 7</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">## Identificador del comando de calibración del color verde.</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="namespace_const.html#a03944fd3ff54fc0881b020972baf9312">   61</a></span>&#160;GREEN_CALIBRATE=8</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">## Identificador del comando de calibración del color azul.</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="namespace_const.html#a4df529d1988afac154a6afd78bc36ccd">   63</a></span>&#160;BLUE_CALIBRATE=9</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">## Identificador del comando de calibración del color anaranjado.</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="namespace_const.html#a562caa2040d68706077cddef9c980e48">   65</a></span>&#160;ORANGE_CALIBRATE=10</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">## Identificador del comando de calibración del color amarillo.</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="namespace_const.html#a6124710d941c86e3c3e3eef242d1c9eb">   67</a></span>&#160;YELLOW_CALIBRATE=11</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">## Identificador del comando de fin de calibración.</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="namespace_const.html#a794c01e97affdb3e28e98d0176c0fcc0">   69</a></span>&#160;END_CALIBRATE=12</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">## Identificador del comando COME.</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="namespace_const.html#acff04544779e3b5ba88dfc40b78d223d">   71</a></span>&#160;COMMAND_COME = 13</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">## Identificador del comando GO.</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="namespace_const.html#ad43c344dbcd908afe1c1a6d4427512bb">   73</a></span>&#160;COMMAND_GO = 14</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">## Identificador del comando salir.</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="namespace_const.html#a2debc5a6608dc2f19dd909bc111e6ed7">   75</a></span>&#160;COMMAND_EXIT = 15</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">## Identificador del comando HERE.</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="namespace_const.html#acba7392a72d93b74e82660764a36b0c0">   77</a></span>&#160;COMMAND_HERE = 16</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">## Identificador del tipo de link de orden.</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="namespace_const.html#ae2dedbc364f0b8d3d5a9a262e78b6623">   80</a></span>&#160;LINK_ORD = 0 </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">## Identificador del tipo de link de habilitación.</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="namespace_const.html#a2cc08c45c163b9c465aedfefd2f96ebc">   82</a></span>&#160;LINK_ENA = 1 </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">## Identificador del tipo de link de permanencia.</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="namespace_const.html#a8b1ab10b446fca561c9d302a2b441aaf">   84</a></span>&#160;LINK_PRM = 2</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment"># Attribute types</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="namespace_const.html#a550297f076bb052cc0941f3f430ca532">   88</a></span>&#160;ATR_COLOR = 1</div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="namespace_const.html#a3547a8ef8b009e270897e3c835f25c3a">   89</a></span>&#160;ATR_DIST  = 2</div>
-<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="namespace_const.html#a5e0a44d4ce3ee83ad96eb53a74159458">   90</a></span>&#160;ATR_ANGLE = 3</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">#------------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">#-------------------------- Script specific constats --------------------------</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">#------------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment"># &gt;&gt; Constants used on master.py script &lt;&lt;</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="namespace_const.html#a3ade9f4769010b3139917adca506eced">   93</a></span>&#160;debugMaestro = 1 <span class="comment"># for debugging set this variable to 1 (0 turns-off debugging)</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keywordflow">if</span> debugMaestro == 1:</div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="namespace_const.html#ae4ce99d46ea9f5d652b4d19e4d417f5f">   95</a></span>&#160;    EPSILON = 5000 <span class="comment"># Used for link creation with debugging</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    EPSILON = 500 <span class="comment"># Used for link creation without debugging</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment">#------------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment"># &gt;&gt; Constants used on Inputs.py script &lt;&lt;</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="namespace_const.html#ad07d3f0b3e950e66c7bd5808e06e2cb6">  103</a></span>&#160;debugInputs = 1 <span class="comment"># for debugging set this variable to 1 (0 turns-off debugging)</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">#------------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment"># &gt;&gt; Constants used on Outputs.py script &lt;&lt;</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="namespace_const.html#a9be51dfc7fb824232df3cdd1080fafeb">  109</a></span>&#160;debugMotores = 1 <span class="comment"># for debugging set this variable to 1 (0 turns-off debugging)</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">#------------------------------------------------------------------------------</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment"># &gt;&gt; Constants used on LoadXML.py and SaveXML scripts &lt;&lt;</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment"># XML sections&#39; tags</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="namespace_const.html#aca8b104da015804d7b846b9a3ff125e8">  116</a></span>&#160;SECCION_NODOS = <span class="stringliteral">&#39;nodos&#39;</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="namespace_const.html#aa3b39f3c5b43177dfafbd7d95697f6a1">  117</a></span>&#160;SECCION_PARAMETROS = <span class="stringliteral">&#39;parametros&#39;</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="namespace_const.html#acf247536cf19bfbf0c57d17fd2e736c9">  118</a></span>&#160;SECCION_TOPOLOGIA = <span class="stringliteral">&#39;topologia&#39;</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="namespace_const.html#afe2e1be401274005de3b4b2efc37d311">  119</a></span>&#160;SECCION_NETWORK = <span class="stringliteral">&#39;network&#39;</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="namespace_const.html#ac94152d3a25106c43a9ff5ead32fefec">  120</a></span>&#160;SECCION_COLORES = <span class="stringliteral">&#39;colores&#39;</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment">## Identificador del tipo de atributo color</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="namespace_const.html#a550297f076bb052cc0941f3f430ca532">  123</a></span>&#160;ATR_COLOR = 1</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">## Identificador del tipo de atributo distancia</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="namespace_const.html#a3547a8ef8b009e270897e3c835f25c3a">  125</a></span>&#160;ATR_DIST  = 2</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">## Identificador del tipo de atributo ángulo</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno"><a class="line" href="namespace_const.html#a5e0a44d4ce3ee83ad96eb53a74159458">  127</a></span>&#160;ATR_ANGLE = 3</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_1eeb56e1270a72a2bb3256479a9fd717.html">learning_by_imitation</a></li><li class="navelem"><a class="el" href="dir_1fa9b325c3ee0c04934a471c7f078f26.html">scripts</a></li><li class="navelem"><a class="el" href="_const_8py.html">Const.py</a></li>
-    <li class="footer">Generado el Domingo, 1 de Mayo de 2016 20:50:29 para Proyecto de grado por
+    <li class="footer">Generado el Lunes, 9 de Mayo de 2016 23:29:52 para Proyecto de grado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['goto',['GoTo',['../namespace_go_to.html',1,'']]]
+  ['distance',['Distance',['../namespace_distance.html',1,'']]]
 ];

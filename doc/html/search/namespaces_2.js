@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['forward',['Forward',['../namespace_forward.html',1,'']]]
+  ['color',['Color',['../namespace_color.html',1,'']]],
+  ['const',['Const',['../namespace_const.html',1,'']]]
 ];

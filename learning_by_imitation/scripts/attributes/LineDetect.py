@@ -1,12 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from attributes import AttributeFactory
-from Sensor import Sensor
-
-import Const
-
-
 ##
 # @package LineDetect
 # @brief Clase LineDetect usada para evaluar similitudes entre valores de sensores de Color.
@@ -18,6 +12,10 @@ import Const
 # @authors Gustavo Evovlockas
 # @date Abril 2016
 #
+
+from attributes import AttributeFactory
+from Sensor import Sensor
+import Const
 
 class LineDetect(Sensor):
     

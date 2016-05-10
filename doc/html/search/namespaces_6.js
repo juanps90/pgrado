@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['master',['Master',['../namespace_master.html',1,'']]]
+  ['headsensor',['HeadSensor',['../namespace_head_sensor.html',1,'']]]
 ];

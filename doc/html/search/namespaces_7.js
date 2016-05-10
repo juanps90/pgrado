@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['outputs',['Outputs',['../namespace_outputs.html',1,'']]]
+  ['init',['Init',['../namespace_init.html',1,'']]],
+  ['inputs',['Inputs',['../namespace_inputs.html',1,'']]]
 ];

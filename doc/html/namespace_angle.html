@@ -108,11 +108,11 @@ $(document).ready(function(){initNavTree('namespace_angle.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>Modulo usado para capturar y procesar los datos enviados desde V-Rep.  
+<p>Clase <a class="el" href="namespace_angle.html" title="Clase Angle usada comparar dos angulos. ">Angle</a> usada comparar dos angulos.  
 <a href="#details">Más...</a></p>
 <a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
-<div class="textblock"><p>Modulo usado para capturar y procesar los datos enviados desde V-Rep. </p>
-<p>V-Rep publica los datos de los sensores en los topicos "/vrep/sensorLineDetectColorData", "/vrep/headSensor" y "/vrep/proximitySensorData". Los datos recibidos de los sensores son procesados y publicados en el topico "topicoSenores" como un String y en el formato DATOS_SENSOR_1|DATOS_SENSOR_2|DATOS_SENSOR_3|.... donde DATOS_SENSOR_N posee el subformato ID_SENSOR#DATO_1#DATO_2#DATO_3#... Como ejemplo supongamos que nuestro robot solo posee un sensor de distancia y uno de color. En esta situacion, en el topoico "topic_sensors" se debe publicar el String ID_SENSOR_DISTANCIA#VALOR_DISTANCIA|ID_SENSOR_COLOR#VALOR_COLOR. Ademas V-Rep pulica datos de comandos ingresados por el usuario en el topico "/vrep/command" y luego estos datos se envian al sistema mediante el topico "topic_command". Esta clase debe ser reimplementada en caso de requerir un robot diferente o real manteniendo el formato de los mensajes que se envien al sistema proveniente de los sensores. </p>
+<div class="textblock"><p>Clase <a class="el" href="namespace_angle.html" title="Clase Angle usada comparar dos angulos. ">Angle</a> usada comparar dos angulos. </p>
+<p>Clase que posee una única función destinada a comparar valores que representan angulos. La clase hereda de <a class="el" href="namespace_attribute.html" title=" ">Attribute</a> la cual posee un valor que será comparado con otro para determinar su similitud. </p>
 <dl class="section author"><dt>Autores</dt><dd>Gustavo Irigoyen </dd>
 <dd>
 Juan Pablo Sierra </dd>
@@ -127,7 +127,7 @@ Gustavo Evovlockas </dd></dl>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespace_angle.html">Angle</a></li>
-    <li class="footer">Generado el Domingo, 1 de Mayo de 2016 20:50:29 para Proyecto de grado por
+    <li class="footer">Generado el Lunes, 9 de Mayo de 2016 23:29:52 para Proyecto de grado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

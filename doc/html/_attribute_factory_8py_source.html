@@ -109,29 +109,40 @@ $(document).ready(function(){initNavTree('_attribute_factory_8py_source.html',''
 <a href="_attribute_factory_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespaceattributes_1_1_attribute_factory.html">    1</a></span>&#160;<span class="comment">#!/usr/bin/env python</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"># -*- coding: utf-8 -*-</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">from</span> Attribute <span class="keyword">import</span> Attribute</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"># -- esta lista tendria que ser dinamica --</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">from</span> Angle <span class="keyword">import</span> Angle</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">from</span> Color <span class="keyword">import</span> Color</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">from</span> Distance <span class="keyword">import</span> Distance</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="namespaceattributes_1_1_attribute_factory.html#a2f02b7a90f3a1786f221aff72420eba5">   12</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespaceattributes_1_1_attribute_factory.html#a2f02b7a90f3a1786f221aff72420eba5">get</a>(sensor_id, value):</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    gen = (subclass <span class="keywordflow">for</span> subclass <span class="keywordflow">in</span> Attribute.__subclasses__() <span class="keywordflow">if</span> subclass.ATT_ID == sensor_id)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    subclass = next(gen, <span class="keywordtype">None</span>)</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">if</span> subclass <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keywordflow">raise</span> ValueError(<span class="stringliteral">&quot;No matching attribute&quot;</span>)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    new_obj = subclass(value)</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">return</span> new_obj</div>
-<div class="ttc" id="namespaceattributes_1_1_attribute_factory_html_a2f02b7a90f3a1786f221aff72420eba5"><div class="ttname"><a href="namespaceattributes_1_1_attribute_factory.html#a2f02b7a90f3a1786f221aff72420eba5">attributes.AttributeFactory.get</a></div><div class="ttdeci">def get</div><div class="ttdef"><b>Definition:</b> <a href="_attribute_factory_8py_source.html#l00012">AttributeFactory.py:12</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">##</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"># @package AttributeFactory</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"># @brief ----</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"># @details ----</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"># @authors Gustavo Irigoyen</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"># @authors Juan Pablo Sierra</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"># @authors Juan Eliel Ibarra</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"># @authors Gustavo Evovlockas</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"># @date Abril 2016</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">from</span> Attribute <span class="keyword">import</span> Attribute</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment"># -- esta lista tendria que ser dinamica --</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">from</span> Angle <span class="keyword">import</span> Angle</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">from</span> Color <span class="keyword">import</span> Color</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">from</span> Distance <span class="keyword">import</span> Distance</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="namespaceattributes_1_1_attribute_factory.html#a2f02b7a90f3a1786f221aff72420eba5">   23</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespaceattributes_1_1_attribute_factory.html#a2f02b7a90f3a1786f221aff72420eba5">get</a>(sensor_id, value):</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    gen = (subclass <span class="keywordflow">for</span> subclass <span class="keywordflow">in</span> Attribute.__subclasses__() <span class="keywordflow">if</span> subclass.ATT_ID == sensor_id)</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    subclass = next(gen, <span class="keywordtype">None</span>)</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">if</span> subclass <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">raise</span> ValueError(<span class="stringliteral">&quot;No matching attribute&quot;</span>)</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    new_obj = subclass(value)</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">return</span> new_obj</div>
+<div class="ttc" id="namespaceattributes_1_1_attribute_factory_html_a2f02b7a90f3a1786f221aff72420eba5"><div class="ttname"><a href="namespaceattributes_1_1_attribute_factory.html#a2f02b7a90f3a1786f221aff72420eba5">attributes.AttributeFactory.get</a></div><div class="ttdeci">def get</div><div class="ttdef"><b>Definition:</b> <a href="_attribute_factory_8py_source.html#l00023">AttributeFactory.py:23</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_1eeb56e1270a72a2bb3256479a9fd717.html">learning_by_imitation</a></li><li class="navelem"><a class="el" href="dir_1fa9b325c3ee0c04934a471c7f078f26.html">scripts</a></li><li class="navelem"><a class="el" href="dir_0785d29950645e876e75fb438b2145ab.html">attributes</a></li><li class="navelem"><a class="el" href="_attribute_factory_8py.html">AttributeFactory.py</a></li>
-    <li class="footer">Generado el Domingo, 1 de Mayo de 2016 20:50:29 para Proyecto de grado por
+    <li class="footer">Generado el Lunes, 9 de Mayo de 2016 23:29:52 para Proyecto de grado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

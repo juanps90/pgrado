@@ -109,33 +109,44 @@ $(document).ready(function(){initNavTree('_attribute_8py_source.html','');});
 <a href="_attribute_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespaceattributes_1_1_attribute.html">    1</a></span>&#160;<span class="comment">#!/usr/bin/env python</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"># -*- coding: utf-8 -*-</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">from</span> abc <span class="keyword">import</span> ABCMeta, abstractmethod</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div>
-<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="classattributes_1_1_attribute_1_1_attribute.html">    6</a></span>&#160;<span class="keyword">class </span><a class="code" href="classattributes_1_1_attribute_1_1_attribute.html">Attribute</a>:</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Clase base de Comportamiento Abstracto&quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    __metaclass__ = ABCMeta</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Evalua las postcondiciones del comportamiento abstracto&quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    @abstractmethod</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classattributes_1_1_attribute_1_1_attribute.html#a82c575a7afdae558762ca529bf43bbba">   12</a></span>&#160;    <span class="keyword">def </span><a class="code" href="classattributes_1_1_attribute_1_1_attribute.html#a82c575a7afdae558762ca529bf43bbba">similar</a>(preconds):</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="keywordflow">pass</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Parametriza el comportamiento abstracto a partir de las condiciones&quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classattributes_1_1_attribute_1_1_attribute.html#a7f3e84029842a60d474de33f825e16d3">   16</a></span>&#160;    <span class="keyword">def </span><a class="code" href="classattributes_1_1_attribute_1_1_attribute.html#a7f3e84029842a60d474de33f825e16d3">__init__</a>(self, valor):</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classattributes_1_1_attribute_1_1_attribute.html#a8df99bb6cb1bb0aed97fa1620a186940">   17</a></span>&#160;        self.<a class="code" href="classattributes_1_1_attribute_1_1_attribute.html#a8df99bb6cb1bb0aed97fa1620a186940">valor</a> = valor</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  </div>
-<div class="ttc" id="classattributes_1_1_attribute_1_1_attribute_html_a7f3e84029842a60d474de33f825e16d3"><div class="ttname"><a href="classattributes_1_1_attribute_1_1_attribute.html#a7f3e84029842a60d474de33f825e16d3">attributes.Attribute.Attribute.__init__</a></div><div class="ttdeci">def __init__</div><div class="ttdef"><b>Definition:</b> <a href="_attribute_8py_source.html#l00016">Attribute.py:16</a></div></div>
-<div class="ttc" id="classattributes_1_1_attribute_1_1_attribute_html"><div class="ttname"><a href="classattributes_1_1_attribute_1_1_attribute.html">attributes.Attribute.Attribute</a></div><div class="ttdef"><b>Definition:</b> <a href="_attribute_8py_source.html#l00006">Attribute.py:6</a></div></div>
-<div class="ttc" id="classattributes_1_1_attribute_1_1_attribute_html_a8df99bb6cb1bb0aed97fa1620a186940"><div class="ttname"><a href="classattributes_1_1_attribute_1_1_attribute.html#a8df99bb6cb1bb0aed97fa1620a186940">attributes.Attribute.Attribute.valor</a></div><div class="ttdeci">valor</div><div class="ttdef"><b>Definition:</b> <a href="_attribute_8py_source.html#l00017">Attribute.py:17</a></div></div>
-<div class="ttc" id="classattributes_1_1_attribute_1_1_attribute_html_a82c575a7afdae558762ca529bf43bbba"><div class="ttname"><a href="classattributes_1_1_attribute_1_1_attribute.html#a82c575a7afdae558762ca529bf43bbba">attributes.Attribute.Attribute.similar</a></div><div class="ttdeci">def similar</div><div class="ttdef"><b>Definition:</b> <a href="_attribute_8py_source.html#l00012">Attribute.py:12</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">##</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"># @package Attribute</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"># @brief ----</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"># @details ----</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"># @authors Gustavo Irigoyen</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"># @authors Juan Pablo Sierra</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"># @authors Juan Eliel Ibarra</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"># @authors Gustavo Evovlockas</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"># @date Abril 2016</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">from</span> abc <span class="keyword">import</span> ABCMeta, abstractmethod</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classattributes_1_1_attribute_1_1_attribute.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="classattributes_1_1_attribute_1_1_attribute.html">Attribute</a>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Clase base de Comportamiento Abstracto&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    __metaclass__ = ABCMeta</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Evalua las postcondiciones del comportamiento abstracto&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    @abstractmethod</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classattributes_1_1_attribute_1_1_attribute.html#a82c575a7afdae558762ca529bf43bbba">   23</a></span>&#160;    <span class="keyword">def </span><a class="code" href="classattributes_1_1_attribute_1_1_attribute.html#a82c575a7afdae558762ca529bf43bbba">similar</a>(preconds):</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">pass</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Parametriza el comportamiento abstracto a partir de las condiciones&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classattributes_1_1_attribute_1_1_attribute.html#a7f3e84029842a60d474de33f825e16d3">   27</a></span>&#160;    <span class="keyword">def </span><a class="code" href="classattributes_1_1_attribute_1_1_attribute.html#a7f3e84029842a60d474de33f825e16d3">__init__</a>(self, valor):</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classattributes_1_1_attribute_1_1_attribute.html#a8df99bb6cb1bb0aed97fa1620a186940">   28</a></span>&#160;        self.<a class="code" href="classattributes_1_1_attribute_1_1_attribute.html#a8df99bb6cb1bb0aed97fa1620a186940">valor</a> = valor</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  </div>
+<div class="ttc" id="classattributes_1_1_attribute_1_1_attribute_html_a7f3e84029842a60d474de33f825e16d3"><div class="ttname"><a href="classattributes_1_1_attribute_1_1_attribute.html#a7f3e84029842a60d474de33f825e16d3">attributes.Attribute.Attribute.__init__</a></div><div class="ttdeci">def __init__</div><div class="ttdef"><b>Definition:</b> <a href="_attribute_8py_source.html#l00027">Attribute.py:27</a></div></div>
+<div class="ttc" id="classattributes_1_1_attribute_1_1_attribute_html"><div class="ttname"><a href="classattributes_1_1_attribute_1_1_attribute.html">attributes.Attribute.Attribute</a></div><div class="ttdef"><b>Definition:</b> <a href="_attribute_8py_source.html#l00017">Attribute.py:17</a></div></div>
+<div class="ttc" id="classattributes_1_1_attribute_1_1_attribute_html_a8df99bb6cb1bb0aed97fa1620a186940"><div class="ttname"><a href="classattributes_1_1_attribute_1_1_attribute.html#a8df99bb6cb1bb0aed97fa1620a186940">attributes.Attribute.Attribute.valor</a></div><div class="ttdeci">valor</div><div class="ttdef"><b>Definition:</b> <a href="_attribute_8py_source.html#l00028">Attribute.py:28</a></div></div>
+<div class="ttc" id="classattributes_1_1_attribute_1_1_attribute_html_a82c575a7afdae558762ca529bf43bbba"><div class="ttname"><a href="classattributes_1_1_attribute_1_1_attribute.html#a82c575a7afdae558762ca529bf43bbba">attributes.Attribute.Attribute.similar</a></div><div class="ttdeci">def similar</div><div class="ttdef"><b>Definition:</b> <a href="_attribute_8py_source.html#l00023">Attribute.py:23</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_1eeb56e1270a72a2bb3256479a9fd717.html">learning_by_imitation</a></li><li class="navelem"><a class="el" href="dir_1fa9b325c3ee0c04934a471c7f078f26.html">scripts</a></li><li class="navelem"><a class="el" href="dir_0785d29950645e876e75fb438b2145ab.html">attributes</a></li><li class="navelem"><a class="el" href="_attribute_8py.html">Attribute.py</a></li>
-    <li class="footer">Generado el Domingo, 1 de Mayo de 2016 20:50:29 para Proyecto de grado por
+    <li class="footer">Generado el Lunes, 9 de Mayo de 2016 23:29:52 para Proyecto de grado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

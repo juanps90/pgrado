@@ -1,6 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+##
+# @package LoadXML
+# @brief ----
+# @details ----
+# @authors Gustavo Irigoyen
+# @authors Juan Pablo Sierra
+# @authors Juan Eliel Ibarra
+# @authors Gustavo Evovlockas
+# @date Abril 2016
+#
+
 import os
 import Const
 from lxml import etree, objectify, builder

@@ -1,4 +1,8 @@
 var searchData=
 [
-  ['savexml',['SaveXML',['../namespace_save_x_m_l.html',1,'']]]
+  ['lcs',['LCS',['../namespace_l_c_s.html',1,'']]],
+  ['linedetect',['LineDetect',['../namespace_line_detect.html',1,'']]],
+  ['loadbehavior',['LoadBehavior',['../namespace_load_behavior.html',1,'']]],
+  ['loadxml',['LoadXML',['../namespace_load_x_m_l.html',1,'']]],
+  ['locate',['Locate',['../namespace_locate.html',1,'']]]
 ];

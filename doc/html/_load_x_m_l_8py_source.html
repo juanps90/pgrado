@@ -109,119 +109,130 @@ $(document).ready(function(){initNavTree('_load_x_m_l_8py_source.html','');});
 <a href="_load_x_m_l_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespace_load_x_m_l.html">    1</a></span>&#160;<span class="comment">#!/usr/bin/env python</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"># -*- coding: utf-8 -*-</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">import</span> os</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">import</span> Const</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">from</span> lxml <span class="keyword">import</span> etree, objectify, builder</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">import</span> fnmatch</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">#   obtener_definicion</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">#   Esta funcion devuelve toda la generalizacion de una tarea (identificada por el nombre &quot;proceso&quot;)</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">#   obtener_definicion(proceso=String, idGrafo=int) -&gt; [errores, DiccionarioNodos, DiccionarioParams, topologico, networkCmp]</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">#          errores = cantidad de errores encontrados (0 todo OK)</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">#       DiccionarioNodos = {int:string,...} = {idNodo:idComportamiento,...} </span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">#          DiccionarioParams = {int:{int:[float32,...]},...} = {idNodo:{idSensor:[valorParam,...]},...}</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">#       topologico = [(int,int),...] = [(idNodoIni,idNodoFin),...]</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">#       networkCmp = [(int,int,int),...] = [(idNodoIni,idNodoFin,idTipoLink),...]</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="namespace_load_x_m_l.html#abe90770e2e16e83073127ed7d7cd6388">   20</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespace_load_x_m_l.html#abe90770e2e16e83073127ed7d7cd6388">obtenerGrafo</a>(proceso):    </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    os.environ[<span class="stringliteral">&quot;pgrado_HOME&quot;</span>] = Const.PGRADO_HOME   </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="comment">#</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    errores = 0</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    nodos = {}</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    parametros = {}</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    topologia = []</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    networkDef = []    </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">if</span> len(fnmatch.filter(os.listdir(<span class="stringliteral">&#39;{0}/{1}&#39;</span>.format(os.getenv(<span class="stringliteral">&#39;pgrado_HOME&#39;</span>, <span class="stringliteral">&#39;#N/A&#39;</span>), Const.PERSIT_FOLDER_NAME)), <span class="stringliteral">&#39;{0}_0.xml&#39;</span>.format(proceso))) == 0:</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">print</span> <span class="stringliteral">&#39;No se encuentra una generalizacion para la tarea &quot;{0}&quot;.&#39;</span>.format(proceso)</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        errores += 1</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">else</span>:                </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        nombre = <span class="stringliteral">&#39;{0}/{1}/{2}_0.xml&#39;</span>.format(os.getenv(<span class="stringliteral">&#39;pgrado_HOME&#39;</span>, <span class="stringliteral">&#39;#N/A&#39;</span>), Const.PERSIT_FOLDER_NAME, proceso)</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        with open(nombre) <span class="keyword">as</span> f:</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            xml = f.read()</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            f.close()</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        root = objectify.fromstring(xml)</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">for</span> definicion <span class="keywordflow">in</span> root.getchildren():</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keywordflow">if</span> definicion.get(<span class="stringliteral">&quot;seccion&quot;</span>) == Const.SECCION_NODOS:</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                <span class="keywordflow">for</span> nodo <span class="keywordflow">in</span> definicion.getchildren():</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                    aux = [ data.text <span class="keywordflow">for</span> data <span class="keywordflow">in</span> nodo.iterchildren() ]</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                    nodos[int(aux[0])] = aux[1]</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordflow">elif</span> definicion.get(<span class="stringliteral">&quot;seccion&quot;</span>) == Const.SECCION_PARAMETROS:</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                <span class="keywordflow">for</span> r <span class="keywordflow">in</span> definicion.getchildren():</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                    idNodo = int(r.idNodo.text)</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                    params = {}</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                    <span class="keywordflow">print</span> <span class="stringliteral">&#39;idNodo: &#39;</span>, idNodo, <span class="stringliteral">&#39; - Tiene sensor: &#39;</span>, r.find(<span class="stringliteral">&quot;sensor&quot;</span>)</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                    <span class="keywordflow">if</span> r.find(<span class="stringliteral">&quot;sensor&quot;</span>) != <span class="keywordtype">None</span>:</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                        <span class="comment"># Si tiene sensores asociados (puede no tener!)                        </span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                        <span class="keywordflow">for</span> s <span class="keywordflow">in</span> r.sensor:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                            idSensor = int(s.idSensor.text)</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                            aux = [ float(d.text) <span class="keywordflow">for</span> d <span class="keywordflow">in</span> s.Parametros.iterchildren() ] </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                            params[idSensor] = aux</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                    parametros[idNodo] = params   </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keywordflow">elif</span> definicion.get(<span class="stringliteral">&quot;seccion&quot;</span>) == Const.SECCION_TOPOLOGIA:</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                <span class="keywordflow">for</span> linkT <span class="keywordflow">in</span> definicion.getchildren():</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                    aux = [ data.text <span class="keywordflow">for</span> data <span class="keywordflow">in</span> linkT.iterchildren() ]              </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                    topologia.append( (int(aux[0]), int(aux[1])) )</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="keywordflow">elif</span> definicion.get(<span class="stringliteral">&quot;seccion&quot;</span>) == Const.SECCION_NETWORK:           </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                <span class="keywordflow">for</span> linkNL <span class="keywordflow">in</span> definicion.getchildren():</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                    aux = [ data.text <span class="keywordflow">for</span> data <span class="keywordflow">in</span> linkNL.iterchildren() ]              </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                    networkDef.append( (int(aux[0]), int(aux[1]), int(aux[2])) )</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                <span class="keywordflow">print</span> <span class="stringliteral">&#39;Seccion no esperada {0}&#39;</span>.format( definicion.get(<span class="stringliteral">&quot;seccion&quot;</span>))</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                errores += 1</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="comment"># Retorno</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">return</span> [errores, nodos, parametros, topologia, networkDef]</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">#   obtener_definicion</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">#</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="namespace_load_x_m_l.html#a81d7a5d1febde4fd27a0541d4fe2e6fc">   70</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespace_load_x_m_l.html#a81d7a5d1febde4fd27a0541d4fe2e6fc">obtenerConfiguracion</a>(nombreConfiguracion):    </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    os.environ[<span class="stringliteral">&quot;pgrado_HOME&quot;</span>] = Const.PGRADO_HOME   </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    errores = 0</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    colores = {}    </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">if</span> len(fnmatch.filter(os.listdir(<span class="stringliteral">&#39;{0}/{1}&#39;</span>.format(os.getenv(<span class="stringliteral">&#39;pgrado_HOME&#39;</span>, <span class="stringliteral">&#39;#N/A&#39;</span>), Const.CONFIG_FOLDER_NAME)), <span class="stringliteral">&#39;{0}.xml&#39;</span>.format(nombreConfiguracion))) == 0:</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">print</span> <span class="stringliteral">&#39;No se encuentra la calibracion solicitada (&quot;{0}&quot;).&#39;</span>.format(nombreConfiguracion)</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        errores += 1</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">else</span>:      </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        nombre = <span class="stringliteral">&#39;{0}/{1}/{2}.xml&#39;</span>.format(os.getenv(<span class="stringliteral">&#39;pgrado_HOME&#39;</span>, <span class="stringliteral">&#39;#N/A&#39;</span>), Const.CONFIG_FOLDER_NAME, nombreConfiguracion)</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        with open(nombre) <span class="keyword">as</span> f:</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            xml = f.read()</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            f.close()</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        root = objectify.fromstring(xml)</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">for</span> seccion <span class="keywordflow">in</span> root.getchildren():</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            <span class="keywordflow">if</span> seccion.get(<span class="stringliteral">&quot;seccion&quot;</span>) == Const.SECCION_COLORES:</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                <span class="keywordflow">for</span> c <span class="keywordflow">in</span> seccion.getchildren():</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                    idColor = int(c.idColor.text)</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                    RGB = [[ float(rgb.text) <span class="keywordflow">for</span> rgb <span class="keywordflow">in</span> c.minRGB.iterchildren() ], [ float(rgb.text) <span class="keywordflow">for</span> rgb <span class="keywordflow">in</span> c.maxRGB.iterchildren() ]]                    </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                    colores[idColor] = RGB</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordflow">else</span>:</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                <span class="keywordflow">print</span> <span class="stringliteral">&#39;Seccion no esperada {0}&#39;</span>.format( seccion.get(<span class="stringliteral">&quot;seccion&quot;</span>))</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                errores += 1</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="comment">#</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">return</span> [errores, colores]</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keywordflow">if</span> __name__ == <span class="stringliteral">&quot;__main__&quot;</span>:</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&#39;MAIN de cargar xml&#39;</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="comment">#</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="comment">#resultado = obtenerConfiguracion(sys.argv[1])</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="comment">#print &#39;errores: {0}&#39;.format(resultado[0])</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="comment">#print &#39;colores: {0}&#39;.format(resultado[1])</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="comment">#resultado = obtenerGrafo(sys.argv[1])</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">#    print &#39;errores: {0}&#39;.format(resultado[0])</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">#    print &#39;nodos: {0}&#39;.format(resultado[1])</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">#    print &#39;parametros: {0}&#39;.format(resultado[2])</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">#    print &#39;topologico: {0}&#39;.format(resultado[3])</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">#    print &#39;network: {0}&#39;.format(resultado[4])</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="comment">#</span></div>
-<div class="ttc" id="namespace_load_x_m_l_html_a81d7a5d1febde4fd27a0541d4fe2e6fc"><div class="ttname"><a href="namespace_load_x_m_l.html#a81d7a5d1febde4fd27a0541d4fe2e6fc">LoadXML.obtenerConfiguracion</a></div><div class="ttdeci">def obtenerConfiguracion</div><div class="ttdef"><b>Definition:</b> <a href="_load_x_m_l_8py_source.html#l00070">LoadXML.py:70</a></div></div>
-<div class="ttc" id="namespace_load_x_m_l_html_abe90770e2e16e83073127ed7d7cd6388"><div class="ttname"><a href="namespace_load_x_m_l.html#abe90770e2e16e83073127ed7d7cd6388">LoadXML.obtenerGrafo</a></div><div class="ttdeci">def obtenerGrafo</div><div class="ttdef"><b>Definition:</b> <a href="_load_x_m_l_8py_source.html#l00020">LoadXML.py:20</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">##</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"># @package LoadXML</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"># @brief ----</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"># @details ----</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"># @authors Gustavo Irigoyen</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"># @authors Juan Pablo Sierra</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"># @authors Juan Eliel Ibarra</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"># @authors Gustavo Evovlockas</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"># @date Abril 2016</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">import</span> os</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">import</span> Const</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">from</span> lxml <span class="keyword">import</span> etree, objectify, builder</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">import</span> fnmatch</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">#   obtener_definicion</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">#   Esta funcion devuelve toda la generalizacion de una tarea (identificada por el nombre &quot;proceso&quot;)</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">#   obtener_definicion(proceso=String, idGrafo=int) -&gt; [errores, DiccionarioNodos, DiccionarioParams, topologico, networkCmp]</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">#          errores = cantidad de errores encontrados (0 todo OK)</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">#       DiccionarioNodos = {int:string,...} = {idNodo:idComportamiento,...} </span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">#          DiccionarioParams = {int:{int:[float32,...]},...} = {idNodo:{idSensor:[valorParam,...]},...}</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">#       topologico = [(int,int),...] = [(idNodoIni,idNodoFin),...]</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">#       networkCmp = [(int,int,int),...] = [(idNodoIni,idNodoFin,idTipoLink),...]</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="namespace_load_x_m_l.html#abe90770e2e16e83073127ed7d7cd6388">   31</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespace_load_x_m_l.html#abe90770e2e16e83073127ed7d7cd6388">obtenerGrafo</a>(proceso):    </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    os.environ[<span class="stringliteral">&quot;pgrado_HOME&quot;</span>] = Const.PGRADO_HOME   </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="comment">#</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    errores = 0</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    nodos = {}</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    parametros = {}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    topologia = []</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    networkDef = []    </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">if</span> len(fnmatch.filter(os.listdir(<span class="stringliteral">&#39;{0}/{1}&#39;</span>.format(os.getenv(<span class="stringliteral">&#39;pgrado_HOME&#39;</span>, <span class="stringliteral">&#39;#N/A&#39;</span>), Const.PERSIT_FOLDER_NAME)), <span class="stringliteral">&#39;{0}_0.xml&#39;</span>.format(proceso))) == 0:</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">print</span> <span class="stringliteral">&#39;No se encuentra una generalizacion para la tarea &quot;{0}&quot;.&#39;</span>.format(proceso)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        errores += 1</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">else</span>:                </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        nombre = <span class="stringliteral">&#39;{0}/{1}/{2}_0.xml&#39;</span>.format(os.getenv(<span class="stringliteral">&#39;pgrado_HOME&#39;</span>, <span class="stringliteral">&#39;#N/A&#39;</span>), Const.PERSIT_FOLDER_NAME, proceso)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        with open(nombre) <span class="keyword">as</span> f:</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            xml = f.read()</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            f.close()</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        root = objectify.fromstring(xml)</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">for</span> definicion <span class="keywordflow">in</span> root.getchildren():</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <span class="keywordflow">if</span> definicion.get(<span class="stringliteral">&quot;seccion&quot;</span>) == Const.SECCION_NODOS:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                <span class="keywordflow">for</span> nodo <span class="keywordflow">in</span> definicion.getchildren():</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                    aux = [ data.text <span class="keywordflow">for</span> data <span class="keywordflow">in</span> nodo.iterchildren() ]</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                    nodos[int(aux[0])] = aux[1]</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keywordflow">elif</span> definicion.get(<span class="stringliteral">&quot;seccion&quot;</span>) == Const.SECCION_PARAMETROS:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                <span class="keywordflow">for</span> r <span class="keywordflow">in</span> definicion.getchildren():</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                    idNodo = int(r.idNodo.text)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                    params = {}</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                    <span class="keywordflow">print</span> <span class="stringliteral">&#39;idNodo: &#39;</span>, idNodo, <span class="stringliteral">&#39; - Tiene sensor: &#39;</span>, r.find(<span class="stringliteral">&quot;sensor&quot;</span>)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                    <span class="keywordflow">if</span> r.find(<span class="stringliteral">&quot;sensor&quot;</span>) != <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                        <span class="comment"># Si tiene sensores asociados (puede no tener!)                        </span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                        <span class="keywordflow">for</span> s <span class="keywordflow">in</span> r.sensor:</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                            idSensor = int(s.idSensor.text)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                            aux = [ float(d.text) <span class="keywordflow">for</span> d <span class="keywordflow">in</span> s.Parametros.iterchildren() ] </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                            params[idSensor] = aux</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                    parametros[idNodo] = params   </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="keywordflow">elif</span> definicion.get(<span class="stringliteral">&quot;seccion&quot;</span>) == Const.SECCION_TOPOLOGIA:</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                <span class="keywordflow">for</span> linkT <span class="keywordflow">in</span> definicion.getchildren():</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                    aux = [ data.text <span class="keywordflow">for</span> data <span class="keywordflow">in</span> linkT.iterchildren() ]              </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                    topologia.append( (int(aux[0]), int(aux[1])) )</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordflow">elif</span> definicion.get(<span class="stringliteral">&quot;seccion&quot;</span>) == Const.SECCION_NETWORK:           </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                <span class="keywordflow">for</span> linkNL <span class="keywordflow">in</span> definicion.getchildren():</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                    aux = [ data.text <span class="keywordflow">for</span> data <span class="keywordflow">in</span> linkNL.iterchildren() ]              </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                    networkDef.append( (int(aux[0]), int(aux[1]), int(aux[2])) )</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                <span class="keywordflow">print</span> <span class="stringliteral">&#39;Seccion no esperada {0}&#39;</span>.format( definicion.get(<span class="stringliteral">&quot;seccion&quot;</span>))</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                errores += 1</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="comment"># Retorno</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">return</span> [errores, nodos, parametros, topologia, networkDef]</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">#   obtener_definicion</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="namespace_load_x_m_l.html#a81d7a5d1febde4fd27a0541d4fe2e6fc">   81</a></span>&#160;<span class="keyword">def </span><a class="code" href="namespace_load_x_m_l.html#a81d7a5d1febde4fd27a0541d4fe2e6fc">obtenerConfiguracion</a>(nombreConfiguracion):    </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    os.environ[<span class="stringliteral">&quot;pgrado_HOME&quot;</span>] = Const.PGRADO_HOME   </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    errores = 0</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    colores = {}    </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">if</span> len(fnmatch.filter(os.listdir(<span class="stringliteral">&#39;{0}/{1}&#39;</span>.format(os.getenv(<span class="stringliteral">&#39;pgrado_HOME&#39;</span>, <span class="stringliteral">&#39;#N/A&#39;</span>), Const.CONFIG_FOLDER_NAME)), <span class="stringliteral">&#39;{0}.xml&#39;</span>.format(nombreConfiguracion))) == 0:</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">print</span> <span class="stringliteral">&#39;No se encuentra la calibracion solicitada (&quot;{0}&quot;).&#39;</span>.format(nombreConfiguracion)</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        errores += 1</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">else</span>:      </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        nombre = <span class="stringliteral">&#39;{0}/{1}/{2}.xml&#39;</span>.format(os.getenv(<span class="stringliteral">&#39;pgrado_HOME&#39;</span>, <span class="stringliteral">&#39;#N/A&#39;</span>), Const.CONFIG_FOLDER_NAME, nombreConfiguracion)</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        with open(nombre) <span class="keyword">as</span> f:</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            xml = f.read()</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            f.close()</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        root = objectify.fromstring(xml)</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordflow">for</span> seccion <span class="keywordflow">in</span> root.getchildren():</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keywordflow">if</span> seccion.get(<span class="stringliteral">&quot;seccion&quot;</span>) == Const.SECCION_COLORES:</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                <span class="keywordflow">for</span> c <span class="keywordflow">in</span> seccion.getchildren():</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                    idColor = int(c.idColor.text)</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                    RGB = [[ float(rgb.text) <span class="keywordflow">for</span> rgb <span class="keywordflow">in</span> c.minRGB.iterchildren() ], [ float(rgb.text) <span class="keywordflow">for</span> rgb <span class="keywordflow">in</span> c.maxRGB.iterchildren() ]]                    </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                    colores[idColor] = RGB</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                <span class="keywordflow">print</span> <span class="stringliteral">&#39;Seccion no esperada {0}&#39;</span>.format( seccion.get(<span class="stringliteral">&quot;seccion&quot;</span>))</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                errores += 1</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="comment">#</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">return</span> [errores, colores]</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keywordflow">if</span> __name__ == <span class="stringliteral">&quot;__main__&quot;</span>:</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">print</span> <span class="stringliteral">&#39;MAIN de cargar xml&#39;</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="comment">#</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="comment">#resultado = obtenerConfiguracion(sys.argv[1])</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="comment">#print &#39;errores: {0}&#39;.format(resultado[0])</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="comment">#print &#39;colores: {0}&#39;.format(resultado[1])</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="comment">#resultado = obtenerGrafo(sys.argv[1])</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">#    print &#39;errores: {0}&#39;.format(resultado[0])</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">#    print &#39;nodos: {0}&#39;.format(resultado[1])</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">#    print &#39;parametros: {0}&#39;.format(resultado[2])</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">#    print &#39;topologico: {0}&#39;.format(resultado[3])</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment">#    print &#39;network: {0}&#39;.format(resultado[4])</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="comment">#</span></div>
+<div class="ttc" id="namespace_load_x_m_l_html_a81d7a5d1febde4fd27a0541d4fe2e6fc"><div class="ttname"><a href="namespace_load_x_m_l.html#a81d7a5d1febde4fd27a0541d4fe2e6fc">LoadXML.obtenerConfiguracion</a></div><div class="ttdeci">def obtenerConfiguracion</div><div class="ttdef"><b>Definition:</b> <a href="_load_x_m_l_8py_source.html#l00081">LoadXML.py:81</a></div></div>
+<div class="ttc" id="namespace_load_x_m_l_html_abe90770e2e16e83073127ed7d7cd6388"><div class="ttname"><a href="namespace_load_x_m_l.html#abe90770e2e16e83073127ed7d7cd6388">LoadXML.obtenerGrafo</a></div><div class="ttdeci">def obtenerGrafo</div><div class="ttdef"><b>Definition:</b> <a href="_load_x_m_l_8py_source.html#l00031">LoadXML.py:31</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_1eeb56e1270a72a2bb3256479a9fd717.html">learning_by_imitation</a></li><li class="navelem"><a class="el" href="dir_1fa9b325c3ee0c04934a471c7f078f26.html">scripts</a></li><li class="navelem"><a class="el" href="_load_x_m_l_8py.html">LoadXML.py</a></li>
-    <li class="footer">Generado el Domingo, 1 de Mayo de 2016 20:50:29 para Proyecto de grado por
+    <li class="footer">Generado el Lunes, 9 de Mayo de 2016 23:29:52 para Proyecto de grado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

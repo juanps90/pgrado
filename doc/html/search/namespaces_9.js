@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['roslunchdemo',['roslunchDemo',['../namespaceroslunch_demo.html',1,'']]]
+  ['master',['Master',['../namespace_master.html',1,'']]]
 ];

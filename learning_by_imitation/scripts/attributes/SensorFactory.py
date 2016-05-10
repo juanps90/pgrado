@@ -1,6 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+##
+# @package SensorFactory
+# @brief ----
+# @details ----
+# @authors Gustavo Irigoyen
+# @authors Juan Pablo Sierra
+# @authors Juan Eliel Ibarra
+# @authors Gustavo Evovlockas
+# @date Abril 2016
+#
+
 from Sensor import Sensor
 
 # -- esta lista tendria que ser dinamica --

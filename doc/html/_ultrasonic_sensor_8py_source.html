@@ -109,28 +109,46 @@ $(document).ready(function(){initNavTree('_ultrasonic_sensor_8py_source.html',''
 <a href="_ultrasonic_sensor_8py.html">Ir a la documentación de este archivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespaceattributes_1_1_ultrasonic_sensor.html">    1</a></span>&#160;<span class="comment">#!/usr/bin/env python</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"># -*- coding: utf-8 -*-</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">from</span> atributos <span class="keyword">import</span> AttributeFactory</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">from</span> Sensor <span class="keyword">import</span> Sensor</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">import</span> Const</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor.html">    9</a></span>&#160;<span class="keyword">class </span><a class="code" href="classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor.html">UltrasonicSensor</a>(Sensor):</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    </div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor.html#a166e3ff84baac359cc81ed553f987499">   11</a></span>&#160;    SENSOR_ID = Const.SENSOR_NOSE_ULTRASONIC_ID</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;Compara&quot;&quot;&quot;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor.html#a5375e61e9cd2995357e9a82d7742c82a">   14</a></span>&#160;    <span class="keyword">def </span><a class="code" href="classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor.html#a5375e61e9cd2995357e9a82d7742c82a">similar</a>(self,at2):</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keywordflow">return</span> AttributeFactory.get(Const.ATR_DIST, self.valor[0]).<a class="code" href="classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor.html#a5375e61e9cd2995357e9a82d7742c82a">similar</a>(AttributeFactory.get(Const.ATR_DIST, at2[0]))</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;     </div>
-<div class="ttc" id="classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor_html_a5375e61e9cd2995357e9a82d7742c82a"><div class="ttname"><a href="classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor.html#a5375e61e9cd2995357e9a82d7742c82a">attributes.UltrasonicSensor.UltrasonicSensor.similar</a></div><div class="ttdeci">def similar</div><div class="ttdef"><b>Definition:</b> <a href="_ultrasonic_sensor_8py_source.html#l00014">UltrasonicSensor.py:14</a></div></div>
-<div class="ttc" id="classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor_html"><div class="ttname"><a href="classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor.html">attributes.UltrasonicSensor.UltrasonicSensor</a></div><div class="ttdef"><b>Definition:</b> <a href="_ultrasonic_sensor_8py_source.html#l00009">UltrasonicSensor.py:9</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">##</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"># @package UltrasonicSensor</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"># @brief Clase UltrasonicSensor usada para evaluar similitudes entre valores de sensores de ultrasonido.</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"># @details Clase que posee una única función destinada a evaluar similitudes en los datos de sensores ultrasonicos.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"># La clase hereda de Sensor compara Distances.</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"># @authors Gustavo Irigoyen</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"># @authors Juan Pablo Sierra</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"># @authors Juan Eliel Ibarra</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"># @authors Gustavo Evovlockas</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment"># @date Abril 2016</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">from</span> attributes <span class="keyword">import</span> AttributeFactory</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">from</span> Sensor <span class="keyword">import</span> Sensor</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">import</span> Const</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor.html">UltrasonicSensor</a>(<a class="code" href="namespace_sensor.html">Sensor</a>):</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor.html#a166e3ff84baac359cc81ed553f987499">   23</a></span>&#160;    SENSOR_ID = Const.SENSOR_NOSE_ULTRASONIC_ID</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="comment">##</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="comment"># Compara la distancia que se tiene en la propiedad valor con el valor del array pasado por parametro. Retorna True si </span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="comment"># distania es similar. En caso contrario retorna False.</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="comment"># @param at2 Array a ser comparado con la propiedad valor heredada.</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="comment"># @return Retorna True Distance es similares y False en caso contrario.</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="comment">#</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor.html#a5375e61e9cd2995357e9a82d7742c82a">   31</a></span>&#160;    <span class="keyword">def </span><a class="code" href="classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor.html#a5375e61e9cd2995357e9a82d7742c82a">similar</a>(self,at2):</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">return</span> AttributeFactory.get(Const.ATR_DIST, self.valor[0]).<a class="code" href="classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor.html#a5375e61e9cd2995357e9a82d7742c82a">similar</a>(AttributeFactory.get(Const.ATR_DIST, at2[0]))</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;     </div>
+<div class="ttc" id="classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor_html_a5375e61e9cd2995357e9a82d7742c82a"><div class="ttname"><a href="classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor.html#a5375e61e9cd2995357e9a82d7742c82a">attributes.UltrasonicSensor.UltrasonicSensor.similar</a></div><div class="ttdeci">def similar</div><div class="ttdoc">Compara la distancia que se tiene en la propiedad valor con el valor del array pasado por parametro...</div><div class="ttdef"><b>Definition:</b> <a href="_ultrasonic_sensor_8py_source.html#l00031">UltrasonicSensor.py:31</a></div></div>
+<div class="ttc" id="namespace_sensor_html"><div class="ttname"><a href="namespace_sensor.html">Sensor</a></div><div class="ttdoc"> </div></div>
+<div class="ttc" id="classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor_html"><div class="ttname"><a href="classattributes_1_1_ultrasonic_sensor_1_1_ultrasonic_sensor.html">attributes.UltrasonicSensor.UltrasonicSensor</a></div><div class="ttdef"><b>Definition:</b> <a href="_ultrasonic_sensor_8py_source.html#l00021">UltrasonicSensor.py:21</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_1eeb56e1270a72a2bb3256479a9fd717.html">learning_by_imitation</a></li><li class="navelem"><a class="el" href="dir_1fa9b325c3ee0c04934a471c7f078f26.html">scripts</a></li><li class="navelem"><a class="el" href="dir_0785d29950645e876e75fb438b2145ab.html">attributes</a></li><li class="navelem"><a class="el" href="_ultrasonic_sensor_8py.html">UltrasonicSensor.py</a></li>
-    <li class="footer">Generado el Domingo, 1 de Mayo de 2016 20:50:29 para Proyecto de grado por
+    <li class="footer">Generado el Lunes, 9 de Mayo de 2016 23:29:52 para Proyecto de grado por
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

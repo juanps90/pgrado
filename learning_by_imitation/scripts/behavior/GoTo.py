@@ -1,6 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+##
+# @package GoTo
+# @brief ----
+# @details ----
+# @authors Gustavo Irigoyen
+# @authors Juan Pablo Sierra
+# @authors Juan Eliel Ibarra
+# @authors Gustavo Evovlockas
+# @date Abril 2016
+#
+
 import sys 
 import rospy
 from std_msgs.msg import Int32MultiArray, Float64MultiArray, Int32

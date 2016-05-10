@@ -1,6 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+##
+# @package Master
+# @brief ----
+# @details ----
+# @authors Gustavo Irigoyen
+# @authors Juan Pablo Sierra
+# @authors Juan Eliel Ibarra
+# @authors Gustavo Evovlockas
+# @date Abril 2016
+#
+
 import rospy
 import roslaunch
 import LCS
@@ -15,8 +26,6 @@ from attributes import SensorFactory
 
 # paquete donde se encuentran los archivo py
 pkg = "learning_by_imitation"
-    #pkg = "vrep_ros_demo"
-    #pkg="behavior"
  
 # identidicador del tipo de tarea (se va a obtener desde v-rep o consola)
 idTarea = "TESTING"

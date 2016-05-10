@@ -21,5 +21,6 @@ var searchData=
   ['dicnodoparam',['dicNodoParam',['../namespace_master.html#a3258ec48cb507365a491496adbf2b9e0',1,'Master']]],
   ['dicpostcondicion',['dicPostCondicion',['../namespace_init.html#a57771871775d4b5acb020b58ccfdd283',1,'Init']]],
   ['distance',['Distance',['../classattributes_1_1_distance_1_1_distance.html',1,'attributes::Distance']]],
+  ['distance',['Distance',['../namespace_distance.html',1,'']]],
   ['distance_2epy',['Distance.py',['../_distance_8py.html',1,'']]]
 ];

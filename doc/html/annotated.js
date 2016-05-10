@@ -1,18 +1,28 @@
 var annotated =
 [
+    [ "__init__", "namespace____init____.html", null ],
     [ "AbstractBehavior", "namespace_abstract_behavior.html", "namespace_abstract_behavior" ],
     [ "Angle", "namespace_angle.html", null ],
+    [ "Attribute", "namespace_attribute.html", null ],
+    [ "AttributeFactory", "namespace_attribute_factory.html", null ],
     [ "attributes", "namespaceattributes.html", "namespaceattributes" ],
+    [ "Color", "namespace_color.html", null ],
     [ "Const", "namespace_const.html", null ],
+    [ "Distance", "namespace_distance.html", null ],
     [ "Forward", "namespace_forward.html", "namespace_forward" ],
     [ "GoTo", "namespace_go_to.html", "namespace_go_to" ],
+    [ "HeadSensor", "namespace_head_sensor.html", null ],
     [ "Init", "namespace_init.html", null ],
     [ "Inputs", "namespace_inputs.html", null ],
     [ "LCS", "namespace_l_c_s.html", null ],
+    [ "LineDetect", "namespace_line_detect.html", null ],
     [ "LoadBehavior", "namespace_load_behavior.html", null ],
     [ "LoadXML", "namespace_load_x_m_l.html", null ],
     [ "Locate", "namespace_locate.html", "namespace_locate" ],
     [ "Master", "namespace_master.html", null ],
     [ "Outputs", "namespace_outputs.html", null ],
-    [ "SaveXML", "namespace_save_x_m_l.html", null ]
+    [ "SaveXML", "namespace_save_x_m_l.html", null ],
+    [ "Sensor", "namespace_sensor.html", null ],
+    [ "SensorFactory", "namespace_sensor_factory.html", null ],
+    [ "UltrasonicSensor", "namespace_ultrasonic_sensor.html", null ]
 ];
