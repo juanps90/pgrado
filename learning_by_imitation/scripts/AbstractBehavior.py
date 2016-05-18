@@ -3,7 +3,7 @@
 
 ##
 # @package AbstractBehavior
-# @brief ----
+# @brief Clase abstracta que implementa un comportamiento abstracto.
 # @details ----
 # @authors Gustavo Irigoyen
 # @authors Juan Pablo Sierra
@@ -71,16 +71,16 @@ class AbstractBehavior(object):
 
 
     #se deben de mandar mensajes continuamente si se ejecuta tanto como si no a los motores
-    def actuar( self ):
+    def perform( self ):
         pass              
 
-    def veriPosSenEjecutar(self,data):
+    def activateOnEjecution(self,data):
         pass
         
-    def getParAprendidos(self):
+    def getBehaviorParameters(self):
         pass
 
-    def veriPosSenAprender(self, data):
+    def activateOnDemonstration(self, data):
         pass
 
     #este metodo podria ser un primitivo por ahora va embebido

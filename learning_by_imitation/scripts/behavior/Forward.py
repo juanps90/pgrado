@@ -34,7 +34,7 @@ class Forward(AbstractBehavior):
     # Realiza las actuaciones correpondientes. En este caso solo avanza enviando a los motores los mensajes correspondientes.
     # Se deben de mandar mensajes continuamente tanto como si se ejecuta como si no.
     #
-    def actuar(self):
+    def perform(self):
         msgMotores = Float64MultiArray()
         if self.cumplePrecondiciones () and self.nivelActivacion>0 and self.motorLibre:
             #azar=randint(0,2)
@@ -55,7 +55,7 @@ class Forward(AbstractBehavior):
     # @param data Datos sensados.
     # @return Retorna True si se cumple las postcondiciones del avanzar al momento de aprender. False en otro caso.
     #
-    def veriPosSenAprender(self, data):
+    def activateOnDemonstration(self, data):
         activate=False
         if not data.has_key(Const.SENSOR_COLOR_DETECT_LINE_ID):
             return False
@@ -73,7 +73,7 @@ class Forward(AbstractBehavior):
     # @param data Datos sensados.
     # @return Retorna True si se cumple las postcondiciones del avanzar al ejecutar. False en otro caso.
     #
-    def veriPosSenEjecutar(self,data):
+    def activateOnEjecution(self,data):
         activate=False
 	
         if not data.has_key(Const.SENSOR_COLOR_DETECT_LINE_ID):
@@ -96,7 +96,7 @@ class Forward(AbstractBehavior):
     # @param data Datos sensados.
     # @return Retorna String con el formato indicado.
     #
-    def getParAprendidos(self,data):
+    def getBehaviorParameters(self,data):
         s=data[Const.SENSOR_COLOR_DETECT_LINE_ID]
         return str(Const.SENSOR_COLOR_DETECT_LINE_ID)+ "#" + str(s[0]) + "#" +str(s[1]) + "#" +str(s[2])  
     
